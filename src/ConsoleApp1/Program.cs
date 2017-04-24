@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Net;
-using System.Security.Authentication;
 using System.Threading.Tasks;
 using IdentityModel.Client;
 using Microsoft.Extensions.Configuration;

@@ -1,8 +1,6 @@
 ﻿using System;
 using Microsoft.Extensions.Logging;
-using Nancy.Bootstrapper;
 using Nancy.Conventions;
-using Nancy.TinyIoc;
 
 namespace FluiTec.Vision.VisionHost.Bootstrapper
 {
@@ -44,15 +42,6 @@ namespace FluiTec.Vision.VisionHost.Bootstrapper
 			nancyConventions.StaticContentsConventions.AddDirectory("css", "/Content/css", "css", "htc", "js", "png");
 			nancyConventions.StaticContentsConventions.AddDirectory("fonts", "/Content/fonts", "eot", "svg", "ttf", "woff",
 				"otf");
-		}
-
-		/// <summary>	Application startup. </summary>
-		/// <param name="container">	The container. </param>
-		/// <param name="pipelines">	The pipelines. </param>
-		protected override void ApplicationStartup(TinyIoCContainer container, IPipelines pipelines)
-		{
-			// let the base class do it's job
-			base.ApplicationStartup(container, pipelines);
 		}
 
 		#endregion
