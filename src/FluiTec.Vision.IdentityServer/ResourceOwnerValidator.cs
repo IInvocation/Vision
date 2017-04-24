@@ -1,11 +1,13 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using FluiTec.Vision.NancyFx.Authentication.Services;
 using IdentityModel;
+using IdentityServer4.Models;
 using IdentityServer4.Validation;
 
 namespace FluiTec.Vision.IdentityServer
 {
-	public class ResourceOwnerValidator : IResourceOwnerPasswordValidator
+	public class ResourceOwnerValidator : IResourceOwnerPasswordValidator, ISecretValidator
 	{
 		private readonly IUserService _userService;
 
@@ -27,6 +29,11 @@ namespace FluiTec.Vision.IdentityServer
 				context.Result = new GrantValidationResult(result.UniqueId.ToString(), OidcConstants.AuthenticationMethods.Password, result.Principal.Claims);
 
 			return Task.FromResult(0);
+		}
+
+		public Task<SecretValidationResult> ValidateAsync(IEnumerable<Secret> secrets, ParsedSecret parsedSecret)
+		{
+			throw new System.NotImplementedException();
 		}
 	}
 }

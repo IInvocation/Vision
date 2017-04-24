@@ -34,20 +34,18 @@ namespace FluiTec.Vision.AuthHost.AspCoreHost.Extensions
 			});
 
 			// configure signing credentials
-			builder.AddSigningCredential(signingSettings.GetCertificate());
-
-			// configure validation credentials (expired certificates)
-			//TODO: custom ISigningCredentialStore & IValidationKeysStore?
+			builder.AddDeveloperSigningCredential();
 
 			// configure stores
 			builder.AddClientStore<ClientStore>();
 			builder.AddResourceStore<ResourceStore>();
+			builder.AddResourceOwnerValidator<ResourceOwnerValidator>();
 
 			// remove InMemoryPersistedGrantStore (dunno who's adding it in the first place...
-			//builder.Services.Remove(builder.Services.Single(s => s.ServiceType == typeof(IPersistedGrantStore)));
+			builder.Services.Remove(builder.Services.Single(s => s.ServiceType == typeof(IPersistedGrantStore)));
 
 			// add our own implementation of IPersistedGrantStore
-			//builder.Services.TryAddSingleton<IPersistedGrantStore, GrantStore>();
+			builder.Services.TryAddSingleton<IPersistedGrantStore, GrantStore>();
 
 			return services;
 		}

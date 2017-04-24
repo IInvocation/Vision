@@ -22,7 +22,7 @@ namespace ConsoleApp1
 	        var server = configuration.Get<IdentityServer>();
 
 			var response = TestCredentials(server, credentials);
-			Console.WriteLine($"Result: {response.Result.HttpStatusCode == HttpStatusCode.OK}.");
+			Console.WriteLine($"Result: {response.Result.HttpStatusCode}.");
 			Console.WriteLine("Press <Enter> to exit.");
 	        Console.ReadLine();
         }
