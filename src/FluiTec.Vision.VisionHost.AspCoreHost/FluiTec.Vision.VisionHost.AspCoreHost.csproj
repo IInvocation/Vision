@@ -1,0 +1,48 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp1.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="wwwroot\**" />
+    <Content Remove="wwwroot\**" />
+    <EmbeddedResource Remove="wwwroot\**" />
+    <None Remove="wwwroot\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="appsettings.Development.json" />
+    <None Include="appsettings.json" />
+    <None Include="appsettings.Production.json" />
+    <None Include="Secrets\appsettings.secret.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />
+    <PackageReference Include="Microsoft.AspNetCore.Owin" Version="1.1.1" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.1" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="1.4.1-dev-10147" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\FluiTec.AppFx.Globalization\FluiTec.AppFx.Globalization.csproj" />
+    <ProjectReference Include="..\FluiTec.AppFx.Logging.Owin\FluiTec.AppFx.Logging.Owin.csproj" />
+    <ProjectReference Include="..\FluiTec.AppFx.Logging\FluiTec.AppFx.Logging.csproj" />
+    <ProjectReference Include="..\FluiTec.AppFx.Proxy.Owin\FluiTec.AppFx.Proxy.Owin.csproj" />
+    <ProjectReference Include="..\FluiTec.AppFx.Proxy\FluiTec.AppFx.Proxy.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.VisionHost\FluiTec.Vision.VisionHost.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Update="Secrets\FluiTec-VisionHost-CA.cer">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Secrets\FluiTec-VisionHost-CA.pfx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Secrets\FluiTec-VisionHost-CA.pvk">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

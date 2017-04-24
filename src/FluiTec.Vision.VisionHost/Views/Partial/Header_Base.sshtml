@@ -1,0 +1,19 @@
+﻿	<h1><a href="/"><span>@Context.Text.Text.ApplicationName</span></a></h1>
+	<nav id="nav">
+		<ul>
+			<li><a href="/">@Context.Text.Text.Home</a></li>
+			<li><a href="/Home/About/">@Context.Text.Text.About</a></li>
+			@If.Context.CurrentUser.Identity.IsAuthenticated 
+				<li class="opener" style="user-select: none; cursor: pointer; white-space: nowrap; opacitiy: 1;">
+					<a href="/Account/Manage/">@Context.CurrentUser.Identity.Name</a>
+					<ul>
+						<li><a href="/Account/Logout">@Context.Text.Text.Logout</a></li>
+					</ul>
+				</li> 
+			@EndIf
+			@IfNot.Context.CurrentUser.Identity.IsAuthenticated 
+				<li><a href="https://auth.fluitech.de/Account/Login">@Context.Text.Text.Login</a></li> 
+			@EndIf
+		</ul>
+	</nav>
+</header>

@@ -1,0 +1,3 @@
+﻿@Each.Model.Errors
+	<li>@Current</li>
+@EndEach

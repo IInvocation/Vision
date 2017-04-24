@@ -1,0 +1,9 @@
+﻿<!DOCTYPE HTML>
+<html>
+	@Partial['Partial/Head'];
+	<body class="landing">
+		@Partial['Partial/LandingHeader'];
+		@Section['Content']
+		@Partial['Partial/Footer'];
+	</body>
+</html>

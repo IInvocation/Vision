@@ -1,0 +1,66 @@
+﻿@Master['_Layout']
+@Section['Content']
+<header class="major">
+	<h2>@Context.Text.HomeText.HomeHeader</h2>
+	<p>@Context.Text.HomeText.AboutHeader</p>
+</header>
+<div class="container">
+	<section id="content">
+		<section>
+			<h3>@Context.Text.HomeText.WhatDoYouNeed</h3>
+			<ol>
+				<li>@Context.Text.HomeText.ComputerWithJarvis</li>
+				<li>@Context.Text.HomeText.ComputerWithFriday</li>
+				<li>@Context.Text.HomeText.AmazonAccount</li>
+				<li>@Context.Text.HomeText.VisionAccount</li>
+			</ol>
+		</section>
+		<section>
+			<h3>@Context.Text.HomeText.ComputerControl</h3>
+			<div class="row">
+				<div class="6u 12u(2)">
+					<ul class="alt">
+						<li>@Context.Text.HomeText.StartComputer</li>
+						<li>@Context.Text.HomeText.StopComputer</li>
+						<li>@Context.Text.HomeText.StartProcess</li>
+						<li>@Context.Text.HomeText.MoveWindow</li>
+					</ul>
+				</div>
+				<div class="6u 12u(2)">
+					<ul class="alt">
+						<li>@Context.Text.HomeText.TellStartComputer</li>
+						<li>@Context.Text.HomeText.TellStopComputer</li>
+						<li>@Context.Text.HomeText.TellStartProcess</li>
+						<li>@Context.Text.HomeText.TellMoveWindow</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+		<section>
+			<h3>@Context.Text.HomeText.VlcControl</h3>
+			<div class="row">
+				<div class="6u 12u(2)">
+					<ul class="alt">
+						<li>@Context.Text.HomeText.VlcFindFilms</li>
+						<li>@Context.Text.HomeText.VlcFindSeries</li>
+						<li>@Context.Text.HomeText.VlcStart</li>
+						<li>@Context.Text.HomeText.VlcStop</li>
+						<li>@Context.Text.HomeText.VlcFullscreen</li>
+						<li>@Context.Text.HomeText.VlcFastForwardRewind</li>
+					</ul>
+				</div>
+				<div class="6u 12u(2)">
+					<ul class="alt">
+						<li>@Context.Text.HomeText.TellVlcFindFilms</li>
+						<li>@Context.Text.HomeText.TellVlcFindSeries</li>
+						<li>@Context.Text.HomeText.TellVlcStart</li>
+						<li>@Context.Text.HomeText.TellVlcStop</li>
+						<li>@Context.Text.HomeText.TellVlcFullscreen</li>
+						<li>@Context.Text.HomeText.TellVlcFastForwardRewind</li>
+					</ul>
+				</div>
+			</div>
+		</section>
+	</section>
+</div>
+@EndSection

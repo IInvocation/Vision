@@ -1,0 +1,25 @@
+﻿@Master['_Layout']
+@Section['Content']
+<header class="major">
+	<h2>@Context.Text.FormsAuthText.AccountHeader</h2>
+	<p>@Context.Text.FormsAuthText.ManageHeader</p>
+</header>
+<div class="container">
+	<section id="content">
+		<section>
+			<h3>@Context.Text.FormsAuthText.ManageHeader</h3>
+			@Context.CurrentUser.Identity.Name
+		</section>
+		<section>
+			<h3>Claims</h3>
+			@Each.Context.CurrentUser.Claims
+				@Current.Issuer <br />
+				@Current.Value <br />
+				@Current.Type <br />
+				@Current.ValueType <br />
+				<br />
+			@EndEach
+		</section>
+	</section>
+</div>
+@EndSection

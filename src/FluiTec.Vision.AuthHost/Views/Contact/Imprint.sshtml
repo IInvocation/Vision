@@ -1,0 +1,25 @@
+﻿@Master['_Layout']
+@Section['Content']
+<header class="major">
+	<h2>@Context.Text.ContactText.ContactHeader</h2>
+	<p>@Context.Text.ContactText.ImprintHeader</p>
+</header>
+<div class="container">
+	<section id="content">
+		<section>
+			<h3>@Context.Text.HomeText.AddressHeader</h3>
+			<p>
+				Achim Schnell<br />
+				Mainzer Straße 69<br />
+				55299 Nackenheim
+			</p>
+			<h3>@Context.Text.HomeText.ContactHeader</h3>
+			<p>
+				<a href="mailto:a.schnell@wtschnell.de">a.schnell@wtschnell.de</a>
+			</p>
+			<h3>@Context.Text.HomeText.ResponsibleText</h3>
+			<p>Achim Schnell</p>
+		</section>
+	</section>
+</div>
+@EndSection

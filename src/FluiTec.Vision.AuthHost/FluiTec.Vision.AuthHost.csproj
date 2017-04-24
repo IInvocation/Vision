@@ -1,0 +1,347 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\css\custom.css" Link="Content\css\custom.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\css\font-awesome.min.css" Link="Content\css\font-awesome.min.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\css\ie\v8.css" Link="Content\css\ie\v8.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\css\ie\v9.css" Link="Content\css\ie\v9.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\css\images\overlay.png" Link="Content\css\images\overlay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\css\skel.css" Link="Content\css\skel.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\css\style-large.css" Link="Content\css\style-large.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\css\style-medium.css" Link="Content\css\style-medium.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\css\style-small.css" Link="Content\css\style-small.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\css\style-xlarge.css" Link="Content\css\style-xlarge.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\css\style-xsmall.css" Link="Content\css\style-xsmall.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\css\style.css" Link="Content\css\style.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\favicon.ico" Link="Content\favicon.ico">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\fonts\fontawesome-webfont.eot" Link="Content\fonts\fontawesome-webfont.eot">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\fonts\fontawesome-webfont.ttf" Link="Content\fonts\fontawesome-webfont.ttf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\fonts\fontawesome-webfont.woff" Link="Content\fonts\fontawesome-webfont.woff">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\fonts\FontAwesome.otf" Link="Content\fonts\FontAwesome.otf">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\banner.jpg" Link="Content\images\banner.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\pic01.jpg" Link="Content\images\pic01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\pic02.jpg" Link="Content\images\pic02.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\pic03.jpg" Link="Content\images\pic03.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\pic04.jpg" Link="Content\images\pic04.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\pic05.jpg" Link="Content\images\pic05.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\pic06.jpg" Link="Content\images\pic06.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\pic07.jpg" Link="Content\images\pic07.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\pic08.jpg" Link="Content\images\pic08.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\pic09.jpg" Link="Content\images\pic09.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\slide01.jpg" Link="Content\images\slide01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\slide02.jpg" Link="Content\images\slide02.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\FluiTec.Vision.VisionHost\Content\images\slide03.jpg" Link="Content\images\slide03.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Content\">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Folder>
+    <Folder Include="Content\css\ie\" />
+    <Folder Include="Content\css\images\" />
+    <Folder Include="Content\fonts\" />
+    <Folder Include="Content\images\" />
+    <Folder Include="Content\js\" />
+    <Folder Include="Content\sass\ie\" />
+    <Folder Include="Views\">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Folder>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\css\ie\backgroundsize.min.htc" Link="Content\css\ie\backgroundsize.min.htc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\css\ie\html5shiv.js" Link="Content\css\ie\html5shiv.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\css\ie\PIE.htc" Link="Content\css\ie\PIE.htc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\fonts\fontawesome-webfont.svg" Link="Content\fonts\fontawesome-webfont.svg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\js\init.js" Link="Content\js\init.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\js\jquery.dropotron.min.js" Link="Content\js\jquery.dropotron.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\js\jquery.min.js" Link="Content\js\jquery.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\js\jquery.scrollgress.min.js" Link="Content\js\jquery.scrollgress.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\js\jquery.scrolly.min.js" Link="Content\js\jquery.scrolly.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\js\jquery.slidertron.min.js" Link="Content\js\jquery.slidertron.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\js\skel-layers.min.js" Link="Content\js\skel-layers.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\js\skel.min.js" Link="Content\js\skel.min.js">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\sass\ie\v8.scss" Link="Content\sass\ie\v8.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\sass\ie\v9.scss" Link="Content\sass\ie\v9.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\sass\style-large.scss" Link="Content\sass\style-large.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\sass\style-medium.scss" Link="Content\sass\style-medium.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\sass\style-small.scss" Link="Content\sass\style-small.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\sass\style-xlarge.scss" Link="Content\sass\style-xlarge.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\sass\style-xsmall.scss" Link="Content\sass\style-xsmall.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\sass\style.scss" Link="Content\sass\style.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\sass\_mixins.scss" Link="Content\sass\_mixins.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="..\FluiTec.Vision.VisionHost\Content\sass\_vars.scss" Link="Content\sass\_vars.scss">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FluentValidation" Version="7.0.0-beta2" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="1.1.0" />
+    <PackageReference Include="Microsoft.Extensions.Logging.Abstractions" Version="1.1.1" />
+    <PackageReference Include="Nancy" Version="2.0.0-clinteastwood" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FluiTec.AppFx.Service\FluiTec.AppFx.Service.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication.Forms\FluiTec.Vision.NancyFx.Authentication.Forms.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication.OpenId.Google\FluiTec.Vision.NancyFx.Authentication.OpenId.Google.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication.OpenId\FluiTec.Vision.NancyFx.Authentication.OpenId.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication.Owin\FluiTec.Vision.NancyFx.Authentication.Owin.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication\FluiTec.Vision.NancyFx.Authentication.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.NancyFx\FluiTec.Vision.NancyFx.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.Server.Data.Mssql\FluiTec.Vision.Server.Data.Mssql.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.Server.Data\FluiTec.Vision.Server.Data.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Update="Resources\ContactText.Designer.cs">
+      <DependentUpon>ContactText.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\ErrorMessages.Designer.cs">
+      <DependentUpon>ErrorMessages.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\FormsAuthText.Designer.cs">
+      <DependentUpon>FormsAuthText.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\HomeText.Designer.cs">
+      <DependentUpon>HomeText.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\Text.Designer.cs">
+      <DependentUpon>Text.resx</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Update="Resources\ContactText.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ContactText.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ContactText.resx">
+      <LastGenOutput>ContactText.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ErrorMessages.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ErrorMessages.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ErrorMessages.resx">
+      <LastGenOutput>ErrorMessages.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\FormsAuthText.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\FormsAuthText.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\FormsAuthText.resx">
+      <LastGenOutput>FormsAuthText.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\HomeText.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\HomeText.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\HomeText.resx">
+      <LastGenOutput>HomeText.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Text.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Text.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Text.resx">
+      <LastGenOutput>Text.Designer.cs</LastGenOutput>
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Views\Account\Login.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Account\Manage.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Account\Register.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Contact\Imprint.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Contact\Privacy.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Contact\TermsOfUse.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Home\Index.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Partial\Banner.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Partial\ExternalLoginProviders.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Partial\Footer.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Partial\Functions.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Partial\Head.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Partial\Header.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Partial\Header_Base.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Partial\LandingHeader.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Partial\PropertyValidationEntry.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Partial\ValidationSummary.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\_Blank.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\_LandingLayout.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\_Layout.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
+</Project>

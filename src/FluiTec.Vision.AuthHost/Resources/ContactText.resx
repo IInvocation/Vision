@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="AboutMeHeader" xml:space="preserve">
+    <value>About me</value>
+  </data>
+  <data name="AboutMeText" xml:space="preserve">
+    <value>I am a hobby developer. A hobby developer, who has made a lot of effort to secure all collected data to the best of his knowledge. No more and no less.</value>
+  </data>
+  <data name="AddressHeader" xml:space="preserve">
+    <value>Address</value>
+  </data>
+  <data name="ContactHeader" xml:space="preserve">
+    <value>Contact</value>
+  </data>
+  <data name="CopyrightHeader" xml:space="preserve">
+    <value>Copyright / Performance Protection</value>
+  </data>
+  <data name="CopyrightText" xml:space="preserve">
+    <value>The content, works and information provided on this website are subject to German copyright law and the right to protection of services. Any kind of copying, processing, distribution, storage and any kind of exploitation outside the limits of copyright requires the prior written consent of the respective copyright owner. The unauthorized copying / saving of the provided information on these websites is not permitted and punishable.</value>
+  </data>
+  <data name="DataProtectionDisclaimerSource" xml:space="preserve">
+    <value>&lt;a href="http://www.musterproject.net/disclaimer-muster"&gt; Disclaimer-Source &lt;/a&gt;</value>
+  </data>
+  <data name="DataProtectionHeader" xml:space="preserve">
+    <value>Data Protection</value>
+  </data>
+  <data name="DataProtectionText1" xml:space="preserve">
+    <value>By visiting the Internet site, information (date, time, page accessed, IP address, UserAgent) is stored via access to the server.</value>
+  </data>
+  <data name="DataProtectionText2" xml:space="preserve">
+    <value>If personal data are collected, this is done, if possible, only with the prior consent of the user of the website. The transfer of the data to third parties does not take place without the express consent of the user.</value>
+  </data>
+  <data name="DataProtectionText3" xml:space="preserve">
+    <value>The provider points out that the transmission of data on the Internet has security gaps and a complete protection of the data before access by third parties can not be ensured. The provider accepts no liability for the damage caused by such security gaps.</value>
+  </data>
+  <data name="DataProtectionText4" xml:space="preserve">
+    <value>The use of contact data by third parties for commercial use is expressly rejected. Unless the provider has previously given his written consent. The provider reserves the right to take legal steps in the event of the unsolicited transmission of advertising information, eg spam mails.</value>
+  </data>
+  <data name="ExternalLinksHeader" xml:space="preserve">
+    <value>External links</value>
+  </data>
+  <data name="ExternalLinksText" xml:space="preserve">
+    <value>The website contains "external links" (links) to other websites, on the contents of which the provider of the website has no influence. For this reason, the provider can not assume any liability for these contents. The respective provider of the linked website is responsible for the content and correctness of the information provided. At the time of linking no infringements were recognizable. If you become aware of such an infringement, the link will be removed immediately.</value>
+  </data>
+  <data name="ImprintHeader" xml:space="preserve">
+    <value>Imprint</value>
+  </data>
+  <data name="LegalHeader" xml:space="preserve">
+    <value>Limitation of liability</value>
+  </data>
+  <data name="LegalText1" xml:space="preserve">
+    <value>The content of the Internet site was created with the greatest possible care and conscience. However, the provider of this website does not assume any liability for the topicality, completeness and correctness of the pages and content provided.</value>
+  </data>
+  <data name="LegalText2" xml:space="preserve">
+    <value>As a service provider, the provider of this website is responsible for its own content and information provided on these pages according to the general laws in accordance with § 7 (1) TMG; According to §§ 8 to 10 TMG, however, is not obliged to monitor the transmitted or stored third-party information. The removal or blocking of these contents takes place immediately from the time of the knowledge of a concrete infringement. Liability is only possible from the time of obtaining the knowledge.</value>
+  </data>
+  <data name="LinkingHeader" xml:space="preserve">
+    <value>Account linking</value>
+  </data>
+  <data name="LinkingText1" xml:space="preserve">
+    <value>This page allows you to link various user accounts. The &lt;a href="https://identityserver.io/"&gt; IdentityServer &lt;/a&gt; is used for this.</value>
+  </data>
+  <data name="LinkingText2" xml:space="preserve">
+    <value>In this connection, i.d.R. Information exchanged between this and other service providers. If ever information is shared - this is done exclusively with your own consent.</value>
+  </data>
+  <data name="PrivacyHeader" xml:space="preserve">
+    <value>Privacy</value>
+  </data>
+  <data name="ResponsibleText" xml:space="preserve">
+    <value>Responsible as of MDStV</value>
+  </data>
+  <data name="SafetyHeader" xml:space="preserve">
+    <value>Safety</value>
+  </data>
+  <data name="SafetyText" xml:space="preserve">
+    <value>The collected data is stored in a database of my choice. Your password is not stored in the plaintext - but in the form of a secure hash to avoid the compromising of other access data.</value>
+  </data>
+  <data name="SslHeader" xml:space="preserve">
+    <value>SSL</value>
+  </data>
+  <data name="SslText" xml:space="preserve">
+    <value>I use a free SSL certificate from &lt;a href="https://letsencrypt.org/"&gt; LetsEncrypt &lt;/a&gt;, which encrypts the communication between you and my server.</value>
+  </data>
+  <data name="TermsOfUseHeader" xml:space="preserve">
+    <value>Terms of Use</value>
+  </data>
+  <data name="UsagedataHeader" xml:space="preserve">
+    <value>Usage data</value>
+  </data>
+  <data name="UsagedataListEntry1" xml:space="preserve">
+    <value>Optimizing this site</value>
+  </data>
+  <data name="UsagedataListEntry2" xml:space="preserve">
+    <value>Detecting malicious users and bots</value>
+  </data>
+  <data name="UsagedataText" xml:space="preserve">
+    <value>Registration is possible after registration. After such a registration, all activities of the user (as far as I can reasonably) are stored together with the personal data. (Log)</value>
+  </data>
+  <data name="UsagedataText2" xml:space="preserve">
+    <value>These logs are:</value>
+  </data>
+  <data name="UsagedataText3" xml:space="preserve">
+    <value>(And thus ultimately you and your protection)</value>
+  </data>
+  <data name="UserDataAdText" xml:space="preserve">
+    <value>(I will never send e-mails for advertising purposes - e-mails will be used to legitimize and inform the user)</value>
+  </data>
+  <data name="UserdataHeader" xml:space="preserve">
+    <value>User data</value>
+  </data>
+  <data name="UserdataListEntry1" xml:space="preserve">
+    <value>Authentication of the user</value>
+  </data>
+  <data name="UserdataListEntry2" xml:space="preserve">
+    <value>Contact to the user by mail</value>
+  </data>
+  <data name="UserdataText" xml:space="preserve">
+    <value>By registering, I collect various user data which I collect exclusively for the following purposes:</value>
+  </data>
+</root>

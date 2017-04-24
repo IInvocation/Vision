@@ -1,0 +1,50 @@
+﻿@Master['_Layout']
+@Section['Content']
+<header class="major">
+	<h2>@Context.Text.FormsAuthText.AccountHeader</h2>
+	<p>@Context.Text.FormsAuthText.RegisterHeader</p>
+</header>
+<div class="container">
+	<section id="content">
+		<section>
+			<h3>@Context.Text.FormsAuthText.RegisterHeader</h3>
+			@Partial['Partial/ValidationSummary'];
+			<form method="post" action="/Account/Register">
+				@AntiForgeryToken
+				<div class="row uniform">
+					<div class="6u 12u(3)">
+						<input type="email" name="UserName" id="UserName" value="@Model.UserName" placeholder="@Context.Text.FormsAuthText.Placeholder_Username" />
+					</div>
+				</div>
+				<div class="row uniform">
+					<div class="6u 12u(3)">
+						<input type="password" name="Password" id="Password" value placeholder="@Context.Text.FormsAuthText.Placeholder_Password" />
+					</div>
+				</div>
+				<div class="row uniform">
+					<div class="6u 12u(3)">
+						<input type="password" name="ConfirmationPassword" id="ConfirmationPassword" value placeholder="@Context.Text.FormsAuthText.Placeholder_PasswordConfirmation" />
+					</div>
+				</div>
+				<div class="row uniform">
+					<ul class="actions">
+						<li>
+							<input type="submit" value="@Context.Text.FormsAuthText.SubmitRegister" />
+						</li>
+						<li>
+							<input type="reset" value="@Context.Text.FormsAuthText.SubmitReset" />
+						</li>
+					</ul>
+				</div>
+			</form>
+			<div class="row uniform">
+				<ul class="actions">
+					<li>
+						<a href="/Account/Login" class="button special">@Context.Text.FormsAuthText.SubmitLogin</a>
+					</li>
+				</ul>
+			</div>
+		</section>
+	</section>
+</div>
+@EndSection
