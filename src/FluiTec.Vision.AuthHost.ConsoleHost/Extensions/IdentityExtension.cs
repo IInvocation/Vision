@@ -43,7 +43,7 @@ namespace FluiTec.Vision.AuthHost.ConsoleHost.Extensions
 			builder.Services.Remove(builder.Services.Single(s => s.ServiceType == typeof(IPersistedGrantStore)));
 
 			// add our own implementation of IPersistedGrantStore
-			builder.Services.TryAddSingleton<IPersistedGrantStore, GrantStore>();
+			//builder.Services.TryAddSingleton<IPersistedGrantStore, GrantStore>();
 
 			return services;
 		}
