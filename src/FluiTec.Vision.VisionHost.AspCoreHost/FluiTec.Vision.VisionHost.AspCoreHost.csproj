@@ -33,16 +33,5 @@
     <ProjectReference Include="..\FluiTec.AppFx.Proxy\FluiTec.AppFx.Proxy.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.VisionHost\FluiTec.Vision.VisionHost.csproj" />
   </ItemGroup>
-  <ItemGroup>
-    <None Update="Secrets\FluiTec-VisionHost-CA.cer">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Secrets\FluiTec-VisionHost-CA.pfx">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Update="Secrets\FluiTec-VisionHost-CA.pvk">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
 
 </Project>
