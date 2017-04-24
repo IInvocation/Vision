@@ -89,10 +89,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx.Auth
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FBF77E8F-9870-469D-A56E-112DB59D3030}"
 	ProjectSection(SolutionItems) = preProject
-		.gitignore = .gitignore
-		LICENSE = LICENSE
-		README.md = README.md
-		TODO.md = TODO.md
+		..\.gitignore = ..\.gitignore
+		..\LICENSE = ..\LICENSE
+		..\README.md = ..\README.md
+		..\TODO.md = ..\TODO.md
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx", "FluiTec.Vision.NancyFx\FluiTec.Vision.NancyFx.csproj", "{50DA8D26-0E4F-4FF6-8073-31394BB3F716}"
@@ -117,17 +117,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Certificates", "Certificate
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VisionHost", "VisionHost", "{3B998178-05E2-49AF-A926-2EE894C62B26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.VisionHost", "FluiTec.Vision.VisionHost\FluiTec.Vision.VisionHost.csproj", "{2A0A524A-135E-49B0-BE5C-A1F995472035}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.VisionHost", "FluiTec.Vision.VisionHost\FluiTec.Vision.VisionHost.csproj", "{2A0A524A-135E-49B0-BE5C-A1F995472035}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.VisionHost.ConsoleHost", "FluiTec.Vision.VisionHost.ConsoleHost\FluiTec.Vision.VisionHost.ConsoleHost.csproj", "{50259922-6F3F-4E87-BBF0-FDDBC4C2D0B6}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.VisionHost.ConsoleHost", "FluiTec.Vision.VisionHost.ConsoleHost\FluiTec.Vision.VisionHost.ConsoleHost.csproj", "{50259922-6F3F-4E87-BBF0-FDDBC4C2D0B6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetCore", "AspNetCore", "{D61A80EE-28EF-4606-90AA-9825773DFEFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.VisionHost.AspCoreHost", "FluiTec.Vision.VisionHost.AspCoreHost\FluiTec.Vision.VisionHost.AspCoreHost.csproj", "{EDE78E26-BB1B-411E-9371-7429AB3B834D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.VisionHost.AspCoreHost", "FluiTec.Vision.VisionHost.AspCoreHost\FluiTec.Vision.VisionHost.AspCoreHost.csproj", "{EDE78E26-BB1B-411E-9371-7429AB3B834D}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.AuthHost.AspCoreHost", "FluiTec.Vision.AuthHost.AspCoreHost\FluiTec.Vision.AuthHost.AspCoreHost.csproj", "{DF4BDC56-A802-442D-B148-34940F8E9397}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{C0BA1818-9FEB-4629-8B87-81D624701670}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{C0BA1818-9FEB-4629-8B87-81D624701670}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

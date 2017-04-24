@@ -8,10 +8,18 @@ Vision
 * try ARR-performance
 * try docker(-swarm)
 
-### Authentication ###
+### Server-Fixes ###
+* Try to disable URL-Rewrite for external domains
 
+### AppFx.Data ##
+* consisder removing direct-logs
+
+### Authentication ###
 * add external OpenIdConnect (Google, Amazon, ...)
 * add internal OpenIdConnect
+** properly implement storage and validation for identityserver
+** implement ResourceOwner-Grant (for clients like jarvis/friday)
+** implement Authorization-Code-Grant (for clients like vision)
 
 ### UnitTesting ###
 * lots... lots of work
