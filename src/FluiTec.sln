@@ -9,23 +9,23 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Vision", "Vision", "{8EFE71
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{4526C15A-C5F4-435F-BD65-DB38A8251B64}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Data", "src\FluiTec.AppFx.Data\FluiTec.AppFx.Data.csproj", "{32EA1D81-8959-42D2-9270-5B806050F26F}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Data", "FluiTec.AppFx.Data\FluiTec.AppFx.Data.csproj", "{32EA1D81-8959-42D2-9270-5B806050F26F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Data.Dapper", "src\FluiTec.AppFx.Data.Dapper\FluiTec.AppFx.Data.Dapper.csproj", "{200820DC-D2B1-4917-AC62-84A56C5F7212}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Data.Dapper", "FluiTec.AppFx.Data.Dapper\FluiTec.AppFx.Data.Dapper.csproj", "{200820DC-D2B1-4917-AC62-84A56C5F7212}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Data.Dapper.Mssql", "src\FluiTec.AppFx.Data.Dapper.Mssql\FluiTec.AppFx.Data.Dapper.Mssql.csproj", "{6CB8A1FA-5435-48CE-8DD2-2112F3505C4E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Data.Dapper.Mssql", "FluiTec.AppFx.Data.Dapper.Mssql\FluiTec.AppFx.Data.Dapper.Mssql.csproj", "{6CB8A1FA-5435-48CE-8DD2-2112F3505C4E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data.Tests", "Data.Tests", "{E72090AE-F9D9-49E4-8150-C3A457337A55}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Data.Test", "src\FluiTec.AppFx.Data.Test\FluiTec.AppFx.Data.Test.csproj", "{41ACE79A-0AFA-444B-9E2F-E391D7B54E5C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Data.Test", "FluiTec.AppFx.Data.Test\FluiTec.AppFx.Data.Test.csproj", "{41ACE79A-0AFA-444B-9E2F-E391D7B54E5C}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Data.Dapper.Mssql.Test", "src\FluiTec.AppFx.Data.Dapper.Mssql.Test\FluiTec.AppFx.Data.Dapper.Mssql.Test.csproj", "{D8B09291-464E-44AB-AD34-E6861E8FF8E0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Data.Dapper.Mssql.Test", "FluiTec.AppFx.Data.Dapper.Mssql.Test\FluiTec.AppFx.Data.Dapper.Mssql.Test.csproj", "{D8B09291-464E-44AB-AD34-E6861E8FF8E0}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{DE43786D-AB4C-402B-8B02-62F04B15D4E4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{B4905E10-9025-4A61-B609-52915702D583}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Authentication.Data", "src\FluiTec.AppFx.Authentication.Data\FluiTec.AppFx.Authentication.Data.csproj", "{59C74359-4938-4D60-915D-41E485E4DC11}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Authentication.Data", "FluiTec.AppFx.Authentication.Data\FluiTec.AppFx.Authentication.Data.csproj", "{59C74359-4938-4D60-915D-41E485E4DC11}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityTests", "IdentityTests", "{845FB2AC-36D3-44F9-AA8A-6BB469E9D84B}"
 EndProject
@@ -37,55 +37,55 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Server", "Server", "{5636AE
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logging", "Logging", "{D9B0C670-3872-4460-A30E-DA014BB03138}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Logging", "src\FluiTec.AppFx.Logging\FluiTec.AppFx.Logging.csproj", "{D1259E85-E989-4304-836F-FF090BDA6DE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Logging", "FluiTec.AppFx.Logging\FluiTec.AppFx.Logging.csproj", "{D1259E85-E989-4304-836F-FF090BDA6DE7}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Nancy", "Nancy", "{6DA9B0D7-04E5-41EB-B5D0-D8E4A0363BC1}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cryptography", "Cryptography", "{C09D72BB-66A3-481C-9DFE-70C1A6D9C89D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Cryptography", "src\FluiTec.AppFx.Cryptography\FluiTec.AppFx.Cryptography.csproj", "{B5A51441-42C8-4FBA-9FAE-07317ACA5DEE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Cryptography", "FluiTec.AppFx.Cryptography\FluiTec.AppFx.Cryptography.csproj", "{B5A51441-42C8-4FBA-9FAE-07317ACA5DEE}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityServer", "{58638DB8-3923-4D5D-8F2C-528FB29B17A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.IdentityServer", "src\FluiTec.Vision.IdentityServer\FluiTec.Vision.IdentityServer.csproj", "{F720E749-0056-45B5-8CDF-E27CC0E9A0A0}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.IdentityServer", "FluiTec.Vision.IdentityServer\FluiTec.Vision.IdentityServer.csproj", "{F720E749-0056-45B5-8CDF-E27CC0E9A0A0}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "src\WebApplication1\WebApplication1.csproj", "{0AFAB1A8-00F8-4D17-A831-C76BBC33DCA5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApplication1", "WebApplication1\WebApplication1.csproj", "{0AFAB1A8-00F8-4D17-A831-C76BBC33DCA5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{522E34F0-BB0F-4BC5-AD55-2F874F9E8608}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.Server.Data", "src\FluiTec.Vision.Server.Data\FluiTec.Vision.Server.Data.csproj", "{A94B51B4-2FE4-4389-82EE-9C14BEFDF3F7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.Server.Data", "FluiTec.Vision.Server.Data\FluiTec.Vision.Server.Data.csproj", "{A94B51B4-2FE4-4389-82EE-9C14BEFDF3F7}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.Server.Data.Mssql", "src\FluiTec.Vision.Server.Data.Mssql\FluiTec.Vision.Server.Data.Mssql.csproj", "{D7A33E3F-465D-4549-AF3F-CC8625D8FD7B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.Server.Data.Mssql", "FluiTec.Vision.Server.Data.Mssql\FluiTec.Vision.Server.Data.Mssql.csproj", "{D7A33E3F-465D-4549-AF3F-CC8625D8FD7B}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx.Authentication.Forms", "src\FluiTec.Vision.NancyFx.Authentication.Forms\FluiTec.Vision.NancyFx.Authentication.Forms.csproj", "{055232D1-99B4-4770-85A5-DE7E2F14EDB1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx.Authentication.Forms", "FluiTec.Vision.NancyFx.Authentication.Forms\FluiTec.Vision.NancyFx.Authentication.Forms.csproj", "{055232D1-99B4-4770-85A5-DE7E2F14EDB1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx.Authentication", "src\FluiTec.Vision.NancyFx.Authentication\FluiTec.Vision.NancyFx.Authentication.csproj", "{6FA66094-BD3E-465D-A63F-00951AB6FAA2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx.Authentication", "FluiTec.Vision.NancyFx.Authentication\FluiTec.Vision.NancyFx.Authentication.csproj", "{6FA66094-BD3E-465D-A63F-00951AB6FAA2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tools", "Tools", "{3CC1BDE2-96E9-476C-A087-D31C19FE7553}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LineCounter", "src\LineCounter\LineCounter.csproj", "{AE436C6A-53B4-423C-B77F-02D533D8ED1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LineCounter", "LineCounter\LineCounter.csproj", "{AE436C6A-53B4-423C-B77F-02D533D8ED1A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Proxy", "Proxy", "{28791A79-AA98-447B-A474-72BF237A6801}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Proxy", "src\FluiTec.AppFx.Proxy\FluiTec.AppFx.Proxy.csproj", "{6260230D-3996-4341-9B09-7DEEB3D53FDC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Proxy", "FluiTec.AppFx.Proxy\FluiTec.AppFx.Proxy.csproj", "{6260230D-3996-4341-9B09-7DEEB3D53FDC}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Service", "Service", "{834AB46A-3C7C-4765-B407-1A11D6586AE1}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Service", "src\FluiTec.AppFx.Service\FluiTec.AppFx.Service.csproj", "{F2D655AF-6E18-4FB8-95E6-6EA6A8B1C942}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Service", "FluiTec.AppFx.Service\FluiTec.AppFx.Service.csproj", "{F2D655AF-6E18-4FB8-95E6-6EA6A8B1C942}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Logging.Owin", "src\FluiTec.AppFx.Logging.Owin\FluiTec.AppFx.Logging.Owin.csproj", "{765C4534-5339-4E6D-B9F8-C68F7C7788E9}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Logging.Owin", "FluiTec.AppFx.Logging.Owin\FluiTec.AppFx.Logging.Owin.csproj", "{765C4534-5339-4E6D-B9F8-C68F7C7788E9}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Proxy.Owin", "src\FluiTec.AppFx.Proxy.Owin\FluiTec.AppFx.Proxy.Owin.csproj", "{4215C350-684C-4748-9417-E1EBAB992A08}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Proxy.Owin", "FluiTec.AppFx.Proxy.Owin\FluiTec.AppFx.Proxy.Owin.csproj", "{4215C350-684C-4748-9417-E1EBAB992A08}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Signing", "Signing", "{8EDA9DBC-290E-4B06-875B-DA0998549F13}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Signing", "src\FluiTec.AppFx.Signing\FluiTec.AppFx.Signing.csproj", "{2D95C68E-707F-4C59-B6CD-3738DC1EE93E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Signing", "FluiTec.AppFx.Signing\FluiTec.AppFx.Signing.csproj", "{2D95C68E-707F-4C59-B6CD-3738DC1EE93E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Globalization", "Globalization", "{C665E75A-3AC7-4569-AA65-DC43DB162E5F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Globalization", "src\FluiTec.AppFx.Globalization\FluiTec.AppFx.Globalization.csproj", "{2E2FF16D-C9FB-495B-9F40-EF7B45293AFE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Globalization", "FluiTec.AppFx.Globalization\FluiTec.AppFx.Globalization.csproj", "{2E2FF16D-C9FB-495B-9F40-EF7B45293AFE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx.Authentication.Owin", "src\FluiTec.Vision.NancyFx.Authentication.Owin\FluiTec.Vision.NancyFx.Authentication.Owin.csproj", "{E1C57E28-6847-4387-986A-86EFBE6E4898}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx.Authentication.Owin", "FluiTec.Vision.NancyFx.Authentication.Owin\FluiTec.Vision.NancyFx.Authentication.Owin.csproj", "{E1C57E28-6847-4387-986A-86EFBE6E4898}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{FBF77E8F-9870-469D-A56E-112DB59D3030}"
 	ProjectSection(SolutionItems) = preProject
@@ -95,37 +95,37 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TODO.md = TODO.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx", "src\FluiTec.Vision.NancyFx\FluiTec.Vision.NancyFx.csproj", "{50DA8D26-0E4F-4FF6-8073-31394BB3F716}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx", "FluiTec.Vision.NancyFx\FluiTec.Vision.NancyFx.csproj", "{50DA8D26-0E4F-4FF6-8073-31394BB3F716}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx.Authentication.OpenId", "src\FluiTec.Vision.NancyFx.Authentication.OpenId\FluiTec.Vision.NancyFx.Authentication.OpenId.csproj", "{19523BBD-02F8-4DBC-99A2-4EB8CFA46D1E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx.Authentication.OpenId", "FluiTec.Vision.NancyFx.Authentication.OpenId\FluiTec.Vision.NancyFx.Authentication.OpenId.csproj", "{19523BBD-02F8-4DBC-99A2-4EB8CFA46D1E}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx.Authentication.OpenId.Google", "src\FluiTec.Vision.NancyFx.Authentication.OpenId.Google\FluiTec.Vision.NancyFx.Authentication.OpenId.Google.csproj", "{51F63584-6049-4280-9D0E-4F249F937ED2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.NancyFx.Authentication.OpenId.Google", "FluiTec.Vision.NancyFx.Authentication.OpenId.Google\FluiTec.Vision.NancyFx.Authentication.OpenId.Google.csproj", "{51F63584-6049-4280-9D0E-4F249F937ED2}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{29CB1D3D-A6C5-4B51-9F54-59DEA3317B82}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AuthHost", "AuthHost", "{53D26E64-FF8B-4182-BE0E-6C88C67223CC}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.AuthHost", "src\FluiTec.Vision.AuthHost\FluiTec.Vision.AuthHost.csproj", "{6D275792-EAE1-4CC8-9534-D02C41D14C1A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.AuthHost", "FluiTec.Vision.AuthHost\FluiTec.Vision.AuthHost.csproj", "{6D275792-EAE1-4CC8-9534-D02C41D14C1A}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.AuthHost.ConsoleHost", "src\FluiTec.Vision.AuthHost.ConsoleHost\FluiTec.Vision.AuthHost.ConsoleHost.csproj", "{075D76D5-F560-491B-899B-2CD70393F292}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.AuthHost.ConsoleHost", "FluiTec.Vision.AuthHost.ConsoleHost\FluiTec.Vision.AuthHost.ConsoleHost.csproj", "{075D76D5-F560-491B-899B-2CD70393F292}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Certificates", "Certificates", "{0AC77AA8-4BC9-419C-BCF0-19BFAE9000B9}"
 	ProjectSection(SolutionItems) = preProject
-		src\Tools\Certificates\makecert.cmd = src\Tools\Certificates\makecert.cmd
-		src\Tools\Certificates\Readme.txt = src\Tools\Certificates\Readme.txt
+		Tools\Certificates\makecert.cmd = Tools\Certificates\makecert.cmd
+		Tools\Certificates\Readme.txt = Tools\Certificates\Readme.txt
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "VisionHost", "VisionHost", "{3B998178-05E2-49AF-A926-2EE894C62B26}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.VisionHost", "src\FluiTec.Vision.VisionHost\FluiTec.Vision.VisionHost.csproj", "{2A0A524A-135E-49B0-BE5C-A1F995472035}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.VisionHost", "FluiTec.Vision.VisionHost\FluiTec.Vision.VisionHost.csproj", "{2A0A524A-135E-49B0-BE5C-A1F995472035}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.VisionHost.ConsoleHost", "src\FluiTec.Vision.VisionHost.ConsoleHost\FluiTec.Vision.VisionHost.ConsoleHost.csproj", "{50259922-6F3F-4E87-BBF0-FDDBC4C2D0B6}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.VisionHost.ConsoleHost", "FluiTec.Vision.VisionHost.ConsoleHost\FluiTec.Vision.VisionHost.ConsoleHost.csproj", "{50259922-6F3F-4E87-BBF0-FDDBC4C2D0B6}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AspNetCore", "AspNetCore", "{D61A80EE-28EF-4606-90AA-9825773DFEFC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.VisionHost.AspCoreHost", "src\FluiTec.Vision.VisionHost.AspCoreHost\FluiTec.Vision.VisionHost.AspCoreHost.csproj", "{EDE78E26-BB1B-411E-9371-7429AB3B834D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.VisionHost.AspCoreHost", "FluiTec.Vision.VisionHost.AspCoreHost\FluiTec.Vision.VisionHost.AspCoreHost.csproj", "{EDE78E26-BB1B-411E-9371-7429AB3B834D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.AuthHost.AspCoreHost", "src\FluiTec.Vision.AuthHost.AspCoreHost\FluiTec.Vision.AuthHost.AspCoreHost.csproj", "{DF4BDC56-A802-442D-B148-34940F8E9397}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.AuthHost.AspCoreHost", "FluiTec.Vision.AuthHost.AspCoreHost\FluiTec.Vision.AuthHost.AspCoreHost.csproj", "{DF4BDC56-A802-442D-B148-34940F8E9397}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ConsoleApp1", "ConsoleApp1\ConsoleApp1.csproj", "{C0BA1818-9FEB-4629-8B87-81D624701670}"
 EndProject
