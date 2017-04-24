@@ -17,9 +17,11 @@ Vision
 ### Authentication ###
 * add external OpenIdConnect (Google, Amazon, ...)
 * add internal OpenIdConnect
-** properly implement storage and validation for identityserver
-** implement ResourceOwner-Grant (for clients like jarvis/friday)
-** implement Authorization-Code-Grant (for clients like vision)
+
+### Internal OpenIdConnect ###
+* properly implement storage and validation for identityserver
+* implement ResourceOwner-Grant (for clients like jarvis/friday)
+* implement Authorization-Code-Grant (for clients like vision)
 
 ### UnitTesting ###
 * lots... lots of work
