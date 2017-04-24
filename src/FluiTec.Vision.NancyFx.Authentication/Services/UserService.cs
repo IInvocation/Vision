@@ -46,8 +46,10 @@ namespace FluiTec.Vision.NancyFx.Authentication.Services
 			{
 				new Claim(ClaimTypes.NameIdentifier, entity.UniqueId.ToString()),
 				new Claim(ClaimTypes.Name, entity.UserName),
-				new Claim(ClaimTypes.Email, entity.Email)
 			};
+
+			if (entity.EmailConfirmed)
+				claims.Add(new Claim(ClaimTypes.Email, entity.Email));
 
 			var identity = new ClaimsIdentity(claims, authenticationType, ClaimTypes.Name, "User");
 
