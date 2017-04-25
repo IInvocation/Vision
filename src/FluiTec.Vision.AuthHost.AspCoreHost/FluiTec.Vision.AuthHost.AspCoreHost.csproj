@@ -41,5 +41,8 @@
     <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication.Owin\FluiTec.Vision.NancyFx.Authentication.Owin.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication\FluiTec.Vision.NancyFx.Authentication.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="KeyVault\" />
+  </ItemGroup>
 
 </Project>

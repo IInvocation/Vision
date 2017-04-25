@@ -4,6 +4,7 @@ using FluiTec.AppFx.Authentication.Data;
 using FluiTec.AppFx.Globalization.Services;
 using FluiTec.AppFx.Logging.Services;
 using FluiTec.AppFx.Proxy.Services;
+using FluiTec.AppFx.Signing.Services;
 using FluiTec.Vision.AuthHost.ConsoleHost.Extensions;
 using FluiTec.Vision.AuthHost.ConsoleHost.Services;
 using FluiTec.Vision.AuthHost.Services;
@@ -59,12 +60,13 @@ namespace FluiTec.Vision.AuthHost.ConsoleHost
 			{
 				// register configuration
 				services.AddSingleton(_configuration);
+
 				// precreate some settings-services
-				
 				var applicationSettingsService = new ConfigApplicationSettingsService(_configuration);
 				var applicationSettings = applicationSettingsService.Get();
 				var loggingSettingsService = new ConfigLoggerSettingsService(_configuration);
 				var proxySettingsService = new ConfigProxySettingsService(_configuration);
+				var signingService = new FileSigningService(new ConfigNameFileSigningSettings(_configuration).Get());
 
 				// register settings-services
 				services.AddSingleton<ILoggerSettingsService, ConfigLoggerSettingsService>(provider => loggingSettingsService);
@@ -78,10 +80,11 @@ namespace FluiTec.Vision.AuthHost.ConsoleHost
 				services.AddSingleton<IOpenIdAuthenticationSettingsService, ConfigOpenIdAuthenticationSettingsService>();
 				services.AddTransient<IAuthenticatingDataService, VisionDataService>();
 				services.AddTransient<IUserService, UserService>();
+				services.AddSingleton<ISigningService, FileSigningService>(provider => signingService);
 
 				// configure identityserver
 				var environment = (IHostingEnvironment)services.FirstOrDefault(t => t.ServiceType == typeof(IHostingEnvironment)).ImplementationInstance;
-				services.ConfigureIdentityServer(environment, proxySettingsService);
+				services.ConfigureIdentityServer(environment, signingService, proxySettingsService);
 			}
 			catch (Exception e)
 			{

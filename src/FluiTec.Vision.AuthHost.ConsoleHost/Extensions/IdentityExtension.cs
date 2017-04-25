@@ -2,7 +2,6 @@
 using FluiTec.AppFx.Proxy.Services;
 using FluiTec.AppFx.Signing.Services;
 using FluiTec.Vision.IdentityServer;
-using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
@@ -14,12 +13,13 @@ namespace FluiTec.Vision.AuthHost.ConsoleHost.Extensions
 	public static class IdentityExtension
 	{
 		/// <summary>	An IServiceCollection extension method that configure identity server. </summary>
-		/// <param name="services">				 	The services to act on. </param>
-		/// <param name="environment">			 	The environment. </param>
-		/// <param name="proxySettingsService">  	The proxy settings service. </param>
+		/// <param name="services">			   	The services to act on. </param>
+		/// <param name="environment">		   	The environment. </param>
+		/// <param name="signingService">	   	The signing service. </param>
+		/// <param name="proxySettingsService">	The proxy settings service. </param>
 		/// <returns>	An IServiceCollection. </returns>
 		public static IServiceCollection ConfigureIdentityServer(this IServiceCollection services,
-			IHostingEnvironment environment, IProxySettingsService proxySettingsService)
+			IHostingEnvironment environment, ISigningService signingService, IProxySettingsService proxySettingsService)
 		{
 			var proxySettings = proxySettingsService.Get();
 
@@ -32,7 +32,10 @@ namespace FluiTec.Vision.AuthHost.ConsoleHost.Extensions
 			});
 
 			// configure signing credentials
-			builder.AddDeveloperSigningCredential();
+			builder.AddSigningCredential(signingService.GetCurrentSecurityKey());
+			var expired = signingService.GetExpiredSecurityKeys();
+			if (expired != null && expired.Length > 0)
+				builder.AddValidationKeys(expired);
 
 			// configure stores
 			builder.AddClientStore<ClientStore>();

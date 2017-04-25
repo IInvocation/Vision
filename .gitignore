@@ -29,7 +29,9 @@ netstandard1.6/
 
 # Secrets
 [Ss]ecrets
+[Kk]ey[Vv]ault
 *.secret.json
+*.secret.key
 
 # Certificates
 *.pfx

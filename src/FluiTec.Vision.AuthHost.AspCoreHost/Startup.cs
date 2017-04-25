@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using FluiTec.AppFx.Authentication.Data;
 using FluiTec.AppFx.Globalization.Services;
 using FluiTec.AppFx.Logging.Services;
 using FluiTec.AppFx.Proxy.Services;
@@ -11,6 +12,8 @@ using FluiTec.Vision.NancyFx.Authentication.Forms.Services;
 using FluiTec.Vision.NancyFx.Authentication.GoogleOpenId.Services;
 using FluiTec.Vision.NancyFx.Authentication.OpenId.Services;
 using FluiTec.Vision.NancyFx.Authentication.Services;
+using FluiTec.Vision.Server.Data;
+using FluiTec.Vision.Server.Data.Mssql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -57,26 +60,31 @@ namespace FluiTec.Vision.AuthHost.AspCoreHost
 			{
 				// register configuration
 				services.AddSingleton(_configuration);
+
 				// precreate some settings-services
-				// 
+				var applicationSettingsService = new ConfigApplicationSettingsService(_configuration);
+				var applicationSettings = applicationSettingsService.Get();
 				var loggingSettingsService = new ConfigLoggerSettingsService(_configuration);
 				var proxySettingsService = new ConfigProxySettingsService(_configuration);
-				var signingSettingsService = new ConfigSigningSettingsService(_configuration);
+				var signingService = new FileSigningService(new ConfigNameFileSigningSettings(_configuration).Get());
 
 				// register settings-services
 				services.AddSingleton<ILoggerSettingsService, ConfigLoggerSettingsService>(provider => loggingSettingsService);
-				services.AddSingleton<IApplicationSettingsService, ConfigApplicationSettingsService>();
+				services.AddSingleton<IApplicationSettingsService>(provider => applicationSettingsService);
+				services.AddSingleton<IDataServiceSettings>(provider => applicationSettings);
 				services.AddSingleton<IProxySettingsService, ConfigProxySettingsService>(provider => proxySettingsService);
 				services.AddSingleton<IFormsAuthenticationSettingsService, ConfigFormsAuthenticationSettingsService>();
-				services.AddSingleton<ISigningSettingsService, ConfigSigningSettingsService>(provider => signingSettingsService);
 				services.AddSingleton<IGlobalizationSettingsService, ConfigGlobalizationSettingsService>();
 				services.AddSingleton<IAuthenticationSettingsService, ConfigAuthenticationSettingsService>();
 				services.AddSingleton<IGoogleOpenIdProviderSettingsService, ConfigGoogleOpenIdProviderSettingsService>();
 				services.AddSingleton<IOpenIdAuthenticationSettingsService, ConfigOpenIdAuthenticationSettingsService>();
+				services.AddTransient<IAuthenticatingDataService, VisionDataService>();
+				services.AddTransient<IUserService, UserService>();
+				services.AddSingleton<ISigningService, FileSigningService>(provider => signingService);
 
 				// configure identityserver
 				var environment = (IHostingEnvironment)services.FirstOrDefault(t => t.ServiceType == typeof(IHostingEnvironment)).ImplementationInstance;
-				services.ConfigureIdentityServer(environment, signingSettingsService, proxySettingsService);
+				services.ConfigureIdentityServer(environment, signingService, proxySettingsService);
 			}
 			catch (Exception e)
 			{
