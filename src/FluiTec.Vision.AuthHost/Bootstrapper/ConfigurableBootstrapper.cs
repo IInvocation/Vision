@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using FluentValidation;
 using FluiTec.AppFx.Globalization.Settings;
 using FluiTec.Vision.AuthHost.Localization;
@@ -92,14 +93,6 @@ namespace FluiTec.Vision.AuthHost.Bootstrapper
 						new byte[] {2, 7, 3, 8, 1, 1, 8, 1})));
 
 			container.Register(config);
-		}
-
-		/// <summary>	Configure globalization. </summary>
-		/// <param name="globalizationSettings">	The globalization settings. </param>
-		protected override void ConfigureGlobalization(IGlobalizationSettings globalizationSettings)
-		{
-			base.ConfigureGlobalization(globalizationSettings);
-			ValidatorOptions.ResourceProviderType = typeof(ValidationResources);
 		}
 
 		#endregion

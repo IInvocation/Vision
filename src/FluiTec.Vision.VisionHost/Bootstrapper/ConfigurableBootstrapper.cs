@@ -94,14 +94,6 @@ namespace FluiTec.Vision.VisionHost.Bootstrapper
 			container.Register(config);
 		}
 
-		/// <summary>	Configure globalization. </summary>
-		/// <param name="globalizationSettings">	The globalization settings. </param>
-		protected override void ConfigureGlobalization(IGlobalizationSettings globalizationSettings)
-		{
-			base.ConfigureGlobalization(globalizationSettings);
-			ValidatorOptions.ResourceProviderType = typeof(ValidationResources);
-		}
-
 		#endregion
 	}
 }

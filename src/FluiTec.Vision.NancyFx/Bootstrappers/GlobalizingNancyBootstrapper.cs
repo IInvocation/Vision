@@ -78,7 +78,6 @@ namespace FluiTec.Vision.NancyFx.Bootstrappers
 		/// <param name="requestCulture">	The request culture. </param>
 		protected virtual void ConfigureCulture(CultureInfo requestCulture)
 		{
-			CultureInfo.CurrentCulture = requestCulture;
 			CultureInfo.CurrentUICulture = requestCulture;
 		}
 
