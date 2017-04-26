@@ -190,11 +190,13 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FluiTec.AppFx.Service\FluiTec.AppFx.Service.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.IdentityServer.Data\FluiTec.Vision.IdentityServer.Data.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication.Forms\FluiTec.Vision.NancyFx.Authentication.Forms.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication.OpenId.Google\FluiTec.Vision.NancyFx.Authentication.OpenId.Google.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication.OpenId\FluiTec.Vision.NancyFx.Authentication.OpenId.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication.Owin\FluiTec.Vision.NancyFx.Authentication.Owin.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication\FluiTec.Vision.NancyFx.Authentication.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.NancyFx.IdentityServer\FluiTec.Vision.NancyFx.IdentityServer.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.NancyFx\FluiTec.Vision.NancyFx.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.Server.Data.Mssql\FluiTec.Vision.Server.Data.Mssql.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.Server.Data\FluiTec.Vision.Server.Data.csproj" />
@@ -220,6 +222,11 @@
       <DependentUpon>HomeText.resx</DependentUpon>
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Update="Resources\IdentityText.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>IdentityText.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\Text.Designer.cs">
       <DependentUpon>Text.resx</DependentUpon>
@@ -269,6 +276,16 @@
       <LastGenOutput>HomeText.Designer.cs</LastGenOutput>
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\IdentityText.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\IdentityText.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\IdentityText.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>IdentityText.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Text.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -301,6 +318,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Views\Home\Index.sshtml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Update="Views\Identity\Index.sshtml">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Update="Views\Partial\Banner.sshtml">

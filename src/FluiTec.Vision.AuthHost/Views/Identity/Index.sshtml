@@ -1,0 +1,37 @@
+﻿@Master['_Layout']
+@Section['Content']
+<header class="major">
+	<h2>@Context.Text.IdentityText.IdentityHeader</h2>
+	<p>@Context.Text.IdentityText.ResourceHeader</p>
+</header>
+<div class="container">
+	<section id="content">
+		<section>
+			<h3>@Context.Text.IdentityText.ApiResourceHeader</h3>
+			<div class="table-wrapper">
+				<table>
+					<thead>
+						<tr>
+							<th>@Context.Text.IdentityText.ApiResourceNameHeader</th>
+							<th>@Context.Text.IdentityText.ApiResourceDisplayNameHeader</th>
+							<th>@Context.Text.IdentityText.ApiResourceEnabledHeader</th>
+						</tr>
+					</thead>
+					<tbody>
+					@Each.Model.ApiResources
+						<tr>
+							<th>@Current.Name</th>
+							<th>@Current.DisplayName</th>
+							<th>
+								<input type="checkbox" disabled="disabled" id="enabled" name="enabled" />
+								<label for="enabled">@Context.Text.IdentityText.ApiResourceEnabledHeader</label>
+							</th>
+						</tr>
+					@EndEach
+					</tbody>
+				</table>
+			</div>
+		</section>
+	</section>
+</div>
+@EndSection

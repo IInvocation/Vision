@@ -1,5 +1,6 @@
 ﻿using System;
 using FluiTec.AppFx.Authentication.Data;
+using FluiTec.Vision.IdentityServer.Data;
 using FluiTec.Vision.NancyFx.Authentication.Forms;
 using FluiTec.Vision.NancyFx.Authentication.Forms.Services;
 using FluiTec.Vision.NancyFx.Authentication.Forms.Settings;
@@ -9,6 +10,7 @@ using FluiTec.Vision.NancyFx.Authentication.OpenId.Services;
 using FluiTec.Vision.NancyFx.Authentication.Owin.Services;
 using FluiTec.Vision.NancyFx.Authentication.Services;
 using FluiTec.Vision.NancyFx.Authentication.Settings;
+using FluiTec.Vision.NancyFx.IdentityServer.Services;
 using FluiTec.Vision.Server.Data;
 using FluiTec.Vision.Server.Data.Mssql;
 using Microsoft.Extensions.DependencyInjection;
@@ -75,6 +77,7 @@ namespace FluiTec.Vision.AuthHost.Bootstrapper
 			ConfigureUserService(container);
 			ConfigureOwinAuthentication(container);
 			ConfigureOpenIdAuthentication(container);
+			ConfigureIdentityServer(container);
 			ConfigureFormsAuthentication(container, pipelines);
 		}
 
@@ -106,6 +109,16 @@ namespace FluiTec.Vision.AuthHost.Bootstrapper
 			{
 				typeof(GoogleOpenIdAuthenticateHandler)
 			});
+		}
+
+		/// <summary>	Configure identity server. </summary>
+		/// <param name="container">	The container. </param>
+		private void ConfigureIdentityServer(TinyIoCContainer container)
+		{
+			_log.LogInformation("Configuring IdentityServer...");
+			container.Register<IIdentityServerDataService>(
+				(s, p) => new VisionDataService(LoggerFactory, ApplicationSettings.DefaultConnectionString));
+			container.Register(ServiceProvider.GetRequiredService<IIdentityServerSettingsService>().Get());
 		}
 
 		/// <summary>	Configure data service. </summary>

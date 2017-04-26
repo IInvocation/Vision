@@ -2,6 +2,7 @@
 using FluiTec.AppFx.Authentication.Data;
 using FluiTec.AppFx.Data;
 using FluiTec.AppFx.Data.Dapper.Mssql;
+using FluiTec.Vision.IdentityServer.Data;
 using FluiTec.Vision.IdentityServer.Data.Repositories;
 using FluiTec.Vision.Server.Data.Mssql.Repositories;
 using Microsoft.Extensions.Logging;
@@ -9,7 +10,7 @@ using Microsoft.Extensions.Logging;
 namespace FluiTec.Vision.Server.Data.Mssql
 {
 	/// <summary>	A vision data service. </summary>
-	public class VisionDataService : MssqlDapperDataService, IVisionDataService
+	public class VisionDataService : MssqlDapperDataService, IVisionDataService, IIdentityServerDataService
 	{
 		#region Methods
 
@@ -70,6 +71,13 @@ namespace FluiTec.Vision.Server.Data.Mssql
 		/// <summary>	Gets the name. </summary>
 		/// <value>	The name. </value>
 		public override string Name => nameof(VisionDataService);
+
+		/// <summary>	Starts unit of work. </summary>
+		/// <returns>	An IIdentityServerUnitOfWork. </returns>
+		IIdentityServerUnitOfWork IIdentityServerDataService.StartUnitOfWork()
+		{
+			return StartUnitOfWork();
+		}
 
 		/// <summary>	Starts unit of work. </summary>
 		/// <returns>	An IAuthenticatingUnitOfWork. </returns>

@@ -8,10 +8,12 @@ using FluiTec.AppFx.Signing.Services;
 using FluiTec.Vision.AuthHost.ConsoleHost.Extensions;
 using FluiTec.Vision.AuthHost.ConsoleHost.Services;
 using FluiTec.Vision.AuthHost.Services;
+using FluiTec.Vision.IdentityServer.Data;
 using FluiTec.Vision.NancyFx.Authentication.Forms.Services;
 using FluiTec.Vision.NancyFx.Authentication.GoogleOpenId.Services;
 using FluiTec.Vision.NancyFx.Authentication.OpenId.Services;
 using FluiTec.Vision.NancyFx.Authentication.Services;
+using FluiTec.Vision.NancyFx.IdentityServer.Services;
 using FluiTec.Vision.Server.Data;
 using FluiTec.Vision.Server.Data.Mssql;
 using Microsoft.AspNetCore.Builder;
@@ -78,7 +80,9 @@ namespace FluiTec.Vision.AuthHost.ConsoleHost
 				services.AddSingleton<IAuthenticationSettingsService, ConfigAuthenticationSettingsService>();
 				services.AddSingleton<IGoogleOpenIdProviderSettingsService, ConfigGoogleOpenIdProviderSettingsService>();
 				services.AddSingleton<IOpenIdAuthenticationSettingsService, ConfigOpenIdAuthenticationSettingsService>();
+				services.AddSingleton<IIdentityServerSettingsService, ConfigIdentityServerSettingsService>();
 				services.AddTransient<IAuthenticatingDataService, VisionDataService>();
+				services.AddTransient<IIdentityServerDataService, VisionDataService>();
 				services.AddTransient<IUserService, UserService>();
 				services.AddSingleton<ISigningService, FileSigningService>(provider => signingService);
 
