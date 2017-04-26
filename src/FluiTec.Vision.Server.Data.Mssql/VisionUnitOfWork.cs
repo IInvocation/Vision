@@ -32,6 +32,11 @@ namespace FluiTec.Vision.Server.Data.Mssql
 			_clientRepository ??
 			(_clientRepository = GetRepository<IClientRepository>());
 
+		/// <summary>	The claim repository. </summary>
+		public IClaimRepository ClaimRepository =>
+			_claimRepository ??
+			(_claimRepository = GetRepository<IClaimRepository>());
+
 		/// <summary>	The API resource repository. </summary>
 		public IApiResourceRepository ApiResourceRepository =>
 			_apiResourceRepository ??
@@ -46,6 +51,9 @@ namespace FluiTec.Vision.Server.Data.Mssql
 
 		/// <summary>	The client repository. </summary>
 		private IClientRepository _clientRepository;
+
+		/// <summary>	The claim repository. </summary>
+		private IClaimRepository _claimRepository;
 
 		/// <summary>	The API resource repository. </summary>
 		private IApiResourceRepository _apiResourceRepository;

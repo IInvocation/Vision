@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using FluiTec.AppFx.Authentication.Data;
 using FluiTec.AppFx.Cryptography;
@@ -42,14 +43,24 @@ namespace FluiTec.Vision.NancyFx.Authentication.Services
 			if (entity == null)
 				return null;
 
+			// add default claims
 			var claims = new List<Claim>
 			{
 				new Claim(ClaimTypes.NameIdentifier, entity.UniqueId.ToString()),
 				new Claim(ClaimTypes.Name, entity.UserName),
 			};
 
+			// add mail claim if it was confirmed
 			if (entity.EmailConfirmed)
 				claims.Add(new Claim(ClaimTypes.Email, entity.Email));
+
+			// add persisted claims
+			var persistedClaims = uow.ClaimRepository.GetByUserId(entity.Id);
+			var persistedClaimsArray = persistedClaims as ClaimEntity[] ?? persistedClaims.ToArray();
+			if (persistedClaims != null && persistedClaimsArray.Any())
+			{
+				claims.AddRange(persistedClaimsArray.Select(c => new Claim(c.Type, c.Value)));
+			}
 
 			var identity = new ClaimsIdentity(claims, authenticationType, ClaimTypes.Name, "User");
 
