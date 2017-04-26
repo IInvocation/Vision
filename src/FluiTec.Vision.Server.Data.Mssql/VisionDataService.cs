@@ -2,6 +2,7 @@
 using FluiTec.AppFx.Authentication.Data;
 using FluiTec.AppFx.Data;
 using FluiTec.AppFx.Data.Dapper.Mssql;
+using FluiTec.Vision.IdentityServer.Data.Repositories;
 using FluiTec.Vision.Server.Data.Mssql.Repositories;
 using Microsoft.Extensions.Logging;
 
@@ -19,6 +20,7 @@ namespace FluiTec.Vision.Server.Data.Mssql
 
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IUserRepository>(work => new UserRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IClientRepository>(work => new ClientRepository(work)));
+			RegisterRepositoryProvider(new Func<IUnitOfWork, IApiResourceRepository>(work => new ApiResourceRepository(work)));
 		}
 
 		#endregion

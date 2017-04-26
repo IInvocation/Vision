@@ -1,5 +1,6 @@
 ﻿using FluiTec.AppFx.Authentication.Data;
 using FluiTec.AppFx.Data.Dapper;
+using FluiTec.Vision.IdentityServer.Data.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace FluiTec.Vision.Server.Data.Mssql
@@ -31,6 +32,11 @@ namespace FluiTec.Vision.Server.Data.Mssql
 			_clientRepository ??
 			(_clientRepository = GetRepository<IClientRepository>());
 
+		/// <summary>	The API resource repository. </summary>
+		public IApiResourceRepository ApiResourceRepository =>
+			_apiResourceRepository ??
+			(_apiResourceRepository = GetRepository<IApiResourceRepository>());
+
 		#endregion
 
 		#region Fields
@@ -40,6 +46,9 @@ namespace FluiTec.Vision.Server.Data.Mssql
 
 		/// <summary>	The client repository. </summary>
 		private IClientRepository _clientRepository;
+
+		/// <summary>	The API resource repository. </summary>
+		private IApiResourceRepository _apiResourceRepository;
 
 		#endregion
 	}

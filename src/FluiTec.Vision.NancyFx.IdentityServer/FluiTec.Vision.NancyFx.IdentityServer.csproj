@@ -5,8 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\FluiTec.AppFx.Authentication.Data\FluiTec.AppFx.Authentication.Data.csproj" />
+    <PackageReference Include="Nancy" Version="2.0.0-clinteastwood" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\FluiTec.Vision.IdentityServer.Data\FluiTec.Vision.IdentityServer.Data.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.IdentityServer\FluiTec.Vision.IdentityServer.csproj" />
   </ItemGroup>
 
 </Project>

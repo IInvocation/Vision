@@ -8,6 +8,7 @@
     <ProjectReference Include="..\FluiTec.AppFx.Data.Dapper.Mssql\FluiTec.AppFx.Data.Dapper.Mssql.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Data.Dapper\FluiTec.AppFx.Data.Dapper.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Data\FluiTec.AppFx.Data.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.IdentityServer.Data\FluiTec.Vision.IdentityServer.Data.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.Server.Data\FluiTec.Vision.Server.Data.csproj" />
   </ItemGroup>
 
