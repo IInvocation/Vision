@@ -21,7 +21,8 @@ namespace FluiTec.AppFx.Signing.Settings
 
 			if (ExpiredKeyNames == null || ExpiredKeyNames.Length < 1)
 				ExpiredKeyFileNames = Enumerable.Empty<string>();
-			ExpiredKeyFileNames = ExpiredKeyNames.Select(k => Path.Combine(TargetDirectory, k));
+			else
+				ExpiredKeyFileNames = ExpiredKeyNames.Select(k => Path.Combine(TargetDirectory, k));
 		}
 	}
 }
