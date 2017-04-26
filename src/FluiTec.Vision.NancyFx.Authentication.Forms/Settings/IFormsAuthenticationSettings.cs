@@ -37,6 +37,10 @@
 		/// <value>	The manage route. </value>
 		string ManageRoute { get; }
 
+		/// <summary>	Gets the unauthorized route. </summary>
+		/// <value>	The unauthorized route. </value>
+		string UnauthorizedRoute { get; }
+
 		#endregion
 
 		#region ViewNames
@@ -55,6 +59,11 @@
 		/// <value>	The name of the manage view. </value>
 
 		string ManageViewName { get; }
+
+		/// <summary>	Gets the name of the unauthorized view. </summary>
+		/// <value>	The name of the unauthorized view. </value>
+
+		string UnauthorizedViewName { get; }
 
 		#endregion
 	}

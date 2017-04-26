@@ -205,6 +205,8 @@ namespace FluiTec.Vision.NancyFx.Authentication.Forms
 
 			pipelines.AfterRequest.AddItemToEndOfPipeline(
 				GetRedirectToLoginHook(formsAuthenticationSettings, authenticationSettings));
+			pipelines.AfterRequest.AddItemToEndOfPipeline(
+				GetForbiddenHook(formsAuthenticationSettings));
 		}
 
 		#endregion
@@ -229,6 +231,24 @@ namespace FluiTec.Vision.NancyFx.Authentication.Forms
 				// redirect to RedirectUrl preserving originally requested url
 				context.Response = context.GetRedirect(
 					$"{formsAuthenticationSettings.RedirectUrl}?{authenticationSettings.RedirectQuerystringKey}={context.ToFullPath("~" + context.Request.Path + HttpUtility.UrlEncode(context.Request.Url.Query))}");
+			};
+		}
+
+		/// <summary>	Gets forbidden hook. </summary>
+		/// <param name="formsAuthenticationSettings">	The configuration. </param>
+		/// <returns>	The forbidden hook. </returns>
+		private static Action<NancyContext> GetForbiddenHook(IFormsAuthenticationSettings formsAuthenticationSettings)
+		{
+			return context =>
+			{
+				// only redirect for unauthorized users
+				if (context.Response.StatusCode != HttpStatusCode.Forbidden) return;
+
+				// only redirect browsers that request html
+				if (!context.Request.Headers.Accept.Any(acc => acc.Item1.ToLower().Contains("html"))) return;
+
+				// redirect to RedirectUrl preserving originally requested url
+				context.Response = context.GetRedirect(formsAuthenticationSettings.UnauthorizedRoute);
 			};
 		}
 

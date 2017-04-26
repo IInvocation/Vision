@@ -1,0 +1,15 @@
+﻿@Master['_Layout']
+@Section['Content']
+<header class="major">
+	<h2>@Context.Text.FormsAuthText.AccountHeader</h2>
+	<p>@Context.Text.FormsAuthText.UnauthorizedHeader</p>
+</header>
+<div class="container">
+	<section id="content">
+		<section>
+			<h3>@Context.Text.FormsAuthText.UnauthorizedHeader</h3>
+			<p>@Context.Text.FormsAuthText.UnauthorizedText</p>
+		</section>
+	</section>
+</div>
+@EndSection

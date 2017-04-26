@@ -51,6 +51,8 @@ namespace FluiTec.Vision.NancyFx.Authentication.Forms.Modules
 			Get(formsAuthenticationSettings.RegisterRoute, _ => GET_Register());
 			Post(formsAuthenticationSettings.RegisterRoute, _ => POST_Register());
 
+			Get(formsAuthenticationSettings.UnauthorizedRoute, _ => GET_Unauthorized());
+
 			Get(formsAuthenticationSettings.ManageRoute, _ => GET_Manage());
 		}
 
@@ -178,6 +180,14 @@ namespace FluiTec.Vision.NancyFx.Authentication.Forms.Modules
 					result.Faults.Select(f => new ModelValidationError(string.Empty, ValidationResources.Localize(f))))));
 
 			return View[_formsAuthenticationSettings.RegisterViewName, model];
+		}
+
+		/// <summary>	[GET] Unauthorized. </summary>
+		/// <returns>	Unauthorized. </returns>
+		private dynamic GET_Unauthorized()
+		{
+			_logger.LogRouteHandler(Context, nameof(GET_Unauthorized));
+			return View[_formsAuthenticationSettings.UnauthorizedViewName];
 		}
 
 		/// <summary>	[GET] Manage. </summary>

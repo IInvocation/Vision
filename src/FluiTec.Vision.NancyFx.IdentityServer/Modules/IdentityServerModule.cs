@@ -2,11 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
+using FluiTec.Vision.IdentityServer;
 using FluiTec.Vision.IdentityServer.Data;
+using FluiTec.Vision.NancyFx.Authentication;
 using FluiTec.Vision.NancyFx.IdentityServer.Settings;
 using FluiTec.Vision.NancyFx.IdentityServer.ViewModels;
 using Microsoft.Extensions.Logging;
 using Nancy;
+using Nancy.Security;
 
 namespace FluiTec.Vision.NancyFx.IdentityServer.Modules
 {
@@ -48,10 +52,13 @@ namespace FluiTec.Vision.NancyFx.IdentityServer.Modules
 		#region RouteHandlers
 
 		/// <summary>	[GET] Index. </summary>
-		/// <returns>	[GET] Index. </returns>
+		/// <returns>	Index. </returns>
 		private dynamic GET_Index()
 		{
 			_logger.LogRouteHandler(Context, nameof(GET_Index));
+
+			this.RequiresClaims(claim => claim.Type == IdentityClaimTypes.IdentityResourceAdministrator);
+
 			IEnumerable<ApiResourceViewModel> apiResources;
 			using (var uow = _dataService.StartUnitOfWork())
 			{

@@ -156,4 +156,10 @@
   <data name="SubmitReset" xml:space="preserve">
     <value>Zurücksetzen</value>
   </data>
+  <data name="UnauthorizedHeader" xml:space="preserve">
+    <value>Nicht autorisiert</value>
+  </data>
+  <data name="UnauthorizedText" xml:space="preserve">
+    <value>Sie haben nicht die Erlaubnis diese Seite zu sehen.</value>
+  </data>
 </root>

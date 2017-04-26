@@ -177,5 +177,23 @@ namespace FluiTec.Vision.AuthHost.Resources {
                 return ResourceManager.GetString("SubmitReset", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Unauthorized ähnelt.
+        /// </summary>
+        internal static string UnauthorizedHeader {
+            get {
+                return ResourceManager.GetString("UnauthorizedHeader", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die You are not allowed to browse this page. ähnelt.
+        /// </summary>
+        internal static string UnauthorizedText {
+            get {
+                return ResourceManager.GetString("UnauthorizedText", resourceCulture);
+            }
+        }
     }
 }

@@ -18,5 +18,8 @@
 		/// <summary>	Gets or sets the description. </summary>
 		/// <value>	The description. </value>
 		public string Description { get; set; }
+
+		/// <summary>	Renders a text determining if the viewmodel is checked. </summary>
+		public string Checked => Enabled ? "checked" : string.Empty;
 	}
 }

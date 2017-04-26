@@ -33,6 +33,10 @@
 		/// <value>	The manage route. </value>
 		public string ManageRoute { get; set; }
 
+		/// <summary>	Gets the unauthorized route. </summary>
+		/// <value>	The unauthorized route. </value>
+		public string UnauthorizedRoute { get; set; }
+
 		/// <summary>	Gets the external login route. </summary>
 		/// <value>	The external login route. </value>
 		public string ExternalLoginRoute { get; set; }
@@ -52,6 +56,10 @@
 		/// <summary>	Gets the name of the manage view. </summary>
 		/// <value>	The name of the manage view. </value>
 		public string ManageViewName { get; set; }
+
+		/// <summary>	Gets or sets the name of the unauthorized view. </summary>
+		/// <value>	The name of the unauthorized view. </value>
+		public string UnauthorizedViewName { get; set; }
 
 		#endregion
 	}

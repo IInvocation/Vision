@@ -22,10 +22,7 @@
 						<tr>
 							<th>@Current.Name</th>
 							<th>@Current.DisplayName</th>
-							<th>
-								<input type="checkbox" disabled="disabled" id="enabled" name="enabled" />
-								<label for="enabled">@Context.Text.IdentityText.ApiResourceEnabledHeader</label>
-							</th>
+							<th>@Current.Enabled</th>
 						</tr>
 					@EndEach
 					</tbody>
