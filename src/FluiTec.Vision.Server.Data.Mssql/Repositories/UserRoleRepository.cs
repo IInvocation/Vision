@@ -40,7 +40,7 @@ namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 		/// </returns>
 		public IEnumerable<UserRoleEntity> GetByUserId(int userId)
 	    {
-			_logger.LogDebug("Fetching {0} by {1} with {1}='{2}'", TableName, nameof(userId), userId);
+			_logger.LogDebug("Fetching {0} by {1} with {2}='{3}'", TableName, nameof(userId), nameof(userId), userId);
 		    var command = $"SELECT * FROM {TableName} WHERE {nameof(UserRoleEntity.UserId)} = @UsrId";
 		    return UnitOfWork.Connection.Query<UserRoleEntity>(command, new { usrId = userId },
 			    UnitOfWork.Transaction);

@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dapper;
 using FluiTec.AppFx.Authentication.Data;
 using FluiTec.AppFx.Data;
@@ -9,7 +8,7 @@ using Microsoft.Extensions.Logging;
 namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 {
 	/// <summary>	A claim repository. </summary>
-	public class ClaimRepository : DapperRepository<UserClaimEntity, int>, IClaimRepository
+	public class UserClaimRepository : DapperRepository<UserClaimEntity, int>, IUserClaimRepository
 	{
 		#region Fields
 
@@ -22,9 +21,9 @@ namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 
 		/// <summary>	Constructor. </summary>
 		/// <param name="unitOfWork">	The unit of work. </param>
-		public ClaimRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
+		public UserClaimRepository(IUnitOfWork unitOfWork) : base(unitOfWork)
 		{
-			_logger = unitOfWork.LoggerFactory.CreateLogger(typeof(ClaimRepository));
+			_logger = unitOfWork.LoggerFactory.CreateLogger(typeof(UserClaimRepository));
 		}
 
 		#endregion

@@ -38,7 +38,7 @@ namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 		/// </returns>
 		public IEnumerable<RoleEntity> GetManyById(int[] roleIds)
 		{
-			_logger.LogDebug("Fetching {0} by {1} with {1}='{2}'", TableName, nameof(roleIds), roleIds);
+			_logger.LogDebug("Fetching {0} by {1} with {2}='{3}'", TableName, nameof(roleIds), nameof(roleIds), roleIds);
 			var command = $"SELECT * FROM {TableName} WHERE {nameof(RoleEntity.Id)} IN @RoIds";
 			return UnitOfWork.Connection.Query<RoleEntity>(command, new { RoIds = roleIds },
 				UnitOfWork.Transaction);

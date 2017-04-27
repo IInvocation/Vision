@@ -23,7 +23,8 @@ namespace FluiTec.Vision.Server.Data.Mssql
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IClientRepository>(work => new ClientRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IRoleRepository>(work => new RoleRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IUserRoleRepository>(work => new UserRoleRepository(work)));
-			RegisterRepositoryProvider(new Func<IUnitOfWork, IClaimRepository>(work => new ClaimRepository(work)));
+			RegisterRepositoryProvider(new Func<IUnitOfWork, IUserClaimRepository>(work => new UserClaimRepository(work)));
+			RegisterRepositoryProvider(new Func<IUnitOfWork, IRoleClaimRepository>(work => new RoleClaimRepository(work)));
 
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IApiResourceRepository>(work => new ApiResourceRepository(work)));
 		}

@@ -29,13 +29,16 @@ namespace FluiTec.Vision.Server.Data.Mssql
 		private IClientRepository _clientRepository;
 
 		/// <summary>	The claim repository. </summary>
-		private IClaimRepository _claimRepository;
+		private IUserClaimRepository _claimRepository;
 
 		/// <summary>	The role repository. </summary>
 		private IRoleRepository _roleRepository;
 
 		/// <summary>	The user role repository. </summary>
 		private IUserRoleRepository _userRoleRepository;
+
+		/// <summary>	The role claim repository. </summary>
+		private IRoleClaimRepository _roleClaimRepository;
 
 		/// <summary>	The user repository. </summary>
 		public IUserRepository UserRepository =>
@@ -48,9 +51,9 @@ namespace FluiTec.Vision.Server.Data.Mssql
 			(_clientRepository = GetRepository<IClientRepository>());
 
 		/// <summary>	The claim repository. </summary>
-		public IClaimRepository ClaimRepository =>
+		public IUserClaimRepository UserClaimRepository =>
 			_claimRepository ??
-			(_claimRepository = GetRepository<IClaimRepository>());
+			(_claimRepository = GetRepository<IUserClaimRepository>());
 
 		/// <summary>	The role repository. </summary>
 		public IRoleRepository RoleRepository =>
@@ -61,6 +64,11 @@ namespace FluiTec.Vision.Server.Data.Mssql
 		public IUserRoleRepository UserRoleRepository =>
 			_userRoleRepository ??
 			(_userRoleRepository = GetRepository<IUserRoleRepository>());
+
+		/// <summary>	The role claim repository. </summary>
+		public IRoleClaimRepository RoleClaimRepository =>
+			_roleClaimRepository ??
+			(_roleClaimRepository = GetRepository<IRoleClaimRepository>());
 
 		#endregion
 

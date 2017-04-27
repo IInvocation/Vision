@@ -46,7 +46,7 @@ namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 		/// <returns>	The by user ídentifier. </returns>
 		public UserEntity GetByUserIdentifier(Guid identifier)
 		{
-			_logger.LogDebug("Fetching {0} by {1} with {1}='{2}'", TableName, nameof(identifier), identifier);
+			_logger.LogDebug("Fetching {0} by {1} with {2}='{3}'", TableName, nameof(identifier), nameof(identifier), identifier);
 			var command = $"SELECT * FROM {TableName} WHERE {nameof(UserEntity.UniqueId)} = @UniqueId";
 			return UnitOfWork.Connection.QuerySingleOrDefault<UserEntity>(command, new {UniqueId = identifier},
 				UnitOfWork.Transaction);

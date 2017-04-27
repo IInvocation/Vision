@@ -54,17 +54,54 @@ namespace FluiTec.Vision.NancyFx.Authentication.Services
 			if (entity.EmailConfirmed)
 				claims.Add(new Claim(ClaimTypes.Email, entity.Email));
 
-			// add persisted claims
-			var persistedClaims = uow.ClaimRepository.GetByUserId(entity.Id);
-			var persistedClaimsArray = persistedClaims as UserClaimEntity[] ?? persistedClaims.ToArray();
-			if (persistedClaims != null && persistedClaimsArray.Any())
-			{
-				claims.AddRange(persistedClaimsArray.Select(c => new Claim(c.Type, c.Value)));
-			}
-
+			AddUserClaims(uow, entity, claims);
+			AddRolesAndRoleClaims(uow, entity, claims);
+			
 			var identity = new ClaimsIdentity(claims, authenticationType, ClaimTypes.Name, "User");
 
 			return new ClaimsPrincipal(identity);
+		}
+
+		/// <summary>	Adds a user claims. </summary>
+		/// <param name="uow">   	The uow. </param>
+		/// <param name="entity">	The entity. </param>
+		/// <param name="claims">	The claims. </param>
+		private static void AddUserClaims(IAuthenticatingUnitOfWork uow, UserEntity entity, List<Claim> claims)
+		{
+			var userClaims = uow.UserClaimRepository.GetByUserId(entity.Id);
+			var userClaimArray = userClaims as UserClaimEntity[] ?? userClaims.ToArray();
+			if (userClaims != null && userClaimArray.Any())
+			{
+				claims.AddRange(userClaimArray.Select(c => new Claim(c.Type, c.Value)));
+			}
+		}
+
+		/// <summary>	Adds the roles and role claims. </summary>
+		/// <param name="uow">   	The uow. </param>
+		/// <param name="entity">	The entity. </param>
+		/// <param name="claims">	The claims. </param>
+		private static void AddRolesAndRoleClaims(IAuthenticatingUnitOfWork uow, UserEntity entity, List<Claim> claims)
+		{
+			var userRoles = uow.UserRoleRepository.GetByUserId(entity.Id);
+			var userRolesArray = userRoles as UserRoleEntity[] ?? userRoles.ToArray();
+
+			if (userRolesArray == null || userRolesArray.Length <= 0) return;
+			var roles = uow.RoleRepository.GetManyById(userRolesArray.Select(ur => ur.RoleId).ToArray());
+			var rolesArray = roles as RoleEntity[] ?? roles.ToArray();
+
+			if (rolesArray == null || rolesArray.Length <= 0) return;
+
+			// add roles as claims of type role
+			claims.AddRange(rolesArray.Select(r => new Claim(ClaimTypes.Role, r.Name)));
+
+			var roleClaims = uow.RoleClaimRepository.GetByRoles(rolesArray);
+			var roleClaimsArray = roleClaims as RoleClaimEntity[] ?? roleClaims.ToArray();
+
+			if (roleClaimsArray != null && roleClaimsArray.Length > 0)
+			{
+				// add role-specific claims
+				claims.AddRange(roleClaimsArray.Select(rc => new Claim(rc.Type, rc.Value)));
+			}
 		}
 
 		#endregion

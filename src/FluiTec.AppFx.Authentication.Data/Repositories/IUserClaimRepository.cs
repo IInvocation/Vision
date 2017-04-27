@@ -4,7 +4,7 @@ using FluiTec.AppFx.Data;
 namespace FluiTec.AppFx.Authentication.Data
 {
 	/// <summary>	Interface for claim repository. </summary>
-	public interface IClaimRepository : IDataRepository<UserClaimEntity, int>
+	public interface IUserClaimRepository : IDataRepository<UserClaimEntity, int>
 	{
 		/// <summary>	Gets the user identifiers in this collection. </summary>
 		/// <param name="userId">	Identifier for the user. </param>
