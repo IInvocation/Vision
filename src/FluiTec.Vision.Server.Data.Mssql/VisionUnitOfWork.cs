@@ -20,7 +20,19 @@ namespace FluiTec.Vision.Server.Data.Mssql
 
 		#endregion
 
-		#region Properties
+		#region IAuthenticatingUnitOfWork
+
+		/// <summary>	The user repository. </summary>
+		private IUserRepository _userRepository;
+
+		/// <summary>	The client repository. </summary>
+		private IClientRepository _clientRepository;
+
+		/// <summary>	The claim repository. </summary>
+		private IClaimRepository _claimRepository;
+
+		/// <summary>	The role repository. </summary>
+		private IRoleRepository _roleRepository;
 
 		/// <summary>	The user repository. </summary>
 		public IUserRepository UserRepository =>
@@ -37,23 +49,19 @@ namespace FluiTec.Vision.Server.Data.Mssql
 			_claimRepository ??
 			(_claimRepository = GetRepository<IClaimRepository>());
 
+		/// <summary>	The role repository. </summary>
+		public IRoleRepository RoleRepository =>
+			_roleRepository ??
+			(_roleRepository = GetRepository<IRoleRepository>());
+
+		#endregion
+
+		#region IIdentityServerUnitOfWork
+
 		/// <summary>	The API resource repository. </summary>
 		public IApiResourceRepository ApiResourceRepository =>
 			_apiResourceRepository ??
 			(_apiResourceRepository = GetRepository<IApiResourceRepository>());
-
-		#endregion
-
-		#region Fields
-
-		/// <summary>	The user repository. </summary>
-		private IUserRepository _userRepository;
-
-		/// <summary>	The client repository. </summary>
-		private IClientRepository _clientRepository;
-
-		/// <summary>	The claim repository. </summary>
-		private IClaimRepository _claimRepository;
 
 		/// <summary>	The API resource repository. </summary>
 		private IApiResourceRepository _apiResourceRepository;

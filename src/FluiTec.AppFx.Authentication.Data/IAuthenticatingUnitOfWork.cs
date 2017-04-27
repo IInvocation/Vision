@@ -16,5 +16,9 @@ namespace FluiTec.AppFx.Authentication.Data
 		/// <summary>	Gets the claim repository. </summary>
 		/// <value>	The claim repository. </value>
 		IClaimRepository ClaimRepository { get; }
+
+		/// <summary>	Gets the role repository. </summary>
+		/// <value>	The role repository. </value>
+		IRoleRepository RoleRepository { get; }
 	}
 }
