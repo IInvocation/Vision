@@ -10,6 +10,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FluiTec.AppFx.Authentication.Data\FluiTec.AppFx.Authentication.Data.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.IdentityServer.Data\FluiTec.Vision.IdentityServer.Data.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication\FluiTec.Vision.NancyFx.Authentication.csproj" />
   </ItemGroup>
 

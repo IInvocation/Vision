@@ -9,8 +9,14 @@ namespace FluiTec.Vision.IdentityServer
 	/// <summary>	A client store. </summary>
 	public class ClientStore : IClientStore
 	{
+		#region Fields
+
 		/// <summary>	The data service. </summary>
 		private readonly IAuthenticatingDataService _dataService;
+
+		#endregion
+
+		#region Constructors
 
 		/// <summary>	Constructor. </summary>
 		/// <param name="dataService">	The data service. </param>
@@ -18,6 +24,10 @@ namespace FluiTec.Vision.IdentityServer
 		{
 			_dataService = dataService;
 		}
+
+		#endregion
+
+		#region Methods
 
 		/// <summary>	Searches for the first client by identifier asynchronous. </summary>
 		/// <param name="clientId">	Identifier for the client. </param>
@@ -40,5 +50,7 @@ namespace FluiTec.Vision.IdentityServer
 			};
 			return Task.FromResult(client);
 		}
+
+		#endregion
 	}
 }
