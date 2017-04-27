@@ -34,6 +34,9 @@ namespace FluiTec.Vision.Server.Data.Mssql
 		/// <summary>	The role repository. </summary>
 		private IRoleRepository _roleRepository;
 
+		/// <summary>	The user role repository. </summary>
+		private IUserRoleRepository _userRoleRepository;
+
 		/// <summary>	The user repository. </summary>
 		public IUserRepository UserRepository =>
 			_userRepository ??
@@ -53,6 +56,11 @@ namespace FluiTec.Vision.Server.Data.Mssql
 		public IRoleRepository RoleRepository =>
 			_roleRepository ??
 			(_roleRepository = GetRepository<IRoleRepository>());
+
+		/// <summary>	The user role repository. </summary>
+		public IUserRoleRepository UserRoleRepository =>
+			_userRoleRepository ??
+			(_userRoleRepository = GetRepository<IUserRoleRepository>());
 
 		#endregion
 
