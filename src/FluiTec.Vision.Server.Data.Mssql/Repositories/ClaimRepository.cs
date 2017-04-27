@@ -9,7 +9,7 @@ using Microsoft.Extensions.Logging;
 namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 {
 	/// <summary>	A claim repository. </summary>
-	public class ClaimRepository : DapperRepository<ClaimEntity, int>, IClaimRepository
+	public class ClaimRepository : DapperRepository<UserClaimEntity, int>, IClaimRepository
 	{
 		#region Fields
 
@@ -37,11 +37,11 @@ namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 		///     An enumerator that allows foreach to be used to process the user identifiers in this
 		///     collection.
 		/// </returns>
-		public IEnumerable<ClaimEntity> GetByUserId(int userId)
+		public IEnumerable<UserClaimEntity> GetByUserId(int userId)
 		{
 			_logger.LogDebug("Fetching {0} by {1} with {2}='{3}'", TableName, nameof(userId), nameof(userId), userId);
-			var command = $"SELECT * FROM {TableName} WHERE {nameof(ClaimEntity.UserId)} = @UId";
-			return UnitOfWork.Connection.Query<ClaimEntity>(command, new { UId = userId },
+			var command = $"SELECT * FROM {TableName} WHERE {nameof(UserClaimEntity.UserId)} = @UId";
+			return UnitOfWork.Connection.Query<UserClaimEntity>(command, new { UId = userId },
 				UnitOfWork.Transaction);
 		}
 

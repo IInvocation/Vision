@@ -56,7 +56,7 @@ namespace FluiTec.Vision.NancyFx.Authentication.Services
 
 			// add persisted claims
 			var persistedClaims = uow.ClaimRepository.GetByUserId(entity.Id);
-			var persistedClaimsArray = persistedClaims as ClaimEntity[] ?? persistedClaims.ToArray();
+			var persistedClaimsArray = persistedClaims as UserClaimEntity[] ?? persistedClaims.ToArray();
 			if (persistedClaims != null && persistedClaimsArray.Any())
 			{
 				claims.AddRange(persistedClaimsArray.Select(c => new Claim(c.Type, c.Value)));
