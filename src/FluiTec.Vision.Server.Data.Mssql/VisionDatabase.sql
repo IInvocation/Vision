@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [Vision]    Script Date: 21.04.2017 19:42:54 ******/
+/****** Object:  Database [Vision]    Script Date: 27.04.2017 13:47:37 ******/
 CREATE DATABASE [Vision]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -75,7 +75,58 @@ ALTER DATABASE [Vision] SET DELAYED_DURABILITY = DISABLED
 GO
 USE [Vision]
 GO
-/****** Object:  Table [dbo].[VisionUser]    Script Date: 21.04.2017 19:42:54 ******/
+/****** Object:  Table [dbo].[ApiResource]    Script Date: 27.04.2017 13:47:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ApiResource](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) NOT NULL,
+	[DisplayName] [nvarchar](255) NOT NULL,
+	[Description] [nvarchar](max) NULL,
+	[Enabled] [bit] NULL,
+ CONSTRAINT [PK_ApiResource] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[UserClaim]    Script Date: 27.04.2017 13:47:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[UserClaim](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[UserId] [int] NOT NULL,
+	[Type] [nvarchar](50) NOT NULL,
+	[Value] [nvarchar](255) NOT NULL,
+ CONSTRAINT [PK_UserClaim] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[VisionClient]    Script Date: 27.04.2017 13:47:37 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[VisionClient](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ClientId] [nvarchar](255) NOT NULL,
+	[Secret] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_VisionClient] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[VisionUser]    Script Date: 27.04.2017 13:47:37 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -102,13 +153,13 @@ GO
 SET ANSI_PADDING ON
 
 GO
-/****** Object:  Index [IX_VisionUser]    Script Date: 21.04.2017 19:42:54 ******/
+/****** Object:  Index [IX_VisionUser]    Script Date: 27.04.2017 13:47:37 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_VisionUser] ON [dbo].[VisionUser]
 (
 	[UserName] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_VisionUser_1]    Script Date: 21.04.2017 19:42:54 ******/
+/****** Object:  Index [IX_VisionUser_1]    Script Date: 27.04.2017 13:47:37 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_VisionUser_1] ON [dbo].[VisionUser]
 (
 	[UniqueId] ASC
@@ -117,11 +168,16 @@ GO
 SET ANSI_PADDING ON
 
 GO
-/****** Object:  Index [IX_VisionUser_2]    Script Date: 21.04.2017 19:42:54 ******/
+/****** Object:  Index [IX_VisionUser_2]    Script Date: 27.04.2017 13:47:37 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_VisionUser_2] ON [dbo].[VisionUser]
 (
 	[Email] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+ALTER TABLE [dbo].[UserClaim]  WITH CHECK ADD  CONSTRAINT [FK_UserClaim_VisionUser] FOREIGN KEY([UserId])
+REFERENCES [dbo].[VisionUser] ([Id])
+GO
+ALTER TABLE [dbo].[UserClaim] CHECK CONSTRAINT [FK_UserClaim_VisionUser]
 GO
 USE [master]
 GO

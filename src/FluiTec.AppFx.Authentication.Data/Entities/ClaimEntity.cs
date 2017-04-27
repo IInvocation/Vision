@@ -2,7 +2,7 @@
 
 namespace FluiTec.AppFx.Authentication.Data
 {
-	[EntityName("Claim")]
+	[EntityName("UserClaim")]
     public class ClaimEntity : IEntity<int>
     {
 	    /// <summary>	Gets or sets the identifier. </summary>
