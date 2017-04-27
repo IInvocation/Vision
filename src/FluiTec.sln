@@ -134,6 +134,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityServer", "IdentityS
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.NancyFx.IdentityServer", "FluiTec.Vision.NancyFx.IdentityServer\FluiTec.Vision.NancyFx.IdentityServer.csproj", "{43CAB9EC-6612-4505-B066-1A937EEA1F8C}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data.Tests", "Data.Tests", "{68E205CC-936F-4BC8-B9F2-4D966AAFFB85}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.Server.Data.Mssql.Tests", "FluiTec.Vision.Server.Data.Mssql.Tests\FluiTec.Vision.Server.Data.Mssql.Tests.csproj", "{6725FB2D-3D7C-4199-9FAA-3047B12392F8}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -276,6 +280,10 @@ Global
 		{43CAB9EC-6612-4505-B066-1A937EEA1F8C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43CAB9EC-6612-4505-B066-1A937EEA1F8C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43CAB9EC-6612-4505-B066-1A937EEA1F8C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6725FB2D-3D7C-4199-9FAA-3047B12392F8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6725FB2D-3D7C-4199-9FAA-3047B12392F8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6725FB2D-3D7C-4199-9FAA-3047B12392F8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6725FB2D-3D7C-4199-9FAA-3047B12392F8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -337,5 +345,7 @@ Global
 		{F88CE43B-B9B0-4C65-9132-ABAC2004109D} = {58638DB8-3923-4D5D-8F2C-528FB29B17A0}
 		{364558B0-B171-45E8-80FB-EFF4067F1F83} = {6DA9B0D7-04E5-41EB-B5D0-D8E4A0363BC1}
 		{43CAB9EC-6612-4505-B066-1A937EEA1F8C} = {364558B0-B171-45E8-80FB-EFF4067F1F83}
+		{68E205CC-936F-4BC8-B9F2-4D966AAFFB85} = {5636AEE9-863E-46DA-A88A-EEA25AF8AAD3}
+		{6725FB2D-3D7C-4199-9FAA-3047B12392F8} = {68E205CC-936F-4BC8-B9F2-4D966AAFFB85}
 	EndGlobalSection
 EndGlobal
