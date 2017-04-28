@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using Dapper;
-using FluiTec.AppFx.Authentication.Data;
 using FluiTec.AppFx.Data;
 using FluiTec.AppFx.Data.Dapper;
+using FluiTec.Vision.IdentityServer.Data.Compound;
 using FluiTec.Vision.IdentityServer.Data.Entities;
 using FluiTec.Vision.IdentityServer.Data.Repositories;
 using Microsoft.Extensions.Logging;
@@ -53,8 +53,23 @@ namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 		{
 			_logger.LogDebug("Fetching {0} by {1} with {2}='{3}'", TableName, nameof(ids), nameof(ids), ids);
 			var command = $"SELECT * FROM {TableName} WHERE {nameof(ApiResourceEntity.Id)} IN @Ids";
-			return UnitOfWork.Connection.Query<ApiResourceEntity>(command, new { Ids = ids },
+			return UnitOfWork.Connection.Query<ApiResourceEntity>(command, new {Ids = ids},
 				UnitOfWork.Transaction);
+		}
+
+		/// <summary>	Gets all compounds in this collection. </summary>
+		/// <returns>
+		///     An enumerator that allows foreach to be used to process all compounds in this collection.
+		/// </returns>
+		public IEnumerable<CompoundApiResource> GetAllCompound()
+		{
+			_logger.LogDebug("Fetching {0} compound.", TableName);
+			var command =   $"SELECT * FROM {TableName}" + 
+							$" LEFT JOIN {DataService.NameByType(typeof(ScopeEntity))}"+
+							$" ON ";
+			//INNER JOIN Projektzweige AS zweig
+			//			ON zweig.Belegnummer = statistik.Belegnummer
+			return null;
 		}
 
 		#endregion

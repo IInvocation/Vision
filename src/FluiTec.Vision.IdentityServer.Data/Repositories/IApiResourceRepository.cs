@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using FluiTec.AppFx.Data;
+using FluiTec.Vision.IdentityServer.Data.Compound;
 using FluiTec.Vision.IdentityServer.Data.Entities;
 
 namespace FluiTec.Vision.IdentityServer.Data.Repositories
@@ -18,5 +19,12 @@ namespace FluiTec.Vision.IdentityServer.Data.Repositories
 		///     An enumerator that allows foreach to be used to process the identifiers in this collection.
 		/// </returns>
 		IEnumerable<ApiResourceEntity> GetByIds(int[] ids);
+
+		/// <summary>	Gets all compounds in this collection. </summary>
+		///
+		/// <returns>
+		/// An enumerator that allows foreach to be used to process all compounds in this collection.
+		/// </returns>
+		IEnumerable<CompoundApiResource> GetAllCompound();
 	}
 }
