@@ -64,12 +64,16 @@ namespace FluiTec.Vision.IdentityServer
 						return Enumerable.Empty<ApiResource>();
 
 					var scopeEntites = uow.ScopeRepository.GetByIds(apiScopesArray.Select(s => s.ScopeId).ToArray());
+
+					var apiClaims = uow.ApiResourceClaimRepository.GetAll();
+
 					return apiResourcesArray.Select(r => new ApiResource
 					{
 						Name = r.Name,
 						DisplayName = r.DisplayName,
 						Description = r.Description,
 						Enabled = r.Enabled,
+						UserClaims = new List<string>(apiClaims.Where(c => c.ApiResourceId == r.Id).Select(c => c.ClaimType).ToList()),
 						Scopes = new List<Scope>(scopeEntites.Select(s => new Scope
 						{
 							Name = s.Name,
@@ -110,6 +114,7 @@ namespace FluiTec.Vision.IdentityServer
 							DisplayName = entity.DisplayName,
 							Description = entity.Description,
 							Enabled = entity.Enabled,
+							UserClaims = new List<string>(uow.ApiResourceClaimRepository.GetByApiId(entity.Id).Select(c => c.ClaimType)),
 							Scopes = scopes == null ? null : new List<Scope>(scopes.Select(s => new Scope
 							{
 								Name = s.Name,
@@ -149,12 +154,15 @@ namespace FluiTec.Vision.IdentityServer
 
 				var scopes = uow.ScopeRepository.GetAll();
 
+				var resourceClaims = uow.ApiResourceClaimRepository.GetAll();
+
 				apiResources.AddRange(entities.Select(e => new ApiResource
 				{
 					Name = e.Name,
 					DisplayName = e.DisplayName,
 					Description = e.Description,
 					Enabled = e.Enabled,
+					UserClaims = new List<string>(resourceClaims.Where(r => r.ApiResourceId == e.Id).Select(r => r.ClaimType).ToList()),
 					Scopes = new List<Scope>(scopes.Where(s => apiScopes.Select(aSc => aSc.ScopeId).Contains(s.Id)).Select(s => new Scope
 					{
 						Name = s.Name,
@@ -174,7 +182,22 @@ namespace FluiTec.Vision.IdentityServer
 		/// <returns>	all identity resources. </returns>
 		private ICollection<IdentityResource> GetAllIdentityResources()
 		{
-			var res = new List<IdentityResource>
+			using (var uow = _dataService.StartUnitOfWork())
+			{
+				var resources = uow.IdentityResourceRepository.GetAll();
+				var resx = resources.Select(r => new IdentityResource
+				{
+					Name = r.Name,
+					DisplayName = r.DisplayName,
+					Description = r.Description,
+					Enabled = r.Enabled,
+					Required = r.Required,
+					Emphasize = r.Emphasize,
+					ShowInDiscoveryDocument = r.ShowInDiscoveryDocument,
+					UserClaims = new List<string>(uow.IdentityResourceClaimRepository.GetByIdentityId(r.Id).Select(c => c.ClaimType))
+				}).ToList();
+			}
+				var res = new List<IdentityResource>
 			{
 				new IdentityResources.OpenId(),
 				new IdentityResources.Profile()

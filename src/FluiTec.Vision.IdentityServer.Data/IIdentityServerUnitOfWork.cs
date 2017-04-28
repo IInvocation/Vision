@@ -25,5 +25,17 @@ namespace FluiTec.Vision.IdentityServer.Data
 		/// <summary>	Gets the API resource scope repository. </summary>
 		/// <value>	The API resource scope repository. </value>
 		IApiResourceScopeRepository ApiResourceScopeRepository { get; }
+
+		/// <summary>	Gets the API resource claim repository. </summary>
+		/// <value>	The API resource claim repository. </value>
+		IApiResourceClaimRepository ApiResourceClaimRepository { get; }
+
+		/// <summary>	Gets the identity resource repository. </summary>
+		/// <value>	The identity resource repository. </value>
+		IIdentityResourceRepository IdentityResourceRepository { get; }
+
+		/// <summary>	Gets the identity resource claim repository. </summary>
+		/// <value>	The identity resource claim repository. </value>
+		IIdentityResourceClaimRepository IdentityResourceClaimRepository { get; }
 	}
 }

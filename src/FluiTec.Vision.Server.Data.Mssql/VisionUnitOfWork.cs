@@ -106,6 +106,30 @@ namespace FluiTec.Vision.Server.Data.Mssql
 		/// <summary>	The API resource scope repository. </summary>
 		private IApiResourceScopeRepository _apiResourceScopeRepository;
 
+		/// <summary>	The identity resource repository. </summary>
+		public IIdentityResourceRepository IdentityResourceRepository =>
+			_identityResourceRepository ??
+			(_identityResourceRepository = GetRepository<IIdentityResourceRepository>());
+
+		/// <summary>	The identity resource repository. </summary>
+		private IIdentityResourceRepository _identityResourceRepository;
+
+		/// <summary>	Zero-based index of the API resource claim repository. </summary>
+		public IApiResourceClaimRepository ApiResourceClaimRepository =>
+			_apiResourceClaimRepository ??
+			(_apiResourceClaimRepository = GetRepository<IApiResourceClaimRepository>());
+
+		/// <summary>	The API resource claim repository. </summary>
+		private IApiResourceClaimRepository _apiResourceClaimRepository;
+
+		/// <summary>	The identity resource claim repository. </summary>
+		public IIdentityResourceClaimRepository IdentityResourceClaimRepository =>
+			_identityResourceClaimRepository ??
+			(_identityResourceClaimRepository = GetRepository<IIdentityResourceClaimRepository>());
+
+		/// <summary>	The identity resource claim repository. </summary>
+		private IIdentityResourceClaimRepository _identityResourceClaimRepository;
+
 		#endregion
 	}
 }
