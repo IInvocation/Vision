@@ -25,9 +25,6 @@ namespace FluiTec.Vision.Server.Data.Mssql
 		/// <summary>	The user repository. </summary>
 		private IUserRepository _userRepository;
 
-		/// <summary>	The client repository. </summary>
-		private IClientRepository _clientRepository;
-
 		/// <summary>	The claim repository. </summary>
 		private IUserClaimRepository _claimRepository;
 
@@ -44,11 +41,6 @@ namespace FluiTec.Vision.Server.Data.Mssql
 		public IUserRepository UserRepository =>
 			_userRepository ??
 			(_userRepository = GetRepository<IUserRepository>());
-
-		/// <summary>	The client repository. </summary>
-		public IClientRepository ClientRepository =>
-			_clientRepository ??
-			(_clientRepository = GetRepository<IClientRepository>());
 
 		/// <summary>	The claim repository. </summary>
 		public IUserClaimRepository UserClaimRepository =>
@@ -73,6 +65,22 @@ namespace FluiTec.Vision.Server.Data.Mssql
 		#endregion
 
 		#region IIdentityServerUnitOfWork
+
+		/// <summary>	The client repository. </summary>
+		private IClientRepository _clientRepository;
+
+		/// <summary>	The client repository. </summary>
+		public IClientRepository ClientRepository =>
+			_clientRepository ??
+			(_clientRepository = GetRepository<IClientRepository>());
+
+		/// <summary>	The client scope repository. </summary>
+		private IClientScopeRepository _clientScopeRepository;
+
+		/// <summary>	The client scope repository. </summary>
+		public IClientScopeRepository ClientScopeRepository =>
+			_clientScopeRepository ??
+			(_clientScopeRepository = GetRepository<IClientScopeRepository>());
 
 		/// <summary>	The API resource repository. </summary>
 		public IApiResourceRepository ApiResourceRepository =>

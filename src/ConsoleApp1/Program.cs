@@ -21,6 +21,7 @@ namespace ConsoleApp1
 	        var server = configuration.Get<IdentityServer>();
 
 			var response = TestCredentials(server, credentials);
+			TestUserInfo(server, response.Result);
 			Console.WriteLine($"Result: {response.Result.HttpStatusCode}.");
         }
 
@@ -36,7 +37,17 @@ namespace ConsoleApp1
 
 			var disco = await DiscoveryClient.GetAsync(server.TargetServer);
 		    var tokenClient = new TokenClient(disco.TokenEndpoint, credentials.ClientId, credentials.ClientSecret);
-		    return await tokenClient.RequestResourceOwnerPasswordAsync(credentials.UserName, credentials.Password, server.Api);
+		    return await tokenClient.RequestResourceOwnerPasswordAsync(credentials.UserName, credentials.Password, $"{server.Api} openid");
 	    }
+
+	    static void TestUserInfo(IdentityServer server, TokenResponse tokenResponse)
+	    {
+		    var disco = DiscoveryClient.GetAsync(server.TargetServer).Result;
+
+			var userInfoClient = new UserInfoClient(disco.UserInfoEndpoint);
+
+		    var response = userInfoClient.GetAsync(tokenResponse.AccessToken).Result;
+		    var claims = response.Claims;
+		}
     }
 }

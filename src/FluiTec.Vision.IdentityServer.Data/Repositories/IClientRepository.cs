@@ -1,6 +1,7 @@
 ﻿using FluiTec.AppFx.Data;
+using FluiTec.Vision.IdentityServer.Data.Entities;
 
-namespace FluiTec.AppFx.Authentication.Data
+namespace FluiTec.Vision.IdentityServer.Data.Repositories
 {
 	/// <summary>	Interface for client repository. </summary>
 	public interface IClientRepository : IDataRepository<ClientEntity, int>

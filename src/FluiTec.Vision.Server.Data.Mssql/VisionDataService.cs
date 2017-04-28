@@ -19,13 +19,25 @@ namespace FluiTec.Vision.Server.Data.Mssql
 		{
 			_logger.LogDebug("Registering RepositoryProviders...");
 
+			AddAuthenticatingRepositories();
+			AddIdentifyingRepositories();
+		}
+
+		/// <summary>	Adds authenticating repositories. </summary>
+		protected virtual void AddAuthenticatingRepositories()
+		{
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IUserRepository>(work => new UserRepository(work)));
-			RegisterRepositoryProvider(new Func<IUnitOfWork, IClientRepository>(work => new ClientRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IRoleRepository>(work => new RoleRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IUserRoleRepository>(work => new UserRoleRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IUserClaimRepository>(work => new UserClaimRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IRoleClaimRepository>(work => new RoleClaimRepository(work)));
+		}
 
+		/// <summary>	Adds identifying repositories. </summary>
+		protected virtual void AddIdentifyingRepositories()
+		{
+			RegisterRepositoryProvider(new Func<IUnitOfWork, IClientRepository>(work => new ClientRepository(work)));
+			RegisterRepositoryProvider(new Func<IUnitOfWork, IClientScopeRepository>(work => new ClientScopeRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IApiResourceRepository>(work => new ApiResourceRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IScopeRepository>(work => new ScopeRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IApiResourceScopeRepository>(work => new ApiResourceScopeRepository(work)));

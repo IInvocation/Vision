@@ -6,6 +6,14 @@ namespace FluiTec.Vision.IdentityServer.Data
 	/// <summary>	Interface for identity server unit of work. </summary>
 	public interface IIdentityServerUnitOfWork : IUnitOfWork
 	{
+		/// <summary>	Gets the client repository. </summary>
+		/// <value>	The client repository. </value>
+		IClientRepository ClientRepository { get; }
+
+		/// <summary>	Gets the client scope repository. </summary>
+		/// <value>	The client scope repository. </value>
+		IClientScopeRepository ClientScopeRepository { get; }
+
 		/// <summary>	Gets the API resource repository. </summary>
 		/// <value>	The API resource repository. </value>
 		IApiResourceRepository ApiResourceRepository { get; }

@@ -1,7 +1,8 @@
 ﻿using Dapper;
-using FluiTec.AppFx.Authentication.Data;
 using FluiTec.AppFx.Data;
 using FluiTec.AppFx.Data.Dapper;
+using FluiTec.Vision.IdentityServer.Data.Entities;
+using FluiTec.Vision.IdentityServer.Data.Repositories;
 using Microsoft.Extensions.Logging;
 
 namespace FluiTec.Vision.Server.Data.Mssql.Repositories

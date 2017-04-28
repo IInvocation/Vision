@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluiTec.Vision.IdentityServer.Data;
@@ -37,7 +36,7 @@ namespace FluiTec.Vision.IdentityServer
 		/// <returns>	The found identity resources by scope asynchronous. </returns>
 		public Task<IEnumerable<IdentityResource>> FindIdentityResourcesByScopeAsync(IEnumerable<string> scopeNames)
 		{
-			return Task.FromResult(Enumerable.Empty<IdentityResource>());
+			return Task.FromResult(GetAllIdentityResources().Where(r => scopeNames.ToList().Contains(r.Name)));
 		}
 
 		/// <summary>	Searches for the first API resources by scope asynchronous. </summary>
@@ -175,7 +174,13 @@ namespace FluiTec.Vision.IdentityServer
 		/// <returns>	all identity resources. </returns>
 		private ICollection<IdentityResource> GetAllIdentityResources()
 		{
-			return new List<IdentityResource>();
+			var res = new List<IdentityResource>
+			{
+				new IdentityResources.OpenId(),
+				new IdentityResources.Profile()
+			};
+
+			return res;
 		}
 
 		#endregion

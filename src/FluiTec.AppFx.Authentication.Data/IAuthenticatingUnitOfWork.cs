@@ -9,10 +9,6 @@ namespace FluiTec.AppFx.Authentication.Data
 		/// <value>	The user repository. </value>
 		IUserRepository UserRepository { get; }
 
-		/// <summary>	Gets the client repository. </summary>
-		/// <value>	The client repository. </value>
-		IClientRepository ClientRepository { get; }
-
 		/// <summary>	Gets the claim repository. </summary>
 		/// <value>	The claim repository. </value>
 		IUserClaimRepository UserClaimRepository { get; }

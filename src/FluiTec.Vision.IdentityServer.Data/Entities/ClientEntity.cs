@@ -1,8 +1,8 @@
 ﻿using FluiTec.AppFx.Data;
 
-namespace FluiTec.AppFx.Authentication.Data
+namespace FluiTec.Vision.IdentityServer.Data.Entities
 {
-	[EntityName("VisionClient")]
+	[EntityName("Client")]
 	public class ClientEntity : IEntity<int>
 	{
 		/// <summary>	Gets or sets the identifier of the client. </summary>
