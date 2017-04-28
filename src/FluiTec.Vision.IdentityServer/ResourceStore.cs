@@ -37,7 +37,7 @@ namespace FluiTec.Vision.IdentityServer
 		/// <returns>	The found identity resources by scope asynchronous. </returns>
 		public Task<IEnumerable<IdentityResource>> FindIdentityResourcesByScopeAsync(IEnumerable<string> scopeNames)
 		{
-			throw new NotImplementedException();
+			return Task.FromResult(Enumerable.Empty<IdentityResource>());
 		}
 
 		/// <summary>	Searches for the first API resources by scope asynchronous. </summary>
@@ -175,7 +175,7 @@ namespace FluiTec.Vision.IdentityServer
 		/// <returns>	all identity resources. </returns>
 		private ICollection<IdentityResource> GetAllIdentityResources()
 		{
-			throw new NotImplementedException();
+			return new List<IdentityResource>();
 		}
 
 		#endregion

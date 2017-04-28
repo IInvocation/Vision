@@ -22,8 +22,6 @@ namespace ConsoleApp1
 
 			var response = TestCredentials(server, credentials);
 			Console.WriteLine($"Result: {response.Result.HttpStatusCode}.");
-			Console.WriteLine("Press <Enter> to exit.");
-	        Console.ReadLine();
         }
 
 	    /// <summary>	Tests credentials. </summary>
