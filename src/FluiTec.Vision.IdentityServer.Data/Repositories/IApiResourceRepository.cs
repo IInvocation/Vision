@@ -26,5 +26,17 @@ namespace FluiTec.Vision.IdentityServer.Data.Repositories
 		/// An enumerator that allows foreach to be used to process all compounds in this collection.
 		/// </returns>
 		IEnumerable<CompoundApiResource> GetAllCompound();
+
+		/// <summary>	Gets the scope names in this collection. </summary>
+		/// <param name="scopeNames">	List of names of the scopes. </param>
+		/// <returns>
+		/// An enumerator that allows foreach to be used to process the scope names in this collection.
+		/// </returns>
+		IEnumerable<CompoundApiResource> GetByScopeNamesCompound(IEnumerable<string> scopeNames);
+
+		/// <summary>	Gets by name compount. </summary>
+		/// <param name="name">	The name. </param>
+		/// <returns>	The by name compount. </returns>
+		CompoundApiResource GetByNameCompount(string name);
 	}
 }

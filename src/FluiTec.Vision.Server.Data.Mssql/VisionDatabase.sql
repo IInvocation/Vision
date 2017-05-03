@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [Vision]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Database [Vision]    Script Date: 03.05.2017 16:11:16 ******/
 CREATE DATABASE [Vision]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -75,7 +75,7 @@ ALTER DATABASE [Vision] SET DELAYED_DURABILITY = DISABLED
 GO
 USE [Vision]
 GO
-/****** Object:  Table [dbo].[ApiResource]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[ApiResource]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -93,7 +93,7 @@ CREATE TABLE [dbo].[ApiResource](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ApiResourceClaim]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[ApiResourceClaim]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -109,7 +109,7 @@ CREATE TABLE [dbo].[ApiResourceClaim](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ApiResourceScope]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[ApiResourceScope]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -125,7 +125,7 @@ CREATE TABLE [dbo].[ApiResourceScope](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Client]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[Client]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -141,7 +141,7 @@ CREATE TABLE [dbo].[Client](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[ClientScope]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[ClientScope]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -157,7 +157,7 @@ CREATE TABLE [dbo].[ClientScope](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityResource]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[IdentityResource]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -178,7 +178,7 @@ CREATE TABLE [dbo].[IdentityResource](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityResourceClaim]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[IdentityResourceClaim]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -194,7 +194,23 @@ CREATE TABLE [dbo].[IdentityResourceClaim](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[RoleClaim]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[IdentityResourceScope]    Script Date: 03.05.2017 16:11:16 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[IdentityResourceScope](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IdentityResourceId] [int] NOT NULL,
+	[ScopeId] [int] NOT NULL,
+ CONSTRAINT [PK_IdentityResourceScope] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[RoleClaim]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -211,7 +227,7 @@ CREATE TABLE [dbo].[RoleClaim](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[Scope]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[Scope]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -231,7 +247,7 @@ CREATE TABLE [dbo].[Scope](
 ) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[UserClaim]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[UserClaim]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -248,7 +264,7 @@ CREATE TABLE [dbo].[UserClaim](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[UserRole]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[UserRole]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -264,7 +280,7 @@ CREATE TABLE [dbo].[UserRole](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VisionRole]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[VisionRole]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -280,7 +296,7 @@ CREATE TABLE [dbo].[VisionRole](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[VisionUser]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Table [dbo].[VisionUser]    Script Date: 03.05.2017 16:11:16 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -307,7 +323,7 @@ GO
 SET ANSI_PADDING ON
 
 GO
-/****** Object:  Index [IX_ApiResource]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Index [IX_ApiResource]    Script Date: 03.05.2017 16:11:16 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_ApiResource] ON [dbo].[ApiResource]
 (
 	[Name] ASC
@@ -316,13 +332,13 @@ GO
 SET ANSI_PADDING ON
 
 GO
-/****** Object:  Index [IX_VisionUser]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Index [IX_VisionUser]    Script Date: 03.05.2017 16:11:16 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_VisionUser] ON [dbo].[VisionUser]
 (
 	[UserName] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
-/****** Object:  Index [IX_VisionUser_1]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Index [IX_VisionUser_1]    Script Date: 03.05.2017 16:11:16 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_VisionUser_1] ON [dbo].[VisionUser]
 (
 	[UniqueId] ASC
@@ -331,7 +347,7 @@ GO
 SET ANSI_PADDING ON
 
 GO
-/****** Object:  Index [IX_VisionUser_2]    Script Date: 28.04.2017 12:25:24 ******/
+/****** Object:  Index [IX_VisionUser_2]    Script Date: 03.05.2017 16:11:16 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_VisionUser_2] ON [dbo].[VisionUser]
 (
 	[Email] ASC
@@ -366,6 +382,16 @@ ALTER TABLE [dbo].[IdentityResourceClaim]  WITH CHECK ADD  CONSTRAINT [FK_Identi
 REFERENCES [dbo].[IdentityResource] ([Id])
 GO
 ALTER TABLE [dbo].[IdentityResourceClaim] CHECK CONSTRAINT [FK_IdentityResourceClaim_IdentityResource]
+GO
+ALTER TABLE [dbo].[IdentityResourceScope]  WITH CHECK ADD  CONSTRAINT [FK_IdentityResourceScope_IdentityResource] FOREIGN KEY([IdentityResourceId])
+REFERENCES [dbo].[IdentityResource] ([Id])
+GO
+ALTER TABLE [dbo].[IdentityResourceScope] CHECK CONSTRAINT [FK_IdentityResourceScope_IdentityResource]
+GO
+ALTER TABLE [dbo].[IdentityResourceScope]  WITH CHECK ADD  CONSTRAINT [FK_IdentityResourceScope_Scope] FOREIGN KEY([ScopeId])
+REFERENCES [dbo].[Scope] ([Id])
+GO
+ALTER TABLE [dbo].[IdentityResourceScope] CHECK CONSTRAINT [FK_IdentityResourceScope_Scope]
 GO
 ALTER TABLE [dbo].[UserClaim]  WITH CHECK ADD  CONSTRAINT [FK_UserClaim_VisionUser] FOREIGN KEY([UserId])
 REFERENCES [dbo].[VisionUser] ([Id])

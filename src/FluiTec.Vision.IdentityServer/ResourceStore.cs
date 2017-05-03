@@ -2,7 +2,7 @@
 using System.Linq;
 using System.Threading.Tasks;
 using FluiTec.Vision.IdentityServer.Data;
-using FluiTec.Vision.IdentityServer.Data.Entities;
+using FluiTec.Vision.IdentityServer.Data.Compound;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
 
@@ -36,7 +36,14 @@ namespace FluiTec.Vision.IdentityServer
 		/// <returns>	The found identity resources by scope asynchronous. </returns>
 		public Task<IEnumerable<IdentityResource>> FindIdentityResourcesByScopeAsync(IEnumerable<string> scopeNames)
 		{
-			return Task.FromResult(GetAllIdentityResources().Where(r => scopeNames.ToList().Contains(r.Name)));
+			return Task<IEnumerable<IdentityResource>>.Factory.StartNew(() =>
+			{
+				using (var uow = _dataService.StartUnitOfWork())
+				{
+					var entities = uow.IdentityResourceRepository.GetByScopeNamesCompound(scopeNames);
+					return FromCompoundEntities(entities);
+				}
+			});
 		}
 
 		/// <summary>	Searches for the first API resources by scope asynchronous. </summary>
@@ -48,42 +55,8 @@ namespace FluiTec.Vision.IdentityServer
 			{
 				using (var uow = _dataService.StartUnitOfWork())
 				{
-					var matchedScopes = uow.ScopeRepository.GetByNames(scopeNames.ToArray());
-					var matchedScopesArray = matchedScopes as ScopeEntity[] ?? matchedScopes.ToArray();
-					if (matchedScopesArray != null && !matchedScopesArray.Any())
-						return Enumerable.Empty<ApiResource>();
-
-					var apiScopes = uow.ApiResourceScopeRepository.GetByScopeIds(matchedScopesArray.Select(s => s.Id).ToArray());
-					var apiScopesArray = apiScopes as ApiResourceScopeEntity[] ?? apiScopes.ToArray();
-					if (apiScopes == null || !apiScopesArray.Any())
-						return Enumerable.Empty<ApiResource>();
-
-					var apiResources = uow.ApiResourceRepository.GetByIds(apiScopesArray.Select(s => s.ApiResourceId).ToArray());
-					var apiResourcesArray = apiResources as ApiResourceEntity[] ?? apiResources.ToArray();
-					if (apiResources == null || !apiResourcesArray.Any())
-						return Enumerable.Empty<ApiResource>();
-
-					var scopeEntites = uow.ScopeRepository.GetByIds(apiScopesArray.Select(s => s.ScopeId).ToArray());
-
-					var apiClaims = uow.ApiResourceClaimRepository.GetAll();
-
-					return apiResourcesArray.Select(r => new ApiResource
-					{
-						Name = r.Name,
-						DisplayName = r.DisplayName,
-						Description = r.Description,
-						Enabled = r.Enabled,
-						UserClaims = new List<string>(apiClaims.Where(c => c.ApiResourceId == r.Id).Select(c => c.ClaimType).ToList()),
-						Scopes = new List<Scope>(scopeEntites.Select(s => new Scope
-						{
-							Name = s.Name,
-							DisplayName = s.DisplayName,
-							Description = s.Description,
-							Required = s.Required,
-							Emphasize = s.Emphasize,
-							ShowInDiscoveryDocument = s.ShowInDiscoveryDocument
-						}))
-					});
+					var entities = uow.ApiResourceRepository.GetByScopeNamesCompound(scopeNames);
+					return FromCompoundEntities(entities);
 				}
 			});
 		}
@@ -97,34 +70,8 @@ namespace FluiTec.Vision.IdentityServer
 			{
 				using (var uow = _dataService.StartUnitOfWork())
 				{
-					var entity = uow.ApiResourceRepository.GetByName(name);
-					if (entity == null)
-						return null;
-					var apiScopes = uow.ApiResourceScopeRepository.GetByApiIds(new[] {entity.Id});
-					var apiScopesArray = apiScopes as ApiResourceScopeEntity[] ?? apiScopes.ToArray();
-
-					IEnumerable<ScopeEntity> scopes = null;
-					if (apiScopesArray != null && apiScopesArray.Any())
-					{
-						scopes = uow.ScopeRepository.GetByIds(apiScopesArray.Select(s => s.ScopeId).ToArray());
-					}
-					return new ApiResource
-						{
-							Name = entity.Name,
-							DisplayName = entity.DisplayName,
-							Description = entity.Description,
-							Enabled = entity.Enabled,
-							UserClaims = new List<string>(uow.ApiResourceClaimRepository.GetByApiId(entity.Id).Select(c => c.ClaimType)),
-							Scopes = scopes == null ? null : new List<Scope>(scopes.Select(s => new Scope
-							{
-								Name = s.Name,
-								DisplayName = s.DisplayName,
-								Description = s.Description,
-								Required = s.Required,
-								Emphasize = s.Emphasize,
-								ShowInDiscoveryDocument = s.ShowInDiscoveryDocument
-							}))
-						};
+					var entity = uow.ApiResourceRepository.GetByNameCompount(name);
+					return FromCompoundEntities(new[] {entity}).SingleOrDefault();
 				}
 			});
 		}
@@ -148,28 +95,38 @@ namespace FluiTec.Vision.IdentityServer
 			using (var uow = _dataService.StartUnitOfWork())
 			{
 				var entities = uow.ApiResourceRepository.GetAllCompound();
-
-				return entities.Select(e => new ApiResource
-				{
-					Name = e.ApiResource.Name,
-					DisplayName = e.ApiResource.DisplayName,
-					Description = e.ApiResource.Description,
-					Enabled = e.ApiResource.Enabled,
-					Scopes = new List<Scope>
-					(
-						e.Scopes.Select(s => new Scope
-						{
-							Name = s.Name,
-							DisplayName = s.DisplayName,
-							Description = s.Description,
-							Required = s.Required,
-							Emphasize = s.Emphasize,
-							ShowInDiscoveryDocument = s.ShowInDiscoveryDocument
-						})
-					),
-					UserClaims = new List<string>(e.ApiResourceClaims.Select(c => c.ClaimType))
-				}).ToList();
+				return FromCompoundEntities(entities);
 			}
+		}
+
+		/// <summary>	Initializes this object from the given from compound entities. </summary>
+		/// <param name="entities">	The entities. </param>
+		/// <returns>	A list of. </returns>
+		private IList<ApiResource> FromCompoundEntities(IEnumerable<CompoundApiResource> entities)
+		{
+			if (entities == null || entities.Count() < 1)
+				return null;
+
+			return entities.Select(e => new ApiResource
+			{
+				Name = e.ApiResource.Name,
+				DisplayName = e.ApiResource.DisplayName,
+				Description = e.ApiResource.Description,
+				Enabled = e.ApiResource.Enabled,
+				Scopes = new List<Scope>
+				(
+					e.Scopes.Select(s => new Scope
+					{
+						Name = s.Name,
+						DisplayName = s.DisplayName,
+						Description = s.Description,
+						Required = s.Required,
+						Emphasize = s.Emphasize,
+						ShowInDiscoveryDocument = s.ShowInDiscoveryDocument
+					})
+				),
+				UserClaims = new List<string>(e.ApiResourceClaims.Select(c => c.ClaimType))
+			}).ToList();
 		}
 
 		/// <summary>	Gets all identity resources. </summary>
@@ -178,26 +135,30 @@ namespace FluiTec.Vision.IdentityServer
 		{
 			using (var uow = _dataService.StartUnitOfWork())
 			{
-				var resources = uow.IdentityResourceRepository.GetAll();
-				var resx = resources.Select(r => new IdentityResource
-				{
-					Name = r.Name,
-					DisplayName = r.DisplayName,
-					Description = r.Description,
-					Enabled = r.Enabled,
-					Required = r.Required,
-					Emphasize = r.Emphasize,
-					ShowInDiscoveryDocument = r.ShowInDiscoveryDocument,
-					UserClaims = new List<string>(uow.IdentityResourceClaimRepository.GetByIdentityId(r.Id).Select(c => c.ClaimType))
-				}).ToList();
+				var entities = uow.IdentityResourceRepository.GetAllCompound();
+				return FromCompoundEntities(entities);
 			}
-				var res = new List<IdentityResource>
-			{
-				new IdentityResources.OpenId(),
-				new IdentityResources.Profile()
-			};
+		}
 
-			return res;
+		/// <summary>	Initializes this object from the given from compound entities. </summary>
+		/// <param name="entities">	The entities. </param>
+		/// <returns>	A list of. </returns>
+		private IList<IdentityResource> FromCompoundEntities(IEnumerable<CompoundIdentityResource> entities)
+		{
+			if (entities == null || entities.Count() < 1)
+				return null;
+
+			return entities.Select(e => new IdentityResource
+			{
+				Name = e.IdentityResource.Name,
+				DisplayName = e.IdentityResource.DisplayName,
+				Description = e.IdentityResource.Description,
+				Enabled = e.IdentityResource.Enabled,
+				Required = e.IdentityResource.Required,
+				Emphasize = e.IdentityResource.Emphasize,
+				ShowInDiscoveryDocument = e.IdentityResource.ShowInDiscoveryDocument,
+				UserClaims = new List<string>(e.IdentityResourceClaims.Select(c => c.ClaimType))
+			}).ToList();
 		}
 
 		#endregion

@@ -3,6 +3,7 @@ using FluiTec.AppFx.Authentication.Data;
 using FluiTec.AppFx.Data;
 using FluiTec.AppFx.Data.Dapper.Mssql;
 using FluiTec.Vision.IdentityServer.Data;
+using FluiTec.Vision.IdentityServer.Data.Entities;
 using FluiTec.Vision.IdentityServer.Data.Repositories;
 using FluiTec.Vision.Server.Data.Mssql.Repositories;
 using Microsoft.Extensions.Logging;
@@ -44,6 +45,7 @@ namespace FluiTec.Vision.Server.Data.Mssql
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IIdentityResourceRepository>(work => new IdentityResourceRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IIdentityResourceClaimRepository>(work => new IdentityResourceClaimRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IApiResourceClaimRepository>(work => new ApiResourceClaimRepository(work)));
+			RegisterRepositoryProvider(new Func<IUnitOfWork, IIdentityResourceScopeRepository>(work => new IdentityResourceScopeRepository(work)));
 		}
 
 		#endregion

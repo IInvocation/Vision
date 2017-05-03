@@ -6,6 +6,8 @@ namespace FluiTec.Vision.IdentityServer.Data.Compound
 	/// <summary>	A compound API resource. </summary>
 	public class CompoundApiResource
 	{
+		#region Constructors
+
 		/// <summary>	Default constructor. </summary>
 		public CompoundApiResource()
 		{
@@ -13,6 +15,10 @@ namespace FluiTec.Vision.IdentityServer.Data.Compound
 			ApiResourceScopes = new List<ApiResourceScopeEntity>();
 			Scopes = new List<ScopeEntity>();
 		}
+
+		#endregion
+
+		#region Methods
 
 		/// <summary>	Gets or sets the API resource. </summary>
 		/// <value>	The API resource. </value>
@@ -29,5 +35,7 @@ namespace FluiTec.Vision.IdentityServer.Data.Compound
 		/// <summary>	Gets or sets the scopes. </summary>
 		/// <value>	The scopes. </value>
 		public IList<ScopeEntity> Scopes { get; set; }
+
+		#endregion
 	}
 }

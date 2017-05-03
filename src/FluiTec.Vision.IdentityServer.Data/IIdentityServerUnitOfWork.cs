@@ -37,5 +37,9 @@ namespace FluiTec.Vision.IdentityServer.Data
 		/// <summary>	Gets the identity resource claim repository. </summary>
 		/// <value>	The identity resource claim repository. </value>
 		IIdentityResourceClaimRepository IdentityResourceClaimRepository { get; }
+
+		/// <summary>	Gets the identity resource scope repository. </summary>
+		/// <value>	The identity resource scope repository. </value>
+		IIdentityResourceScopeRepository IdentityResourceScopeRepository { get; }
 	}
 }

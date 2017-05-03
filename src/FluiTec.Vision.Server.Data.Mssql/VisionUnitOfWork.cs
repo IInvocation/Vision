@@ -130,6 +130,14 @@ namespace FluiTec.Vision.Server.Data.Mssql
 		/// <summary>	The identity resource claim repository. </summary>
 		private IIdentityResourceClaimRepository _identityResourceClaimRepository;
 
+		/// <summary>	The identity resource scope repository. </summary>
+		public IIdentityResourceScopeRepository IdentityResourceScopeRepository =>
+			_identityResourceScopeRepository ??
+			(_identityResourceScopeRepository = GetRepository<IIdentityResourceScopeRepository>());
+
+		/// <summary>	The identity resource scope repository. </summary>
+		private IIdentityResourceScopeRepository _identityResourceScopeRepository;
+
 		#endregion
 	}
 }
