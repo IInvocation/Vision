@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using Dapper;
+﻿using System.Collections.Generic;
 using FluiTec.AppFx.Data;
-using FluiTec.AppFx.Data.Dapper;
 using FluiTec.Vision.IdentityServer.Data.Compound;
 using FluiTec.Vision.IdentityServer.Data.Entities;
 using FluiTec.Vision.IdentityServer.Data.Repositories;
 using Microsoft.Extensions.Logging;
+using FluiTec.AppFx.Data.Dapper;
+using Dapper;
 
 namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 {
@@ -64,12 +63,43 @@ namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 		public IEnumerable<CompoundApiResource> GetAllCompound()
 		{
 			_logger.LogDebug("Fetching {0} compound.", TableName);
-			var command =   $"SELECT * FROM {TableName}" + 
-							$" LEFT JOIN {DataService.NameByType(typeof(ScopeEntity))}"+
-							$" ON ";
-			//INNER JOIN Projektzweige AS zweig
-			//			ON zweig.Belegnummer = statistik.Belegnummer
-			return null;
+			var command =   $"SELECT * FROM {TableName} AS aRes" + 
+							$" LEFT JOIN {DataService.NameByType(typeof(ApiResourceScopeEntity))} AS aScope"+
+							$" ON aRes.{nameof(ApiResourceEntity.Id)} = aScope.{nameof(ApiResourceScopeEntity.ApiResourceId)}" +
+							$" LEFT JOIN {DataService.NameByType(typeof(ApiResourceClaimEntity))} AS aClaim" + 
+							$" ON aRes.{nameof(ApiResourceEntity.Id)} = aClaim.{nameof(ApiResourceClaimEntity.ApiResourceId)}" +
+			                $" LEFT JOIN {DataService.NameByType(typeof(ScopeEntity))} AS scope" +
+			                $" ON aScope.{nameof(ApiResourceScopeEntity.ScopeId)} = scope.{nameof(ScopeEntity.Id)}";
+			var lookup = new Dictionary<int, CompoundApiResource>();
+			UnitOfWork.Connection.Query<ApiResourceEntity, ApiResourceScopeEntity, ApiResourceClaimEntity, ScopeEntity, CompoundApiResource>(command,
+				(entity, apiScope, apiClaim, scope) =>
+				{
+					// make sure the pk exists
+					if (entity == null || entity.Id == default(int))
+						return null;
+
+					// make sure our list contains the pk
+					if (!lookup.ContainsKey(entity.Id))
+						lookup.Add(entity.Id, new CompoundApiResource { ApiResource = entity });
+
+					// fetch the real element
+					var tempElem = lookup[entity.Id];
+
+					// add api-scope
+					if (apiScope != null)
+						tempElem.ApiResourceScopes.Add(apiScope);
+
+					// add claim
+					if (apiClaim != null)
+						tempElem.ApiResourceClaims.Add(apiClaim);
+
+					// add scope
+					if (scope != null)
+						tempElem.Scopes.Add(scope);
+
+					return tempElem;
+				}, null, UnitOfWork.Transaction);
+			return lookup.Values;
 		}
 
 		#endregion

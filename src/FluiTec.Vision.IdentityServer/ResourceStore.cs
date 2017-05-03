@@ -147,34 +147,28 @@ namespace FluiTec.Vision.IdentityServer
 		{
 			using (var uow = _dataService.StartUnitOfWork())
 			{
-				var entities = uow.ApiResourceRepository.GetAll();
-				var apiResources = new List<ApiResource>();
+				var entities = uow.ApiResourceRepository.GetAllCompound();
 
-				var apiScopes = uow.ApiResourceScopeRepository.GetAll();
-
-				var scopes = uow.ScopeRepository.GetAll();
-
-				var resourceClaims = uow.ApiResourceClaimRepository.GetAll();
-
-				apiResources.AddRange(entities.Select(e => new ApiResource
+				return entities.Select(e => new ApiResource
 				{
-					Name = e.Name,
-					DisplayName = e.DisplayName,
-					Description = e.Description,
-					Enabled = e.Enabled,
-					UserClaims = new List<string>(resourceClaims.Where(r => r.ApiResourceId == e.Id).Select(r => r.ClaimType).ToList()),
-					Scopes = new List<Scope>(scopes.Where(s => apiScopes.Select(aSc => aSc.ScopeId).Contains(s.Id)).Select(s => new Scope
-					{
-						Name = s.Name,
-						DisplayName = s.DisplayName,
-						Description = s.Description,
-						Required = s.Required,
-						Emphasize = s.Emphasize,
-						ShowInDiscoveryDocument = s.ShowInDiscoveryDocument
-					}))
-				}));
-
-				return apiResources;
+					Name = e.ApiResource.Name,
+					DisplayName = e.ApiResource.DisplayName,
+					Description = e.ApiResource.Description,
+					Enabled = e.ApiResource.Enabled,
+					Scopes = new List<Scope>
+					(
+						e.Scopes.Select(s => new Scope
+						{
+							Name = s.Name,
+							DisplayName = s.DisplayName,
+							Description = s.Description,
+							Required = s.Required,
+							Emphasize = s.Emphasize,
+							ShowInDiscoveryDocument = s.ShowInDiscoveryDocument
+						})
+					),
+					UserClaims = new List<string>(e.ApiResourceClaims.Select(c => c.ClaimType))
+				}).ToList();
 			}
 		}
 
