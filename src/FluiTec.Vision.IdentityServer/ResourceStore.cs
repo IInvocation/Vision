@@ -104,10 +104,11 @@ namespace FluiTec.Vision.IdentityServer
 		/// <returns>	A list of. </returns>
 		private IList<ApiResource> FromCompoundEntities(IEnumerable<CompoundApiResource> entities)
 		{
-			if (entities == null || entities.Count() < 1)
+			var compoundApiResources = entities as CompoundApiResource[] ?? entities.ToArray();
+			if (entities == null || !compoundApiResources.Any())
 				return null;
 
-			return entities.Select(e => new ApiResource
+			return compoundApiResources.Select(e => new ApiResource
 			{
 				Name = e.ApiResource.Name,
 				DisplayName = e.ApiResource.DisplayName,
@@ -126,7 +127,8 @@ namespace FluiTec.Vision.IdentityServer
 					})
 				),
 				UserClaims = new List<string>(e.ApiResourceClaims.Select(c => c.ClaimType))
-			}).ToList();
+			})
+			.ToList();
 		}
 
 		/// <summary>	Gets all identity resources. </summary>
@@ -145,10 +147,11 @@ namespace FluiTec.Vision.IdentityServer
 		/// <returns>	A list of. </returns>
 		private IList<IdentityResource> FromCompoundEntities(IEnumerable<CompoundIdentityResource> entities)
 		{
-			if (entities == null || entities.Count() < 1)
+			var compoundIdentityResources = entities as CompoundIdentityResource[] ?? entities.ToArray();
+			if (entities == null || !compoundIdentityResources.Any())
 				return null;
 
-			return entities.Select(e => new IdentityResource
+			return compoundIdentityResources.Select(e => new IdentityResource
 			{
 				Name = e.IdentityResource.Name,
 				DisplayName = e.IdentityResource.DisplayName,
@@ -158,7 +161,8 @@ namespace FluiTec.Vision.IdentityServer
 				Emphasize = e.IdentityResource.Emphasize,
 				ShowInDiscoveryDocument = e.IdentityResource.ShowInDiscoveryDocument,
 				UserClaims = new List<string>(e.IdentityResourceClaims.Select(c => c.ClaimType))
-			}).ToList();
+			})
+			.ToList();
 		}
 
 		#endregion
