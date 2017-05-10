@@ -102,11 +102,11 @@ namespace FluiTec.Vision.IdentityServer
 		/// <summary>	Initializes this object from the given from compound entities. </summary>
 		/// <param name="entities">	The entities. </param>
 		/// <returns>	A list of. </returns>
-		private IList<ApiResource> FromCompoundEntities(IEnumerable<CompoundApiResource> entities)
+		private static IList<ApiResource> FromCompoundEntities(IEnumerable<CompoundApiResource> entities)
 		{
 			var compoundApiResources = entities as CompoundApiResource[] ?? entities.ToArray();
 			if (entities == null || !compoundApiResources.Any())
-				return null;
+				return new List<ApiResource>();
 
 			return compoundApiResources.Select(e => new ApiResource
 			{
@@ -145,11 +145,11 @@ namespace FluiTec.Vision.IdentityServer
 		/// <summary>	Initializes this object from the given from compound entities. </summary>
 		/// <param name="entities">	The entities. </param>
 		/// <returns>	A list of. </returns>
-		private IList<IdentityResource> FromCompoundEntities(IEnumerable<CompoundIdentityResource> entities)
+		private static IList<IdentityResource> FromCompoundEntities(IEnumerable<CompoundIdentityResource> entities)
 		{
 			var compoundIdentityResources = entities as CompoundIdentityResource[] ?? entities.ToArray();
 			if (entities == null || !compoundIdentityResources.Any())
-				return null;
+				return new List<IdentityResource>();
 
 			return compoundIdentityResources.Select(e => new IdentityResource
 			{

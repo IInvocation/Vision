@@ -30,19 +30,20 @@ GO
 -- Insert Client-Scopes
 INSERT INTO [dbo].[ClientScope]
 			([ClientId],[ScopeId])
-VALUES      (1,1)
+VALUES      (1,1), (1,2), (1,3)
 GO
 
 -- Insert API-Resources
 INSERT INTO [dbo].[ApiResource]
 			([Name],[DisplayName],[Description],[Enabled])
-VALUES      ('api1', 'API 1', 'Sample API', 1)
+VALUES      ('Jarvis', 'Jarvis', 'Sample  Jarvis API', 1)
 GO
 
 -- Insert API-Resource-Scopes
+-- give all predefined scopes
 INSERT INTO [dbo].[ApiResourceScope]
 			([ApiResourceId],[ScopeId])
-VALUES      (1,1), (1,2), (1,3)
+VALUES      (1,1)
 GO
 
 -- Insert Identity-Resources
@@ -55,5 +56,5 @@ GO
 -- Insert Identity-Resource-Scopes
 INSERT INTO [dbo].[IdentityResourceScope]
 			([IdentityResourceId],[ScopeId])
-VALUES      (1,2), (1,3)
+VALUES      (1,2), (2,3)
 GO

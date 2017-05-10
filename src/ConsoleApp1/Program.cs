@@ -8,10 +8,9 @@ namespace ConsoleApp1
 	/// <summary>	A program. </summary>
 	class Program
     {
-        /// <summary>	Main entry-point for this application. </summary>
-        /// <param name="args">	An array of command-line argument strings. </param>
-        // ReSharper disable once UnusedMember.Local
-        private static void Main(string[] args)
+	    /// <summary>	Main entry-point for this application. </summary>
+	    // ReSharper disable once UnusedMember.Local
+	    private static void Main()
         {
 	        var configuration = new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json", false)
@@ -43,12 +42,19 @@ namespace ConsoleApp1
 
 	    static void TestUserInfo(IdentityServer server, TokenResponse tokenResponse)
 	    {
-		    var disco = DiscoveryClient.GetAsync(server.TargetServer).Result;
+		    try
+		    {
+			    var disco = DiscoveryClient.GetAsync(server.TargetServer).Result;
 
-			var userInfoClient = new UserInfoClient(disco.UserInfoEndpoint);
+			    var userInfoClient = new UserInfoClient(disco.UserInfoEndpoint);
 
-		    var response = userInfoClient.GetAsync(tokenResponse.AccessToken).Result;
-		    var claims = response.Claims;
+			    var response = userInfoClient.GetAsync(tokenResponse.AccessToken).Result;
+			    var claims = response.Claims;
+			}
+		    catch (Exception e)
+		    {
+			    Console.WriteLine(e);
+		    }
 		}
     }
 }

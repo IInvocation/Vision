@@ -41,10 +41,14 @@ namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 			_logger.LogDebug("Fetching {0} compound.", TableName);
 			var command = $"SELECT * FROM {TableName} AS iRes" +
 			              $" LEFT JOIN {DataService.NameByType(typeof(IdentityResourceClaimEntity))} AS iClaim" +
-			              $" ON iRes.{nameof(IdentityResourceEntity.Id)} = iClaim.{nameof(IdentityResourceClaimEntity.IdentityResourceId)}";
+			              $" ON iRes.{nameof(IdentityResourceEntity.Id)} = iClaim.{nameof(IdentityResourceClaimEntity.IdentityResourceId)}" +
+			              $" LEFT JOIN {DataService.NameByType(typeof(IdentityResourceScopeEntity))} AS iScope" +
+			              $" ON iRes.{nameof(IdentityResourceEntity.Id)} = iScope.{nameof(IdentityResourceScopeEntity.IdentityResourceId)}" +
+			              $" LEFT JOIN {DataService.NameByType(typeof(ScopeEntity))} AS scope" +
+			              $" ON iScope.{nameof(IdentityResourceScopeEntity.ScopeId)} = scope.{nameof(ScopeEntity.Id)}";
 			var lookup = new Dictionary<int, CompoundIdentityResource>();
-			UnitOfWork.Connection.Query<IdentityResourceEntity, IdentityResourceClaimEntity, CompoundIdentityResource>(command,
-				(entity, claimEntity) =>
+			UnitOfWork.Connection.Query<IdentityResourceEntity, IdentityResourceClaimEntity, IdentityResourceScopeEntity, ScopeEntity, CompoundIdentityResource>(command,
+				(entity, identityClaim, identityScope, scope) =>
 				{
 					// make sure the pk exists
 					if (entity == null || entity.Id == default(int))
@@ -52,14 +56,25 @@ namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 
 					// make sure our list contains the pk
 					if (!lookup.ContainsKey(entity.Id))
-						lookup.Add(entity.Id, new CompoundIdentityResource() { IdentityResource = entity });
+						lookup.Add(entity.Id, new CompoundIdentityResource
+						{
+							IdentityResource = entity
+						});
 
 					// fetch the real element
 					var tempElem = lookup[entity.Id];
 
+					// add identity-scope
+					if (identityScope != null)
+						tempElem.IdentityResourceScopes.Add(identityScope);
+
 					// add claim
-					if (claimEntity != null)
-						tempElem.IdentityResourceClaims.Add(claimEntity);
+					if (identityClaim != null)
+						tempElem.IdentityResourceClaims.Add(identityClaim);
+
+					// add scope
+					if (scope != null)
+						tempElem.Scopes.Add(scope);
 
 					return tempElem;
 				}, null, UnitOfWork.Transaction);
@@ -93,7 +108,7 @@ namespace FluiTec.Vision.Server.Data.Mssql.Repositories
 
 					// make sure our list contains the pk
 					if (!lookup.ContainsKey(entity.Id))
-						lookup.Add(entity.Id, new CompoundIdentityResource()
+						lookup.Add(entity.Id, new CompoundIdentityResource
 						{
 							IdentityResource = entity
 						});
