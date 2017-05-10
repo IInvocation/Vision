@@ -10,7 +10,8 @@ namespace ConsoleApp1
     {
         /// <summary>	Main entry-point for this application. </summary>
         /// <param name="args">	An array of command-line argument strings. </param>
-        static void Main(string[] args)
+        // ReSharper disable once UnusedMember.Local
+        private static void Main(string[] args)
         {
 	        var configuration = new ConfigurationBuilder()
 				.AddJsonFile("appsettings.json", false)
@@ -29,7 +30,7 @@ namespace ConsoleApp1
 	    /// <param name="server">	  	The user. </param>
 	    /// <param name="credentials">	The password. </param>
 	    /// <returns>	A Task&lt;TokenResponse&gt; </returns>
-	    static async Task<TokenResponse> TestCredentials(IdentityServer server, IdentiyCredentials credentials)
+	    private static async Task<TokenResponse> TestCredentials(IdentityServer server, IdentiyCredentials credentials)
 	    {
 			Console.WriteLine($"Testing server '{server.TargetServer}'...");
 			Console.WriteLine($"ClientId: '{credentials.ClientId}'.");
