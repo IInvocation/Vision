@@ -31,6 +31,7 @@
     <ProjectReference Include="..\FluiTec.AppFx.Logging\FluiTec.AppFx.Logging.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Proxy.Owin\FluiTec.AppFx.Proxy.Owin.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Proxy\FluiTec.AppFx.Proxy.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.VisionHost.ConsoleHost\FluiTec.Vision.VisionHost.ConsoleHost.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.VisionHost\FluiTec.Vision.VisionHost.csproj" />
   </ItemGroup>
 

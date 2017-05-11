@@ -35,6 +35,7 @@
     <ProjectReference Include="..\FluiTec.AppFx.Proxy.Owin\FluiTec.AppFx.Proxy.Owin.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Proxy\FluiTec.AppFx.Proxy.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Signing\FluiTec.AppFx.Signing.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.AuthHost.ConsoleHost\FluiTec.Vision.AuthHost.ConsoleHost.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.AuthHost\FluiTec.Vision.AuthHost.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.IdentityServer\FluiTec.Vision.IdentityServer.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication.OpenId.Google\FluiTec.Vision.NancyFx.Authentication.OpenId.Google.csproj" />

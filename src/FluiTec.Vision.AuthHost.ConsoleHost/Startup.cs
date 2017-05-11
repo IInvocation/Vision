@@ -117,6 +117,18 @@ namespace FluiTec.Vision.AuthHost.ConsoleHost
 			application.ConfigureNancy(loggerFactory);
 
 			// auto-start browser
+			UseBrowser(application, environment);
+		}
+
+		/// <summary>	Use browser. </summary>
+		///
+		/// <param name="application">	The application. </param>
+		/// <param name="environment">	The environment. </param>
+		/// <remarks>
+		/// Automatically starts the browser using any configured proxy in Development-Hosting		 
+		/// </remarks>
+		protected virtual void UseBrowser(IApplicationBuilder application, IHostingEnvironment environment)
+		{
 			if (environment.IsDevelopment())
 				application.UseBrowser();
 		}
