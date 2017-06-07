@@ -18,7 +18,7 @@ namespace FluiTec.Vision.IdentityServer.Data.Compound
 
 		#endregion
 
-		#region Methods
+		#region Properties
 
 		/// <summary>	Gets or sets the API resource. </summary>
 		/// <value>	The API resource. </value>

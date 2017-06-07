@@ -50,6 +50,8 @@ namespace ConsoleApp1
 
 			    var response = userInfoClient.GetAsync(tokenResponse.AccessToken).Result;
 			    var claims = response.Claims;
+
+				Console.WriteLine(response.Raw);
 			}
 		    catch (Exception e)
 		    {
