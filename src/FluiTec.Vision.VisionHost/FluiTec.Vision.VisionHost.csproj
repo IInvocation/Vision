@@ -13,7 +13,14 @@
 
   <ItemGroup>
     <ProjectReference Include="..\FluiTec.AppFx.Service\FluiTec.AppFx.Service.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.NancyFx.Authentication.Owin\FluiTec.Vision.NancyFx.Authentication.Owin.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.NancyFx\FluiTec.Vision.NancyFx.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
+      <HintPath>..\..\..\..\..\Users\aschn\.nuget\packages\microsoft.aspnetcore.http.abstractions\1.1.1\lib\netstandard1.3\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
   <ItemGroup>

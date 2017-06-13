@@ -1,12 +1,19 @@
 ﻿using System;
+using System.IdentityModel.Tokens.Jwt;
+using System.IO;
 using System.Linq;
+using System.Text.Encodings.Web;
 using FluiTec.AppFx.Globalization.Services;
 using FluiTec.AppFx.Logging.Services;
 using FluiTec.AppFx.Proxy.Services;
 using FluiTec.Vision.VisionHost.ConsoleHost.Extensions;
 using FluiTec.Vision.VisionHost.ConsoleHost.Services;
 using FluiTec.Vision.VisionHost.Services;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.DataProtection;
+using Microsoft.AspNetCore.DataProtection.Internal;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -58,6 +65,9 @@ namespace FluiTec.Vision.VisionHost.ConsoleHost
 				services.AddSingleton<IApplicationSettingsService, ConfigApplicationSettingsService>();
 				services.AddSingleton<IProxySettingsService, ConfigProxySettingsService>();
 				services.AddSingleton<IGlobalizationSettingsService, ConfigGlobalizationSettingsService>();
+
+				// register services for openid-connect
+				services.AddAuthentication();
 			}
 			catch (Exception e)
 			{
@@ -76,6 +86,29 @@ namespace FluiTec.Vision.VisionHost.ConsoleHost
 			// basic config
 			application.ConfigureLogging(loggerFactory);
 			application.ConfigureProxy();
+
+			// configure authentication
+			application.UseCookieAuthentication(new CookieAuthenticationOptions
+			{
+				AuthenticationScheme = "Cookies"
+			});
+
+			JwtSecurityTokenHandler.DefaultInboundClaimTypeMap.Clear();
+
+			application.UseOpenIdConnectAuthentication(new OpenIdConnectOptions
+			{
+				AuthenticationScheme = "oidc",
+				SignInScheme = "Cookies",
+
+				Authority = "http://localhost:1234",
+				RequireHttpsMetadata = false,
+
+				ClientId = "mvc",
+				SaveTokens = true,
+
+				AutomaticChallenge = true,
+				AutomaticAuthenticate = true
+			});
 
 			// nancy
 			application.ConfigureNancy(loggerFactory);

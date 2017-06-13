@@ -1,7 +1,11 @@
 ﻿using FluiTec.Vision.NancyFx;
+using FluiTec.Vision.NancyFx.Authentication.Owin;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Logging;
 using Nancy;
+using Nancy.Security;
 using Nancy.Responses;
+using Nancy.Owin;
 
 namespace FluiTec.Vision.VisionHost.Modules
 {
@@ -47,6 +51,10 @@ namespace FluiTec.Vision.VisionHost.Modules
 		private dynamic GET_About()
 		{
 			_logger.LogRouteHandler(Context, nameof(GET_About));
+
+			OwinHelper.RequiresMSOwinAuthentication(Context);
+
+			return null;
 			return View["About"];
 		}
 

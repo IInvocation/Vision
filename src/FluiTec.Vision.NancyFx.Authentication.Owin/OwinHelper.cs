@@ -4,6 +4,7 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Http.Authentication;
 using Nancy;
+using Nancy.Extensions;
 using Nancy.Owin;
 
 namespace FluiTec.Vision.NancyFx.Authentication.Owin
@@ -15,6 +16,7 @@ namespace FluiTec.Vision.NancyFx.Authentication.Owin
 		/// <returns>	The HTTP context. </returns>
 		private static HttpContext GetHttpContext(NancyContext context)
 		{
+			if (context == null) return null;
 			var owin = context.GetOwinEnvironment();
 			return (HttpContext) owin[typeof(HttpContext).FullName];
 		}
@@ -31,6 +33,16 @@ namespace FluiTec.Vision.NancyFx.Authentication.Owin
 
 			authenticationManager.SignInAsync(authenticationScheme, principal).Wait();
 		}
+
+		public async static void RequiresMSOwinAuthentication(this NancyContext Context)
+		{
+			var ctx = GetHttpContext(Context).Authentication.HttpContext;
+			var manager = ctx.Authentication;
+
+			var schemes = manager.GetAuthenticationSchemes();
+
+			await manager.ChallengeAsync("oidc", new AuthenticationProperties {RedirectUri = "/"});
+		}	
 
 		/// <summary>	A NancyContext extension method that sign out. </summary>
 		/// <param name="context">			   	The context. </param>
