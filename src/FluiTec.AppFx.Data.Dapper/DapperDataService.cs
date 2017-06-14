@@ -1,4 +1,5 @@
 ﻿using System;
+using Dapper.Contrib.Extensions;
 
 namespace FluiTec.AppFx.Data.Dapper
 {
@@ -18,6 +19,7 @@ namespace FluiTec.AppFx.Data.Dapper
 		{
 			ConnectionString = connectionString ?? throw new ArgumentNullException(nameof(connectionString));
 			ConnectionFactory = connectionFactory ?? throw new ArgumentNullException(nameof(connectionFactory));
+			SqlMapperExtensions.TableNameMapper = NameService.NameByType;
 		}
 
 		#endregion

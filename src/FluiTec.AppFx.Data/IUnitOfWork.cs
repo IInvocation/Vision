@@ -1,7 +1,9 @@
-﻿namespace FluiTec.AppFx.Data
+﻿using System;
+
+namespace FluiTec.AppFx.Data
 {
 	/// <summary>	Interface for a unit of work. </summary>
-	public interface IUnitOfWork
+	public interface IUnitOfWork : IDisposable
 	{
 		/// <summary>	Commits this unit of work. </summary>
 		void Commit();
