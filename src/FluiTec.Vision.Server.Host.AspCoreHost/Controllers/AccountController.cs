@@ -12,22 +12,23 @@ using Microsoft.Extensions.Options;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountViewModels;
 using FluiTec.Vision.Server.Host.AspCoreHost.Services;
+using FluiTec.AppFx.Identity.Entities;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<IdentityUserEntity> _userManager;
+        private readonly SignInManager<IdentityUserEntity> _signInManager;
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
 
         public AccountController(
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager,
+            UserManager<IdentityUserEntity> userManager,
+            SignInManager<IdentityUserEntity> signInManager,
             IOptions<IdentityCookieOptions> identityCookieOptions,
             IEmailSender emailSender,
             ISmsSender smsSender,
@@ -112,7 +113,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             ViewData["ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new IdentityUserEntity { Name = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
@@ -214,7 +215,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new IdentityUserEntity { Name = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
