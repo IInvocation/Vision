@@ -1,4 +1,5 @@
-﻿using FluiTec.AppFx.Data;
+﻿using System.Collections.Generic;
+using FluiTec.AppFx.Data;
 using FluiTec.AppFx.Data.Dapper;
 using FluiTec.AppFx.Identity.Entities;
 using FluiTec.AppFx.Identity.Repositories;
@@ -23,5 +24,12 @@ namespace FluiTec.AppFx.Identity.Dapper.Repositories
 		/// <param name="loweredName">	Name of the lowered. </param>
 		/// <returns>	The found lowered name. </returns>
 		public abstract IdentityRoleEntity FindByLoweredName(string loweredName);
+
+		/// <summary>	Finds the identifiers in this collection. </summary>
+		/// <param name="roleIds">	List of identifiers for the roles. </param>
+		/// <returns>
+		///     An enumerator that allows foreach to be used to process the identifiers in this collection.
+		/// </returns>
+		public abstract IEnumerable<IdentityRoleEntity> FindByIds(IEnumerable<int> roleIds);
 	}
 }

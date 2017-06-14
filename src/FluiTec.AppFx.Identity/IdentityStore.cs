@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 using FluiTec.AppFx.Identity.Entities;
 using Microsoft.AspNetCore.Identity;
 
-namespace FluiTec.AppFx.Identity.Stores
+namespace FluiTec.AppFx.Identity
 {
 	public abstract class IdentityStore : IUserPasswordStore<IdentityUserEntity>, IUserClaimStore<IdentityUserEntity>,
-		IRoleStore<IdentityRoleEntity>
+		IRoleStore<IdentityRoleEntity>, IUserSecurityStampStore<IdentityUserEntity>, IUserRoleStore<IdentityUserEntity>
 	{
 		#region Properties
 
@@ -440,6 +440,104 @@ namespace FluiTec.AppFx.Identity.Stores
 		{
 			return Task<IdentityRoleEntity>.Factory.StartNew(
 				() => UnitOfWork.RoleRepository.FindByLoweredName(normalizedRoleName), cancellationToken);
+		}
+
+		#endregion
+
+		#region IUserSecurityStampStore
+
+		/// <summary>	Sets security stamp asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="stamp">				The stamp. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public Task SetSecurityStampAsync(IdentityUserEntity user, string stamp, CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				user.SecurityStamp = stamp;
+				UnitOfWork.UserRepository.Update(user);
+			}, cancellationToken);
+		}
+
+		/// <summary>	Gets security stamp asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The security stamp asynchronous. </returns>
+		public Task<string> GetSecurityStampAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task.FromResult(user.SecurityStamp);
+		}
+
+		#endregion
+
+		#region IUserRoleStore
+
+		/// <summary>	Adds to the role asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="roleName">				Name of the role. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public Task AddToRoleAsync(IdentityUserEntity user, string roleName, CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				var role = UnitOfWork.RoleRepository.FindByLoweredName(roleName.ToLower());
+				UnitOfWork.UserRoleRepository.Add(new IdentityUserRoleEntity {RoleId = role.Id, UserId = user.Id});
+			}, cancellationToken);
+		}
+
+		/// <summary>	Removes from role asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="roleName">				Name of the role. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public Task RemoveFromRoleAsync(IdentityUserEntity user, string roleName, CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				var role = UnitOfWork.RoleRepository.FindByLoweredName(roleName.ToLower());
+				var userRole = UnitOfWork.UserRoleRepository.FindByUserIdAndRoleId(user.Id, role.Id);
+				UnitOfWork.UserRoleRepository.Delete(userRole);
+			}, cancellationToken);
+		}
+
+		/// <summary>	Gets roles asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The roles asynchronous. </returns>
+		public Task<IList<string>> GetRolesAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task<IList<string>>.Factory.StartNew(() =>
+			{
+				var roleIds = UnitOfWork.UserRoleRepository.FindByUser(user);
+				return UnitOfWork.RoleRepository.FindByIds(roleIds).Select(r => r.Name).ToList();
+			}, cancellationToken);
+		}
+
+		/// <summary>	Is in role asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="roleName">				Name of the role. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task&lt;bool&gt; </returns>
+		public async Task<bool> IsInRoleAsync(IdentityUserEntity user, string roleName, CancellationToken cancellationToken)
+		{
+			var roles = await GetRolesAsync(user, cancellationToken);
+			return roles.Contains(roleName);
+		}
+
+		/// <summary>	Gets users in role asynchronous. </summary>
+		/// <param name="roleName">				Name of the role. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The users in role asynchronous. </returns>
+		public Task<IList<IdentityUserEntity>> GetUsersInRoleAsync(string roleName, CancellationToken cancellationToken)
+		{
+			return Task<IList<IdentityUserEntity>>.Factory.StartNew(() =>
+			{
+				var role = UnitOfWork.RoleRepository.FindByLoweredName(roleName.ToLower());
+				var userIds = UnitOfWork.UserRoleRepository.FindByRole(role);
+				return UnitOfWork.UserRepository.FindByIds(userIds).ToList();
+			}, cancellationToken);
 		}
 
 		#endregion

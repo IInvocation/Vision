@@ -46,6 +46,7 @@ namespace FluiTec.AppFx.Identity.Dapper.Mssql
 			RegisterRepositoryProvider(new Func<IUnitOfWork,IUserRepository>(work => new MssqlDapperUserRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IClaimRepository>(work => new MssqlDapperClaimRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork,IRoleRepository>(work => new MssqlDapperRoleRepository(work)));
+			RegisterRepositoryProvider(new Func<IUnitOfWork,IUserRoleRepository>(work => new MssqlDapperUserRoleRepository(work)));
 		}
 
 		#endregion

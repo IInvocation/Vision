@@ -9,10 +9,6 @@ namespace FluiTec.AppFx.Identity.Entities
 	{
 		/// <summary>	Gets or sets the identifier. </summary>
 		/// <value>	The identifier. </value>
-		public int Id { get; set; }
-
-		/// <summary>	Gets or sets the identifier. </summary>
-		/// <value>	The identifier. </value>
 		public Guid Identifier { get; set; }
 
 		/// <summary>	Gets or sets the identifier of the application. </summary>
@@ -42,5 +38,14 @@ namespace FluiTec.AppFx.Identity.Entities
 		/// <summary>	Gets or sets the password hash. </summary>
 		/// <value>	The password hash. </value>
 		public string PasswordHash { get; set; }
+
+		/// <summary>	Gets or sets the security stamp. </summary>
+		/// <value>	The security stamp. </value>
+
+		public string SecurityStamp { get; set; }
+
+		/// <summary>	Gets or sets the identifier. </summary>
+		/// <value>	The identifier. </value>
+		public int Id { get; set; }
 	}
 }
