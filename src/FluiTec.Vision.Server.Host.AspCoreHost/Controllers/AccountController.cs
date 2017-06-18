@@ -135,9 +135,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         }
 
         //
-        // POST: /Account/Logout
-        [HttpPost]
-        [ValidateAntiForgeryToken]
+        // GET: /Account/Logout
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();

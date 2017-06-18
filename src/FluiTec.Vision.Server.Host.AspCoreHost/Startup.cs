@@ -1,24 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Globalization;
 using FluiTec.AppFx.Data.Dapper;
 using FluiTec.AppFx.Data.Dapper.Mssql;
 using FluiTec.AppFx.Identity;
-using FluiTec.AppFx.Identity.Dapper;
 using FluiTec.AppFx.Identity.Dapper.Mssql;
 using FluiTec.AppFx.Identity.Entities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using FluiTec.Vision.Server.Host.AspCoreHost.Models;
 using FluiTec.Vision.Server.Host.AspCoreHost.Services;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore.Scaffolding.Internal;
+using Microsoft.AspNetCore.Localization;
+using Microsoft.AspNetCore.Mvc.Razor;
+using Microsoft.Extensions.Options;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost
 {
@@ -51,6 +46,22 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 		        new DapperServiceOptions {ConnectionFactory = new MssqlConnectionFactory(), ConnectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=Vision;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" });
 	        services.AddScoped<IIdentityDataService, MssqlDapperIdentityDataService>();
 
+			// add localizazion
+	        services.AddLocalization(options => options.ResourcesPath = "Resources");
+	        services.Configure<RequestLocalizationOptions>(options =>
+	        {
+		        var supportedCultures = new[]
+		        {
+			        new CultureInfo("de-DE"),
+			        new CultureInfo("de"),
+			        new CultureInfo("en-US"),
+			        new CultureInfo("en")
+				};
+				options.DefaultRequestCulture = new RequestCulture("de-DE");
+		        options.SupportedCultures = supportedCultures;
+		        options.SupportedUICultures = supportedCultures;
+	        });
+
 			// add identityservices
 	        services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>();
 			services.AddScoped<IdentityStore>();
@@ -60,10 +71,12 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 			services.AddScoped<IRoleStore<IdentityRoleEntity>>(provider => provider.GetService<IdentityStore>());
 	        services.AddScoped<IUserRoleStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
 
-			//    .AddEntityFrameworkStores<ApplicationDbContext>()
 			//    .AddDefaultTokenProviders();
 
-			services.AddMvc();
+			// add mvc with localization
+			services
+				.AddMvc()
+		        .AddViewLocalization();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -79,7 +92,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-                app.UseDatabaseErrorPage();
                 app.UseBrowserLink();
             }
             else
@@ -91,9 +103,10 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 
             app.UseIdentity();
 
-            // Add external authentication middleware below. To configure them please see https://go.microsoft.com/fwlink/?LinkID=532715
+	        var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
+	        app.UseRequestLocalization(options.Value);
 
-            app.UseMvc(routes =>
+			app.UseMvc(routes =>
             {
                 routes.MapRoute(
                     name: "default",

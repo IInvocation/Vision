@@ -16,7 +16,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
                 .UseStartup<Startup>()
-                .UseApplicationInsights()
                 .Build();
 
             host.Run();
