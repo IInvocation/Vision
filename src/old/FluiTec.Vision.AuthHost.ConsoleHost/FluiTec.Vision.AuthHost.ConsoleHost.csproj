@@ -9,9 +9,6 @@
 		<None Include="appsettings.Development.json" />
 		<None Include="appsettings.json" />
 		<None Include="appsettings.Production.json" />
-		<None Include="Secrets\appsettings.secret.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
 	</ItemGroup>
 	
   <ItemGroup>
@@ -45,12 +42,7 @@
     <Folder Include="Secrets\">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Folder>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Secrets\appsettings.secret.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <Folder Include="Secrets\" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -62,9 +54,6 @@
 		</None>
 		<None Include="appsettings.Production.json">
 		  <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-		</None>
-		<None Include="Secrets\appsettings.secret.json">
-			<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
 		</None>
 	</ItemGroup>
 

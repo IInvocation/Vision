@@ -4,7 +4,7 @@
     public class DummyMssqlDataService : DapperDataService
     {
 	    /// <summary>	Default constructor. </summary>
-	    public DummyMssqlDataService() : base("Data Source=.\\SQLEXPRESS;Initial Catalog=AppFx;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False", new MssqlConnectionFactory())
+	    public DummyMssqlDataService() : base("Data Source=.\\SQLEXPRESS;Initial Catalog=Vision;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False", new MssqlConnectionFactory())
 	    {
 	    }
 

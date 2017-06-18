@@ -51,7 +51,7 @@ namespace FluiTec.AppFx.Data.Dapper
 
 		/// <summary>	Adds a range. </summary>
 		/// <param name="entities">	An IEnumerable&lt;TEntity&gt; of items to append to this. </param>
-		public void AddRange(IEnumerable<TEntity> entities)
+		public virtual void AddRange(IEnumerable<TEntity> entities)
 		{
 			UnitOfWork.Connection.Insert(entities, UnitOfWork.Transaction);
 		}
@@ -59,7 +59,7 @@ namespace FluiTec.AppFx.Data.Dapper
 		/// <summary>	Updates the given entity. </summary>
 		/// <param name="entity">	The entity. </param>
 		/// <returns>	A TEntity. </returns>
-		public TEntity Update(TEntity entity)
+		public virtual TEntity Update(TEntity entity)
 		{
 			UnitOfWork.Connection.Update(entity, UnitOfWork.Transaction);
 			return entity;
@@ -67,14 +67,14 @@ namespace FluiTec.AppFx.Data.Dapper
 
 		/// <summary>	Deletes the given ID. </summary>
 		/// <param name="id">	The Identifier to delete. </param>
-		public void Delete(TKey id)
+		public virtual void Delete(TKey id)
 		{
 			UnitOfWork.Connection.Execute($"DELETE FROM {TableName} WHERE Id = @Id", new { id }, UnitOfWork.Transaction);
 		}
 
 		/// <summary>	Deletes the given entity. </summary>
 		/// <param name="entity">	The entity to delete. </param>
-		public void Delete(TEntity entity)
+		public virtual void Delete(TEntity entity)
 		{
 			Delete(entity.Id);
 		}

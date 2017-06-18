@@ -15,9 +15,7 @@
     <None Include="appsettings.Development.json" />
     <None Include="appsettings.json" />
     <None Include="appsettings.Production.json" />
-    <None Include="Secrets\appsettings.secret.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    <None Include="Secrets\appsettings.secret.json" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.1" />

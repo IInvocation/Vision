@@ -9,9 +9,24 @@ using Microsoft.AspNetCore.Identity;
 
 namespace FluiTec.AppFx.Identity
 {
-	public abstract class IdentityStore : IUserPasswordStore<IdentityUserEntity>, IUserClaimStore<IdentityUserEntity>,
+	public class IdentityStore : IUserPasswordStore<IdentityUserEntity>, IUserClaimStore<IdentityUserEntity>,
 		IRoleStore<IdentityRoleEntity>, IUserSecurityStampStore<IdentityUserEntity>, IUserRoleStore<IdentityUserEntity>
 	{
+		#region Constructors
+
+		/// <summary>	Constructor. </summary>
+		/// <exception cref="ArgumentNullException">
+		///     Thrown when one or more required arguments are
+		///     null.
+		/// </exception>
+		/// <param name="dataService">	The data service. </param>
+		public IdentityStore(IIdentityDataService dataService)
+		{
+			UnitOfWork = dataService?.StartUnitOfWork() ?? throw new ArgumentNullException(nameof(dataService));
+		}
+
+		#endregion
+
 		#region Properties
 
 		/// <summary>	Gets or sets the unit of work. </summary>
@@ -22,11 +37,31 @@ namespace FluiTec.AppFx.Identity
 
 		#region IDisposable
 
+		private bool _disposed;
+
 		/// <summary>
 		///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged
 		///     resources.
 		/// </summary>
-		public abstract void Dispose();
+		public void Dispose()
+		{
+			Dispose(true);
+		}
+
+		/// <summary>
+		///     Performs application-defined tasks associated with freeing, releasing, or resetting unmanaged
+		///     resources.
+		/// </summary>
+		/// <param name="disposing">
+		///     true to release both managed and unmanaged resources; false to
+		///     release only unmanaged resources.
+		/// </param>
+		protected virtual void Dispose(bool disposing)
+		{
+			if (!_disposed)
+				UnitOfWork.Commit();
+			_disposed = true;
+		}
 
 		#endregion
 
@@ -102,26 +137,6 @@ namespace FluiTec.AppFx.Identity
 				var users = UnitOfWork.UserRepository.FindByIds(userIds);
 				return users.ToList();
 			}, cancellationToken);
-		}
-
-		#endregion
-
-		#region Constructors
-
-		/// <summary>	Constructor. </summary>
-		/// <exception cref="ArgumentNullException"> Thrown when one or more required arguments are null. </exception>
-		/// <param name="dataService">	The data service. </param>
-		protected IdentityStore(IIdentityDataService dataService) : this(dataService.StartUnitOfWork())
-		{
-			if (dataService == null) throw new ArgumentNullException(nameof(dataService));
-		}
-
-		/// <summary>	Constructor. </summary>
-		/// <exception cref="ArgumentNullException"> Thrown when one or more required arguments are null. </exception>
-		/// <param name="unitOfWork">	The unit of work. </param>
-		protected IdentityStore(IIdentityUnitOfWork unitOfWork)
-		{
-			UnitOfWork = unitOfWork ?? throw new ArgumentNullException(nameof(unitOfWork));
 		}
 
 		#endregion
@@ -482,7 +497,7 @@ namespace FluiTec.AppFx.Identity
 		{
 			return Task.Factory.StartNew(() =>
 			{
-				var role = UnitOfWork.RoleRepository.FindByLoweredName(roleName.ToLower());
+				var role = UnitOfWork.RoleRepository.FindByLoweredName(roleName.ToUpper());
 				UnitOfWork.UserRoleRepository.Add(new IdentityUserRoleEntity {RoleId = role.Id, UserId = user.Id});
 			}, cancellationToken);
 		}
@@ -496,7 +511,7 @@ namespace FluiTec.AppFx.Identity
 		{
 			return Task.Factory.StartNew(() =>
 			{
-				var role = UnitOfWork.RoleRepository.FindByLoweredName(roleName.ToLower());
+				var role = UnitOfWork.RoleRepository.FindByLoweredName(roleName.ToUpper());
 				var userRole = UnitOfWork.UserRoleRepository.FindByUserIdAndRoleId(user.Id, role.Id);
 				UnitOfWork.UserRoleRepository.Delete(userRole);
 			}, cancellationToken);
@@ -534,7 +549,7 @@ namespace FluiTec.AppFx.Identity
 		{
 			return Task<IList<IdentityUserEntity>>.Factory.StartNew(() =>
 			{
-				var role = UnitOfWork.RoleRepository.FindByLoweredName(roleName.ToLower());
+				var role = UnitOfWork.RoleRepository.FindByLoweredName(roleName.ToUpper());
 				var userIds = UnitOfWork.UserRoleRepository.FindByRole(role);
 				return UnitOfWork.UserRepository.FindByIds(userIds).ToList();
 			}, cancellationToken);

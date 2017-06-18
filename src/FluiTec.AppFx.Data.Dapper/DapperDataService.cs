@@ -6,6 +6,17 @@ namespace FluiTec.AppFx.Data.Dapper
 	/// <summary>	A dapper data service. </summary>
 	public abstract class DapperDataService : DataService
 	{
+		#region IDataService
+
+		/// <summary>	Begins unit of work. </summary>
+		/// <returns>	An IUnitOfWork. </returns>
+		public override IUnitOfWork BeginUnitOfWork()
+		{
+			return new DapperUnitOfWork(this);
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>	Specialised constructor for use only by derived class. </summary>
@@ -22,15 +33,11 @@ namespace FluiTec.AppFx.Data.Dapper
 			SqlMapperExtensions.TableNameMapper = NameService.NameByType;
 		}
 
-		#endregion
-
-		#region IDataService
-
-		/// <summary>	Begins unit of work. </summary>
-		/// <returns>	An IUnitOfWork. </returns>
-		public override IUnitOfWork BeginUnitOfWork()
+		/// <summary>	Specialised constructor for use only by derived class. </summary>
+		/// <param name="options">	Options for controlling the operation. </param>
+		protected DapperDataService(IDapperServiceOptions options) : this(options?.ConnectionString,
+			options?.ConnectionFactory)
 		{
-			return new DapperUnitOfWork(this);
 		}
 
 		#endregion

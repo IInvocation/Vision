@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using FluiTec.AppFx.Data;
 using FluiTec.AppFx.Data.Dapper;
 using FluiTec.AppFx.Identity.Entities;
@@ -31,5 +32,23 @@ namespace FluiTec.AppFx.Identity.Dapper.Repositories
 		///     An enumerator that allows foreach to be used to process the identifiers in this collection.
 		/// </returns>
 		public abstract IEnumerable<IdentityUserEntity> FindByIds(IEnumerable<int> userIds);
+
+		/// <summary>	Adds entity. </summary>
+		/// <param name="entity">	The entity. </param>
+		/// <returns>	An IdentityUserEntity. </returns>
+		public override IdentityUserEntity Add(IdentityUserEntity entity)
+		{
+			entity.LastActivityDate = DateTime.Now.ToUniversalTime();
+			return base.Add(entity);
+		}
+
+		/// <summary>	Updates the given entity. </summary>
+		/// <param name="entity">	The entity. </param>
+		/// <returns>	An IdentityUserEntity. </returns>
+		public override IdentityUserEntity Update(IdentityUserEntity entity)
+		{
+			entity.LastActivityDate = DateTime.Now.ToUniversalTime();
+			return base.Update(entity);
+		}
 	}
 }

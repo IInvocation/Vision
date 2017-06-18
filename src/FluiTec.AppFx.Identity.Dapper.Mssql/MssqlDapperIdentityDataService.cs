@@ -1,5 +1,6 @@
 ﻿using System;
 using FluiTec.AppFx.Data;
+using FluiTec.AppFx.Data.Dapper;
 using FluiTec.AppFx.Data.Dapper.Mssql;
 using FluiTec.AppFx.Identity.Dapper.Mssql.Repositories;
 using FluiTec.AppFx.Identity.Repositories;
@@ -12,8 +13,8 @@ namespace FluiTec.AppFx.Identity.Dapper.Mssql
 		#region Constructors
 
 		/// <summary>	Constructor. </summary>
-		/// <param name="connectionString">	The connection string. </param>
-		public MssqlDapperIdentityDataService(string connectionString) : base(connectionString)
+		/// <param name="options">	Options for controlling the operation. </param>
+		public MssqlDapperIdentityDataService(IDapperServiceOptions options) : base(options)
 		{
 			RegisterIdentityRepositories();
 		}
@@ -43,10 +44,11 @@ namespace FluiTec.AppFx.Identity.Dapper.Mssql
 		/// <summary>	Registers the identity repositories. </summary>
 		protected virtual void RegisterIdentityRepositories()
 		{
-			RegisterRepositoryProvider(new Func<IUnitOfWork,IUserRepository>(work => new MssqlDapperUserRepository(work)));
+			RegisterRepositoryProvider(new Func<IUnitOfWork, IUserRepository>(work => new MssqlDapperUserRepository(work)));
 			RegisterRepositoryProvider(new Func<IUnitOfWork, IClaimRepository>(work => new MssqlDapperClaimRepository(work)));
-			RegisterRepositoryProvider(new Func<IUnitOfWork,IRoleRepository>(work => new MssqlDapperRoleRepository(work)));
-			RegisterRepositoryProvider(new Func<IUnitOfWork,IUserRoleRepository>(work => new MssqlDapperUserRoleRepository(work)));
+			RegisterRepositoryProvider(new Func<IUnitOfWork, IRoleRepository>(work => new MssqlDapperRoleRepository(work)));
+			RegisterRepositoryProvider(
+				new Func<IUnitOfWork, IUserRoleRepository>(work => new MssqlDapperUserRoleRepository(work)));
 		}
 
 		#endregion

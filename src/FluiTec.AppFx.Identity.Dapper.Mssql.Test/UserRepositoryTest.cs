@@ -1,4 +1,6 @@
 ﻿using System;
+using FluiTec.AppFx.Data.Dapper;
+using FluiTec.AppFx.Data.Dapper.Mssql;
 using FluiTec.AppFx.Identity.Entities;
 using FluiTec.AppFx.Identity.Repositories;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -14,7 +16,13 @@ namespace FluiTec.AppFx.Identity.Dapper.Mssql.Test
 
 		public virtual void Initialize()
 		{
-			DataService = new MssqlDapperIdentityDataService("Data Source=.\\SQLEXPRESS;Initial Catalog=AppFx;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False");
+			var options = new DapperServiceOptions
+			{
+				ConnectionFactory = new MssqlConnectionFactory(),
+				ConnectionString =
+					"Data Source=.\\SQLEXPRESS;Initial Catalog=AppFx;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False"
+			};
+			DataService = new MssqlDapperIdentityDataService(options);
 			UnitOfWork = DataService.StartUnitOfWork();
 			Repository = UnitOfWork.UserRepository;
 		}
