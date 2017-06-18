@@ -115,7 +115,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             }
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
             await _smsSender.SendSmsAsync(model.PhoneNumber, "Your security code is: " + code);
-            return RedirectToAction(nameof(VerifyPhoneNumber), new { PhoneNumber = model.PhoneNumber });
+            return RedirectToAction(nameof(VerifyPhoneNumber), new {model.PhoneNumber });
         }
 
         //

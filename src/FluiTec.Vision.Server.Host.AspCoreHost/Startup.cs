@@ -12,7 +12,6 @@ using Microsoft.Extensions.Logging;
 using FluiTec.Vision.Server.Host.AspCoreHost.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.AspNetCore.Mvc.Razor;
 using Microsoft.Extensions.Options;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost
@@ -23,14 +22,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+                .AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
                 .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
-
-            if (env.IsDevelopment())
-            {
-                // For more details on using the user secret store see https://go.microsoft.com/fwlink/?LinkID=532709
-                builder.AddUserSecrets<Startup>();
-            }
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -71,12 +64,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 			services.AddScoped<IRoleStore<IdentityRoleEntity>>(provider => provider.GetService<IdentityStore>());
 	        services.AddScoped<IUserRoleStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
 
-			//    .AddDefaultTokenProviders();
-
 			// add mvc with localization
-			services
-				.AddMvc()
-		        .AddViewLocalization();
+			services.AddMvc().AddViewLocalization();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
@@ -103,6 +92,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 
             app.UseIdentity();
 
+			// enable localization based on request culture
 	        var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();
 	        app.UseRequestLocalization(options.Value);
 
