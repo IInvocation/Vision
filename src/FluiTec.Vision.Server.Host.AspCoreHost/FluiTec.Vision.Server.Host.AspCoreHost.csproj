@@ -104,7 +104,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Resources\Shared\" />
     <Folder Include="Resources\Views\Home\" />
   </ItemGroup>
   <ItemGroup>
