@@ -82,6 +82,16 @@
     <ProjectReference Include="..\FluiTec.AppFx.Identity\FluiTec.AppFx.Identity.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Resources\ViewModels\Account\LoginViewModel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>LoginViewModel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Account\Login.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Account\Register.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Contact\Imprint.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -116,6 +126,13 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Contact\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Update="Resources\ViewModels\Account\LoginViewModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>LoginViewModel.resx</DependentUpon>
+    </Compile>
   </ItemGroup>
 
 </Project>

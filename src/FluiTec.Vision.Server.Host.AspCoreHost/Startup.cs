@@ -65,7 +65,9 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 	        services.AddScoped<IUserRoleStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
 
 			// add mvc with localization
-			services.AddMvc().AddViewLocalization();
+			services.AddMvc()
+				.AddViewLocalization()
+				.AddDataAnnotationsLocalization();
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

@@ -1,41 +1,49 @@
-﻿@model RegisterViewModel
-@{
-    ViewData["Title"] = "Register";
-}
+﻿@using Microsoft.AspNetCore.Mvc.Localization
 
-<h2>@ViewData["Title"].</h2>
+@model RegisterViewModel
+@inject IViewLocalizer Localizer
 
-<form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData["ReturnUrl"]" method="post" class="form-horizontal">
-    <h4>Create a new account.</h4>
-    <hr />
-    <div asp-validation-summary="All" class="text-danger"></div>
-    <div class="form-group">
-        <label asp-for="Email" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Email" class="form-control" />
-            <span asp-validation-for="Email" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="Password" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="Password" class="form-control" />
-            <span asp-validation-for="Password" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <label asp-for="ConfirmPassword" class="col-md-2 control-label"></label>
-        <div class="col-md-10">
-            <input asp-for="ConfirmPassword" class="form-control" />
-            <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
-        </div>
-    </div>
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <button type="submit" class="btn btn-default">Register</button>
-        </div>
-    </div>
-</form>
+<header class="major">
+	<h2><localize>AccountHeader</localize></h2>
+	<p><localize>RegisterHeader</localize></p>
+</header>
+<div class="container">
+	<section id="content">
+		<section>
+			<form asp-controller="Account" asp-action="Register" asp-route-returnurl="@ViewData[index: "ReturnUrl"]" method="post" class="form-horizontal">
+				<h4><localize>RegisterDescription</localize></h4>
+				<hr />
+				<div asp-validation-summary="All" class="text-danger"></div>
+				<div class="row uniform">
+					<div class="6u 12u(3)">
+						<input type="email" name="Email" id="Email" value="@Model?.Email" placeholder="@Localizer[name: "Placeholder_Email"]" />
+					</div>
+				</div>
+				<div class="row uniform">
+					<div class="6u 12u(3)">
+						<input type="password" name="Password" id="Password" value="" placeholder="@Localizer[name: "Placeholder_Password"]" />
+					</div>
+				</div>
+				<div class="row uniform">
+					<div class="6u 12u(3)">
+						<input type="password" name="ConfirmPassword" id="ConfirmPassword" value="" placeholder="@Localizer[name: "Placeholder_ConfirmPassword"]" />
+					</div>
+				</div>
+				<div class="row uniform">
+					<ul class="actions">
+						<li>
+							<input type="submit" value="@Localizer[name: "SubmitRegister"]" />
+						</li>
+						<li>
+							<input type="reset" value="@Localizer[name: "SubmitReset"]" />
+						</li>
+					</ul>
+				</div>
+			</form>
+		</section>
+		@Html.Partial("_ExternalLogin")
+	</section>
+</div>
 
 @section Scripts {
     @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }

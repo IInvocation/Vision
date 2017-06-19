@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountViewModels
 {
@@ -10,13 +6,15 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountViewModels
     {
         [Required]
         [EmailAddress]
-        public string Email { get; set; }
+        [Display(Name = "Email", ResourceType = typeof(Resources.ViewModels.Account.LoginViewModel))]
+		public string Email { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        public string Password { get; set; }
+        [Display(Name = "Password", ResourceType = typeof(Resources.ViewModels.Account.LoginViewModel))]
+		public string Password { get; set; }
 
-        [Display(Name = "Remember me?")]
+		[Display(Name = "RememberMe", ResourceType = typeof(Resources.ViewModels.Account.LoginViewModel))]
         public bool RememberMe { get; set; }
     }
 }
