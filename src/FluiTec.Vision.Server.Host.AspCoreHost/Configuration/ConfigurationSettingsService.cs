@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Reflection;
 using FluiTec.AppFx.Options;
+using FluiTec.AppFx.Reflection;
 using Microsoft.Extensions.Configuration;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Configuration
@@ -46,14 +47,18 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Configuration
 				// try to match with existing properties
 				if (!settingsType.GetTypeInfo().DeclaredProperties.Select(p => p.Name).Contains(propertyNameToMatch)) continue;
 				{
+					// split value to get name of Assembly and Type
 					var split = kv.Value.Split(',');
 					var assemblyName = split[0];
 					var typeName = split[1];
 
-					var rAssemblies = Assembly.GetEntryAssembly().GetReferencedAssemblies().Where(a => a.Name.Contains("FluiTec"));
-					var rAssemblyName = rAssemblies.Single(a => a.Name == assemblyName);
-					var assembly = Assembly.Load(rAssemblyName);
+					// load the assembly
+					var assembly = AssemblyLoader.Default.LoadByName(assemblyName);
+
+					// get the type from the loaded assembly
 					var type = assembly.GetType(typeName);
+
+					// create the instance
 					var instance = Activator.CreateInstance(type);
 
 					settingsType.GetTypeInfo().DeclaredProperties.Single(p => p.Name == propertyNameToMatch).SetValue(Settings, instance);
