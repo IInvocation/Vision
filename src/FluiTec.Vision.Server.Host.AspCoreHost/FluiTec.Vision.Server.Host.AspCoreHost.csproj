@@ -82,6 +82,9 @@
     <ProjectReference Include="..\FluiTec.AppFx.Identity\FluiTec.AppFx.Identity.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Views\Home\About.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Shared\_LoginPartial.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -91,9 +94,9 @@
     <EmbeddedResource Update="Resources\Views\Shared\_Head.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\Views\Shared\_Functions.resx">
+    <EmbeddedResource Update="Resources\Views\Shared\_Functions.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
-      <LastGenOutput>_Functions.Designer.cs</LastGenOutput>
+      <LastGenOutput>_Functions.de-DE.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Shared\_Footer.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -101,13 +104,6 @@
     <EmbeddedResource Update="Resources\Views\Shared\_Banner.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
-    <Compile Update="Resources\Views\Shared\_Functions.Designer.cs">
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-      <DependentUpon>_Functions.resx</DependentUpon>
-    </Compile>
   </ItemGroup>
 
 </Project>
