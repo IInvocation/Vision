@@ -45,12 +45,12 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 	        {
 		        var supportedCultures = new[]
 		        {
-			        new CultureInfo("de-DE"),
-			        new CultureInfo("de"),
-			        new CultureInfo("en-US"),
-			        new CultureInfo("en")
+			        new CultureInfo(name: "de-DE"),
+			        new CultureInfo(name: "de"),
+			        new CultureInfo(name: "en-US"),
+			        new CultureInfo(name: "en")
 				};
-				options.DefaultRequestCulture = new RequestCulture("de-DE");
+				options.DefaultRequestCulture = new RequestCulture(culture: "de-DE");
 		        options.SupportedCultures = supportedCultures;
 		        options.SupportedUICultures = supportedCultures;
 	        });
@@ -85,7 +85,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler(errorHandlingPath: "/Home/Error");
             }
 
             app.UseStaticFiles();

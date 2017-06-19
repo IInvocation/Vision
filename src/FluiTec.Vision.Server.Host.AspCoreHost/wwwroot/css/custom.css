@@ -1,0 +1,12 @@
+.errorsummary {
+	color: #F08080;
+}
+
+.errorbox {
+	color: #F08080;
+}
+
+input[type="text"].hidden {
+	visibility: hidden;
+	display: none;
+}
