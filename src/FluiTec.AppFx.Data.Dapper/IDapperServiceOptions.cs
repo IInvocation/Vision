@@ -1,7 +1,9 @@
-﻿namespace FluiTec.AppFx.Data.Dapper
+﻿using FluiTec.AppFx.Options;
+
+namespace FluiTec.AppFx.Data.Dapper
 {
 	/// <summary>	Interface for dapper service options. </summary>
-	public interface IDapperServiceOptions
+	public interface IDapperServiceOptions : IServiceOptions
 	{
 		/// <summary>	Gets or sets the connection factory. </summary>
 		/// <value>	The connection factory. </value>

@@ -80,6 +80,7 @@
     <ProjectReference Include="..\FluiTec.AppFx.Identity.Dapper.Mssql\FluiTec.AppFx.Identity.Dapper.Mssql.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Identity.Dapper\FluiTec.AppFx.Identity.Dapper.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Identity\FluiTec.AppFx.Identity.csproj" />
+    <ProjectReference Include="..\FluiTec.AppFx.Options\FluiTec.AppFx.Options.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\ViewModels\Account\LoginViewModel.resx">

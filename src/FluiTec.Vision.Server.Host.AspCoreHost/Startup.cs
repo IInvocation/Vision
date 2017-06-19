@@ -4,6 +4,7 @@ using FluiTec.AppFx.Data.Dapper.Mssql;
 using FluiTec.AppFx.Identity;
 using FluiTec.AppFx.Identity.Dapper.Mssql;
 using FluiTec.AppFx.Identity.Entities;
+using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -35,8 +36,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
         public void ConfigureServices(IServiceCollection services)
         {
 	        // add dataservices
-	        services.AddSingleton<IDapperServiceOptions>(
-		        new DapperServiceOptions {ConnectionFactory = new MssqlConnectionFactory(), ConnectionString = "Data Source=.\\SQLEXPRESS;Initial Catalog=Vision;Integrated Security=True;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=ReadWrite;MultiSubnetFailover=False" });
+	        services.AddSingleton<IDapperServiceOptions>(new ConfigurationSettingsService<MssqlDapperServiceOptions>(Configuration).Get());
 	        services.AddScoped<IIdentityDataService, MssqlDapperIdentityDataService>();
 
 			// add localizazion

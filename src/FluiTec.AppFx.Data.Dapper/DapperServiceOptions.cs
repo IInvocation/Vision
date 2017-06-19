@@ -5,10 +5,13 @@
 	{
 		/// <summary>	Gets or sets the connection factory. </summary>
 		/// <value>	The connection factory. </value>
-		public IConnectionFactory ConnectionFactory { get; set; }
+		public virtual IConnectionFactory ConnectionFactory { get; set; }
 
 		/// <summary>	Gets or sets the connection string. </summary>
 		/// <value>	The connection string. </value>
-		public string ConnectionString { get; set; }
+		public virtual string ConnectionString { get; set; }
+
+		/// <summary>	The key. </summary>
+		public virtual string Key => "Dapper";
 	}
 }
