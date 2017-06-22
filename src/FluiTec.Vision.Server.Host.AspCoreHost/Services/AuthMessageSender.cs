@@ -7,12 +7,21 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Services
 	// For more details see this link https://go.microsoft.com/fwlink/?LinkID=532713
 	public class AuthMessageSender : IEmailSender, ISmsSender
 	{
+		/// <summary>	Sends an email asynchronous. </summary>
+		/// <param name="email">  	The email. </param>
+		/// <param name="subject">	The subject. </param>
+		/// <param name="message">	The message. </param>
+		/// <returns>	A Task. </returns>
 		public Task SendEmailAsync(string email, string subject, string message)
 		{
 			// Plug in your email service here to send an email.
 			return Task.FromResult(result: 0);
 		}
 
+		/// <summary>	Sends the SMS asynchronous. </summary>
+		/// <param name="number"> 	Number of. </param>
+		/// <param name="message">	The message. </param>
+		/// <returns>	A Task. </returns>
 		public Task SendSmsAsync(string number, string message)
 		{
 			// Plug in your SMS service here to send a text message.
