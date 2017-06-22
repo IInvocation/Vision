@@ -23,5 +23,11 @@ namespace FluiTec.AppFx.Identity.Repositories
 		///     An enumerator that allows foreach to be used to process the identifiers in this collection.
 		/// </returns>
 		IEnumerable<IdentityUserEntity> FindByIds(IEnumerable<int> userIds);
+
+		/// <summary>	Searches for the first login. </summary>
+		/// <param name="providerName">	Name of the provider. </param>
+		/// <param name="providerKey"> 	The provider key. </param>
+		/// <returns>	The found login. </returns>
+		IdentityUserEntity FindByLogin(string providerName, string providerKey);
 	}
 }

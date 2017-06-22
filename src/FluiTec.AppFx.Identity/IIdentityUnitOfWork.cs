@@ -21,5 +21,9 @@ namespace FluiTec.AppFx.Identity
 		/// <summary>	Gets the claim repository. </summary>
 		/// <value>	The claim repository. </value>
 		IClaimRepository ClaimRepository { get; }
+
+		/// <summary>	Gets the login repository. </summary>
+		/// <value>	The login repository. </value>
+		IUserLoginRepository LoginRepository { get; }
 	}
 }

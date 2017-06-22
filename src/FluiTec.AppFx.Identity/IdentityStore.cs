@@ -10,7 +10,8 @@ using Microsoft.AspNetCore.Identity;
 namespace FluiTec.AppFx.Identity
 {
 	public class IdentityStore : IUserPasswordStore<IdentityUserEntity>, IUserClaimStore<IdentityUserEntity>,
-		IRoleStore<IdentityRoleEntity>, IUserSecurityStampStore<IdentityUserEntity>, IUserRoleStore<IdentityUserEntity>
+		IRoleStore<IdentityRoleEntity>, IUserSecurityStampStore<IdentityUserEntity>, IUserRoleStore<IdentityUserEntity>,
+		IUserLoginStore<IdentityUserEntity>
 	{
 		#region Constructors
 
@@ -45,7 +46,7 @@ namespace FluiTec.AppFx.Identity
 		/// </summary>
 		public void Dispose()
 		{
-			Dispose(true);
+			Dispose(disposing: true);
 		}
 
 		/// <summary>
@@ -553,6 +554,68 @@ namespace FluiTec.AppFx.Identity
 				var userIds = UnitOfWork.UserRoleRepository.FindByRole(role);
 				return UnitOfWork.UserRepository.FindByIds(userIds).ToList();
 			}, cancellationToken);
+		}
+
+		#endregion
+
+		#region IUserLoginStore
+
+		/// <summary>	Adds a login asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="login">				The login. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public Task AddLoginAsync(IdentityUserEntity user, UserLoginInfo login, CancellationToken cancellationToken)
+		{
+			return Task<IdentityUserEntity>.Factory.StartNew(() =>
+			{
+				UnitOfWork.LoginRepository.Add(new IdentityUserLoginEntity
+				{
+					ProviderName = login.LoginProvider,
+					ProviderKey = login.ProviderKey,
+					ProviderDisplayName = login.ProviderDisplayName,
+					UserId = user.Identifier
+				});
+				return user;
+			}, cancellationToken);
+		}
+
+		/// <summary>	Removes the login asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="loginProvider">		The login provider. </param>
+		/// <param name="providerKey">			The provider key. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public Task RemoveLoginAsync(IdentityUserEntity user, string loginProvider, string providerKey,
+			CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew(() => { UnitOfWork.LoginRepository.RemoveByNameAndKey(loginProvider, providerKey); },
+				cancellationToken);
+		}
+
+		/// <summary>	Gets logins asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The logins asynchronous. </returns>
+		public Task<IList<UserLoginInfo>> GetLoginsAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task<IList<UserLoginInfo>>.Factory.StartNew(() =>
+			{
+				var entities = UnitOfWork.LoginRepository.FindByUserId(user.Identifier);
+				return entities.Select(e => new UserLoginInfo(e.ProviderName, e.ProviderKey, e.ProviderDisplayName)).ToList();
+			}, cancellationToken);
+		}
+
+		/// <summary>	Searches for the first login asynchronous. </summary>
+		/// <param name="loginProvider">		The login provider. </param>
+		/// <param name="providerKey">			The provider key. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The found login asynchronous. </returns>
+		public Task<IdentityUserEntity> FindByLoginAsync(string loginProvider, string providerKey,
+			CancellationToken cancellationToken)
+		{
+			return Task<IdentityUserEntity>.Factory.StartNew(
+				() => UnitOfWork.UserRepository.FindByLogin(loginProvider, providerKey), cancellationToken);
 		}
 
 		#endregion

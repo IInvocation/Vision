@@ -1,12 +1,12 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [Vision]    Script Date: 14.06.2017 16:13:52 ******/
+/****** Object:  Database [Vision]    Script Date: 22.06.2017 19:12:57 ******/
 CREATE DATABASE [Vision]
  CONTAINMENT = NONE
  ON  PRIMARY 
-( NAME = N'Vision', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\Vision.mdf' , SIZE = 5120KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
+( NAME = N'AppFx', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\AppFx.mdf' , SIZE = 5120KB , MAXSIZE = UNLIMITED, FILEGROWTH = 1024KB )
  LOG ON 
-( NAME = N'Vision_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\Vision_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
+( NAME = N'AppFx_log', FILENAME = N'C:\Program Files\Microsoft SQL Server\MSSQL12.SQLEXPRESS\MSSQL\DATA\AppFx_log.ldf' , SIZE = 1024KB , MAXSIZE = 2048GB , FILEGROWTH = 10%)
 GO
 ALTER DATABASE [Vision] SET COMPATIBILITY_LEVEL = 120
 GO
@@ -75,7 +75,7 @@ ALTER DATABASE [Vision] SET DELAYED_DURABILITY = DISABLED
 GO
 USE [Vision]
 GO
-/****** Object:  Table [dbo].[Dummy]    Script Date: 14.06.2017 16:13:52 ******/
+/****** Object:  Table [dbo].[Dummy]    Script Date: 22.06.2017 19:12:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -90,7 +90,7 @@ CREATE TABLE [dbo].[Dummy](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityClaim]    Script Date: 14.06.2017 16:13:52 ******/
+/****** Object:  Table [dbo].[IdentityClaim]    Script Date: 22.06.2017 19:12:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -107,7 +107,7 @@ CREATE TABLE [dbo].[IdentityClaim](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityRole]    Script Date: 14.06.2017 16:13:52 ******/
+/****** Object:  Table [dbo].[IdentityRole]    Script Date: 22.06.2017 19:12:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -126,7 +126,7 @@ CREATE TABLE [dbo].[IdentityRole](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityUser]    Script Date: 14.06.2017 16:13:52 ******/
+/****** Object:  Table [dbo].[IdentityUser]    Script Date: 22.06.2017 19:12:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -134,7 +134,7 @@ GO
 CREATE TABLE [dbo].[IdentityUser](
 	[Id] [int] IDENTITY(1,1) NOT NULL,
 	[ApplicationId] [int] NOT NULL,
-	[Identifier] [uniqueidentifier] NOT NULL,
+	[Identifier] [uniqueidentifier] NOT NULL CONSTRAINT [DF_Identifier]  DEFAULT (newsequentialid()),
 	[Name] [nvarchar](256) NOT NULL,
 	[LoweredUserName] [nvarchar](256) NOT NULL,
 	[MobileAlias] [nvarchar](16) NULL,
@@ -150,7 +150,25 @@ CREATE TABLE [dbo].[IdentityUser](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityUserRole]    Script Date: 14.06.2017 16:13:52 ******/
+/****** Object:  Table [dbo].[IdentityUserLogin]    Script Date: 22.06.2017 19:12:57 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[IdentityUserLogin](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ProviderName] [nvarchar](255) NOT NULL,
+	[ProviderKey] [nvarchar](45) NOT NULL,
+	[ProviderDisplayName] [nvarchar](255) NULL,
+	[UserId] [uniqueidentifier] NOT NULL,
+ CONSTRAINT [PK_IdentityUserLogin] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[IdentityUserRole]    Script Date: 22.06.2017 19:12:57 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -166,7 +184,7 @@ CREATE TABLE [dbo].[IdentityUserRole](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Index [IX_IdentityUser]    Script Date: 14.06.2017 16:13:52 ******/
+/****** Object:  Index [IX_IdentityUser]    Script Date: 22.06.2017 19:12:57 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_IdentityUser] ON [dbo].[IdentityUser]
 (
 	[Identifier] ASC
@@ -175,18 +193,31 @@ GO
 SET ANSI_PADDING ON
 
 GO
-/****** Object:  Index [IX_IdentityUser_1]    Script Date: 14.06.2017 16:13:52 ******/
+/****** Object:  Index [IX_IdentityUser_1]    Script Date: 22.06.2017 19:12:57 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_IdentityUser_1] ON [dbo].[IdentityUser]
 (
 	[LoweredUserName] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
-ALTER TABLE [dbo].[IdentityUser] ADD  CONSTRAINT [DF_Identifier]  DEFAULT (newsequentialid()) FOR [Identifier]
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [IX_IdentityUserLogin]    Script Date: 22.06.2017 19:12:57 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [IX_IdentityUserLogin] ON [dbo].[IdentityUserLogin]
+(
+	[ProviderName] ASC,
+	[ProviderKey] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
 ALTER TABLE [dbo].[IdentityClaim]  WITH CHECK ADD  CONSTRAINT [FK_IdentityClaim_IdentityUser] FOREIGN KEY([UserId])
 REFERENCES [dbo].[IdentityUser] ([Id])
 GO
 ALTER TABLE [dbo].[IdentityClaim] CHECK CONSTRAINT [FK_IdentityClaim_IdentityUser]
+GO
+ALTER TABLE [dbo].[IdentityUserLogin]  WITH CHECK ADD  CONSTRAINT [FK_IdentityUserLogin_IdentityUser] FOREIGN KEY([UserId])
+REFERENCES [dbo].[IdentityUser] ([Identifier])
+GO
+ALTER TABLE [dbo].[IdentityUserLogin] CHECK CONSTRAINT [FK_IdentityUserLogin_IdentityUser]
 GO
 ALTER TABLE [dbo].[IdentityUserRole]  WITH CHECK ADD  CONSTRAINT [FK_IdentityUserRole_IdentityRole] FOREIGN KEY([RoleId])
 REFERENCES [dbo].[IdentityRole] ([Id])

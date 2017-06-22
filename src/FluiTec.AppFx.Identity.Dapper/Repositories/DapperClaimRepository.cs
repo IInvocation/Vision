@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Dapper;
 using FluiTec.AppFx.Data;
 using FluiTec.AppFx.Data.Dapper;
 using FluiTec.AppFx.Identity.Entities;

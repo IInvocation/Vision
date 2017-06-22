@@ -45,7 +45,22 @@ namespace FluiTec.AppFx.Identity.Dapper.Mssql.Repositories
 		public override IEnumerable<IdentityUserEntity> FindByIds(IEnumerable<int> userIds)
 		{
 			var command = $"SELECT * FROM {TableName} WHERE {nameof(IdentityUserEntity.Id)} IN @Ids";
-			return UnitOfWork.Connection.Query<IdentityUserEntity>(command, new { Ids = userIds },
+			return UnitOfWork.Connection.Query<IdentityUserEntity>(command, new {Ids = userIds},
+				UnitOfWork.Transaction);
+		}
+
+		/// <summary>	Searches for the first login. </summary>
+		/// <param name="providerName">	Name of the provider. </param>
+		/// <param name="providerKey"> 	The provider key. </param>
+		/// <returns>	The found login. </returns>
+		public override IdentityUserEntity FindByLogin(string providerName, string providerKey)
+		{
+			var otherTableName = GetTableName(typeof(IdentityUserLoginEntity));
+			var command = $"SELECT {TableName}.* FROM {TableName} " +
+						  $"INNER JOIN {otherTableName} ON {TableName}.{nameof(IdentityUserEntity.Identifier)} = {otherTableName}.{nameof(IdentityUserLoginEntity.UserId)} " +
+						  $"WHERE {otherTableName}.{nameof(IdentityUserLoginEntity.ProviderName)} = @ProviderName " +
+			              $"AND {otherTableName}.{nameof(IdentityUserLoginEntity.ProviderKey)} = @ProviderKey";
+			return UnitOfWork.Connection.QuerySingleOrDefault<IdentityUserEntity>(command, new { ProviderName = providerName, ProviderKey = providerKey },
 				UnitOfWork.Transaction);
 		}
 

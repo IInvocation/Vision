@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using FluiTec.AppFx.Data;
 using FluiTec.AppFx.Data.Dapper;
 using FluiTec.AppFx.Identity.Entities;
@@ -33,13 +34,33 @@ namespace FluiTec.AppFx.Identity.Dapper.Repositories
 		/// </returns>
 		public abstract IEnumerable<IdentityUserEntity> FindByIds(IEnumerable<int> userIds);
 
+		/// <summary>	Searches for the first login. </summary>
+		/// <param name="providerName">	Name of the provider. </param>
+		/// <param name="providerKey"> 	The provider key. </param>
+		/// <returns>	The found login. </returns>
+		public abstract IdentityUserEntity FindByLogin(string providerName, string providerKey);
+
 		/// <summary>	Adds entity. </summary>
 		/// <param name="entity">	The entity. </param>
 		/// <returns>	An IdentityUserEntity. </returns>
 		public override IdentityUserEntity Add(IdentityUserEntity entity)
 		{
+			if (entity?.Identifier != Guid.Empty) return base.Add(entity);
+			entity.Identifier = Guid.NewGuid();
 			entity.LastActivityDate = DateTime.Now.ToUniversalTime();
 			return base.Add(entity);
+		}
+
+		/// <summary>	Adds a range. </summary>
+		/// <param name="entities">	An IEnumerable&lt;IdentityUserEntity&gt; of items to append to this. </param>
+		public override void AddRange(IEnumerable<IdentityUserEntity> entities)
+		{
+			var identityUserEntities = entities as IdentityUserEntity[] ?? entities.ToArray();
+			if (entities != null)
+				foreach (var entity in identityUserEntities)
+					if (entity?.Identifier == Guid.Empty)
+						if (entity != null) entity.Identifier = Guid.NewGuid();
+			base.AddRange(identityUserEntities);
 		}
 
 		/// <summary>	Updates the given entity. </summary>

@@ -24,7 +24,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
             var builder = new ConfigurationBuilder()
                 .SetBasePath(env.ContentRootPath)
                 .AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
-                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
+	            .AddJsonFile(path: "appsettings.secret.json", optional: false, reloadOnChange: true)
+				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
@@ -36,6 +37,15 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 	    {
 			services.AddSingleton<IDapperServiceOptions>(new ConfigurationSettingsService<MssqlDapperServiceOptions>(Configuration, configKey: "Dapper").Get());
 		    services.AddSingleton(new ConfigurationSettingsService<MailOptions>(Configuration, configKey: "Webmail").Get());
+		}
+
+	    private void ConfigureExternalAuthentication(IApplicationBuilder app)
+	    {
+			app.UseGoogleAuthentication(new GoogleOptions
+			{
+				ClientId = Configuration[key: "Authentication:Google:ClientId"],
+				ClientSecret = Configuration[key: "Authentication:Google:ClientSecret"]
+			});
 		}
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -70,6 +80,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 	        services.AddScoped<IUserSecurityStampStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
 			services.AddScoped<IRoleStore<IdentityRoleEntity>>(provider => provider.GetService<IdentityStore>());
 	        services.AddScoped<IUserRoleStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
+	        services.AddScoped<IUserLoginStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
 
 			// add mvc with localization
 			services.AddMvc()
@@ -87,7 +98,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
+            loggerFactory.AddConsole(Configuration.GetSection(key: "Logging"));
             loggerFactory.AddDebug();
 
             if (env.IsDevelopment())
@@ -102,7 +113,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 
             app.UseStaticFiles();
 
-            app.UseIdentity();
+	        app.UseIdentity();
+			ConfigureExternalAuthentication(app);
 
 			// enable localization based on request culture
 	        var options = app.ApplicationServices.GetService<IOptions<RequestLocalizationOptions>>();

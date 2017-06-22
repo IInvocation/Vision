@@ -21,7 +21,18 @@ namespace FluiTec.AppFx.Data.Dapper
 			if (UnitOfWork == null)
 				throw new ArgumentException($"UnitOfWork was either null or does not implement {nameof(DapperUnitOfWork)}!");
 
-			TableName = UnitOfWork.DataService.NameService.NameByType(typeof(TEntity));
+			TableName = GetTableName(typeof(TEntity));
+		}
+
+		#endregion
+
+		#region Methods
+
+		/// <summary>	Gets table name. </summary>
+		/// <returns>	The table name. </returns>
+		protected string GetTableName(Type t)
+		{
+			return UnitOfWork.DataService.NameService.NameByType(t);
 		}
 
 		#endregion

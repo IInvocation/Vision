@@ -26,6 +26,8 @@ namespace FluiTec.AppFx.Identity.Dapper
 
 		private IUserRoleRepository _userRoleRepository;
 
+		private IUserLoginRepository _loginRepository;
+
 		#endregion
 
 		#region IIdentityUnitOfWork
@@ -42,6 +44,10 @@ namespace FluiTec.AppFx.Identity.Dapper
 		/// <summary>	The user role repository. </summary>
 		public IUserRoleRepository UserRoleRepository => _userRoleRepository ??
 		                                                 (_userRoleRepository = GetRepository<IUserRoleRepository>());
+
+		/// <summary>	The user login repository. </summary>
+		public IUserLoginRepository LoginRepository => _loginRepository ??
+		                                                   (_loginRepository = GetRepository<IUserLoginRepository>());
 
 		#endregion
 	}
