@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Linq;
-using System.Reflection;
 using FluiTec.AppFx.Options;
 using Microsoft.Extensions.Configuration;
 
@@ -9,18 +7,25 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Configuration
 	/// <summary>	A configuration settings service. </summary>
 	/// <typeparam name="TSettings">	Type of the settings. </typeparam>
 	public class ConfigurationSettingsService<TSettings> : ISettingsService<TSettings>
-		where TSettings : IServiceOptions, new()
+		where TSettings : new()
 	{
 		/// <summary>	The configuration. </summary>
 		protected readonly IConfiguration Configuration;
+
+		/// <summary>	The configuration key. </summary>
+		protected readonly string ConfigurationKey;
 
 		/// <summary>	Options for controlling the operation. </summary>
 		protected TSettings Settings;
 
 		/// <summary>	Constructor. </summary>
+		/// <exception cref="ArgumentNullException"> Thrown when one or more required arguments are null. </exception>
 		/// <param name="configuration">	The configuration. </param>
-		public ConfigurationSettingsService(IConfiguration configuration)
+		/// <param name="configKey">		The configuration key. </param>
+		public ConfigurationSettingsService(IConfiguration configuration, string configKey)
 		{
+			if (string.IsNullOrWhiteSpace(configKey)) throw new ArgumentNullException(nameof(configKey));
+			ConfigurationKey = configKey;
 			Configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
 		}
 
@@ -32,7 +37,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Configuration
 				return Settings;
 
 			// load config-section
-			var section = Configuration.GetSection(new TSettings().Key);
+			var section = Configuration.GetSection(ConfigurationKey);
 
 			// parse config-section
 			Settings = section.Get<TSettings>();
@@ -63,7 +68,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Configuration
 			//		settingsType.GetTypeInfo().DeclaredProperties.Single(p => p.Name == propertyNameToMatch).SetValue(Settings, instance);
 			//	}
 			//}
-		
+
 			return Settings;
 		}
 	}

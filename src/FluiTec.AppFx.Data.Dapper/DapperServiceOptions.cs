@@ -10,8 +10,5 @@
 		/// <summary>	Gets or sets the connection string. </summary>
 		/// <value>	The connection string. </value>
 		public virtual string ConnectionString { get; set; }
-
-		/// <summary>	The key. </summary>
-		public virtual string Key => "Dapper";
 	}
 }

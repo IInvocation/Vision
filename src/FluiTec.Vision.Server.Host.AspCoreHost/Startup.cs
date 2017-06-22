@@ -32,11 +32,18 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 
         public IConfigurationRoot Configuration { get; }
 
+	    private void LoadConfiguration(IServiceCollection services)
+	    {
+			services.AddSingleton<IDapperServiceOptions>(new ConfigurationSettingsService<MssqlDapperServiceOptions>(Configuration, configKey: "Dapper").Get());
+		    services.AddSingleton(new ConfigurationSettingsService<MailOptions>(Configuration, configKey: "Webmail").Get());
+		}
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+			LoadConfiguration(services);
+
 	        // add dataservices
-	        services.AddSingleton<IDapperServiceOptions>(new ConfigurationSettingsService<MssqlDapperServiceOptions>(Configuration).Get());
 	        services.AddScoped<IIdentityDataService, MssqlDapperIdentityDataService>();
 
 			// add localizazion
@@ -68,6 +75,9 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 			services.AddMvc()
 				.AddViewLocalization()
 				.AddDataAnnotationsLocalization();
+
+			// configure webmail
+			
 
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();

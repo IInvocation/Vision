@@ -1,9 +1,7 @@
-﻿using FluiTec.AppFx.Options;
-
-namespace FluiTec.AppFx.Data.Dapper
+﻿namespace FluiTec.AppFx.Data.Dapper
 {
 	/// <summary>	Interface for dapper service options. </summary>
-	public interface IDapperServiceOptions : IServiceOptions
+	public interface IDapperServiceOptions
 	{
 		/// <summary>	Gets or sets the connection factory. </summary>
 		/// <value>	The connection factory. </value>
