@@ -113,7 +113,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-					// For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
 					// Send an email with this link
 					var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 					var callbackUrl = Url.Action(nameof(ConfirmEmail), controller: "Account", values: new { userId = user.Identifier, code }, protocol: HttpContext.Request.Scheme);
@@ -247,6 +246,35 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
         }
 
+		// GET: /Account/ConfirmEmailAgain
+	    [HttpGet]
+	    [AllowAnonymous]
+	    public IActionResult ConfirmEmailAgain()
+	    {
+		    return View();
+	    }
+
+	    // POST: /Account/ConfirmEmailAgain
+	    [HttpPost]
+	    [AllowAnonymous]
+		public async Task<IActionResult> ConfirmEmailAgain(ConfirmEmailAgainViewModel model)
+	    {
+		    if (!ModelState.IsValid) return View(model);
+
+		    var user = await _userManager.FindByEmailAsync(model.Email);
+		    if (user == null || await _userManager.IsEmailConfirmedAsync(user))
+		    {
+			    // Don't reveal that the user does not exist or is confirmed
+			    return View(viewName: "ConfirmEmailAgainConfirmation");
+		    }
+
+		    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+		    var callbackUrl = Url.Action(nameof(ConfirmEmail), controller: "Account", values: new { userId = user.Identifier, code }, protocol: HttpContext.Request.Scheme);
+		    var mailModel = new ConfirmMailModel(callbackUrl);
+		    await _emailSender.SendEmailAsync(model.Email, mailModel);
+		    return View(viewName: "ConfirmEmailAgainConfirmation");
+	    }
+
         //
         // GET: /Account/ForgotPassword
         [HttpGet]
@@ -263,24 +291,22 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordViewModel model)
         {
-            if (ModelState.IsValid)
-            {
-                var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
-                {
-                    // Don't reveal that the user does not exist or is not confirmed
-                    return View(viewName: "ForgotPasswordConfirmation");
-                }
+	        if (!ModelState.IsValid) return View(model);
 
-				var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-				var callbackUrl = Url.Action(nameof(ResetPassword), controller: "Account", values: new { userId = user.Id, code }, protocol: HttpContext.Request.Scheme);
-				var mailModel = new RecoverPasswordModel(callbackUrl);
-	            await _emailSender.SendEmailAsync(model.Email, mailModel);
-				return View(viewName: "ForgotPasswordConfirmation");
-			}
+	        var user = await _userManager.FindByEmailAsync(model.Email);
+	        if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
+	        {
+		        // Don't reveal that the user does not exist or is not confirmed
+		        return View(viewName: "ForgotPasswordConfirmation");
+	        }
 
-            // If we got this far, something failed, redisplay form
-            return View(model);
+	        var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+	        var callbackUrl = Url.Action(nameof(ResetPassword), controller: "Account", values: new { userId = user.Identifier, code }, protocol: HttpContext.Request.Scheme);
+	        var mailModel = new RecoverPasswordModel(callbackUrl);
+	        await _emailSender.SendEmailAsync(model.Email, mailModel);
+	        return View(viewName: "ForgotPasswordConfirmation");
+
+	        // If we got this far, something failed, redisplay form
         }
 
         //

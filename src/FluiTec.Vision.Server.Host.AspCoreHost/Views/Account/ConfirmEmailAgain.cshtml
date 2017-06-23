@@ -1,0 +1,35 @@
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+@model ConfirmEmailAgainViewModel
+@inject IViewLocalizer Localizer
+
+<header class="major">
+	<h2><localize>AccountHeader</localize></h2>
+	<p><localize>ConfirmEmailAgainHeader</localize></p>
+</header>
+<div class="container">
+	<section id="content">
+		<section>
+			<form asp-controller="Account" asp-action="ConfirmEmailAgain" method="post" class="form-horizontal">
+				<h4><localize>ConfirmEmailAgainText</localize></h4>
+				<hr />
+				<div asp-validation-summary="All" class="text-danger"></div>
+				<div class="row uniform">
+					<div class="6u 12u(3)">
+						<input type="email" name="Email" id="Email" value="@Model?.Email" placeholder="@Localizer[name: "Placeholder_Email"]" />
+					</div>
+				</div>
+				<div class="row uniform">
+					<ul class="actions">
+						<li>
+							<input type="submit" value="@Localizer[name: "SubmitRequest"]" />
+						</li>
+					</ul>
+				</div>
+			</form>
+		</section>
+	</section>
+</div>
+
+@section Scripts {
+	@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}

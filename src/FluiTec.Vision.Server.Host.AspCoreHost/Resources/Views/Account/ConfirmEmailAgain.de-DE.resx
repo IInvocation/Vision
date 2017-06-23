@@ -120,37 +120,16 @@
   <data name="AccountHeader" xml:space="preserve">
     <value>Profil</value>
   </data>
-  <data name="ConfirmEmailAgainDescription" xml:space="preserve">
-    <value>E-Mail nicht bestätigt?</value>
+  <data name="ConfirmEmailAgainHeader" xml:space="preserve">
+    <value>E-Mail bestätigen</value>
   </data>
-  <data name="ExternalLoginDescription" xml:space="preserve">
-    <value>Einen anderen Dienst zum Anmelden verwenden</value>
-  </data>
-  <data name="ExternalLoginProviderDescription" xml:space="preserve">
-    <value>Mit {0} anmelden</value>
-  </data>
-  <data name="ForgotPasswordDescription" xml:space="preserve">
-    <value>Passwort vergessen?</value>
-  </data>
-  <data name="LocalLoginDescription" xml:space="preserve">
-    <value>Lokaler Account zum Anmelden</value>
-  </data>
-  <data name="LoginHeader" xml:space="preserve">
-    <value>Login</value>
+  <data name="ConfirmEmailAgainText" xml:space="preserve">
+    <value>E-Mail-Adresse erneut bestätigen</value>
   </data>
   <data name="Placeholder_Email" xml:space="preserve">
     <value>Email</value>
   </data>
-  <data name="Placeholder_Password" xml:space="preserve">
-    <value>Passwort</value>
-  </data>
-  <data name="RegisterLinkDescription" xml:space="preserve">
-    <value>Als neuer Benutzer registrieren</value>
-  </data>
-  <data name="SubmitLogin" xml:space="preserve">
-    <value>Anmelden</value>
-  </data>
-  <data name="SubmitReset" xml:space="preserve">
-    <value>Zurücksetzen</value>
+  <data name="SubmitRequest" xml:space="preserve">
+    <value>E-Mail erneut schicken</value>
   </data>
 </root>
