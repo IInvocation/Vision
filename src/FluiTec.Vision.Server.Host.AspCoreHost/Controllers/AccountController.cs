@@ -1,7 +1,6 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using FluiTec.AppFx.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -13,7 +12,6 @@ using FluiTec.Vision.Server.Host.AspCoreHost.Services;
 using FluiTec.AppFx.Identity.Entities;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountMailViewModels;
 using FuiTec.AppFx.Mail;
-using Microsoft.Extensions.Localization;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 {
@@ -26,7 +24,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
-	    private readonly IIdentityDataService _dataService;
 
         public AccountController(
             UserManager<IdentityUserEntity> userManager,
@@ -269,20 +266,18 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             if (ModelState.IsValid)
             {
                 var user = await _userManager.FindByEmailAsync(model.Email);
-                if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
+                if (user == null || !await _userManager.IsEmailConfirmedAsync(user))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
                     return View(viewName: "ForgotPasswordConfirmation");
                 }
 
-                // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-                // Send an email with this link
-                //var code = await _userManager.GeneratePasswordResetTokenAsync(user);
-                //var callbackUrl = Url.Action(nameof(ResetPassword), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                //await _emailSender.SendEmailAsync(model.Email, "Reset Password",
-                //   $"Please reset your password by clicking here: <a href='{callbackUrl}'>link</a>");
-                //return View("ForgotPasswordConfirmation");
-            }
+				var code = await _userManager.GeneratePasswordResetTokenAsync(user);
+				var callbackUrl = Url.Action(nameof(ResetPassword), controller: "Account", values: new { userId = user.Id, code }, protocol: HttpContext.Request.Scheme);
+				var mailModel = new RecoverPasswordModel(callbackUrl);
+	            await _emailSender.SendEmailAsync(model.Email, mailModel);
+				return View(viewName: "ForgotPasswordConfirmation");
+			}
 
             // If we got this far, something failed, redisplay form
             return View(model);
