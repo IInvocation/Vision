@@ -92,6 +92,9 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 			services.AddScoped<IRoleStore<IdentityRoleEntity>>(provider => provider.GetService<IdentityStore>());
 	        services.AddScoped<IUserRoleStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
 	        services.AddScoped<IUserLoginStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
+	        services.AddScoped<IUserEmailStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
+	        services.AddScoped<IUserPhoneNumberStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
+	        services.AddScoped<IUserTwoFactorStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
 
 			// add mvc with localization
 			services.AddMvc()

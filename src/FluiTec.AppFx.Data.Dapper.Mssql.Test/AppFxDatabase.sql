@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [Vision]    Script Date: 22.06.2017 19:12:57 ******/
+/****** Object:  Database [Vision]    Script Date: 23.06.2017 12:21:38 ******/
 CREATE DATABASE [Vision]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -75,7 +75,7 @@ ALTER DATABASE [Vision] SET DELAYED_DURABILITY = DISABLED
 GO
 USE [Vision]
 GO
-/****** Object:  Table [dbo].[Dummy]    Script Date: 22.06.2017 19:12:57 ******/
+/****** Object:  Table [dbo].[Dummy]    Script Date: 23.06.2017 12:21:38 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -90,7 +90,7 @@ CREATE TABLE [dbo].[Dummy](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityClaim]    Script Date: 22.06.2017 19:12:57 ******/
+/****** Object:  Table [dbo].[IdentityClaim]    Script Date: 23.06.2017 12:21:38 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -107,7 +107,7 @@ CREATE TABLE [dbo].[IdentityClaim](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityRole]    Script Date: 22.06.2017 19:12:57 ******/
+/****** Object:  Table [dbo].[IdentityRole]    Script Date: 23.06.2017 12:21:38 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -126,7 +126,7 @@ CREATE TABLE [dbo].[IdentityRole](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityUser]    Script Date: 22.06.2017 19:12:57 ******/
+/****** Object:  Table [dbo].[IdentityUser]    Script Date: 23.06.2017 12:21:38 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -143,6 +143,11 @@ CREATE TABLE [dbo].[IdentityUser](
 	[PasswordHash] [nvarchar](256) NULL,
 	[SecurityStamp] [nvarchar](256) NULL,
 	[Email] [nvarchar](256) NOT NULL,
+	[NormalizedEmail] [nvarchar](256) NULL,
+	[EmailConfirmed] [bit] NOT NULL,
+	[Phone] [nvarchar](256) NULL,
+	[PhoneConfirmed] [bit] NOT NULL,
+	[TwoFactorEnabled] [bit] NOT NULL,
  CONSTRAINT [PK_IdentityUser] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -150,7 +155,7 @@ CREATE TABLE [dbo].[IdentityUser](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityUserLogin]    Script Date: 22.06.2017 19:12:57 ******/
+/****** Object:  Table [dbo].[IdentityUserLogin]    Script Date: 23.06.2017 12:21:38 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -168,7 +173,7 @@ CREATE TABLE [dbo].[IdentityUserLogin](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityUserRole]    Script Date: 22.06.2017 19:12:57 ******/
+/****** Object:  Table [dbo].[IdentityUserRole]    Script Date: 23.06.2017 12:21:38 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -184,7 +189,7 @@ CREATE TABLE [dbo].[IdentityUserRole](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Index [IX_IdentityUser]    Script Date: 22.06.2017 19:12:57 ******/
+/****** Object:  Index [IX_IdentityUser]    Script Date: 23.06.2017 12:21:38 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_IdentityUser] ON [dbo].[IdentityUser]
 (
 	[Identifier] ASC
@@ -193,7 +198,7 @@ GO
 SET ANSI_PADDING ON
 
 GO
-/****** Object:  Index [IX_IdentityUser_1]    Script Date: 22.06.2017 19:12:57 ******/
+/****** Object:  Index [IX_IdentityUser_1]    Script Date: 23.06.2017 12:21:38 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_IdentityUser_1] ON [dbo].[IdentityUser]
 (
 	[LoweredUserName] ASC
@@ -202,7 +207,7 @@ GO
 SET ANSI_PADDING ON
 
 GO
-/****** Object:  Index [IX_IdentityUserLogin]    Script Date: 22.06.2017 19:12:57 ******/
+/****** Object:  Index [IX_IdentityUserLogin]    Script Date: 23.06.2017 12:21:38 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_IdentityUserLogin] ON [dbo].[IdentityUserLogin]
 (
 	[ProviderName] ASC,

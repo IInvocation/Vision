@@ -11,7 +11,8 @@ namespace FluiTec.AppFx.Identity
 {
 	public class IdentityStore : IUserPasswordStore<IdentityUserEntity>, IUserClaimStore<IdentityUserEntity>,
 		IRoleStore<IdentityRoleEntity>, IUserSecurityStampStore<IdentityUserEntity>, IUserRoleStore<IdentityUserEntity>,
-		IUserLoginStore<IdentityUserEntity>, IUserEmailStore<IdentityUserEntity>
+		IUserLoginStore<IdentityUserEntity>, IUserEmailStore<IdentityUserEntity>, IUserPhoneNumberStore<IdentityUserEntity>,
+		IUserTwoFactorStore<IdentityUserEntity>
 	{
 		#region Constructors
 
@@ -35,6 +36,8 @@ namespace FluiTec.AppFx.Identity
 		protected IIdentityUnitOfWork UnitOfWork { get; set; }
 
 		#endregion
+
+		#region IUserEmailStore
 
 		/// <summary>	Sets email asynchronous. </summary>
 		/// <param name="user">					The user. </param>
@@ -106,6 +109,58 @@ namespace FluiTec.AppFx.Identity
 				UnitOfWork.UserRepository.Update(user);
 			}, cancellationToken);
 		}
+
+		#endregion
+
+		#region IUserPhoneNumberStore
+
+		/// <summary>	Sets phone number asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="phoneNumber">			The phone number. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public Task SetPhoneNumberAsync(IdentityUserEntity user, string phoneNumber, CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				user.Phone = phoneNumber;
+				UnitOfWork.UserRepository.Update(user);
+			}, cancellationToken);
+		}
+
+		/// <summary>	Gets phone number asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The phone number asynchronous. </returns>
+		public Task<string> GetPhoneNumberAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task.FromResult(user.Phone);
+		}
+
+		/// <summary>	Gets phone number confirmed asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The phone number confirmed asynchronous. </returns>
+		public Task<bool> GetPhoneNumberConfirmedAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task.FromResult(user.PhoneConfirmed);
+		}
+
+		/// <summary>	Sets phone number confirmed asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="confirmed">			True if confirmed. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public Task SetPhoneNumberConfirmedAsync(IdentityUserEntity user, bool confirmed, CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				user.PhoneConfirmed = confirmed;
+				UnitOfWork.UserRepository.Update(user);
+			}, cancellationToken);
+		}
+
+		#endregion
 
 		#region IDisposable
 
@@ -687,6 +742,33 @@ namespace FluiTec.AppFx.Identity
 		{
 			return Task<IdentityUserEntity>.Factory.StartNew(
 				() => UnitOfWork.UserRepository.FindByLogin(loginProvider, providerKey), cancellationToken);
+		}
+
+		#endregion
+
+		#region IUserTwoFactorStore
+
+		/// <summary>	Sets two factor enabled asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="enabled">				True to enable, false to disable. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public Task SetTwoFactorEnabledAsync(IdentityUserEntity user, bool enabled, CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				user.TwoFactorEnabled = enabled;
+				UnitOfWork.UserRepository.Update(user);
+			}, cancellationToken);
+		}
+
+		/// <summary>	Gets two factor enabled asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The two factor enabled asynchronous. </returns>
+		public Task<bool> GetTwoFactorEnabledAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task.FromResult(user.TwoFactorEnabled);
 		}
 
 		#endregion

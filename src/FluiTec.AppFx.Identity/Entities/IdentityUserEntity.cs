@@ -56,6 +56,18 @@ namespace FluiTec.AppFx.Identity.Entities
 		/// <value>	True if email confirmed, false if not. </value>
 		public bool EmailConfirmed { get; set; }
 
+		/// <summary>	Gets or sets the phone. </summary>
+		/// <value>	The phone. </value>
+		public string Phone { get; set; }
+
+		/// <summary>	Gets or sets a value indicating whether the phone confirmed. </summary>
+		/// <value>	True if phone confirmed, false if not. </value>
+		public bool PhoneConfirmed { get; set; }
+
+		/// <summary>	Gets or sets a value indicating whether the two factor is enabled. </summary>
+		/// <value>	True if two factor enabled, false if not. </value>
+		public bool TwoFactorEnabled { get; set; }
+
 		/// <summary>	Gets or sets the identifier. </summary>
 		/// <value>	The identifier. </value>
 		public int Id { get; set; }
