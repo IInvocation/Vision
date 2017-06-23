@@ -4,7 +4,6 @@ using FluiTec.AppFx.Data.Dapper.Mssql;
 using FluiTec.AppFx.Identity;
 using FluiTec.AppFx.Identity.Dapper.Mssql;
 using FluiTec.AppFx.Identity.Entities;
-using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -14,6 +13,10 @@ using FluiTec.Vision.Server.Host.AspCoreHost.Services;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
+using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
+using FuiTec.AppFx.Mail;
+using FuiTec.AppFx.Mail.Configuration;
+using RazorLight.MVC;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost
 {
@@ -36,7 +39,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 	    private void LoadConfiguration(IServiceCollection services)
 	    {
 			services.AddSingleton<IDapperServiceOptions>(new ConfigurationSettingsService<MssqlDapperServiceOptions>(Configuration, configKey: "Dapper").Get());
-		    services.AddSingleton(new ConfigurationSettingsService<MailOptions>(Configuration, configKey: "Webmail").Get());
+		    services.AddSingleton(new ConfigurationSettingsService<MailServiceOptions>(Configuration, configKey: "Mail").Get());
 		}
 
 	    private void ConfigureExternalAuthentication(IApplicationBuilder app)
@@ -53,8 +56,12 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
         {
 			LoadConfiguration(services);
 
-	        // add dataservices
-	        services.AddScoped<IIdentityDataService, MssqlDapperIdentityDataService>();
+			// configure mail-templates
+	        services.AddRazorLight("/MailViews");
+	        services.AddScoped<ITemplatingMailService, MailKitTemplatingMailService>();
+
+			// add dataservices
+			services.AddScoped<IIdentityDataService, MssqlDapperIdentityDataService>();
 
 			// add localizazion
 	        services.AddLocalization(options => options.ResourcesPath = "Resources");
@@ -73,7 +80,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 	        });
 
 			// add identityservices
-	        services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>();
+	        services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>()
+				.AddDefaultTokenProviders();
 			services.AddScoped<IdentityStore>();
 			services.AddScoped<IUserStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
 	        services.AddScoped<IUserPasswordStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
@@ -91,7 +99,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 			
 
             // Add application services.
-            services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
         }
 

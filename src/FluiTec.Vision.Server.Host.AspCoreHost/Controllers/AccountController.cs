@@ -13,6 +13,8 @@ using FluiTec.Vision.Server.Host.AspCoreHost.Models;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountViewModels;
 using FluiTec.Vision.Server.Host.AspCoreHost.Services;
 using FluiTec.AppFx.Identity.Entities;
+using FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountMailViewModels;
+using FuiTec.AppFx.Mail;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 {
@@ -21,7 +23,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
     {
         private readonly UserManager<IdentityUserEntity> _userManager;
         private readonly SignInManager<IdentityUserEntity> _signInManager;
-        private readonly IEmailSender _emailSender;
+        private readonly ITemplatingMailService _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
@@ -30,7 +32,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             UserManager<IdentityUserEntity> userManager,
             SignInManager<IdentityUserEntity> signInManager,
             IOptions<IdentityCookieOptions> identityCookieOptions,
-            IEmailSender emailSender,
+            ITemplatingMailService emailSender,
             ISmsSender smsSender,
             ILoggerFactory loggerFactory)
         {
@@ -117,13 +119,15 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
                 var result = await _userManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
-                    // Send an email with this link
-                    //var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-                    //var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
-                    //await _emailSender.SendEmailAsync(model.Email, "Confirm your account",
-                    //    $"Please confirm your account by clicking this link: <a href='{callbackUrl}'>link</a>");
-                    await _signInManager.SignInAsync(user, isPersistent: false);
+					// For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
+					// Send an email with this link
+					var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+					var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+					var mailModel = new ConfirmMailModel(callbackUrl);
+					await _emailSender.SendEmailAsync(model.Email, mailModel);
+
+					// sign the user in
+					await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
@@ -385,7 +389,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             var message = "Your security code is: " + code;
             if (model.SelectedProvider == "Email")
             {
-                await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "Security Code", message);
+                //await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "Security Code", message);
             }
             else if (model.SelectedProvider == "Phone")
             {

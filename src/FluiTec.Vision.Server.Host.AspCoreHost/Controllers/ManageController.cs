@@ -1,26 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using FluiTec.Vision.Server.Host.AspCoreHost.Models;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models.ManageViewModels;
 using FluiTec.Vision.Server.Host.AspCoreHost.Services;
 using FluiTec.AppFx.Identity.Entities;
+using FuiTec.AppFx.Mail;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 {
-    [Authorize]
+	[Authorize]
     public class ManageController : Controller
     {
         private readonly UserManager<IdentityUserEntity> _userManager;
         private readonly SignInManager<IdentityUserEntity> _signInManager;
         private readonly string _externalCookieScheme;
-        private readonly IEmailSender _emailSender;
+        private readonly ITemplatingMailService _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
 
@@ -28,7 +26,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
           UserManager<IdentityUserEntity> userManager,
           SignInManager<IdentityUserEntity> signInManager,
           IOptions<IdentityCookieOptions> identityCookieOptions,
-          IEmailSender emailSender,
+          ITemplatingMailService emailSender,
           ISmsSender smsSender,
           ILoggerFactory loggerFactory)
         {

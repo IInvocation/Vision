@@ -69,6 +69,7 @@
     <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="1.1.2" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="1.1.1" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.BrowserLink" Version="1.1.2" />
+    <PackageReference Include="RazorLight.MVC" Version="1.0.4" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="1.0.1" />
@@ -83,8 +84,13 @@
     <ProjectReference Include="..\FluiTec.AppFx.Identity.Dapper\FluiTec.AppFx.Identity.Dapper.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Identity\FluiTec.AppFx.Identity.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Options\FluiTec.AppFx.Options.csproj" />
+    <ProjectReference Include="..\FuiTec.AppFx.Mail\FuiTec.AppFx.Mail.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Resources\MailModels\ConfirmMailModel.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ConfirmMailModel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\ViewModels\Account\LoginViewModel.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>LoginViewModel.Designer.cs</LastGenOutput>
@@ -143,6 +149,11 @@
     <Folder Include="Views\Contact\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Resources\MailModels\ConfirmMailModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ConfirmMailModel.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\ViewModels\Account\LoginViewModel.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
