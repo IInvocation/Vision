@@ -83,7 +83,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 			// add identityservices
 	        services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>(config =>
 		        {
-			        config.SignIn.RequireConfirmedEmail = true;
+			        config.SignIn.RequireConfirmedEmail = false;
 		        })
 				.AddDefaultTokenProviders();
 	        services.AddIdentityStores();

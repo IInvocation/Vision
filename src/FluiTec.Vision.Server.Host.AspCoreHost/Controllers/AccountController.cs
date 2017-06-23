@@ -1,32 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using FluiTec.AppFx.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
-using FluiTec.Vision.Server.Host.AspCoreHost.Models;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountViewModels;
 using FluiTec.Vision.Server.Host.AspCoreHost.Services;
 using FluiTec.AppFx.Identity.Entities;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountMailViewModels;
 using FuiTec.AppFx.Mail;
+using Microsoft.Extensions.Localization;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 {
     [Authorize]
     public class AccountController : Controller
     {
-        private readonly UserManager<IdentityUserEntity> _userManager;
+		private readonly UserManager<IdentityUserEntity> _userManager;
         private readonly SignInManager<IdentityUserEntity> _signInManager;
         private readonly ITemplatingMailService _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
+	    private readonly IIdentityDataService _dataService;
 
         public AccountController(
             UserManager<IdentityUserEntity> userManager,
@@ -53,7 +53,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             // Clear the existing external cookie to ensure a clean login process
             await HttpContext.Authentication.SignOutAsync(_externalCookieScheme);
 
-            ViewData["ReturnUrl"] = returnUrl;
+            ViewData[index: "ReturnUrl"] = returnUrl;
             return View();
         }
 
@@ -64,15 +64,15 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model, string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            ViewData[index: "ReturnUrl"] = returnUrl;
             if (ModelState.IsValid)
             {
                 // This doesn't count login failures towards account lockout
                 // To enable password failures to trigger account lockout, set lockoutOnFailure: true
-                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: false);
+                var result = await _signInManager.PasswordSignInAsync(model.Email, model.Password, model.RememberMe, lockoutOnFailure: true);
                 if (result.Succeeded)
                 {
-                    _logger.LogInformation(1, "User logged in.");
+                    _logger.LogInformation(eventId: 1, message: "User logged in.");
                     return RedirectToLocal(returnUrl);
                 }
                 if (result.RequiresTwoFactor)
@@ -81,14 +81,11 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
                 }
                 if (result.IsLockedOut)
                 {
-                    _logger.LogWarning(2, "User account locked out.");
-                    return View("Lockout");
+                    _logger.LogWarning(eventId: 2, message: "User account locked out.");
+                    return View(viewName: "Lockout");
                 }
-                else
-                {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
-                    return View(model);
-                }
+	            ModelState.AddModelError(string.Empty, Resources.Controllers.AccountController.InvalidLoginAttempt);
+	            return View(model);
             }
 
             // If we got this far, something failed, redisplay form
@@ -101,7 +98,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         [AllowAnonymous]
         public IActionResult Register(string returnUrl = null)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            ViewData[index: "ReturnUrl"] = returnUrl;
             return View();
         }
 
@@ -122,14 +119,14 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 					// For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
 					// Send an email with this link
 					var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-					var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Identifier, code = code }, protocol: HttpContext.Request.Scheme);
+					var callbackUrl = Url.Action(nameof(ConfirmEmail), controller: "Account", values: new { userId = user.Identifier, code }, protocol: HttpContext.Request.Scheme);
 					var mailModel = new ConfirmMailModel(callbackUrl);
 					await _emailSender.SendEmailAsync(model.Email, mailModel);
 
 					// sign the user in
 					// disabled to force the the user to confirm his mail address
 					//await _signInManager.SignInAsync(user, isPersistent: false);
-                    _logger.LogInformation(3, "User created a new account with password.");
+                    _logger.LogInformation(eventId: 3, message: "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }
                 AddErrors(result);
@@ -144,8 +141,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         public async Task<IActionResult> Logout()
         {
             await _signInManager.SignOutAsync();
-            _logger.LogInformation(4, "User logged out.");
-            return RedirectToAction(nameof(HomeController.Index), "Home");
+            _logger.LogInformation(eventId: 4, message: "User logged out.");
+            return RedirectToAction(nameof(HomeController.Index), controllerName: "Home");
         }
 
         //
@@ -156,7 +153,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         public IActionResult ExternalLogin(string provider, string returnUrl = null)
         {
             // Request a redirect to the external login provider.
-            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), "Account", new { ReturnUrl = returnUrl });
+            var redirectUrl = Url.Action(nameof(ExternalLoginCallback), controller: "Account", values: new { ReturnUrl = returnUrl });
             var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
             return Challenge(properties, provider);
         }
@@ -169,7 +166,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         {
             if (remoteError != null)
             {
-                ModelState.AddModelError(string.Empty, $"Error from external provider: {remoteError}");
+                ModelState.AddModelError(string.Empty, $"{Resources.Controllers.AccountController.ExternalProviderError} {remoteError}");
                 return View(nameof(Login));
             }
             var info = await _signInManager.GetExternalLoginInfoAsync();
@@ -191,16 +188,14 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             }
             if (result.IsLockedOut)
             {
-                return View("Lockout");
+                return View(viewName: "Lockout");
             }
-            else
-            {
-                // If the user does not have an account, then ask the user to create an account.
-                ViewData["ReturnUrl"] = returnUrl;
-                ViewData["LoginProvider"] = info.LoginProvider;
-                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = email });
-            }
+
+	        // If the user does not have an account, then ask the user to create an account.
+	        ViewData[index: "ReturnUrl"] = returnUrl;
+	        ViewData[index: "LoginProvider"] = info.LoginProvider;
+	        var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+	        return View(viewName: "ExternalLoginConfirmation", model: new ExternalLoginConfirmationViewModel { Email = email });
         }
 
         //
@@ -216,7 +211,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
                 var info = await _signInManager.GetExternalLoginInfoAsync();
                 if (info == null)
                 {
-                    return View("ExternalLoginFailure");
+                    return View(viewName: "ExternalLoginFailure");
                 }
                 var user = new IdentityUserEntity { Name = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
@@ -233,7 +228,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
                 AddErrors(result);
             }
 
-            ViewData["ReturnUrl"] = returnUrl;
+            ViewData[index: "ReturnUrl"] = returnUrl;
             return View(model);
         }
 
@@ -244,12 +239,12 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         {
             if (userId == null || code == null)
             {
-                return View("Error");
+                return View(viewName: "Error");
             }
             var user = await _userManager.FindByIdAsync(userId);
             if (user == null)
             {
-                return View("Error");
+                return View(viewName: "Error");
             }
             var result = await _userManager.ConfirmEmailAsync(user, code);
             return View(result.Succeeded ? "ConfirmEmail" : "Error");
@@ -277,7 +272,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
                 if (user == null || !(await _userManager.IsEmailConfirmedAsync(user)))
                 {
                     // Don't reveal that the user does not exist or is not confirmed
-                    return View("ForgotPasswordConfirmation");
+                    return View(viewName: "ForgotPasswordConfirmation");
                 }
 
                 // For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
@@ -308,7 +303,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         [AllowAnonymous]
         public IActionResult ResetPassword(string code = null)
         {
-            return code == null ? View("Error") : View();
+            return code == null ? View(viewName: "Error") : View();
         }
 
         //
@@ -326,12 +321,12 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             if (user == null)
             {
                 // Don't reveal that the user does not exist
-                return RedirectToAction(nameof(ResetPasswordConfirmation), "Account");
+                return RedirectToAction(nameof(ResetPasswordConfirmation), controllerName: "Account");
             }
             var result = await _userManager.ResetPasswordAsync(user, model.Code, model.Password);
             if (result.Succeeded)
             {
-                return RedirectToAction(nameof(ResetPasswordConfirmation), "Account");
+                return RedirectToAction(nameof(ResetPasswordConfirmation), controllerName: "Account");
             }
             AddErrors(result);
             return View();
@@ -355,7 +350,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                return View("Error");
+                return View(viewName: "Error");
             }
             var userFactors = await _userManager.GetValidTwoFactorProvidersAsync(user);
             var factorOptions = userFactors.Select(purpose => new SelectListItem { Text = purpose, Value = purpose }).ToList();
@@ -377,27 +372,27 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                return View("Error");
+                return View(viewName: "Error");
             }
 
             // Generate the token and send it
             var code = await _userManager.GenerateTwoFactorTokenAsync(user, model.SelectedProvider);
             if (string.IsNullOrWhiteSpace(code))
             {
-                return View("Error");
+                return View(viewName: "Error");
             }
 
-            var message = "Your security code is: " + code;
-            if (model.SelectedProvider == "Email")
-            {
-                //await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "Security Code", message);
-            }
-            else if (model.SelectedProvider == "Phone")
-            {
-                await _smsSender.SendSmsAsync(await _userManager.GetPhoneNumberAsync(user), message);
-            }
+            var message = $"{Resources.Controllers.AccountController.SecurityCodeIs} " + code;
+	        if (model.SelectedProvider == "Email")
+	        {
+		        //await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "Security Code", message);
+	        }
+	        else if (model.SelectedProvider == "Phone")
+	        {
+		        //await _smsSender.SendSmsAsync(await _userManager.GetPhoneNumberAsync(user), message);
+	        }
 
-            return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
+	        return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });
         }
 
         //
@@ -410,7 +405,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             var user = await _signInManager.GetTwoFactorAuthenticationUserAsync();
             if (user == null)
             {
-                return View("Error");
+                return View(viewName: "Error");
             }
             return View(new VerifyCodeViewModel { Provider = provider, ReturnUrl = returnUrl, RememberMe = rememberMe });
         }
@@ -437,12 +432,12 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             }
             if (result.IsLockedOut)
             {
-                _logger.LogWarning(7, "User account locked out.");
-                return View("Lockout");
+                _logger.LogWarning(eventId: 7, message: "User account locked out.");
+                return View(viewName: "Lockout");
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Invalid code.");
+                ModelState.AddModelError(string.Empty, Resources.Controllers.AccountController.InvalidCode);
                 return View(model);
             }
         }
@@ -467,14 +462,11 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 
         private IActionResult RedirectToLocal(string returnUrl)
         {
-            if (Url.IsLocalUrl(returnUrl))
+	        if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
             }
-            else
-            {
-                return RedirectToAction(nameof(HomeController.Index), "Home");
-            }
+	        return RedirectToAction(nameof(HomeController.Index), controllerName: "Home");
         }
 
         #endregion

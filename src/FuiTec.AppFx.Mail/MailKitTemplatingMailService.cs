@@ -88,7 +88,7 @@ namespace FuiTec.AppFx.Mail
 				// currently acceppt all certificates
 				client.ServerCertificateValidationCallback = (s, c, h, e) => true;
 
-				client.Connect(Options.SmtpServer, Options.SmtpPort, useSsl: false);
+				client.Connect(Options.SmtpServer, Options.SmtpPort, Options.EnableSsl);
 
 				// Note: since we don't have an OAuth2 token, disable
 				// the XOAUTH2 authentication mechanism.

@@ -87,6 +87,10 @@
     <ProjectReference Include="..\FuiTec.AppFx.Mail\FuiTec.AppFx.Mail.csproj" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Update="Resources\Controllers\AccountController.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>AccountController.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\MailModels\ConfirmMailModel.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ConfirmMailModel.Designer.cs</LastGenOutput>
@@ -152,6 +156,11 @@
     <Folder Include="Views\Contact\" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Resources\Controllers\AccountController.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>AccountController.resx</DependentUpon>
+    </Compile>
     <Compile Update="Resources\MailModels\ConfirmMailModel.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
