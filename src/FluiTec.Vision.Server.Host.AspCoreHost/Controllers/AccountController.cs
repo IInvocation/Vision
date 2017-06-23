@@ -122,12 +122,13 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 					// For more information on how to enable account confirmation and password reset please visit https://go.microsoft.com/fwlink/?LinkID=532713
 					// Send an email with this link
 					var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
-					var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Id, code = code }, protocol: HttpContext.Request.Scheme);
+					var callbackUrl = Url.Action(nameof(ConfirmEmail), "Account", new { userId = user.Identifier, code = code }, protocol: HttpContext.Request.Scheme);
 					var mailModel = new ConfirmMailModel(callbackUrl);
 					await _emailSender.SendEmailAsync(model.Email, mailModel);
 
 					// sign the user in
-					await _signInManager.SignInAsync(user, isPersistent: false);
+					// disabled to force the the user to confirm his mail address
+					//await _signInManager.SignInAsync(user, isPersistent: false);
                     _logger.LogInformation(3, "User created a new account with password.");
                     return RedirectToLocal(returnUrl);
                 }

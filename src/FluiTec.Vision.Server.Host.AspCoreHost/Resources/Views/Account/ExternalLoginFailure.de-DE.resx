@@ -117,16 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AccountHeader" xml:space="preserve">
-    <value>Profil</value>
+  <data name="ExternalLoginFailureHeader" xml:space="preserve">
+    <value>Authentifizierung fehlgeschlagen</value>
   </data>
-  <data name="ConfirmEmailHeader" xml:space="preserve">
-    <value>E-Mail bestätigt</value>
-  </data>
-  <data name="ConfirmEmailText" xml:space="preserve">
-    <value>Vielen Dank für das Bestätigen der Adresse.</value>
-  </data>
-  <data name="LoginLinkText" xml:space="preserve">
-    <value>Hier geht's zum Anmeldeformular.</value>
+  <data name="ExternalLoginFailureText" xml:space="preserve">
+    <value>Die Authentifizierung ist fehlgeschlagen.</value>
   </data>
 </root>

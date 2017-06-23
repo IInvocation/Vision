@@ -4,7 +4,7 @@ using FluiTec.AppFx.Data;
 namespace FluiTec.AppFx.Identity.Entities
 {
 	/// <summary>	An identity user entity. </summary>
-	[EntityName("IdentityUser")]
+	[EntityName(name: "IdentityUser")]
 	public class IdentityUserEntity : IEntity<int>
 	{
 		/// <summary>	Gets or sets the identifier. </summary>
@@ -47,6 +47,14 @@ namespace FluiTec.AppFx.Identity.Entities
 		/// <summary>	Gets or sets the email. </summary>
 		/// <value>	The email. </value>
 		public string Email { get; set; }
+
+		/// <summary>	Gets or sets the normalized email. </summary>
+		/// <value>	The normalized email. </value>
+		public string NormalizedEmail { get; set; }
+
+		/// <summary>	Gets or sets a value indicating whether the email confirmed. </summary>
+		/// <value>	True if email confirmed, false if not. </value>
+		public bool EmailConfirmed { get; set; }
 
 		/// <summary>	Gets or sets the identifier. </summary>
 		/// <value>	The identifier. </value>

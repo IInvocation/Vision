@@ -17,6 +17,11 @@ namespace FluiTec.AppFx.Identity.Repositories
 		/// <returns>	The found lowered name. </returns>
 		IdentityUserEntity FindByLoweredName(string loweredName);
 
+		/// <summary>	Searches for the first normalized email. </summary>
+		/// <param name="normalizedEmail">	The normalized email. </param>
+		/// <returns>	The found normalized email. </returns>
+		IdentityUserEntity FindByNormalizedEmail(string normalizedEmail);
+
 		/// <summary>	Finds the identifiers in this collection. </summary>
 		/// <param name="userIds">	List of identifiers for the users. </param>
 		/// <returns>

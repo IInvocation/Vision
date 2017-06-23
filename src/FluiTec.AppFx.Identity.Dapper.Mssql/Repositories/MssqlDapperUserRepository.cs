@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Dapper;
 using FluiTec.AppFx.Data;
 using FluiTec.AppFx.Identity.Dapper.Repositories;
@@ -37,6 +38,16 @@ namespace FluiTec.AppFx.Identity.Dapper.Mssql.Repositories
 				UnitOfWork.Transaction);
 		}
 
+		/// <summary>	Searches for the first normalized email. </summary>
+		/// <param name="normalizedEmail">	The normalized email. </param>
+		/// <returns>	The found normalized email. </returns>
+		public override IdentityUserEntity FindByNormalizedEmail(string normalizedEmail)
+		{
+			var command = $"SELECT * FROM {TableName} WHERE {nameof(IdentityUserEntity.NormalizedEmail)} = @NormalizedEmail";
+			return UnitOfWork.Connection.QuerySingleOrDefault<IdentityUserEntity>(command, new { NormalizedEmail = normalizedEmail },
+				UnitOfWork.Transaction);
+		}
+
 		/// <summary>	Finds the identifiers in this collection. </summary>
 		/// <param name="userIds">	List of identifiers for the users. </param>
 		/// <returns>
@@ -57,10 +68,11 @@ namespace FluiTec.AppFx.Identity.Dapper.Mssql.Repositories
 		{
 			var otherTableName = GetTableName(typeof(IdentityUserLoginEntity));
 			var command = $"SELECT {TableName}.* FROM {TableName} " +
-						  $"INNER JOIN {otherTableName} ON {TableName}.{nameof(IdentityUserEntity.Identifier)} = {otherTableName}.{nameof(IdentityUserLoginEntity.UserId)} " +
-						  $"WHERE {otherTableName}.{nameof(IdentityUserLoginEntity.ProviderName)} = @ProviderName " +
+			              $"INNER JOIN {otherTableName} ON {TableName}.{nameof(IdentityUserEntity.Identifier)} = {otherTableName}.{nameof(IdentityUserLoginEntity.UserId)} " +
+			              $"WHERE {otherTableName}.{nameof(IdentityUserLoginEntity.ProviderName)} = @ProviderName " +
 			              $"AND {otherTableName}.{nameof(IdentityUserLoginEntity.ProviderKey)} = @ProviderKey";
-			return UnitOfWork.Connection.QuerySingleOrDefault<IdentityUserEntity>(command, new { ProviderName = providerName, ProviderKey = providerKey },
+			return UnitOfWork.Connection.QuerySingleOrDefault<IdentityUserEntity>(command,
+				new {ProviderName = providerName, ProviderKey = providerKey},
 				UnitOfWork.Transaction);
 		}
 

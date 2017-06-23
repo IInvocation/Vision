@@ -11,7 +11,7 @@ namespace FluiTec.AppFx.Identity
 {
 	public class IdentityStore : IUserPasswordStore<IdentityUserEntity>, IUserClaimStore<IdentityUserEntity>,
 		IRoleStore<IdentityRoleEntity>, IUserSecurityStampStore<IdentityUserEntity>, IUserRoleStore<IdentityUserEntity>,
-		IUserLoginStore<IdentityUserEntity>
+		IUserLoginStore<IdentityUserEntity>, IUserEmailStore<IdentityUserEntity>
 	{
 		#region Constructors
 
@@ -35,6 +35,77 @@ namespace FluiTec.AppFx.Identity
 		protected IIdentityUnitOfWork UnitOfWork { get; set; }
 
 		#endregion
+
+		/// <summary>	Sets email asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="email">				The email. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public Task SetEmailAsync(IdentityUserEntity user, string email, CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				user.Email = email;
+				UnitOfWork.UserRepository.Update(user);
+			}, cancellationToken);
+		}
+
+		/// <summary>	Gets email asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The email asynchronous. </returns>
+		public Task<string> GetEmailAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task.FromResult(user.Email);
+		}
+
+		/// <summary>	Gets email confirmed asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The email confirmed asynchronous. </returns>
+		public Task<bool> GetEmailConfirmedAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task.FromResult(user.EmailConfirmed);
+		}
+
+		public Task SetEmailConfirmedAsync(IdentityUserEntity user, bool confirmed, CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				user.EmailConfirmed = confirmed;
+				UnitOfWork.UserRepository.Update(user);
+			}, cancellationToken);
+		}
+
+		/// <summary>	Searches for the first email asynchronous. </summary>
+		/// <param name="normalizedEmail">  	The normalized email. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The found email asynchronous. </returns>
+		public Task<IdentityUserEntity> FindByEmailAsync(string normalizedEmail, CancellationToken cancellationToken)
+		{
+			return Task<IdentityUserEntity>.Factory.StartNew(
+				() => UnitOfWork.UserRepository.FindByNormalizedEmail(normalizedEmail), cancellationToken);
+		}
+
+		public Task<string> GetNormalizedEmailAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task.FromResult(user.NormalizedEmail);
+		}
+
+		/// <summary>	Sets normalized email asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="normalizedEmail">  	The normalized email. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public Task SetNormalizedEmailAsync(IdentityUserEntity user, string normalizedEmail,
+			CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				user.NormalizedEmail = normalizedEmail;
+				UnitOfWork.UserRepository.Update(user);
+			}, cancellationToken);
+		}
 
 		#region IDisposable
 

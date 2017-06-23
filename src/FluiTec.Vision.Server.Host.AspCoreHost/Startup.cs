@@ -80,7 +80,10 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 	        });
 
 			// add identityservices
-	        services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>()
+	        services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>(config =>
+		        {
+			        config.SignIn.RequireConfirmedEmail = true;
+		        })
 				.AddDefaultTokenProviders();
 			services.AddScoped<IdentityStore>();
 			services.AddScoped<IUserStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
