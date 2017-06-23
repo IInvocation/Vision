@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using RazorLight.Host;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountViewModels
 {

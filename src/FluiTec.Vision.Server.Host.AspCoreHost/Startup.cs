@@ -1,4 +1,5 @@
 ﻿using System.Globalization;
+using System.Linq;
 using FluiTec.AppFx.Data.Dapper;
 using FluiTec.AppFx.Data.Dapper.Mssql;
 using FluiTec.AppFx.Identity;
@@ -10,7 +11,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using FluiTec.Vision.Server.Host.AspCoreHost.Services;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
@@ -40,7 +40,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 	    {
 			services.AddSingleton<IDapperServiceOptions>(new ConfigurationSettingsService<MssqlDapperServiceOptions>(Configuration, configKey: "Dapper").Get());
 		    services.AddSingleton(new ConfigurationSettingsService<MailServiceOptions>(Configuration, configKey: "Mail").Get());
-		}
+	    }
 
 	    private void ConfigureExternalAuthentication(IApplicationBuilder app)
 	    {
@@ -51,33 +51,34 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 			});
 		}
 
+	    private void ConfigureLocalization(IServiceCollection services)
+	    {
+		    var config = new ConfigurationSettingsService<CultureOptions>(Configuration, configKey: "Localization").Get();
+
+			services.AddLocalization(options => options.ResourcesPath = "Resources");
+		    services.Configure<RequestLocalizationOptions>(options =>
+		    {
+			    var supportedCultures = config.SupportedCultures.Select(e => new CultureInfo(e)).ToList();
+			    options.DefaultRequestCulture = new RequestCulture(config.DefaultCulture);
+			    options.SupportedCultures = supportedCultures;
+			    options.SupportedUICultures = supportedCultures;
+		    });
+		}
+
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
 			LoadConfiguration(services);
 
 			// configure mail-templates
-	        services.AddRazorLight("/MailViews");
+	        services.AddRazorLight(root: "/MailViews");
 	        services.AddScoped<ITemplatingMailService, MailKitTemplatingMailService>();
 
 			// add dataservices
 			services.AddScoped<IIdentityDataService, MssqlDapperIdentityDataService>();
 
 			// add localizazion
-	        services.AddLocalization(options => options.ResourcesPath = "Resources");
-	        services.Configure<RequestLocalizationOptions>(options =>
-	        {
-		        var supportedCultures = new[]
-		        {
-			        new CultureInfo(name: "de-DE"),
-			        new CultureInfo(name: "de"),
-			        new CultureInfo(name: "en-US"),
-			        new CultureInfo(name: "en")
-				};
-				options.DefaultRequestCulture = new RequestCulture(culture: "de-DE");
-		        options.SupportedCultures = supportedCultures;
-		        options.SupportedUICultures = supportedCultures;
-	        });
+			ConfigureLocalization(services);
 
 			// add identityservices
 	        services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>(config =>
@@ -85,24 +86,12 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 			        config.SignIn.RequireConfirmedEmail = true;
 		        })
 				.AddDefaultTokenProviders();
-			services.AddScoped<IdentityStore>();
-			services.AddScoped<IUserStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
-	        services.AddScoped<IUserPasswordStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
-	        services.AddScoped<IUserSecurityStampStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
-			services.AddScoped<IRoleStore<IdentityRoleEntity>>(provider => provider.GetService<IdentityStore>());
-	        services.AddScoped<IUserRoleStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
-	        services.AddScoped<IUserLoginStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
-	        services.AddScoped<IUserEmailStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
-	        services.AddScoped<IUserPhoneNumberStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
-	        services.AddScoped<IUserTwoFactorStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
+	        services.AddIdentityStores();
 
 			// add mvc with localization
 			services.AddMvc()
 				.AddViewLocalization()
 				.AddDataAnnotationsLocalization();
-
-			// configure webmail
-			
 
             // Add application services.
             services.AddTransient<ISmsSender, AuthMessageSender>();
