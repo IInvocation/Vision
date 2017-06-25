@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using FluiTec.AppFx.Identity;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -24,6 +25,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
+	    private readonly IIdentityDataService _dataService;
 
         public AccountController(
             UserManager<IdentityUserEntity> userManager,
@@ -31,7 +33,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             IOptions<IdentityCookieOptions> identityCookieOptions,
             ITemplatingMailService emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+			IIdentityDataService dataService)
         {
             _userManager = userManager;
             _signInManager = signInManager;
@@ -39,9 +42,9 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+	        _dataService = dataService;
         }
 
-        //
         // GET: /Account/Login
         [HttpGet]
         [AllowAnonymous]
@@ -54,7 +57,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Login
         [HttpPost]
         [AllowAnonymous]
@@ -81,7 +83,17 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
                     _logger.LogWarning(eventId: 2, message: "User account locked out.");
                     return View(viewName: "Lockout");
                 }
-	            ModelState.AddModelError(string.Empty, Resources.Controllers.AccountController.InvalidLoginAttempt);
+
+		        var user = await _userManager.FindByEmailAsync(model.Email);
+		        if (user != null && !user.EmailConfirmed)
+		        {
+					ModelState.AddModelError(string.Empty, Resources.Controllers.AccountController.EmailNotConfirmed);
+		        }
+		        else
+		        {
+					ModelState.AddModelError(string.Empty, Resources.Controllers.AccountController.InvalidLoginAttempt);
+				}
+					
 	            return View(model);
             }
 
@@ -89,7 +101,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/Register
         [HttpGet]
         [AllowAnonymous]
@@ -99,7 +110,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             return View();
         }
 
-        //
         // POST: /Account/Register
         [HttpPost]
         [AllowAnonymous]
@@ -132,7 +142,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             return View(model);
         }
 
-        //
         // GET: /Account/Logout
         public async Task<IActionResult> Logout()
         {
@@ -141,7 +150,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             return RedirectToAction(nameof(HomeController.Index), controllerName: "Home");
         }
 
-        //
         // POST: /Account/ExternalLogin
         [HttpPost]
         [AllowAnonymous]
@@ -154,7 +162,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             return Challenge(properties, provider);
         }
 
-        //
         // GET: /Account/ExternalLoginCallback
         [HttpGet]
         [AllowAnonymous]
@@ -194,7 +201,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 	        return View(viewName: "ExternalLoginConfirmation", model: new ExternalLoginConfirmationViewModel { Email = email });
         }
 
-        //
         // POST: /Account/ExternalLoginConfirmation
         [HttpPost]
         [AllowAnonymous]
@@ -275,7 +281,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 		    return View(viewName: "ConfirmEmailAgainConfirmation");
 	    }
 
-        //
         // GET: /Account/ForgotPassword
         [HttpGet]
         [AllowAnonymous]

@@ -117,19 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmailNotConfirmed" xml:space="preserve">
-    <value>Ihre E-Mail-Adresse wurde noch nicht bestätigt. Bitte E-Mails prüfen.</value>
+  <data name="AccountHeader" xml:space="preserve">
+    <value>Profil</value>
   </data>
-  <data name="ExternalProviderError" xml:space="preserve">
-    <value>Fehler des Anmeledienstes:</value>
+  <data name="LockoutHeader" xml:space="preserve">
+    <value>Aussperrung</value>
   </data>
-  <data name="InvalidCode" xml:space="preserve">
-    <value>Ungültiger Code.</value>
-  </data>
-  <data name="InvalidLoginAttempt" xml:space="preserve">
-    <value>Ungültiger Anmeldeversuch.</value>
-  </data>
-  <data name="SecurityCodeIs" xml:space="preserve">
-    <value>Dein Code ist:</value>
+  <data name="LockoutText" xml:space="preserve">
+    <value>Dieser Account ist temporär ausgesperrt.</value>
   </data>
 </root>

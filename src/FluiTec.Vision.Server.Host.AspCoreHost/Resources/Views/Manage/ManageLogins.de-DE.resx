@@ -117,19 +117,25 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmailNotConfirmed" xml:space="preserve">
-    <value>Ihre E-Mail-Adresse wurde noch nicht bestätigt. Bitte E-Mails prüfen.</value>
+  <data name="AvailableLoginsHeader" xml:space="preserve">
+    <value>Verfügbare Account-Dienste</value>
   </data>
-  <data name="ExternalProviderError" xml:space="preserve">
-    <value>Fehler des Anmeledienstes:</value>
+  <data name="LoginHelpText" xml:space="preserve">
+    <value>Einloggen mit {0}-Account</value>
   </data>
-  <data name="InvalidCode" xml:space="preserve">
-    <value>Ungültiger Code.</value>
+  <data name="ManageHeader" xml:space="preserve">
+    <value>Account</value>
   </data>
-  <data name="InvalidLoginAttempt" xml:space="preserve">
-    <value>Ungültiger Anmeldeversuch.</value>
+  <data name="ManageLoginsHeader" xml:space="preserve">
+    <value>Externe Accounts verwalten</value>
   </data>
-  <data name="SecurityCodeIs" xml:space="preserve">
-    <value>Dein Code ist:</value>
+  <data name="RegisteredLoginsHeader" xml:space="preserve">
+    <value>Verbundene Accounts</value>
+  </data>
+  <data name="RemoveHelpText" xml:space="preserve">
+    <value>Entfernt den {0}-Login</value>
+  </data>
+  <data name="RemoveText" xml:space="preserve">
+    <value>Entfernen</value>
   </data>
 </root>

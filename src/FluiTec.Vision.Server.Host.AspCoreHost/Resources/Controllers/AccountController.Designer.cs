@@ -62,6 +62,15 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Resources.Controllers {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Ihre E-Mail-Adresse wurde noch nicht bestätigt. Bitte E-Mails prüfen. ähnelt.
+        /// </summary>
+        public static string EmailNotConfirmed {
+            get {
+                return ResourceManager.GetString("EmailNotConfirmed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Fehler des Anmeledienstes: ähnelt.
         /// </summary>
         public static string ExternalProviderError {

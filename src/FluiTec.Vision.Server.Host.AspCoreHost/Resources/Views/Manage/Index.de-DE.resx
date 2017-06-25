@@ -117,19 +117,49 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="EmailNotConfirmed" xml:space="preserve">
-    <value>Ihre E-Mail-Adresse wurde noch nicht bestätigt. Bitte E-Mails prüfen.</value>
+  <data name="AddPhoneNumberHeader" xml:space="preserve">
+    <value>Telefonnummer hinzufügen</value>
   </data>
-  <data name="ExternalProviderError" xml:space="preserve">
-    <value>Fehler des Anmeledienstes:</value>
+  <data name="ChangePasswordHeader" xml:space="preserve">
+    <value>Passwort ändern</value>
   </data>
-  <data name="InvalidCode" xml:space="preserve">
-    <value>Ungültiger Code.</value>
+  <data name="ChangePhoneNumberHeader" xml:space="preserve">
+    <value>Telefonnummer ändern</value>
   </data>
-  <data name="InvalidLoginAttempt" xml:space="preserve">
-    <value>Ungültiger Anmeldeversuch.</value>
+  <data name="ChangeSettingsHeader" xml:space="preserve">
+    <value>Verwalte deinen Account</value>
   </data>
-  <data name="SecurityCodeIs" xml:space="preserve">
-    <value>Dein Code ist:</value>
+  <data name="CreatePasswordHeader" xml:space="preserve">
+    <value>Passwort erstellen</value>
+  </data>
+  <data name="ExternalLoginsCounterText" xml:space="preserve">
+    <value>Verbundene Accounts: {0}</value>
+  </data>
+  <data name="ExternalLoginsHeader" xml:space="preserve">
+    <value>Verbundene Accounts</value>
+  </data>
+  <data name="IndexHeader" xml:space="preserve">
+    <value>Account-Übersicht</value>
+  </data>
+  <data name="ManageExternalLoginsHeader" xml:space="preserve">
+    <value>Verbundene Accounts verwalten</value>
+  </data>
+  <data name="ManageHeader" xml:space="preserve">
+    <value>Account</value>
+  </data>
+  <data name="NoExternalLoginsText" xml:space="preserve">
+    <value>Keine verbundenen Accounts</value>
+  </data>
+  <data name="NoPhoneNumberText" xml:space="preserve">
+    <value>Keine Telefonnummer vorhanden</value>
+  </data>
+  <data name="PasswordHeader" xml:space="preserve">
+    <value>Passwort</value>
+  </data>
+  <data name="PhoneNumberHeader" xml:space="preserve">
+    <value>Telefon-Nummer</value>
+  </data>
+  <data name="RemovePhoneNumberHeader" xml:space="preserve">
+    <value>Telefonnummer löschen</value>
   </data>
 </root>
