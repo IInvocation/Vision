@@ -1,4 +1,5 @@
-﻿@using FluiTec.AppFx.Identity.Entities
+﻿@using FluiTec.AppFx.Identity
+@using FluiTec.AppFx.Identity.Entities
 
 @inject SignInManager<IdentityUserEntity> SignInManager
 @inject UserManager<IdentityUserEntity> UserManager
@@ -15,4 +16,8 @@
 else
 {
 	<li><a asp-controller="Account" asp-action="Login"><localize>Login</localize></a></li> 
+}
+@if (User.HasClaim(IdentityClaims.HasAdministrativeRights, value: "true"))
+{
+	<li><a asp-controller="Admin" asp-action="Index"><localize>Settings</localize></a></li>
 }

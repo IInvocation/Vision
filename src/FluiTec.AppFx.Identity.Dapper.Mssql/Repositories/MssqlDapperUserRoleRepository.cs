@@ -36,7 +36,7 @@ namespace FluiTec.AppFx.Identity.Dapper.Mssql.Repositories
 		public override IEnumerable<int> FindByUser(IdentityUserEntity user)
 		{
 			var command =
-				$"SELECT {nameof(IdentityUserRoleEntity.Id)} FROM {TableName} WHERE {nameof(IdentityUserRoleEntity.UserId)} = @UserId";
+				$"SELECT {nameof(IdentityUserRoleEntity.RoleId)} FROM {TableName} WHERE {nameof(IdentityUserRoleEntity.UserId)} = @UserId";
 			return UnitOfWork.Connection.Query<int>(command, new {UserId = user.Id},
 				UnitOfWork.Transaction);
 		}

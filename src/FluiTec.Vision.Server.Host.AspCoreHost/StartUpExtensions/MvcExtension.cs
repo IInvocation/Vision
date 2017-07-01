@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using FluiTec.AppFx.Identity;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -15,6 +16,11 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 			services.AddMvc()
 				.AddViewLocalization()
 				.AddDataAnnotationsLocalization();
+
+			services.AddAuthorization(options =>
+			{
+				options.AddPolicy(IdentityPolicies.IsAdminPolicy.PolicyName, policy => policy.RequireClaim(IdentityClaims.HasAdministrativeRights));
+			});
 
 			return services;
 		}
