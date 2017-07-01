@@ -1,18 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Models.ManageViewModels
 {
     public class VerifyPhoneNumberViewModel
     {
-        [Required]
-        public string Code { get; set; }
+		[Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(Resources.ViewModels.Model))]
+		public string Code { get; set; }
 
-        [Required]
-        [Phone]
+		[Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(Resources.ViewModels.Model))]
+		[Phone]
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
     }

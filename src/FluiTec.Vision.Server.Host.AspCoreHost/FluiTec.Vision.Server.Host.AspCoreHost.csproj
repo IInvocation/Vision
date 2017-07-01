@@ -17,44 +17,90 @@
     <Content Include="wwwroot\css\font-awesome.min.css" />
     <Content Include="wwwroot\css\ie\backgroundsize.min.htc" />
     <Content Include="wwwroot\css\ie\html5shiv.js" />
-    <Content Include="wwwroot\css\ie\PIE.htc" />
+    <Content Include="wwwroot\css\ie\PIE.htc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="wwwroot\css\ie\v8.css" />
     <Content Include="wwwroot\css\ie\v9.css" />
     <Content Include="wwwroot\css\images\overlay.png" />
     <Content Include="wwwroot\css\skel.css" />
-    <Content Include="wwwroot\css\style-large.css" />
+    <Content Include="wwwroot\css\style-large.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="wwwroot\css\style-medium.css" />
-    <Content Include="wwwroot\css\style-small.css" />
-    <Content Include="wwwroot\css\style-xlarge.css" />
-    <Content Include="wwwroot\css\style-xsmall.css" />
+    <Content Include="wwwroot\css\style-small.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\css\style-xlarge.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\css\style-xsmall.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="wwwroot\css\style.css" />
     <Content Include="wwwroot\favicon.ico" />
     <Content Include="wwwroot\fonts\fontawesome-webfont.eot" />
     <Content Include="wwwroot\fonts\fontawesome-webfont.svg" />
     <Content Include="wwwroot\fonts\fontawesome-webfont.ttf" />
-    <Content Include="wwwroot\fonts\fontawesome-webfont.woff" />
+    <Content Include="wwwroot\fonts\fontawesome-webfont.woff">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="wwwroot\fonts\FontAwesome.otf" />
-    <Content Include="wwwroot\images\banner.jpg" />
-    <Content Include="wwwroot\images\pic01.jpg" />
-    <Content Include="wwwroot\images\pic02.jpg" />
-    <Content Include="wwwroot\images\pic03.jpg" />
-    <Content Include="wwwroot\images\pic04.jpg" />
-    <Content Include="wwwroot\images\pic05.jpg" />
-    <Content Include="wwwroot\images\pic06.jpg" />
-    <Content Include="wwwroot\images\pic07.jpg" />
-    <Content Include="wwwroot\images\pic08.jpg" />
-    <Content Include="wwwroot\images\pic09.jpg" />
-    <Content Include="wwwroot\images\slide01.jpg" />
-    <Content Include="wwwroot\images\slide02.jpg" />
-    <Content Include="wwwroot\images\slide03.jpg" />
-    <Content Include="wwwroot\js\init.js" />
-    <Content Include="wwwroot\js\jquery.dropotron.min.js" />
+    <Content Include="wwwroot\images\banner.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic01.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic02.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic03.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic04.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic05.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic06.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic07.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic08.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic09.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\slide01.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\slide02.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\slide03.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\js\init.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\js\jquery.dropotron.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="wwwroot\js\jquery.min.js" />
     <Content Include="wwwroot\js\jquery.scrollgress.min.js" />
-    <Content Include="wwwroot\js\jquery.scrolly.min.js" />
+    <Content Include="wwwroot\js\jquery.scrolly.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="wwwroot\js\jquery.slidertron.min.js" />
     <Content Include="wwwroot\js\skel-layers.min.js" />
-    <Content Include="wwwroot\js\skel.min.js" />
+    <Content Include="wwwroot\js\skel.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.4.337" />
@@ -99,9 +145,19 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>RecoverPasswordModel.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Update="Resources\ViewModels\Account\LoginViewModel.resx">
+    <EmbeddedResource Update="Resources\SharedResource.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\SharedResource.en-US.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\SharedResource.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>LoginViewModel.Designer.cs</LastGenOutput>
+      <LastGenOutput>SharedResource.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\ViewModels\Model.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Model.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Account\AccessDenied.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -211,11 +267,78 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>RecoverPasswordModel.resx</DependentUpon>
     </Compile>
-    <Compile Update="Resources\ViewModels\Account\LoginViewModel.Designer.cs">
+    <Compile Update="Resources\SharedResource.Designer.cs">
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
-      <DependentUpon>LoginViewModel.resx</DependentUpon>
+      <DependentUpon>SharedResource.resx</DependentUpon>
     </Compile>
+    <Compile Update="Resources\ViewModels\Model.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Model.resx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Update="wwwroot/css\custom.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/css\font-awesome.min.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/css\ie\backgroundsize.min.htc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/css\ie\html5shiv.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/css\ie\v8.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/css\ie\v9.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/css\images\overlay.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/css\site.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/css\skel.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/css\style-medium.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/css\style.css">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/fonts\fontawesome-webfont.eot">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/fonts\fontawesome-webfont.svg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/fonts\fontawesome-webfont.ttf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/fonts\FontAwesome.otf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/js\jquery.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/js\jquery.scrollgress.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/js\jquery.slidertron.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/js\site.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Update="wwwroot/js\skel-layers.min.js">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

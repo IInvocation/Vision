@@ -1,15 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Models.ManageViewModels
 {
     public class AddPhoneNumberViewModel
     {
-        [Required]
-        [Phone]
+		[Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(Resources.ViewModels.Model))]
+		[Phone]
         [Display(Name = "Phone number")]
         public string PhoneNumber { get; set; }
     }

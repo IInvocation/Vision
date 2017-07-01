@@ -6,6 +6,10 @@
 	color: #F08080;
 }
 
+.text-danger {
+	color: #F08080;
+}
+
 input[type="text"].hidden {
 	visibility: hidden;
 	display: none;

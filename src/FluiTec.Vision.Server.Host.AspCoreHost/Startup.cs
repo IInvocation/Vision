@@ -1,4 +1,6 @@
-﻿using System.Globalization;
+﻿using System;
+using System;
+using System.Globalization;
 using System.Linq;
 using FluiTec.AppFx.Data.Dapper;
 using FluiTec.AppFx.Data.Dapper.Mssql;
@@ -14,8 +16,10 @@ using FluiTec.Vision.Server.Host.AspCoreHost.Services;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Options;
 using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
+using FluiTec.Vision.Server.Host.AspCoreHost.Localization;
 using FuiTec.AppFx.Mail;
 using FuiTec.AppFx.Mail.Configuration;
+using Microsoft.Extensions.Localization;
 using RazorLight.MVC;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost
@@ -51,20 +55,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 			});
 		}
 
-	    private void ConfigureLocalization(IServiceCollection services)
-	    {
-		    var config = new ConfigurationSettingsService<CultureOptions>(Configuration, configKey: "Localization").Get();
-
-			services.AddLocalization(options => options.ResourcesPath = "Resources");
-		    services.Configure<RequestLocalizationOptions>(options =>
-		    {
-			    var supportedCultures = config.SupportedCultures.Select(e => new CultureInfo(e)).ToList();
-			    options.DefaultRequestCulture = new RequestCulture(config.DefaultCulture);
-			    options.SupportedCultures = supportedCultures;
-			    options.SupportedUICultures = supportedCultures;
-		    });
-		}
-
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
@@ -77,16 +67,27 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 			// add dataservices
 			services.AddScoped<IIdentityDataService, MssqlDapperIdentityDataService>();
 
-			// add localizazion
-			ConfigureLocalization(services);
-
 			// add identityservices
 	        services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>(config =>
 		        {
 			        config.SignIn.RequireConfirmedEmail = true;
 		        })
+		        .AddErrorDescriber<MultiLanguageIdentityErrorDescriber>()
 				.AddDefaultTokenProviders();
 	        services.AddIdentityStores();
+
+			// add localizazion
+			var locConfig = new ConfigurationSettingsService<CultureOptions>(Configuration, configKey: "Localization").Get();
+
+	        services.Configure<RequestLocalizationOptions>(options =>
+	        {
+		        var supportedCultures = locConfig.SupportedCultures.Select(e => new CultureInfo(e)).ToList();
+		        options.DefaultRequestCulture = new RequestCulture(locConfig.DefaultCulture);
+		        options.SupportedCultures = supportedCultures;
+		        options.SupportedUICultures = supportedCultures;
+	        });
+
+	        services.AddLocalization(options => options.ResourcesPath = "Resources");
 
 			// add mvc with localization
 			services.AddMvc()

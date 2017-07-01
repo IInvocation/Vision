@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FluiTec.Vision.Server.Host.AspCoreHost.Resources.ViewModels.Account {
+namespace FluiTec.Vision.Server.Host.AspCoreHost.Resources.ViewModels {
     using System;
     using System.Reflection;
     
@@ -23,25 +23,24 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Resources.ViewModels.Account {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class LoginViewModel {
+    internal class Model {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal LoginViewModel() {
+        internal Model() {
         }
         
         /// <summary>
         ///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FluiTec.Vision.Server.Host.AspCoreHost.Resources.ViewModels.Account.LoginViewMode" +
-                            "l", typeof(LoginViewModel).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FluiTec.Vision.Server.Host.AspCoreHost.Resources.ViewModels.Model", typeof(Model).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -53,7 +52,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Resources.ViewModels.Account {
         ///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,29 +62,20 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Resources.ViewModels.Account {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Email ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Bitte geben Sie eine gültige Mailadresse an. ähnelt.
         /// </summary>
-        public static string Email {
+        internal static string EmailMessage {
             get {
-                return ResourceManager.GetString("Email", resourceCulture);
+                return ResourceManager.GetString("EmailMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die Passwort ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die {0} darf nicht leer sein. ähnelt.
         /// </summary>
-        public static string Password {
+        internal static string RequiredMessage {
             get {
-                return ResourceManager.GetString("Password", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die An mich erinnern? ähnelt.
-        /// </summary>
-        public static string RememberMe {
-            get {
-                return ResourceManager.GetString("RememberMe", resourceCulture);
+                return ResourceManager.GetString("RequiredMessage", resourceCulture);
             }
         }
     }

@@ -117,45 +117,10 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="Email" xml:space="preserve">
-    <value>Email</value>
+  <data name="EmailMessage" xml:space="preserve">
+    <value>Bitte geben Sie eine gültige Mailadresse an.</value>
   </data>
-  <data name="Password" xml:space="preserve">
-    <value>Password</value>
-  </data>
-  <data name="The Password field is required." xml:space="preserve">
-    <value>The Password field is required.</value>
-  </data>
-  <data name="The Email field is required." xml:space="preserve">
-    <value>The Email field is required.</value>
-    <comment>The Email field is required.</comment>
-  </data>
-  <data name="Confirm password" xml:space="preserve">
-    <value>Confirm password</value>
-    <comment>Confirm password</comment>
-  </data>
-  <data name="The password and confirmation password do not match." xml:space="preserve">
-    <value>The password and confirmation password do not match.</value>
-    <comment>The password and confirmation password do not match.</comment>
-  </data>
-  <data name="The {0} must be at least {2} and at max {1} characters long." xml:space="preserve">
-    <value>The {0} must be at least {2} and at max {1} characters long.</value>
-    <comment>The {0} must be at least {2} and at max {1} characters long.</comment>
-  </data>
-  <data name="The Email field is not a valid e-mail address." xml:space="preserve">
-    <value>The Email field is not a valid e-mail address.</value>
-    <comment>The Email field is not a valid e-mail address.</comment>
-  </data>
-  <data name="Username" xml:space="preserve">
-    <value>Username</value>
-    <comment>Username</comment>
-  </data>
-  <data name="The Username field is required." xml:space="preserve">
-    <value>The Username field is required.</value>
-    <comment>The Username field is required.</comment>
-  </data>
-  <data name="The Username contains invalid characters." xml:space="preserve">
-    <value>The Username contains invalid characters.</value>
-    <comment>The Username contains invalid characters.</comment>
+  <data name="RequiredMessage" xml:space="preserve">
+    <value>{0} darf nicht leer sein.</value>
   </data>
 </root>

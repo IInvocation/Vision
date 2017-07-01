@@ -1,21 +1,17 @@
 ﻿using System.ComponentModel.DataAnnotations;
-using RazorLight.Host;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountViewModels
 {
     public class LoginViewModel
     {
-        [Required]
-        [EmailAddress]
-        [Display(Name = "Email", ResourceType = typeof(Resources.ViewModels.Account.LoginViewModel))]
+        [Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(Resources.ViewModels.Model))]
+        [EmailAddress(ErrorMessageResourceName = "EmailMessage", ErrorMessageResourceType = typeof(Resources.ViewModels.Model))]
 		public string Email { get; set; }
 
-        [Required]
-        [DataType(DataType.Password)]
-        [Display(Name = "Password", ResourceType = typeof(Resources.ViewModels.Account.LoginViewModel))]
+		[Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(Resources.ViewModels.Model))]
+		[DataType(DataType.Password)]
 		public string Password { get; set; }
 
-		[Display(Name = "RememberMe", ResourceType = typeof(Resources.ViewModels.Account.LoginViewModel))]
         public bool RememberMe { get; set; }
     }
 }

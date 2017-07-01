@@ -147,6 +147,9 @@
   <data name="RegisterLinkDescription" xml:space="preserve">
     <value>Als neuer Benutzer registrieren</value>
   </data>
+  <data name="RememberMeText" xml:space="preserve">
+    <value>An mich erinnern?</value>
+  </data>
   <data name="SubmitLogin" xml:space="preserve">
     <value>Anmelden</value>
   </data>
