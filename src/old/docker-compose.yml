@@ -1,8 +1,0 @@
-version: '2'
-
-services:
-  visionserver:
-    image: visionserver
-    build:
-      context: ./FluiTec.Vision.Server.Host.ConsoleHost
-      dockerfile: Dockerfile

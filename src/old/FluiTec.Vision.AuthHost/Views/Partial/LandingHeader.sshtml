@@ -1,2 +1,0 @@
-﻿<header id="header" class="alt skel-layers-fixed">
-@Partial['Partial/Header_Base'];

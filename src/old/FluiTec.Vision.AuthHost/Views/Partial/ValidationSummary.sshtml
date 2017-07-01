@@ -1,9 +1,0 @@
-﻿@IfNot.Context.ModelValidationResult.IsValid
-<div class="errorsummary">
-	<ul>
-	@Each.Context.ModelValidationResult.FormattedErrors
-		@Partial['Partial/PropertyValidationEntry', @Current];
-	@EndEach
-	</ul>
-</div>
-@EndIf

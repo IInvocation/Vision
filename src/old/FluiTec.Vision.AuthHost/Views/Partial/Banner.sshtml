@@ -1,6 +1,0 @@
-﻿<section id="banner">
-	<div class="inner">
-		<h2>@Context.Text.Text.ApplicationName</h2>
-		<p>@Context.Text.Text.LandingHeader</p>
-	</div>
-</section>

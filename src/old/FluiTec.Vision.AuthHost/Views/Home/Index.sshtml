@@ -1,5 +1,0 @@
-﻿@Master['_LandingLayout']
-@Section['Content']
-@Partial['Partial/Banner'];
-@Partial['Partial/Functions'];
-@EndSection
