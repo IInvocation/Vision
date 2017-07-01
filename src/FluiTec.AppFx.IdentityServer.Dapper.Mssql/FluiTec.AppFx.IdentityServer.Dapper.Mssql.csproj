@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.6</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\FluiTec.AppFx.Data.Dapper.Mssql\FluiTec.AppFx.Data.Dapper.Mssql.csproj" />
+    <ProjectReference Include="..\FluiTec.AppFx.Data.Dapper\FluiTec.AppFx.Data.Dapper.csproj" />
+    <ProjectReference Include="..\FluiTec.AppFx.Data\FluiTec.AppFx.Data.csproj" />
+    <ProjectReference Include="..\FluiTec.AppFx.IdentityServer.Dapper\FluiTec.AppFx.IdentityServer.Dapper.csproj" />
+    <ProjectReference Include="..\FluiTec.AppFx.IdentityServer\FluiTec.AppFx.IdentityServer.csproj" />
+  </ItemGroup>
+
+</Project>

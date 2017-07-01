@@ -1,12 +1,12 @@
-﻿using System;
-using System;
-using System.Globalization;
+﻿using System.Globalization;
 using System.Linq;
 using FluiTec.AppFx.Data.Dapper;
 using FluiTec.AppFx.Data.Dapper.Mssql;
 using FluiTec.AppFx.Identity;
 using FluiTec.AppFx.Identity.Dapper.Mssql;
 using FluiTec.AppFx.Identity.Entities;
+using FluiTec.AppFx.IdentityServer;
+using FluiTec.AppFx.IdentityServer.Dapper.Mssql;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,7 +19,6 @@ using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
 using FluiTec.Vision.Server.Host.AspCoreHost.Localization;
 using FuiTec.AppFx.Mail;
 using FuiTec.AppFx.Mail.Configuration;
-using Microsoft.Extensions.Localization;
 using RazorLight.MVC;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost
@@ -66,6 +65,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 
 			// add dataservices
 			services.AddScoped<IIdentityDataService, MssqlDapperIdentityDataService>();
+	        services.AddScoped<IIdentityServerDataService, MssqlDapperIdentityServerDataService>();
 
 			// add identityservices
 	        services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>(config =>
@@ -88,6 +88,13 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 	        });
 
 	        services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+			// add identityserver
+	        var idSrv = services.AddIdentityServer()
+		        .AddTemporarySigningCredential()
+		        .AddAspNetIdentity<IdentityUserEntity>();
+	        idSrv.AddClientStore<ClientStore>();
+	        idSrv.AddResourceStore<ResourceStore>();
 
 			// add mvc with localization
 			services.AddMvc()
@@ -117,6 +124,9 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
             app.UseStaticFiles();
 
 	        app.UseIdentity();
+
+	        app.UseIdentityServer();
+
 			ConfigureExternalAuthentication(app);
 
 			// enable localization based on request culture

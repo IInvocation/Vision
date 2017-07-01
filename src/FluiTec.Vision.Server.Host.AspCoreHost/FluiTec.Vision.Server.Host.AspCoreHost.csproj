@@ -104,6 +104,8 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.4.337" />
+    <PackageReference Include="IdentityServer4" Version="1.5.2" />
+    <PackageReference Include="IdentityServer4.AspNetIdentity" Version="1.0.1" />
     <PackageReference Include="Localization.AspNetCore.TagHelpers" Version="0.3.0" />
     <PackageReference Include="Microsoft.AspNetCore" Version="1.1.2" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.Cookies" Version="1.1.2" />
@@ -128,6 +130,9 @@
     <ProjectReference Include="..\FluiTec.AppFx.Data\FluiTec.AppFx.Data.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Identity.Dapper.Mssql\FluiTec.AppFx.Identity.Dapper.Mssql.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Identity.Dapper\FluiTec.AppFx.Identity.Dapper.csproj" />
+    <ProjectReference Include="..\FluiTec.AppFx.IdentityServer.Dapper.Mssql\FluiTec.AppFx.IdentityServer.Dapper.Mssql.csproj" />
+    <ProjectReference Include="..\FluiTec.AppFx.IdentityServer.Dapper\FluiTec.AppFx.IdentityServer.Dapper.csproj" />
+    <ProjectReference Include="..\FluiTec.AppFx.IdentityServer\FluiTec.AppFx.IdentityServer.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Identity\FluiTec.AppFx.Identity.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Options\FluiTec.AppFx.Options.csproj" />
     <ProjectReference Include="..\FuiTec.AppFx.Mail\FuiTec.AppFx.Mail.csproj" />
