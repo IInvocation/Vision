@@ -206,6 +206,12 @@
     <EmbeddedResource Update="Resources\Views\Admin\Index.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Admin\ManageUser.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Admin\ManageUsers.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Contact\Imprint.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -258,7 +264,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Contact\" />
-    <Folder Include="Views\Admin\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Controllers\AccountController.Designer.cs">

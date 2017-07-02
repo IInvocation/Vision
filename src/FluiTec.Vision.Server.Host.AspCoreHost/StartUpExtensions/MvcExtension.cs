@@ -19,7 +19,12 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 
 			services.AddAuthorization(options =>
 			{
-				options.AddPolicy(IdentityPolicies.IsAdminPolicy.PolicyName, policy => policy.RequireClaim(IdentityClaims.HasAdministrativeRights));
+				foreach(var policyTemplate in IdentityPolicies.GetPolicies())
+					options.AddPolicy(policyTemplate.PolicyName, policy =>
+					{
+						foreach (var claim in policyTemplate.Claims)
+							policy.RequireClaim(claim);
+					});
 			});
 
 			return services;

@@ -1,0 +1,20 @@
+﻿@model FluiTec.AppFx.Identity.Entities.IdentityUserEntity
+
+<header class="major">
+	<h2><localize>AdminHeader</localize></h2>
+	<p><localize>ManageUserHeader</localize></p>
+</header>
+<div class="container">
+	<section id="content">
+		<section>
+			<h4><localize>UserHeader</localize></h4>
+			<hr />
+			<div class="row uniform">
+				<div class="6u 12u(3)">
+					<label for="Email"><localize>EmailLabel</localize></label>
+					<input type="email" name="Email" id="Email" value="@Model?.Email" readonly />
+				</div>
+			</div>
+		</section>
+	</section>
+</div>

@@ -19,5 +19,5 @@ else
 }
 @if (User.HasClaim(IdentityClaims.HasAdministrativeRights, value: "true"))
 {
-	<li><a asp-controller="Admin" asp-action="Index"><localize>Settings</localize></a></li>
+	<li><a asp-controller="Admin" asp-action="Index"><localize>Admin</localize></a></li>
 }

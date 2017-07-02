@@ -1,0 +1,26 @@
+@model IEnumerable<FluiTec.AppFx.Identity.Entities.IdentityUserEntity>
+<header class="major">
+	<h2><localize>AdminHeader</localize></h2>
+	<p><localize>ManageUsersHeader</localize></p>
+</header>
+<div class="container">
+	<section id="content">
+		<section>
+			<h4><localize>UsersHeader</localize></h4>
+			<hr />
+			<table>
+				@foreach (var user in Model)
+				{
+					<tr>
+						<td>
+							@user.Name
+						</td>
+						<td>
+							<a asp-controller="Admin" asp-action="ManageUser" asp-route-userid="@user.Id"><localize>EditUserLink</localize></a>
+						</td>
+					</tr>
+				}
+			</table>
+		</section>
+	</section>
+</div>
