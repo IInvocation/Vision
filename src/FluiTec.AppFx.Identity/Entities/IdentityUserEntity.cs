@@ -68,6 +68,18 @@ namespace FluiTec.AppFx.Identity.Entities
 		/// <value>	True if two factor enabled, false if not. </value>
 		public bool TwoFactorEnabled { get; set; }
 
+		/// <summary>	Gets or sets a value indicating whether the lockout is enabled. </summary>
+		/// <value>	True if lockout enabled, false if not. </value>
+		public bool LockoutEnabled { get; set; }
+
+		/// <summary>	Gets or sets the number of access failed. </summary>
+		/// <value>	The number of access failed. </value>
+		public int AccessFailedCount { get; set; }
+
+		/// <summary>	Gets or sets the Date/Time of the locked out till. </summary>
+		/// <value>	The locked out till. </value>
+		public DateTimeOffset? LockedOutTill { get; set; }
+
 		/// <summary>	Gets or sets the identifier. </summary>
 		/// <value>	The identifier. </value>
 		public int Id { get; set; }

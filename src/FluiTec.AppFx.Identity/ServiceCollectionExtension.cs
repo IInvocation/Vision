@@ -22,6 +22,7 @@ namespace FluiTec.AppFx.Identity
 			services.AddScoped<IUserEmailStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
 			services.AddScoped<IUserPhoneNumberStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
 			services.AddScoped<IUserTwoFactorStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
+			services.AddScoped<IUserLockoutStore<IdentityUserEntity>>(provider => provider.GetService<IdentityStore>());
 			return services;
 		}
 	}

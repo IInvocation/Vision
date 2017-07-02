@@ -75,11 +75,15 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.IdentityServe
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.IdentityServer.Dapper.Mssql", "FluiTec.AppFx.IdentityServer.Dapper.Mssql\FluiTec.AppFx.IdentityServer.Dapper.Mssql.csproj", "{3AAFF18F-F83F-4D38-B2C7-78F5A6FBD8E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.AppFx.IdentityServer.Test", "FluiTec.AppFx.IdentityServer.Test\FluiTec.AppFx.IdentityServer.Test.csproj", "{B8BC70B3-90CE-4528-812D-6B49DDC55501}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.IdentityServer.Test", "FluiTec.AppFx.IdentityServer.Test\FluiTec.AppFx.IdentityServer.Test.csproj", "{B8BC70B3-90CE-4528-812D-6B49DDC55501}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.AppFx.IdentityServer.Dapper.Test", "FluiTec.AppFx.IdentityServer.Dapper.Test\FluiTec.AppFx.IdentityServer.Dapper.Test.csproj", "{1D5ED828-5051-4920-AFF9-0713E044C812}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.IdentityServer.Dapper.Test", "FluiTec.AppFx.IdentityServer.Dapper.Test\FluiTec.AppFx.IdentityServer.Dapper.Test.csproj", "{1D5ED828-5051-4920-AFF9-0713E044C812}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.AppFx.IdentityServer.Dapper.Mssql.Test", "FluiTec.AppFx.IdentityServer.Dapper.Mssql.Test\FluiTec.AppFx.IdentityServer.Dapper.Mssql.Test.csproj", "{D0654122-3487-4C46-9CB0-319C29537623}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.IdentityServer.Dapper.Mssql.Test", "FluiTec.AppFx.IdentityServer.Dapper.Mssql.Test\FluiTec.AppFx.IdentityServer.Dapper.Mssql.Test.csproj", "{D0654122-3487-4C46-9CB0-319C29537623}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Temp", "Temp", "{8617D2AC-3123-4AF2-8211-9006D3F938BC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.IdentityServer.ConsoleTest", "FluiTec.Vision.IdentityServer.ConsoleTest\FluiTec.Vision.IdentityServer.ConsoleTest.csproj", "{B38082BD-68DA-442B-89A1-71729D38D522}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -183,6 +187,10 @@ Global
 		{D0654122-3487-4C46-9CB0-319C29537623}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D0654122-3487-4C46-9CB0-319C29537623}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D0654122-3487-4C46-9CB0-319C29537623}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B38082BD-68DA-442B-89A1-71729D38D522}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B38082BD-68DA-442B-89A1-71729D38D522}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B38082BD-68DA-442B-89A1-71729D38D522}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B38082BD-68DA-442B-89A1-71729D38D522}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -224,5 +232,7 @@ Global
 		{B8BC70B3-90CE-4528-812D-6B49DDC55501} = {AB2C2E55-02ED-4595-B4EC-1267C329930F}
 		{1D5ED828-5051-4920-AFF9-0713E044C812} = {AB2C2E55-02ED-4595-B4EC-1267C329930F}
 		{D0654122-3487-4C46-9CB0-319C29537623} = {AB2C2E55-02ED-4595-B4EC-1267C329930F}
+		{8617D2AC-3123-4AF2-8211-9006D3F938BC} = {311CE01C-7DA8-44FB-8316-FF018B089EAF}
+		{B38082BD-68DA-442B-89A1-71729D38D522} = {8617D2AC-3123-4AF2-8211-9006D3F938BC}
 	EndGlobalSection
 EndGlobal

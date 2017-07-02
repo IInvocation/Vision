@@ -37,7 +37,7 @@ namespace FluiTec.AppFx.IdentityServer
 					ClientId = entity.Client.ClientId,
 					ClientSecrets = new List<Secret>(new[] { new Secret(entity.Client.Secret.Sha256()) }),
 					AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
-					AllowedScopes = entity.Scopes.Select(s => s.Name).ToList()
+					AllowedScopes = entity.Scopes.Select(s => s.Name).ToList(),
 				};
 
 				return Task.FromResult(client);

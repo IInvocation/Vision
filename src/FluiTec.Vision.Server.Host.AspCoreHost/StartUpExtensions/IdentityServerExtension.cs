@@ -19,6 +19,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 				.AddAspNetIdentity<IdentityUserEntity>();
 			idSrv.AddClientStore<ClientStore>();
 			idSrv.AddResourceStore<ResourceStore>();
+			idSrv.AddProfileService<ProfileService>();
 
 			return services;
 		}

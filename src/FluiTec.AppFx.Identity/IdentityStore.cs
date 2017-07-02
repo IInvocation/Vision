@@ -12,7 +12,7 @@ namespace FluiTec.AppFx.Identity
 	public class IdentityStore : IUserPasswordStore<IdentityUserEntity>, IUserClaimStore<IdentityUserEntity>,
 		IRoleStore<IdentityRoleEntity>, IUserSecurityStampStore<IdentityUserEntity>, IUserRoleStore<IdentityUserEntity>,
 		IUserLoginStore<IdentityUserEntity>, IUserEmailStore<IdentityUserEntity>, IUserPhoneNumberStore<IdentityUserEntity>,
-		IUserTwoFactorStore<IdentityUserEntity>
+		IUserTwoFactorStore<IdentityUserEntity>, IUserLockoutStore<IdentityUserEntity>
 	{
 		#region Constructors
 
@@ -769,6 +769,94 @@ namespace FluiTec.AppFx.Identity
 		public Task<bool> GetTwoFactorEnabledAsync(IdentityUserEntity user, CancellationToken cancellationToken)
 		{
 			return Task.FromResult(user.TwoFactorEnabled);
+		}
+
+		#endregion
+
+		#region IUserLockoutStore
+
+		/// <summary>	Gets lockout end date asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The lockout end date asynchronous. </returns>
+		public Task<DateTimeOffset?> GetLockoutEndDateAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task.FromResult(user.LockedOutTill);
+		}
+
+		/// <summary>	Sets lockout end date asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="lockoutEnd">			The lockout end. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public async Task SetLockoutEndDateAsync(IdentityUserEntity user, DateTimeOffset? lockoutEnd,
+			CancellationToken cancellationToken)
+		{
+			await Task.Factory.StartNew(() =>
+			{
+				user.LockedOutTill = lockoutEnd;
+				UnitOfWork.UserRepository.Update(user);
+			}, cancellationToken);
+		}
+
+		/// <summary>	Increment access failed count asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task&lt;int&gt; </returns>
+		public async Task<int> IncrementAccessFailedCountAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			var newCount = user.AccessFailedCount + 1;
+			await Task.Factory.StartNew(() =>
+			{
+				user.AccessFailedCount = newCount;
+				UnitOfWork.UserRepository.Update(user);
+			}, cancellationToken);
+			return newCount;
+		}
+
+		/// <summary>	Resets the access failed count asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public Task ResetAccessFailedCountAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				user.AccessFailedCount = 0;
+				UnitOfWork.UserRepository.Update(user);
+			}, cancellationToken);
+		}
+
+		/// <summary>	Gets access failed count asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The access failed count asynchronous. </returns>
+		public Task<int> GetAccessFailedCountAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task.FromResult(user.AccessFailedCount);
+		}
+
+		/// <summary>	Gets lockout enabled asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	The lockout enabled asynchronous. </returns>
+		public Task<bool> GetLockoutEnabledAsync(IdentityUserEntity user, CancellationToken cancellationToken)
+		{
+			return Task.FromResult(user.LockoutEnabled);
+		}
+
+		/// <summary>	Sets lockout enabled asynchronous. </summary>
+		/// <param name="user">					The user. </param>
+		/// <param name="enabled">				True to enable, false to disable. </param>
+		/// <param name="cancellationToken">	The cancellation token. </param>
+		/// <returns>	A Task. </returns>
+		public Task SetLockoutEnabledAsync(IdentityUserEntity user, bool enabled, CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew(() =>
+			{
+				user.LockoutEnabled = enabled;
+				UnitOfWork.UserRepository.Update(user);
+			}, cancellationToken);
 		}
 
 		#endregion

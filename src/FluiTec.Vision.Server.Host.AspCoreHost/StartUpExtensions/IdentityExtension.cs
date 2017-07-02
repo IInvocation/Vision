@@ -1,4 +1,5 @@
-﻿using FluiTec.AppFx.Identity;
+﻿using System;
+using FluiTec.AppFx.Identity;
 using FluiTec.AppFx.Identity.Entities;
 using FluiTec.Vision.Server.Host.AspCoreHost.Localization;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,9 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 			services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>(config =>
 				{
 					config.SignIn.RequireConfirmedEmail = true;
+					config.Lockout.AllowedForNewUsers = true;
+					config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(value: 5);
+					config.Lockout.MaxFailedAccessAttempts = 3;
 				})
 				.AddErrorDescriber<MultiLanguageIdentityErrorDescriber>()
 				.AddDefaultTokenProviders();
