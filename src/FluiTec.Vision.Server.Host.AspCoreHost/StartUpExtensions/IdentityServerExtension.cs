@@ -14,9 +14,13 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 		public static IServiceCollection ConfigureIdentityServer(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
-			var idSrv = services.AddIdentityServer()
-				.AddTemporarySigningCredential()
-				.AddAspNetIdentity<IdentityUserEntity>();
+			var idSrv = services.AddIdentityServer(options =>
+			{
+				options.UserInteraction.ConsentUrl = "/Identity/Consent";
+			});
+
+			idSrv.AddTemporarySigningCredential();
+			idSrv.AddAspNetIdentity<IdentityUserEntity>();
 			idSrv.AddClientStore<ClientStore>();
 			idSrv.AddResourceStore<ResourceStore>();
 			idSrv.AddProfileService<ProfileService>();

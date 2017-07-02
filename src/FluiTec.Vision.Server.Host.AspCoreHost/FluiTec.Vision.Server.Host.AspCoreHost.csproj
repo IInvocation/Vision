@@ -224,6 +224,13 @@
     <EmbeddedResource Update="Resources\Views\Home\About.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Identity\Consent.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Identity\Consent.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Consent.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Manage\ChangePassword.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -264,6 +271,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Contact\" />
+    <Folder Include="Views\Identity\" />
   </ItemGroup>
   <ItemGroup>
     <Compile Update="Resources\Controllers\AccountController.Designer.cs">
@@ -290,6 +298,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Model.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Identity\Consent.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Consent.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

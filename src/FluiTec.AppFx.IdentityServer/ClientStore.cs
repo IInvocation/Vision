@@ -35,9 +35,13 @@ namespace FluiTec.AppFx.IdentityServer
 				var client = new Client
 				{
 					ClientId = entity.Client.ClientId,
+					ClientName = entity.Client.Name,
 					ClientSecrets = new List<Secret>(new[] { new Secret(entity.Client.Secret.Sha256()) }),
-					AllowedGrantTypes = GrantTypes.ResourceOwnerPassword,
+					AllowedGrantTypes = entity.Client.GrantTypes?.Split(','),
 					AllowedScopes = entity.Scopes.Select(s => s.Name).ToList(),
+					RedirectUris = new List<string>(new []{ entity.Client.RedirectUri }),
+					PostLogoutRedirectUris = new List<string>(new []{ entity.Client.PostLogoutUri }),
+					AllowOfflineAccess = entity.Client.AllowOfflineAccess
 				};
 
 				return Task.FromResult(client);

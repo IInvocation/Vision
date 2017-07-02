@@ -83,7 +83,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.IdentityServe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Temp", "Temp", "{8617D2AC-3123-4AF2-8211-9006D3F938BC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.IdentityServer.ConsoleTest", "FluiTec.Vision.IdentityServer.ConsoleTest\FluiTec.Vision.IdentityServer.ConsoleTest.csproj", "{B38082BD-68DA-442B-89A1-71729D38D522}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.IdentityServer.ConsoleTest", "FluiTec.Vision.IdentityServer.ConsoleTest\FluiTec.Vision.IdentityServer.ConsoleTest.csproj", "{B38082BD-68DA-442B-89A1-71729D38D522}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.IdentityServer.MvcTest", "FluiTec.Vision.IdentityServer.MvcTest\FluiTec.Vision.IdentityServer.MvcTest.csproj", "{C54468A8-46A1-4A26-801C-4704FBF0A0A2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -191,6 +193,10 @@ Global
 		{B38082BD-68DA-442B-89A1-71729D38D522}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B38082BD-68DA-442B-89A1-71729D38D522}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B38082BD-68DA-442B-89A1-71729D38D522}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C54468A8-46A1-4A26-801C-4704FBF0A0A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C54468A8-46A1-4A26-801C-4704FBF0A0A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C54468A8-46A1-4A26-801C-4704FBF0A0A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C54468A8-46A1-4A26-801C-4704FBF0A0A2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -234,5 +240,6 @@ Global
 		{D0654122-3487-4C46-9CB0-319C29537623} = {AB2C2E55-02ED-4595-B4EC-1267C329930F}
 		{8617D2AC-3123-4AF2-8211-9006D3F938BC} = {311CE01C-7DA8-44FB-8316-FF018B089EAF}
 		{B38082BD-68DA-442B-89A1-71729D38D522} = {8617D2AC-3123-4AF2-8211-9006D3F938BC}
+		{C54468A8-46A1-4A26-801C-4704FBF0A0A2} = {8617D2AC-3123-4AF2-8211-9006D3F938BC}
 	EndGlobalSection
 EndGlobal

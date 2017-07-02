@@ -1,6 +1,6 @@
 ﻿USE [master]
 GO
-/****** Object:  Database [Vision]    Script Date: 23.06.2017 12:21:38 ******/
+/****** Object:  Database [Vision]    Script Date: 02.07.2017 18:48:01 ******/
 CREATE DATABASE [Vision]
  CONTAINMENT = NONE
  ON  PRIMARY 
@@ -75,7 +75,94 @@ ALTER DATABASE [Vision] SET DELAYED_DURABILITY = DISABLED
 GO
 USE [Vision]
 GO
-/****** Object:  Table [dbo].[Dummy]    Script Date: 23.06.2017 12:21:38 ******/
+/****** Object:  Table [dbo].[ApiResource]    Script Date: 02.07.2017 18:48:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ApiResource](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) NOT NULL,
+	[DisplayName] [nvarchar](255) NOT NULL,
+	[Description] [nvarchar](max) NULL,
+	[Enabled] [bit] NULL,
+ CONSTRAINT [PK_ApiResource] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[ApiResourceClaim]    Script Date: 02.07.2017 18:48:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ApiResourceClaim](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ApiResourceId] [int] NOT NULL,
+	[ClaimType] [nvarchar](255) NOT NULL,
+ CONSTRAINT [PK_ApiResourceClaim] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[ApiResourceScope]    Script Date: 02.07.2017 18:48:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ApiResourceScope](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ApiResourceId] [int] NOT NULL,
+	[ScopeId] [int] NOT NULL,
+ CONSTRAINT [PK_ApiResourceScope] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Client]    Script Date: 02.07.2017 18:48:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Client](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ClientId] [nvarchar](255) NOT NULL,
+	[Name] [nvarchar](255) NULL,
+	[Secret] [nvarchar](max) NOT NULL,
+	[RedirectUri] [nvarchar](max) NULL,
+	[PostLogoutUri] [nvarchar](max) NULL,
+	[AllowOfflineAccess] [bit] NOT NULL,
+	[GrantTypes] [nvarchar](max) NOT NULL,
+ CONSTRAINT [PK_VisionClient] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[ClientScope]    Script Date: 02.07.2017 18:48:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[ClientScope](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ClientId] [int] NOT NULL,
+	[ScopeId] [int] NOT NULL,
+ CONSTRAINT [PK_ClientScope] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[Dummy]    Script Date: 02.07.2017 18:48:01 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -90,7 +177,7 @@ CREATE TABLE [dbo].[Dummy](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityClaim]    Script Date: 23.06.2017 12:21:38 ******/
+/****** Object:  Table [dbo].[IdentityClaim]    Script Date: 02.07.2017 18:48:01 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -107,7 +194,90 @@ CREATE TABLE [dbo].[IdentityClaim](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityRole]    Script Date: 23.06.2017 12:21:38 ******/
+/****** Object:  Table [dbo].[IdentityClient]    Script Date: 02.07.2017 18:48:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[IdentityClient](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[ClientId] [nvarchar](255) NOT NULL,
+	[ClientName] [nvarchar](255) NOT NULL,
+	[ClientSecet] [nvarchar](max) NOT NULL,
+	[Enabled] [bit] NOT NULL,
+	[AllowOfflineAccess] [bit] NOT NULL,
+	[AllowRememberConsent] [bit] NOT NULL,
+	[AlwaysIncludeUserClaimsInIdToken] [bit] NOT NULL,
+	[EnableLocalLogin] [bit] NOT NULL,
+	[AbsoluteRefreshTokenLifetime] [int] NOT NULL,
+	[AccessTokenLifetime] [int] NOT NULL,
+	[AuthorizationCodeLifetime] [int] NOT NULL,
+	[IdentityTokenLifetime] [int] NOT NULL,
+	[SlidingRefreshTokenLifetime] [int] NOT NULL,
+	[LogoUri] [nvarchar](max) NULL,
+	[RefreshTokenExpiration] [int] NOT NULL,
+	[RefreshTokenUsage] [int] NOT NULL,
+ CONSTRAINT [PK_IdentityClient] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[IdentityResource]    Script Date: 02.07.2017 18:48:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[IdentityResource](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) NOT NULL,
+	[DisplayName] [nvarchar](255) NOT NULL,
+	[Description] [nvarchar](max) NULL,
+	[Enabled] [bit] NOT NULL,
+	[Required] [bit] NOT NULL,
+	[Emphasize] [bit] NOT NULL,
+	[ShowInDiscoveryDocument] [bit] NOT NULL,
+ CONSTRAINT [PK_IdentityResource] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[IdentityResourceClaim]    Script Date: 02.07.2017 18:48:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[IdentityResourceClaim](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IdentityResourceId] [int] NOT NULL,
+	[ClaimType] [nvarchar](255) NOT NULL,
+ CONSTRAINT [PK_IdentityResourceClaim] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[IdentityResourceScope]    Script Date: 02.07.2017 18:48:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[IdentityResourceScope](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[IdentityResourceId] [int] NOT NULL,
+	[ScopeId] [int] NOT NULL,
+ CONSTRAINT [PK_IdentityResourceScope] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+/****** Object:  Table [dbo].[IdentityRole]    Script Date: 02.07.2017 18:48:01 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -126,7 +296,7 @@ CREATE TABLE [dbo].[IdentityRole](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityUser]    Script Date: 23.06.2017 12:21:38 ******/
+/****** Object:  Table [dbo].[IdentityUser]    Script Date: 02.07.2017 18:48:01 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -148,6 +318,9 @@ CREATE TABLE [dbo].[IdentityUser](
 	[Phone] [nvarchar](256) NULL,
 	[PhoneConfirmed] [bit] NOT NULL,
 	[TwoFactorEnabled] [bit] NOT NULL,
+	[LockoutEnabled] [bit] NOT NULL,
+	[AccessFailedCount] [int] NOT NULL,
+	[LockedOutTill] [datetimeoffset](7) NULL,
  CONSTRAINT [PK_IdentityUser] PRIMARY KEY CLUSTERED 
 (
 	[Id] ASC
@@ -155,7 +328,7 @@ CREATE TABLE [dbo].[IdentityUser](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityUserLogin]    Script Date: 23.06.2017 12:21:38 ******/
+/****** Object:  Table [dbo].[IdentityUserLogin]    Script Date: 02.07.2017 18:48:01 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -173,7 +346,7 @@ CREATE TABLE [dbo].[IdentityUserLogin](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Table [dbo].[IdentityUserRole]    Script Date: 23.06.2017 12:21:38 ******/
+/****** Object:  Table [dbo].[IdentityUserRole]    Script Date: 02.07.2017 18:48:01 ******/
 SET ANSI_NULLS ON
 GO
 SET QUOTED_IDENTIFIER ON
@@ -189,7 +362,45 @@ CREATE TABLE [dbo].[IdentityUserRole](
 ) ON [PRIMARY]
 
 GO
-/****** Object:  Index [IX_IdentityUser]    Script Date: 23.06.2017 12:21:38 ******/
+/****** Object:  Table [dbo].[Scope]    Script Date: 02.07.2017 18:48:01 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+CREATE TABLE [dbo].[Scope](
+	[Id] [int] IDENTITY(1,1) NOT NULL,
+	[Name] [nvarchar](255) NOT NULL,
+	[DisplayName] [nvarchar](255) NOT NULL,
+	[Description] [nvarchar](max) NULL,
+	[Required] [bit] NOT NULL,
+	[Emphasize] [bit] NOT NULL,
+	[ShowInDiscoveryDocument] [bit] NOT NULL,
+ CONSTRAINT [PK_Scope] PRIMARY KEY CLUSTERED 
+(
+	[Id] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+) ON [PRIMARY] TEXTIMAGE_ON [PRIMARY]
+
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [IX_IdentityClient]    Script Date: 02.07.2017 18:48:01 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [IX_IdentityClient] ON [dbo].[IdentityClient]
+(
+	[ClientId] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+SET ANSI_PADDING ON
+
+GO
+/****** Object:  Index [IX_IdentityClient_1]    Script Date: 02.07.2017 18:48:01 ******/
+CREATE UNIQUE NONCLUSTERED INDEX [IX_IdentityClient_1] ON [dbo].[IdentityClient]
+(
+	[ClientName] ASC
+)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
+GO
+/****** Object:  Index [IX_IdentityUser]    Script Date: 02.07.2017 18:48:01 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_IdentityUser] ON [dbo].[IdentityUser]
 (
 	[Identifier] ASC
@@ -198,7 +409,7 @@ GO
 SET ANSI_PADDING ON
 
 GO
-/****** Object:  Index [IX_IdentityUser_1]    Script Date: 23.06.2017 12:21:38 ******/
+/****** Object:  Index [IX_IdentityUser_1]    Script Date: 02.07.2017 18:48:01 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_IdentityUser_1] ON [dbo].[IdentityUser]
 (
 	[LoweredUserName] ASC
@@ -207,17 +418,81 @@ GO
 SET ANSI_PADDING ON
 
 GO
-/****** Object:  Index [IX_IdentityUserLogin]    Script Date: 23.06.2017 12:21:38 ******/
+/****** Object:  Index [IX_IdentityUserLogin]    Script Date: 02.07.2017 18:48:01 ******/
 CREATE UNIQUE NONCLUSTERED INDEX [IX_IdentityUserLogin] ON [dbo].[IdentityUserLogin]
 (
 	[ProviderName] ASC,
 	[ProviderKey] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, SORT_IN_TEMPDB = OFF, IGNORE_DUP_KEY = OFF, DROP_EXISTING = OFF, ONLINE = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 GO
+ALTER TABLE [dbo].[IdentityClient] ADD  CONSTRAINT [DF_IdentityClient_Enabled]  DEFAULT ((1)) FOR [Enabled]
+GO
+ALTER TABLE [dbo].[IdentityClient] ADD  CONSTRAINT [DF_IdentityClient_AllowOfflineAccess]  DEFAULT ((1)) FOR [AllowOfflineAccess]
+GO
+ALTER TABLE [dbo].[IdentityClient] ADD  CONSTRAINT [DF_IdentityClient_AllowRememberConsent]  DEFAULT ((1)) FOR [AllowRememberConsent]
+GO
+ALTER TABLE [dbo].[IdentityClient] ADD  CONSTRAINT [DF_IdentityClient_AlwaysIncludeUserClaimsInIdToken]  DEFAULT ((0)) FOR [AlwaysIncludeUserClaimsInIdToken]
+GO
+ALTER TABLE [dbo].[IdentityClient] ADD  CONSTRAINT [DF_IdentityClient_EnableLocalLogin]  DEFAULT ((1)) FOR [EnableLocalLogin]
+GO
+ALTER TABLE [dbo].[IdentityClient] ADD  CONSTRAINT [DF_IdentityClient_AbsoluteRefreshTokenLifetime]  DEFAULT ((2592000)) FOR [AbsoluteRefreshTokenLifetime]
+GO
+ALTER TABLE [dbo].[IdentityClient] ADD  CONSTRAINT [DF_IdentityClient_AccessTokenLifetime]  DEFAULT ((3600)) FOR [AccessTokenLifetime]
+GO
+ALTER TABLE [dbo].[IdentityClient] ADD  CONSTRAINT [DF_IdentityClient_AuthorizationCodeLifetime]  DEFAULT ((3600)) FOR [AuthorizationCodeLifetime]
+GO
+ALTER TABLE [dbo].[IdentityClient] ADD  CONSTRAINT [DF_IdentityClient_IdentityTokenLifetime]  DEFAULT ((300)) FOR [IdentityTokenLifetime]
+GO
+ALTER TABLE [dbo].[IdentityClient] ADD  CONSTRAINT [DF_IdentityClient_SlidingRefreshTokenLifetime]  DEFAULT ((1296000)) FOR [SlidingRefreshTokenLifetime]
+GO
+ALTER TABLE [dbo].[IdentityClient] ADD  CONSTRAINT [DF_IdentityClient_RefreshTokenExpiration]  DEFAULT ((0)) FOR [RefreshTokenExpiration]
+GO
+ALTER TABLE [dbo].[IdentityClient] ADD  CONSTRAINT [DF_IdentityClient_RefreshTokenUsage]  DEFAULT ((0)) FOR [RefreshTokenUsage]
+GO
+ALTER TABLE [dbo].[ApiResourceClaim]  WITH CHECK ADD  CONSTRAINT [FK_ApiResourceClaim_ApiResource] FOREIGN KEY([ApiResourceId])
+REFERENCES [dbo].[ApiResource] ([Id])
+GO
+ALTER TABLE [dbo].[ApiResourceClaim] CHECK CONSTRAINT [FK_ApiResourceClaim_ApiResource]
+GO
+ALTER TABLE [dbo].[ApiResourceScope]  WITH CHECK ADD  CONSTRAINT [FK_ApiResourceScope_ApiResource] FOREIGN KEY([ApiResourceId])
+REFERENCES [dbo].[ApiResource] ([Id])
+GO
+ALTER TABLE [dbo].[ApiResourceScope] CHECK CONSTRAINT [FK_ApiResourceScope_ApiResource]
+GO
+ALTER TABLE [dbo].[ApiResourceScope]  WITH CHECK ADD  CONSTRAINT [FK_ApiResourceScope_Scope] FOREIGN KEY([ScopeId])
+REFERENCES [dbo].[Scope] ([Id])
+GO
+ALTER TABLE [dbo].[ApiResourceScope] CHECK CONSTRAINT [FK_ApiResourceScope_Scope]
+GO
+ALTER TABLE [dbo].[ClientScope]  WITH CHECK ADD  CONSTRAINT [FK_ClientScope_Client] FOREIGN KEY([ClientId])
+REFERENCES [dbo].[Client] ([Id])
+GO
+ALTER TABLE [dbo].[ClientScope] CHECK CONSTRAINT [FK_ClientScope_Client]
+GO
+ALTER TABLE [dbo].[ClientScope]  WITH CHECK ADD  CONSTRAINT [FK_ClientScope_Scope] FOREIGN KEY([ScopeId])
+REFERENCES [dbo].[Scope] ([Id])
+GO
+ALTER TABLE [dbo].[ClientScope] CHECK CONSTRAINT [FK_ClientScope_Scope]
+GO
 ALTER TABLE [dbo].[IdentityClaim]  WITH CHECK ADD  CONSTRAINT [FK_IdentityClaim_IdentityUser] FOREIGN KEY([UserId])
 REFERENCES [dbo].[IdentityUser] ([Id])
 GO
 ALTER TABLE [dbo].[IdentityClaim] CHECK CONSTRAINT [FK_IdentityClaim_IdentityUser]
+GO
+ALTER TABLE [dbo].[IdentityResourceClaim]  WITH CHECK ADD  CONSTRAINT [FK_IdentityResourceClaim_IdentityResource] FOREIGN KEY([IdentityResourceId])
+REFERENCES [dbo].[IdentityResource] ([Id])
+GO
+ALTER TABLE [dbo].[IdentityResourceClaim] CHECK CONSTRAINT [FK_IdentityResourceClaim_IdentityResource]
+GO
+ALTER TABLE [dbo].[IdentityResourceScope]  WITH CHECK ADD  CONSTRAINT [FK_IdentityResourceScope_IdentityResource] FOREIGN KEY([IdentityResourceId])
+REFERENCES [dbo].[IdentityResource] ([Id])
+GO
+ALTER TABLE [dbo].[IdentityResourceScope] CHECK CONSTRAINT [FK_IdentityResourceScope_IdentityResource]
+GO
+ALTER TABLE [dbo].[IdentityResourceScope]  WITH CHECK ADD  CONSTRAINT [FK_IdentityResourceScope_Scope] FOREIGN KEY([ScopeId])
+REFERENCES [dbo].[Scope] ([Id])
+GO
+ALTER TABLE [dbo].[IdentityResourceScope] CHECK CONSTRAINT [FK_IdentityResourceScope_Scope]
 GO
 ALTER TABLE [dbo].[IdentityUserLogin]  WITH CHECK ADD  CONSTRAINT [FK_IdentityUserLogin_IdentityUser] FOREIGN KEY([UserId])
 REFERENCES [dbo].[IdentityUser] ([Identifier])

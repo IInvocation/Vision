@@ -1,0 +1,84 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@model FluiTec.Vision.Server.Host.AspCoreHost.Models.IdentityViewModels.ConsentViewModel
+@inject IViewLocalizer Localizer
+
+<header class="major">
+	<h2><localize>IdentityHeader</localize></h2>
+	<p><localize>ConsentHeader</localize></p>
+</header>
+<div class="container">
+	<section id="content">
+		<section>
+			<form asp-action="Consent" class="form-horizontal">
+				<input type="hidden" asp-for="ReturnUrl" />
+				@if (Model.ClientLogoUrl != null)
+				{
+					<div class="client-logo">
+						<img src="@Model.ClientLogoUrl" alt="client-logo">
+					</div>
+				}
+				<h3><localize>@Model.ClientName</localize></h3>
+				<h3>
+					@Model.ClientName
+					<small><localize>RequestText</localize></small>
+				</h3>
+				@if (Model.IdentityScopes.Any())
+				{
+				<h4><localize>PersonalInformationHeader</localize></h4>
+				<div class="row uniform">
+					<div class="6u 12u(3)">
+						<ul class="list-group">
+							@foreach (var scope in Model.IdentityScopes)
+							{
+								@Html.Partial("_ScopeListItem", scope)
+							}
+						</ul>
+					</div>
+				</div>
+				}
+				@if (Model.ResourceScopes.Any())
+				{
+				<h4><localize>ApplicationAccessHeader</localize></h4>
+				<div class="row uniform">
+					<div class="6u 12u(3)">
+						<ul class="list-group">
+							@foreach (var scope in Model.ResourceScopes)
+							{
+								@Html.Partial("_ScopeListItem", scope)
+							}
+						</ul>
+					</div>
+				</div>
+				}
+				@if (Model.AllowRememberConsent)
+				{
+					<div class="consent-remember">
+						<label>
+							<input class="consent-scopecheck" asp-for="RememberConsent" />
+							<strong>Remember My Decision</strong>
+						</label>
+					</div>
+				}
+				<div class="row uniform">
+					<ul class="actions">
+						<li>
+							<input type="submit" value="@Localizer[name: "AllowAccessText"]" />
+						</li>
+						<li>
+							<input type="submit" value="@Localizer[name: "DenyAccessText"]" />
+						</li>
+					@if (Model.ClientUrl != null)
+					{
+						<li>
+							<a class="pull-right btn btn-default" target="_blank" href="@Model.ClientUrl">
+								<span class="glyphicon glyphicon-info-sign"></span>
+								<strong>@Model.ClientName</strong>
+							</a>
+						</li>
+					}
+					</ul>
+				</div>
+			</form>
+		</section>
+	</section>
+</div>
