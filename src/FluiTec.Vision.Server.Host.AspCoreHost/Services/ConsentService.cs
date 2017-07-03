@@ -111,7 +111,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Services
 			if (client == null) return null;
 			var resources = await _resourceStore.FindEnabledResourcesByScopeAsync(request.ScopesRequested);
 			if (resources != null && (resources.IdentityResources.Any() || resources.ApiResources.Any()))
-				return CreateConsentViewModel(model, returnUrl, request, client, resources);
+				return CreateConsentViewModel(model, returnUrl, client, resources);
 
 			return null;
 		}
@@ -119,13 +119,11 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Services
 		/// <summary>	Creates consent view model. </summary>
 		/// <param name="model">		The model. </param>
 		/// <param name="returnUrl">	URL of the return. </param>
-		/// <param name="request">  	The request. </param>
 		/// <param name="client">   	The client. </param>
 		/// <param name="resources">	The resources. </param>
 		/// <returns>	The new consent view model. </returns>
 		private ConsentViewModel CreateConsentViewModel(
 			ConsentInputModel model, string returnUrl,
-			AuthorizationRequest request,
 			Client client, IdentityServer4.Models.Resources resources)
 		{
 			var vm = new ConsentViewModel

@@ -1,22 +1,11 @@
 ﻿using FluiTec.Vision.Server.Host.AspCoreHost.Resources;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.Extensions.Localization;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Localization
 {
 	/// <summary>	A multilanguage identity error describer. </summary>
 	public class MultiLanguageIdentityErrorDescriber : IdentityErrorDescriber
 	{
-		/// <summary>	The localizer. </summary>
-		private readonly IStringLocalizer<SharedResource> _localizer;
-
-		/// <summary>	Constructor. </summary>
-		/// <param name="localizer">	The localizer. </param>
-		public MultiLanguageIdentityErrorDescriber(IStringLocalizer<SharedResource> localizer)
-		{
-			_localizer = localizer;
-		}
-
 		/// <summary>	From resource. </summary>
 		/// <param name="errorName">	Name of the error. </param>
 		/// <param name="args">			A variable-length parameters list containing arguments. </param>

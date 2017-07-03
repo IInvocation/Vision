@@ -132,4 +132,10 @@
   <data name="RequestText" xml:space="preserve">
     <value>benötigt deine Erlaubnis</value>
   </data>
+  <data name="AllowAccessText" xml:space="preserve">
+    <value>Ja, erlauben</value>
+  </data>
+  <data name="DenyAccessText" xml:space="preserve">
+    <value>Nein, nicht erlauben</value>
+  </data>
 </root>
