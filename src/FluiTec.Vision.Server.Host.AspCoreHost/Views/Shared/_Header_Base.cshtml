@@ -3,7 +3,6 @@
 	<ul>
 		<li><a href="/"><localize>HomeLink</localize></a></li>
 		<li><a href="/Home/About/"><localize>AboutLink</localize></a></li>
-		@await Html.PartialAsync("_LoginPartial")
+		@await Html.PartialAsync(partialViewName: "_LoginPartial")
 	</ul>
 </nav>
-</header>
