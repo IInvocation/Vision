@@ -33,13 +33,13 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         }
 
 		/// <summary>	Consents the given model. </summary>
-		/// <param name="model">	The model. </param>
+		/// <param name="urn">	The model. </param>
 		/// <returns>	A Task&lt;IActionResult&gt; </returns>
 		[HttpPost]
 		[ValidateAntiForgeryToken]
-		public async Task<IActionResult> Consent(ConsentInputModel model)
+		public async Task<IActionResult> Consent([FromForm]ConsentInputModel urn)
 		{
-			var result = await _consentService.ProcessConsent(model);
+			var result = await _consentService.ProcessConsent(urn);
 
 			if (result.IsRedirect)
 			{
