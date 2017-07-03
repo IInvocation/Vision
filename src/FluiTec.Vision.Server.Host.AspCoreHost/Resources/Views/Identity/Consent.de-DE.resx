@@ -138,4 +138,7 @@
   <data name="DenyAccessText" xml:space="preserve">
     <value>Nein, nicht erlauben</value>
   </data>
+  <data name="RememberConsentText" xml:space="preserve">
+    <value>An die Erlaubnis erinnern?</value>
+  </data>
 </root>

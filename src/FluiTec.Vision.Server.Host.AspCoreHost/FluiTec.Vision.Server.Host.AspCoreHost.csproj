@@ -231,6 +231,13 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Consent.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Identity\_ScopeListItem.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Identity\_ScopeListItem.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>_ScopeListItem.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Manage\ChangePassword.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -303,6 +310,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>Consent.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\Views\Identity\_ScopeListItem.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>_ScopeListItem.resx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

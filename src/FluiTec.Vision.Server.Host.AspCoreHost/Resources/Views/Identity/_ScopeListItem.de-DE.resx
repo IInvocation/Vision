@@ -117,28 +117,19 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AllowAccessText" xml:space="preserve">
-    <value>Ja, erlauben</value>
+  <data name="api1_description" xml:space="preserve">
+    <value>Die API 1-Schnittstelle</value>
   </data>
-  <data name="ApplicationAccessHeader" xml:space="preserve">
-    <value>Anwendungssteuerung</value>
+  <data name="api1_displayname" xml:space="preserve">
+    <value>API 1</value>
   </data>
-  <data name="ConsentHeader" xml:space="preserve">
-    <value>Zustimmung</value>
+  <data name="email_description" xml:space="preserve">
+    <value>Ihre Email-Adresse</value>
   </data>
-  <data name="DenyAccessText" xml:space="preserve">
-    <value>Nein, nicht erlauben</value>
+  <data name="email_displayname" xml:space="preserve">
+    <value>Email</value>
   </data>
-  <data name="IdentityHeader" xml:space="preserve">
-    <value>FluiTech-Authentifizierung</value>
-  </data>
-  <data name="PersonalInformationHeader" xml:space="preserve">
-    <value>Persönliche Informationen</value>
-  </data>
-  <data name="RememberConsentText" xml:space="preserve">
-    <value>An die Erlaubnis erinnern?</value>
-  </data>
-  <data name="RequestText" xml:space="preserve">
-    <value>benötigt deine Erlaubnis</value>
+  <data name="RequiredText" xml:space="preserve">
+    <value>(Benötigt)</value>
   </data>
 </root>

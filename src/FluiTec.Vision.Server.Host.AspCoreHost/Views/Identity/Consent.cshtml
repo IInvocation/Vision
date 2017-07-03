@@ -17,7 +17,6 @@
 						<img src="@Model.ClientLogoUrl" alt="client-logo">
 					</div>
 				}
-				<h3><localize>@Model.ClientName</localize></h3>
 				<h3>
 					@Model.ClientName
 					<small><localize>RequestText</localize></small>
@@ -25,38 +24,36 @@
 				@if (Model.IdentityScopes.Any())
 				{
 				<h4><localize>PersonalInformationHeader</localize></h4>
-				<div class="row uniform">
-					<div class="6u 12u(3)">
-						<ul class="list-group">
+					<div class="row uniform">
+						<div class="6u 12u(3)">
 							@foreach (var scope in Model.IdentityScopes)
 							{
 								@Html.Partial("_ScopeListItem", scope)
 							}
-						</ul>
+						</div>
 					</div>
-				</div>
+					<hr />
 				}
 				@if (Model.ResourceScopes.Any())
 				{
 				<h4><localize>ApplicationAccessHeader</localize></h4>
-				<div class="row uniform">
-					<div class="6u 12u(3)">
-						<ul class="list-group">
+					<div class="row uniform">
+						<div class="6u 12u(3)">
 							@foreach (var scope in Model.ResourceScopes)
 							{
 								@Html.Partial("_ScopeListItem", scope)
 							}
-						</ul>
+						</div>
 					</div>
-				</div>
+					<hr />
 				}
 				@if (Model.AllowRememberConsent)
 				{
-					<div class="consent-remember">
-						<label>
-							<input class="consent-scopecheck" asp-for="RememberConsent" />
-							<strong>Remember My Decision</strong>
-						</label>
+					<div class="row uniform">
+						<div class="6u 12u(3)">
+							<input id="RememberConsent" name="RembemberConsent" type="checkbox" />
+							<label for="RememberConsent"><localize>RememberConsentText</localize></label>
+						</div>
 					</div>
 				}
 				<div class="row uniform">

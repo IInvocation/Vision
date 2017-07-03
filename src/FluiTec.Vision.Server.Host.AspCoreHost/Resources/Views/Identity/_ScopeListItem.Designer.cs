@@ -23,24 +23,24 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Resources.Views.Identity {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Consent {
+    internal class _ScopeListItem {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Consent() {
+        internal _ScopeListItem() {
         }
         
         /// <summary>
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FluiTec.Vision.Server.Host.AspCoreHost.Resources.Views.Identity.Consent", typeof(Consent).GetTypeInfo().Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FluiTec.Vision.Server.Host.AspCoreHost.Resources.Views.Identity._ScopeListItem", typeof(_ScopeListItem).GetTypeInfo().Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -52,7 +52,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Resources.Views.Identity {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -62,74 +62,47 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Resources.Views.Identity {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Ja, erlauben.
+        ///   Looks up a localized string similar to Die API 1-Schnittstelle.
         /// </summary>
-        public static string AllowAccessText {
+        internal static string api1_description {
             get {
-                return ResourceManager.GetString("AllowAccessText", resourceCulture);
+                return ResourceManager.GetString("api1_description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Anwendungssteuerung.
+        ///   Looks up a localized string similar to API 1.
         /// </summary>
-        public static string ApplicationAccessHeader {
+        internal static string api1_displayname {
             get {
-                return ResourceManager.GetString("ApplicationAccessHeader", resourceCulture);
+                return ResourceManager.GetString("api1_displayname", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Zustimmung.
+        ///   Looks up a localized string similar to Ihre Email-Adresse.
         /// </summary>
-        public static string ConsentHeader {
+        internal static string email_description {
             get {
-                return ResourceManager.GetString("ConsentHeader", resourceCulture);
+                return ResourceManager.GetString("email_description", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Nein, nicht erlauben.
+        ///   Looks up a localized string similar to Email.
         /// </summary>
-        public static string DenyAccessText {
+        internal static string email_displayname {
             get {
-                return ResourceManager.GetString("DenyAccessText", resourceCulture);
+                return ResourceManager.GetString("email_displayname", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FluiTech-Authentifizierung.
+        ///   Looks up a localized string similar to (Benötigt).
         /// </summary>
-        public static string IdentityHeader {
+        internal static string RequiredText {
             get {
-                return ResourceManager.GetString("IdentityHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Persönliche Informationen.
-        /// </summary>
-        public static string PersonalInformationHeader {
-            get {
-                return ResourceManager.GetString("PersonalInformationHeader", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to An die Erlaubnis erinnern?.
-        /// </summary>
-        public static string RememberConsentText {
-            get {
-                return ResourceManager.GetString("RememberConsentText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to benötigt deine Erlaubnis.
-        /// </summary>
-        public static string RequestText {
-            get {
-                return ResourceManager.GetString("RequestText", resourceCulture);
+                return ResourceManager.GetString("RequiredText", resourceCulture);
             }
         }
     }
