@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
-VisualStudioVersion = 15.0.26430.14
+VisualStudioVersion = 15.0.26430.13
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "AppFx", "AppFx", "{9374F46E-83EB-4051-961D-6E215BF94BD8}"
 EndProject
@@ -85,7 +85,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Temp", "Temp", "{8617D2AC-3
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.IdentityServer.ConsoleTest", "FluiTec.Vision.IdentityServer.ConsoleTest\FluiTec.Vision.IdentityServer.ConsoleTest.csproj", "{B38082BD-68DA-442B-89A1-71729D38D522}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.IdentityServer.MvcTest", "FluiTec.Vision.IdentityServer.MvcTest\FluiTec.Vision.IdentityServer.MvcTest.csproj", "{C54468A8-46A1-4A26-801C-4704FBF0A0A2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.IdentityServer.MvcTest", "FluiTec.Vision.IdentityServer.MvcTest\FluiTec.Vision.IdentityServer.MvcTest.csproj", "{C54468A8-46A1-4A26-801C-4704FBF0A0A2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.AppFx.Cryptography.Test", "FluiTec.AppFx.Cryptography.Test\FluiTec.AppFx.Cryptography.Test.csproj", "{4C4A6CD3-F756-4195-896A-70F8DCF079C2}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Test", "Test", "{BC3A1F24-04CA-46F7-A9EE-F8F9D6E2AF2A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{AC85FB69-7FAB-43C0-AAC2-59AFF803C152}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Windows", "Windows", "{CC7F792B-BC15-4331-84BF-819E3414F685}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Fluitec.Vision.Client.WindowsClient", "Fluitec.Vision.Client.WindowsClient\Fluitec.Vision.Client.WindowsClient.csproj", "{380663A6-8001-4171-9651-340CE6473135}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -197,6 +207,14 @@ Global
 		{C54468A8-46A1-4A26-801C-4704FBF0A0A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C54468A8-46A1-4A26-801C-4704FBF0A0A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C54468A8-46A1-4A26-801C-4704FBF0A0A2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C4A6CD3-F756-4195-896A-70F8DCF079C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C4A6CD3-F756-4195-896A-70F8DCF079C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C4A6CD3-F756-4195-896A-70F8DCF079C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C4A6CD3-F756-4195-896A-70F8DCF079C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{380663A6-8001-4171-9651-340CE6473135}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{380663A6-8001-4171-9651-340CE6473135}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{380663A6-8001-4171-9651-340CE6473135}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{380663A6-8001-4171-9651-340CE6473135}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -241,5 +259,10 @@ Global
 		{8617D2AC-3123-4AF2-8211-9006D3F938BC} = {311CE01C-7DA8-44FB-8316-FF018B089EAF}
 		{B38082BD-68DA-442B-89A1-71729D38D522} = {8617D2AC-3123-4AF2-8211-9006D3F938BC}
 		{C54468A8-46A1-4A26-801C-4704FBF0A0A2} = {8617D2AC-3123-4AF2-8211-9006D3F938BC}
+		{4C4A6CD3-F756-4195-896A-70F8DCF079C2} = {BC3A1F24-04CA-46F7-A9EE-F8F9D6E2AF2A}
+		{BC3A1F24-04CA-46F7-A9EE-F8F9D6E2AF2A} = {0D60F813-9D9F-4315-8647-FF7A73BAEC94}
+		{AC85FB69-7FAB-43C0-AAC2-59AFF803C152} = {311CE01C-7DA8-44FB-8316-FF018B089EAF}
+		{CC7F792B-BC15-4331-84BF-819E3414F685} = {AC85FB69-7FAB-43C0-AAC2-59AFF803C152}
+		{380663A6-8001-4171-9651-340CE6473135} = {CC7F792B-BC15-4331-84BF-819E3414F685}
 	EndGlobalSection
 EndGlobal
