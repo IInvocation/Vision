@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:viewModels="clr-namespace:Fluitec.Vision.Client.WindowsClient.ViewModels"
         xmlns:converter="clr-namespace:Fluitec.Vision.Client.WindowsClient.Converter"
+        xmlns:setupViewModels="clr-namespace:Fluitec.Vision.Client.WindowsClient.ViewModels.SetupViewModels"
         mc:Ignorable="d"
-        Title="VisionClient - Setup" Height="320" Width="320">
+        Title="VisionClient - Setup" Height="320" Width="320" DataContext="{Binding Source={StaticResource Locator}, Path=Setup}">
 	<Window.Resources>
 		<ResourceDictionary>
 			<BitmapImage x:Key="StatusOkImage" UriSource="../Resources/status_ok_64x64.png" />
@@ -25,7 +26,7 @@
 		<StackPanel Grid.Row="1">
 			<ItemsControl ItemsSource="{Binding Path=(viewModels:SetupViewModel.Settings)}">
 				<ItemsControl.ItemTemplate>
-					<DataTemplate DataType="viewModels:SettingsItemViewModel">
+					<DataTemplate DataType="setupViewModels:SettingsItemViewModel">
 						<StackPanel Orientation="Horizontal">
 							<Label VerticalAlignment="Center" Width="200" Content="{Binding DisplayName}"/>
 							<Image Source="{Binding Path=StatusOk, Converter={StaticResource StatusConverter}}"  Width="32" Height="32" Margin="0,0,15,0" />

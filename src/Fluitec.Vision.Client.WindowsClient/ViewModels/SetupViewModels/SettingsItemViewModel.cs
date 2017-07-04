@@ -1,7 +1,7 @@
 ﻿using System.Windows.Input;
 using GalaSoft.MvvmLight;
 
-namespace Fluitec.Vision.Client.WindowsClient.ViewModels
+namespace Fluitec.Vision.Client.WindowsClient.ViewModels.SetupViewModels
 {
 	/// <summary>	A ViewModel for the settings item. </summary>
 	public abstract class SettingsItemViewModel : ViewModelBase

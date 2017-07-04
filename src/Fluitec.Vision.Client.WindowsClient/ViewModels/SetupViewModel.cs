@@ -1,4 +1,7 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using Fluitec.Vision.Client.WindowsClient.Configuration;
+using Fluitec.Vision.Client.WindowsClient.ViewModels.SetupViewModels;
 using GalaSoft.MvvmLight;
 
 namespace Fluitec.Vision.Client.WindowsClient.ViewModels
@@ -10,6 +13,8 @@ namespace Fluitec.Vision.Client.WindowsClient.ViewModels
 		/// <param name="configuration">	The configuration. </param>
 		public SetupViewModel(ClientConfiguration configuration)
 		{
+			if (configuration == null) throw new ArgumentNullException(nameof(configuration));
+
 			Settings = new ObservableCollection<SettingsItemViewModel>(new SettingsItemViewModel[]
 			{
 				new AuthorizeSettingsItemViewModel(configuration),

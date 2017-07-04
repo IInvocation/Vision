@@ -1,17 +1,4 @@
-/*
-  In App.xaml:
-  <Application.Resources>
-      <vm:ViewModelLocator xmlns:vm="clr-namespace:Fluitec.Vision.Client.WindowsClient"
-                           x:Key="Locator" />
-  </Application.Resources>
-  
-  In the View:
-  DataContext="{Binding Source={StaticResource Locator}, Path=ViewModelName}"
-
-  You can also use Blend to do all this with the tool's support.
-  See http://www.galasoft.ch/mvvm
-*/
-
+using Fluitec.Vision.Client.WindowsClient.Configuration;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 
@@ -28,10 +15,12 @@ namespace Fluitec.Vision.Client.WindowsClient.ViewModels
         /// </summary>
         public ViewModelLocator()
         {
-            ServiceLocator.SetLocatorProvider(() => SimpleIoc.Default);
+			SimpleIoc.Default.Register(() => new SetupViewModel(ServiceLocator.Current.GetInstance<ClientConfiguration>()));
         }
-        
-        public static void Cleanup()
+
+	    public SetupViewModel Setup => ServiceLocator.Current.GetInstance<SetupViewModel>();
+
+	    public static void Cleanup()
         {
             // TODO Clear the ViewModels
         }
