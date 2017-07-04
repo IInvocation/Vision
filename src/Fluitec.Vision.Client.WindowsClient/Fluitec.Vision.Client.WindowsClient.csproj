@@ -78,6 +78,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Configuration\ClientConfiguration.cs" />
+    <Compile Include="Configuration\ClientConfigurationManager.cs" />
     <Compile Include="Converter\BoolToImageConverter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Services\IWindowService.cs" />
