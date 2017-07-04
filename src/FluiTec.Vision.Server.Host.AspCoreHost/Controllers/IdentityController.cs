@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
 using Microsoft.AspNetCore.Mvc;
@@ -48,7 +47,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 
 			if (result.HasValidationError)
 			{
-				ModelState.AddModelError("", result.ValidationError);
+				ModelState.AddModelError(string.Empty, result.ValidationError);
 			}
 
 			return result.ShowView ? View(result.ViewModel) : View(viewName: "Error");

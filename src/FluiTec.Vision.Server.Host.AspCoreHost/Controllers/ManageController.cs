@@ -18,8 +18,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         private readonly UserManager<IdentityUserEntity> _userManager;
         private readonly SignInManager<IdentityUserEntity> _signInManager;
         private readonly string _externalCookieScheme;
-        private readonly ITemplatingMailService _emailSender;
-        private readonly ISmsSender _smsSender;
+	    private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
 
         public ManageController(
@@ -33,8 +32,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             _userManager = userManager;
             _signInManager = signInManager;
             _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
-            _emailSender = emailSender;
-            _smsSender = smsSender;
+	        _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
         }
 
@@ -43,7 +41,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(ManageMessageId? message = null)
         {
-            ViewData["StatusMessage"] =
+            ViewData[index: "StatusMessage"] =
                 message == ManageMessageId.ChangePasswordSuccess ? "Your password has been changed."
                 : message == ManageMessageId.SetPasswordSuccess ? "Your password has been set."
                 : message == ManageMessageId.SetTwoFactorSuccess ? "Your two-factor authentication provider has been set."

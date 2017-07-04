@@ -22,12 +22,10 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 		private readonly UserManager<IdentityUserEntity> _userManager;
         private readonly SignInManager<IdentityUserEntity> _signInManager;
         private readonly ITemplatingMailService _emailSender;
-        private readonly ISmsSender _smsSender;
-        private readonly ILogger _logger;
+	    private readonly ILogger _logger;
         private readonly string _externalCookieScheme;
-	    private readonly IIdentityDataService _dataService;
 
-        public AccountController(
+	    public AccountController(
             UserManager<IdentityUserEntity> userManager,
             SignInManager<IdentityUserEntity> signInManager,
             IOptions<IdentityCookieOptions> identityCookieOptions,
@@ -40,9 +38,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             _signInManager = signInManager;
             _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
             _emailSender = emailSender;
-            _smsSender = smsSender;
-            _logger = loggerFactory.CreateLogger<AccountController>();
-	        _dataService = dataService;
+	        _logger = loggerFactory.CreateLogger<AccountController>();
         }
 
         // GET: /Account/Login

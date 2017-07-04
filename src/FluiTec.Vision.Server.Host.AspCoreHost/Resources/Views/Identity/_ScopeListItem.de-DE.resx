@@ -117,17 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="api1_description" xml:space="preserve">
-    <value>Die API 1-Schnittstelle</value>
-  </data>
-  <data name="api1_displayname" xml:space="preserve">
-    <value>API 1</value>
+  <data name="Access to your applications and resources, even when you are offline" xml:space="preserve">
+    <value>Zugriff auf Ihre Ressourcen, auch in Ihrer Abwesenheit</value>
   </data>
   <data name="email_description" xml:space="preserve">
     <value>Ihre Email-Adresse</value>
   </data>
   <data name="email_displayname" xml:space="preserve">
     <value>Email</value>
+  </data>
+  <data name="Offline Access" xml:space="preserve">
+    <value>Offline-Zugriff</value>
+  </data>
+  <data name="openid_description" xml:space="preserve">
+    <value>Eindeutige Benutzerkennung</value>
+  </data>
+  <data name="openid_displayname" xml:space="preserve">
+    <value>OpenId</value>
+  </data>
+  <data name="profile_description" xml:space="preserve">
+    <value>Profildetails wie z.B. der Name</value>
+  </data>
+  <data name="profile_displayname" xml:space="preserve">
+    <value>Profilinformationen</value>
   </data>
   <data name="RequiredText" xml:space="preserve">
     <value>(Benötigt)</value>
