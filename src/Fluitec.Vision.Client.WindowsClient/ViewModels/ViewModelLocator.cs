@@ -1,4 +1,4 @@
-using Fluitec.Vision.Client.WindowsClient.Configuration;
+using Fluitec.Vision.Client.WindowsClient.ViewModels.SetupViewModels;
 using GalaSoft.MvvmLight.Ioc;
 using Microsoft.Practices.ServiceLocation;
 
@@ -15,12 +15,16 @@ namespace Fluitec.Vision.Client.WindowsClient.ViewModels
         /// </summary>
         public ViewModelLocator()
         {
-			SimpleIoc.Default.Register(() => new SetupViewModel(ServiceLocator.Current.GetInstance<ClientConfiguration>()));
-        }
+	        SimpleIoc.Default.Register<SetupViewModel>();
+			SimpleIoc.Default.Register<AuthorizeSettingsItemViewModel>();
+	        SimpleIoc.Default.Register<ConnectionSettingsItemViewModel>();
+		}
 
 	    public SetupViewModel Setup => ServiceLocator.Current.GetInstance<SetupViewModel>();
 
-	    public static void Cleanup()
+		public AuthorizeSettingsItemViewModel AuthorizeSettings => ServiceLocator.Current.GetInstance<AuthorizeSettingsItemViewModel>();
+
+		public static void Cleanup()
         {
             // TODO Clear the ViewModels
         }

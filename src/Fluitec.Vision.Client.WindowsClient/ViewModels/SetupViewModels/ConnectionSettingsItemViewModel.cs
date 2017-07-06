@@ -11,8 +11,14 @@ namespace Fluitec.Vision.Client.WindowsClient.ViewModels.SetupViewModels
 		public ConnectionSettingsItemViewModel(ClientConfiguration configuration)
 		{
 			DisplayName = "Server-Verbindung";
-			StatusOk = false;
 			ConfigureCommand = new RelayCommand(() => { });
+		}
+
+		/// <summary>	Validates this object. </summary>
+		/// <returns>	True if it succeeds, false if it fails. </returns>
+		protected override bool Validate()
+		{
+			return false;
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Newtonsoft.Json;
 
 namespace Fluitec.Vision.Client.WindowsClient.Configuration
 {
@@ -15,18 +16,11 @@ namespace Fluitec.Vision.Client.WindowsClient.Configuration
 		/// <returns>	A ClientConfiguration. </returns>
 		public static ClientConfiguration FromFile(string filePath)
 		{
-			if (!File.Exists(filePath))
-			{
-				var path = Path.GetDirectoryName(filePath);
-				if (!Directory.Exists(path))
-				{
-					if (path == null) throw new ArgumentException();
-					Directory.CreateDirectory(path);
-				}
-			}
+			var path = Path.GetDirectoryName(filePath);
+			if (Directory.Exists(path))
+			Directory.CreateDirectory(path);
 
-			var fileContent = File.ReadAllText(filePath);
-			return new ClientConfiguration {FilePath = filePath};
+			return ClientConfiguration.FromFile(filePath);
 		}
 
 		/// <summary>	Converts this object to a file. </summary>
@@ -34,7 +28,14 @@ namespace Fluitec.Vision.Client.WindowsClient.Configuration
 		/// <param name="filePath">			Full pathname of the file. </param>
 		public static void ToFile(ClientConfiguration configuration, string filePath)
 		{
-			// save
+			using (var file = File.Create(filePath))
+			{
+				using (var sw = new StreamWriter(file, System.Text.Encoding.Default))
+				{
+					var content = JsonConvert.SerializeObject(configuration);
+					sw.Write(content);
+				}
+			}
 		}
 	}
 }

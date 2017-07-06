@@ -7,7 +7,6 @@ namespace Fluitec.Vision.Client.WindowsClient.ViewModels.SetupViewModels
 	public abstract class SettingsItemViewModel : ViewModelBase
 	{
 		private string _displayName;
-		private bool _statusOk;
 		private ICommand _configureCommand;
 
 		/// <summary>	Gets or sets the name of the display. </summary>
@@ -20,11 +19,7 @@ namespace Fluitec.Vision.Client.WindowsClient.ViewModels.SetupViewModels
 
 		/// <summary>	Gets or sets a value indicating whether the status ok. </summary>
 		/// <value>	True if status ok, false if not. </value>
-		public bool StatusOk
-		{
-			get => _statusOk;
-			set => Set(ref _statusOk, value);
-		}
+		public bool StatusOk => Validate();
 
 		/// <summary>	Gets or sets the configure command. </summary>
 		/// <value>	The configure command. </value>
@@ -33,5 +28,9 @@ namespace Fluitec.Vision.Client.WindowsClient.ViewModels.SetupViewModels
 			get => _configureCommand;
 			set => Set(ref _configureCommand, value);
 		}
+
+		/// <summary>	Gets a value indicating whether this object is validated. </summary>
+		/// <value>	True if this object is validated, false if not. </value>
+		protected abstract bool Validate();
 	}
 }

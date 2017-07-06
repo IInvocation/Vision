@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Security.Cryptography;
 
 namespace FluiTec.AppFx.Cryptography
@@ -51,6 +52,26 @@ namespace FluiTec.AppFx.Cryptography
 			}
 
 			return new string(identifier);
+		}
+
+		/// <summary>	Creates validation code by identifier. </summary>
+		/// <param name="id">			The identifier. </param>
+		/// <param name="separator">	(Optional) The separator. </param>
+		/// <returns>	The new validation code by identifier. </returns>
+		public static string CreateValidationCodeById(string id, char separator = '-')
+		{
+			var chars = id.Split(separator).Select(block => block.GetHashCode().ToString().Last());
+			return new string(chars.ToArray());
+		}
+
+		/// <summary>	Query if 'id' is validation code ok. </summary>
+		/// <param name="id">			The identifier. </param>
+		/// <param name="code">			The code. </param>
+		/// <param name="separator">	(Optional) The separator. </param>
+		/// <returns>	True if validation code ok, false if not. </returns>
+		public static bool IsValidationCodeOk(string id, string code, char separator = '-')
+		{
+			return code == CreateValidationCodeById(id, separator);
 		}
 	}
 }
