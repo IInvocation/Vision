@@ -15,7 +15,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions
 		public static IServiceCollection ConfigureDataServices(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
-			services.AddSingleton<ILiteDbServiceOptions>(new ConfigurationSettingsService<LiteDbServiceOptions>(configuration, configKey: "LiteDb").Get());
+			//services.AddSingleton<ILiteDbServiceOptions>(new ConfigurationSettingsService<LiteDbServiceOptions>(configuration, configKey: "LiteDb").Get());
 
 			//	services.AddScoped<IIdentityDataService, MssqlDapperIdentityDataService>();
 			//	services.AddScoped<IIdentityServerDataService, MssqlDapperIdentityServerDataService>();
