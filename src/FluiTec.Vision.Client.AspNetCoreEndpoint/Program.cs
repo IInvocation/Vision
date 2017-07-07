@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using Microsoft.AspNetCore.Hosting;
 
-namespace FluiTec.Vision.Server.Host.AspCoreHost
+namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 {
     public class Program
     {

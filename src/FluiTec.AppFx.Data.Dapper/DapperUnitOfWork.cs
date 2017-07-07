@@ -49,10 +49,9 @@ namespace FluiTec.AppFx.Data.Dapper
 		/// <exception cref="InvalidOperationException">    Thrown when the there's no longer a transaction. </exception>
 		public override void Commit()
 		{
-			//throw new Exception();
 			if (Transaction == null)
 				throw new InvalidOperationException(
-					"UnitOfWork can't be committed since it's already finished. (Missing transaction)");
+					message: "UnitOfWork can't be committed since it's already finished. (Missing transaction)");
 			Transaction.Commit();
 			Transaction.Dispose();
 			Transaction = null;
@@ -64,10 +63,9 @@ namespace FluiTec.AppFx.Data.Dapper
 		/// <exception cref="InvalidOperationException">    Thrown when the there's no longer a transaction. </exception>
 		public override void Rollback()
 		{
-			//throw new Exception();
 			if (Transaction == null)
 				throw new InvalidOperationException(
-					"UnitOfWork can't be rolled back since it's already finished. (Missing transaction)");
+					message: "UnitOfWork can't be rolled back since it's already finished. (Missing transaction)");
 			Transaction.Rollback();
 			Transaction.Dispose();
 			Transaction = null;
