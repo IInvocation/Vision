@@ -20,8 +20,9 @@ namespace LineCounter
 				var files = FindFiles(fileType.Value, baseDir).ToList();
 				var fileCounter = files.Count;
 				var lineCounter =
-					files.Sum(file => File.ReadLines(file).Count(line => !string.IsNullOrWhiteSpace(line) && line.Length > 1));
-				Console.WriteLine($"- found {lineCounter} lines of {fileType.Key} ({fileType.Value}) in {fileCounter} files.");
+					files.Sum(file => File.ReadLines(file).Count(line => !string.IsNullOrWhiteSpace(line) && line.Trim().Length > 1));
+				if (lineCounter > 0)
+					Console.WriteLine($"- found {lineCounter} lines of {fileType.Key} ({fileType.Value}) in {fileCounter} files.");
 			}
 			Console.ReadLine();
 		}
@@ -34,6 +35,9 @@ namespace LineCounter
 			{
 				{"C#-Code", "*.cs"},
 				{"XAML", "*.xaml"},
+				{"Razor", "*.cshtml" },
+				{"CSS", "*.css" },
+				{"JS", "*.js" },
 				{"XML", "*.config|*.manifest|*.xml"},
 				{"ProjectMarkup", "*.csproj"},
 				{"JSON", "*.json" }
@@ -48,13 +52,13 @@ namespace LineCounter
 		/// </returns>
 		private static IEnumerable<string> FindFiles(string searchPattern, string baseDir)
 		{
-			// ArrayList will hold all file names
+			// List will hold all file names
 			var allFiles = new List<string>();
 
 			// Create an array of filter string
 			var multipleFilters = searchPattern.Split('|');
 
-			// for each filter find mathing file names
+			// for each filter find matching file names
 			foreach (var fileFilter in multipleFilters)
 				allFiles.AddRange(Directory.GetFiles(baseDir, fileFilter, SearchOption.AllDirectories));
 

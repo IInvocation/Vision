@@ -218,8 +218,14 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
                     result = await _userManager.AddLoginAsync(user, info);
                     if (result.Succeeded)
                     {
-                        await _signInManager.SignInAsync(user, isPersistent: false);
-                        _logger.LogInformation(6, "User created an account using {Name} provider.", info.LoginProvider);
+	                    var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
+	                    var callbackUrl = Url.Action(nameof(ConfirmEmail), controller: "Account", values: new { userId = user.Identifier, code }, protocol: HttpContext.Request.Scheme);
+	                    var mailModel = new ConfirmMailModel(callbackUrl);
+	                    await _emailSender.SendEmailAsync(model.Email, mailModel);
+
+	                    // disabled to force the the user to confirm his mail address
+						// await _signInManager.SignInAsync(user, isPersistent: false);
+						_logger.LogInformation(6, "User created an account using {Name} provider.", info.LoginProvider);
                         return RedirectToLocal(returnUrl);
                     }
                 }

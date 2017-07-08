@@ -141,4 +141,7 @@
   <data name="SubmitReset" xml:space="preserve">
     <value>Zurücksetzen</value>
   </data>
+  <data name="ValidateEmailText" xml:space="preserve">
+    <value>(Um sich anschließend anmelden zu können - müssen Sie zuerst Ihre Email-Adresse bestätigen)</value>
+  </data>
 </root>
