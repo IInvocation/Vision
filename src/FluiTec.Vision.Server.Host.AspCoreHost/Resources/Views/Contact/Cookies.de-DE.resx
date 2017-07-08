@@ -117,76 +117,43 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutMeHeader" xml:space="preserve">
-    <value>Über mich</value>
-  </data>
-  <data name="AboutMeText" xml:space="preserve">
-    <value>Ich bin ein Hobbyentwickler. Ein Hobbyentwickler, der sich redlich Mühe gemacht hat alle erhobenen Daten nach bestem Kenntnisstand abzusichern. Nicht mehr und nicht weniger.</value>
+  <data name="AntiForgeryCookie" xml:space="preserve">
+    <value>Cookie zum Schutz von Formularen (verhindert, dass andere Programme diese Website in Ihrem Namen missbrauchen)</value>
   </data>
   <data name="ContactHeader" xml:space="preserve">
     <value>Kontakt</value>
   </data>
-  <data name="LinkingHeader" xml:space="preserve">
-    <value>Verknüpfung von Benutzerkonten</value>
+  <data name="CookieConsentCookie" xml:space="preserve">
+    <value>Cookie, dass sich merkt, wenn Sie den Cookie-Hinweis bestätigt haben</value>
   </data>
-  <data name="LinkingText1_1" xml:space="preserve">
-    <value>Diese Seite ermöglicht die Verknüpfung diverser Benutzerkonten. Hierzu wird der </value>
+  <data name="CookieExplanationHeader" xml:space="preserve">
+    <value>Was sind Cookies?</value>
   </data>
-  <data name="LinkingText1_2" xml:space="preserve">
-    <value> benutzt.</value>
+  <data name="CookieExplanationText1" xml:space="preserve">
+    <value>Cookies sind kleine Dateien, die von einer Website, die Sie besuchen, auf Ihrem Rechner gespeichert werden. </value>
   </data>
-  <data name="LinkingText2" xml:space="preserve">
-    <value>Bei dieser Verknüpfung werden i.d.R. Informationen zwischen dieser und anderen Dienstbetreibern ausgetauscht und gespeichert. Sofern jemals Informationen geteilt werden - geschieht das ausschließlich mit Ihrer eigenen Zustimmung.</value>
+  <data name="CookieExplanationText2" xml:space="preserve">
+    <value>Cookies speichern Informationen wie z.B. Ihre bevorzugte Sprache oder Autorisierungsinformationen. Wenn Sie die Seite erneut besuchen - übermittelt Ihr Browser diese Informationen automatisch an die Website, wodurch eine für Sie angepasste Inhalte angezeigt werden können.</value>
   </data>
-  <data name="PrivacyHeader" xml:space="preserve">
-    <value>Datenschutz</value>
+  <data name="CookieExplanationText3" xml:space="preserve">
+    <value>Weitere Informationen finden Sie z.B. unter </value>
   </data>
-  <data name="SafetyHeader" xml:space="preserve">
-    <value>Sicherheit</value>
+  <data name="CookieHeader" xml:space="preserve">
+    <value>Cookies</value>
   </data>
-  <data name="SafetyText" xml:space="preserve">
-    <value>Die meinerseits erhobenen Daten werden in einer Datenbank meiner Wahl abgespeichert. Ihr Passwort wird dabei nicht im Klartext gespeichert - sondern in Form eines sicheren Hashes um die Kompromittierung anderer Zugangsdaten zu vermeiden.</value>
+  <data name="IdentityCookie" xml:space="preserve">
+    <value>Cookie zur Identifizierung nach Ihrer Anmeldung (sorgt dafür, dass Sie angemeldet bleiben)</value>
   </data>
-  <data name="SslHeader" xml:space="preserve">
-    <value>SSL</value>
+  <data name="SessionCookie" xml:space="preserve">
+    <value>Cookie zum Erhalt von tempären Website-Einstellungen</value>
   </data>
-  <data name="SslText_1" xml:space="preserve">
-    <value>Ich nutze ein kostenloses SSL-Zertifikat von </value>
+  <data name="UsedCookiesHeader" xml:space="preserve">
+    <value>Welche Cookies verwendet diese Website?</value>
   </data>
-  <data name="SslText_2" xml:space="preserve">
-    <value> welches die Kommunikation zwischen Ihnen und meinem Server verschlüsselt.</value>
+  <data name="WhyKeepCookiesActiveHeader" xml:space="preserve">
+    <value>Warum Sie Cookies dieser Website erlauben sollten</value>
   </data>
-  <data name="UsagedataHeader" xml:space="preserve">
-    <value>Nutzungsdaten</value>
-  </data>
-  <data name="UsagedataListEntry1" xml:space="preserve">
-    <value>Der Optimierung dieser Seite</value>
-  </data>
-  <data name="UsagedataListEntry2" xml:space="preserve">
-    <value>Der Aufdeckung schädlicher Nutzer und Bots</value>
-  </data>
-  <data name="UsagedataText" xml:space="preserve">
-    <value>Nach Registrierung ist eine Anmeldung möglich. Nach einer solchen Anmeldung werden sämtliche Aktivitäten des Benutzers (soweit für mich sinnvoll), verknüpft mit den persönlichen Daten gespeichert. (Log)</value>
-  </data>
-  <data name="UsagedataText2" xml:space="preserve">
-    <value>Diese Logs dienen:</value>
-  </data>
-  <data name="UsagedataText3" xml:space="preserve">
-    <value>(Und damit letztendlich Ihnen und Ihrem Schutz)</value>
-  </data>
-  <data name="UserDataAdText" xml:space="preserve">
-    <value>(Ich werde niemals E-Mails zu Werbezwecken verschicken - E-Mails werden i.d.R. zur Legitimation und Information des Benutzers verwendet)</value>
-  </data>
-  <data name="UserdataHeader" xml:space="preserve">
-    <value>Nutzerdaten</value>
-  </data>
-  <data name="UserdataListEntry1" xml:space="preserve">
-    <value>Authentifizierung des Benutzers</value>
-  </data>
-  <data name="UserdataListEntry2" xml:space="preserve">
-    <value>Kontakt zum Benutzer per Mail</value>
-  </data>
-  <data name="UserdataText" xml:space="preserve">
-    <value>Mit der Registrierung werden meinerseits diverse Nutzerdaten erhoben, welche ich ausschließlich für folgende Zwecke erhebe:</value>
+  <data name="WhyKeepCookiesActiveText" xml:space="preserve">
+    <value>Sie können die Speicherung der Cookies durch eine entsprechende Einstellung Ihrer Browser-Software verhindern; ich weise jedoch darauf hin, dass Sie in diesem Fall gegebenenfalls nicht sämtliche Funktionen dieser Website vollumfänglich werden nutzen können.</value>
   </data>
 </root>

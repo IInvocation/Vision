@@ -117,76 +117,13 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AboutMeHeader" xml:space="preserve">
-    <value>Über mich</value>
+  <data name="DismissText" xml:space="preserve">
+    <value>OK!</value>
   </data>
-  <data name="AboutMeText" xml:space="preserve">
-    <value>Ich bin ein Hobbyentwickler. Ein Hobbyentwickler, der sich redlich Mühe gemacht hat alle erhobenen Daten nach bestem Kenntnisstand abzusichern. Nicht mehr und nicht weniger.</value>
+  <data name="LinkText" xml:space="preserve">
+    <value>Weitere Informationen</value>
   </data>
-  <data name="ContactHeader" xml:space="preserve">
-    <value>Kontakt</value>
-  </data>
-  <data name="LinkingHeader" xml:space="preserve">
-    <value>Verknüpfung von Benutzerkonten</value>
-  </data>
-  <data name="LinkingText1_1" xml:space="preserve">
-    <value>Diese Seite ermöglicht die Verknüpfung diverser Benutzerkonten. Hierzu wird der </value>
-  </data>
-  <data name="LinkingText1_2" xml:space="preserve">
-    <value> benutzt.</value>
-  </data>
-  <data name="LinkingText2" xml:space="preserve">
-    <value>Bei dieser Verknüpfung werden i.d.R. Informationen zwischen dieser und anderen Dienstbetreibern ausgetauscht und gespeichert. Sofern jemals Informationen geteilt werden - geschieht das ausschließlich mit Ihrer eigenen Zustimmung.</value>
-  </data>
-  <data name="PrivacyHeader" xml:space="preserve">
-    <value>Datenschutz</value>
-  </data>
-  <data name="SafetyHeader" xml:space="preserve">
-    <value>Sicherheit</value>
-  </data>
-  <data name="SafetyText" xml:space="preserve">
-    <value>Die meinerseits erhobenen Daten werden in einer Datenbank meiner Wahl abgespeichert. Ihr Passwort wird dabei nicht im Klartext gespeichert - sondern in Form eines sicheren Hashes um die Kompromittierung anderer Zugangsdaten zu vermeiden.</value>
-  </data>
-  <data name="SslHeader" xml:space="preserve">
-    <value>SSL</value>
-  </data>
-  <data name="SslText_1" xml:space="preserve">
-    <value>Ich nutze ein kostenloses SSL-Zertifikat von </value>
-  </data>
-  <data name="SslText_2" xml:space="preserve">
-    <value> welches die Kommunikation zwischen Ihnen und meinem Server verschlüsselt.</value>
-  </data>
-  <data name="UsagedataHeader" xml:space="preserve">
-    <value>Nutzungsdaten</value>
-  </data>
-  <data name="UsagedataListEntry1" xml:space="preserve">
-    <value>Der Optimierung dieser Seite</value>
-  </data>
-  <data name="UsagedataListEntry2" xml:space="preserve">
-    <value>Der Aufdeckung schädlicher Nutzer und Bots</value>
-  </data>
-  <data name="UsagedataText" xml:space="preserve">
-    <value>Nach Registrierung ist eine Anmeldung möglich. Nach einer solchen Anmeldung werden sämtliche Aktivitäten des Benutzers (soweit für mich sinnvoll), verknüpft mit den persönlichen Daten gespeichert. (Log)</value>
-  </data>
-  <data name="UsagedataText2" xml:space="preserve">
-    <value>Diese Logs dienen:</value>
-  </data>
-  <data name="UsagedataText3" xml:space="preserve">
-    <value>(Und damit letztendlich Ihnen und Ihrem Schutz)</value>
-  </data>
-  <data name="UserDataAdText" xml:space="preserve">
-    <value>(Ich werde niemals E-Mails zu Werbezwecken verschicken - E-Mails werden i.d.R. zur Legitimation und Information des Benutzers verwendet)</value>
-  </data>
-  <data name="UserdataHeader" xml:space="preserve">
-    <value>Nutzerdaten</value>
-  </data>
-  <data name="UserdataListEntry1" xml:space="preserve">
-    <value>Authentifizierung des Benutzers</value>
-  </data>
-  <data name="UserdataListEntry2" xml:space="preserve">
-    <value>Kontakt zum Benutzer per Mail</value>
-  </data>
-  <data name="UserdataText" xml:space="preserve">
-    <value>Mit der Registrierung werden meinerseits diverse Nutzerdaten erhoben, welche ich ausschließlich für folgende Zwecke erhebe:</value>
+  <data name="Message" xml:space="preserve">
+    <value>Hinweis: Wir setzen Cookies ein. Durch die weitere Nutzung dieser Website erklären Sie sich mit dem Einsatz von Cookies einverstanden.</value>
   </data>
 </root>

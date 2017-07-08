@@ -25,5 +25,12 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 	    {
 		    return View();
 	    }
+
+	    /// <summary>	Cookie-Explanation. </summary>
+	    /// <returns>	An IActionResult. </returns>
+	    public IActionResult Cookies()
+	    {
+		    return View();
+	    }
 	}
 }

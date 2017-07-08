@@ -1,0 +1,25 @@
+@using Microsoft.AspNetCore.Mvc.Localization
+@inject IViewLocalizer Localizer
+<link rel="stylesheet" type="text/css" href="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.css" />
+<script src="//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/3.0.3/cookieconsent.min.js"></script>
+<script>
+	window.addEventListener("load", function(){
+		window.cookieconsent.initialise({
+			"palette": {
+				"popup": {
+					"background": "#ffffff",
+					"text": "#000000"
+				},
+				"button": {
+					"background": "#e0555a",
+					"text": "#ffffff"
+				}
+			},
+			"content": {
+				"message": "@Localizer[name: "Message"]",
+				"dismiss": "@Localizer[name: "DismissText"]",
+				"link": "@Localizer[name: "LinkText"]",
+				"href": "/Contact/Cookies"
+			}
+		})});
+</script>

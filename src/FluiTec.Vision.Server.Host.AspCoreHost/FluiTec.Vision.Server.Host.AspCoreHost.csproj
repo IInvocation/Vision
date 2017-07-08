@@ -213,6 +213,9 @@
     <EmbeddedResource Update="Resources\Views\Admin\ManageUsers.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Contact\Cookies.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Contact\Imprint.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -254,6 +257,9 @@
     <EmbeddedResource Update="Resources\Views\Shared\_Banner.en-US.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\_Cookies.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Shared\_ExternalLogin.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -278,7 +284,6 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Contact\" />
     <Folder Include="Views\Identity\" />
   </ItemGroup>
   <ItemGroup>
