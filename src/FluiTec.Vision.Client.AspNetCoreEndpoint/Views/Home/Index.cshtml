@@ -1,1 +1,9 @@
-﻿<h1>Test</h1>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+
+@{
+	Layout = "_LandingLayout";
+}
+@Html.Partial("_Banner");
+@Html.Partial("_Functions");

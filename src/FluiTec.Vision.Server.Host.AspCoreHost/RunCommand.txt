@@ -1,1 +1,1 @@
-﻿SET ASPNETCORE_URLS=https://*:5123 && dotnet run
+﻿SET ASPNETCORE_URLS=https://*:5020 && dotnet run

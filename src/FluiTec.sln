@@ -95,7 +95,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.AppFx.Data.LiteDb",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.Server.Host.AspCoreHost", "FluiTec.Vision.Server.Host.AspCoreHost\FluiTec.Vision.Server.Host.AspCoreHost.csproj", "{256CF278-C098-4959-839B-252F8D6ADB3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.Client.AspNetCoreEndpoint", "FluiTec.Vision.Client.AspNetCoreEndpoint\FluiTec.Vision.Client.AspNetCoreEndpoint.csproj", "{9C978FF8-5296-4069-A9F4-752A475268EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.Client.AspNetCoreEndpoint", "FluiTec.Vision.Client.AspNetCoreEndpoint\FluiTec.Vision.Client.AspNetCoreEndpoint.csproj", "{9C978FF8-5296-4069-A9F4-752A475268EE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Endpoint", "Endpoint", "{644A9BBB-63C5-46C8-9FF5-A72AF6366FCC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -268,5 +270,6 @@ Global
 		{5731BC67-9905-444B-A51A-CCDC9FF0D5B0} = {3B7124AB-FA4C-4142-A1F7-16C146923E58}
 		{256CF278-C098-4959-839B-252F8D6ADB3D} = {67BFCE20-40E2-4B86-BAF8-85A7002C010D}
 		{9C978FF8-5296-4069-A9F4-752A475268EE} = {AC85FB69-7FAB-43C0-AAC2-59AFF803C152}
+		{644A9BBB-63C5-46C8-9FF5-A72AF6366FCC} = {311CE01C-7DA8-44FB-8316-FF018B089EAF}
 	EndGlobalSection
 EndGlobal

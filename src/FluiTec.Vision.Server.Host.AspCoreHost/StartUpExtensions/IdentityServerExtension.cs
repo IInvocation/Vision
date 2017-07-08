@@ -1,5 +1,6 @@
 ﻿using FluiTec.AppFx.Identity.Entities;
 using FluiTec.AppFx.IdentityServer;
+using IdentityServer4.Validation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -19,6 +20,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 				options.UserInteraction.ConsentUrl = "/Identity/Consent";
 			});
 
+			idSrv.Services.AddScoped<IRedirectUriValidator, LocalhostRedirectUriValidator>();
 			idSrv.AddTemporarySigningCredential();
 			idSrv.AddAspNetIdentity<IdentityUserEntity>();
 			idSrv.AddClientStore<ClientStore>();

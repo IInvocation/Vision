@@ -17,6 +17,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 			var builder = new ConfigurationBuilder()
 				.SetBasePath(env.ContentRootPath)
 				.AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
+				.AddJsonFile(path: "appsettings.secret.json", optional: false, reloadOnChange: true)
 				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
 				.AddEnvironmentVariables();
 			Configuration = builder.Build();
@@ -33,6 +34,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 			services
 				.ConfigureLocalization(Configuration)
 				.ConfigureDataServices(Configuration)
+				.ConfigureOpenIdConnect(Configuration)
 				.ConfigureMvc(Configuration);
 		}
 
@@ -47,6 +49,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 				.UseHostingServices(env)
 				.UseStaticFiles()
 				.UseLocalization(Configuration)
+				.UseOpenIdConnect(Configuration)
 				.UseMvc(Configuration);
 		}
 	}
