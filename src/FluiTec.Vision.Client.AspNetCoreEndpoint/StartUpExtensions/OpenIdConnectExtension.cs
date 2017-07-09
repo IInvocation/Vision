@@ -45,9 +45,10 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions
 
 				ResponseType = settings.ResponseType,
 				Scope = {"friday", "offline_access", "openid", "profile"},
+				
+				UseTokenLifetime = true,
 
-				GetClaimsFromUserInfoEndpoint = true,
-				SaveTokens = false
+				GetClaimsFromUserInfoEndpoint = true
 			});
 			return app;
 		}

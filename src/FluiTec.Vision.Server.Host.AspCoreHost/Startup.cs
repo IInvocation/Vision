@@ -62,6 +62,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 				.UseIdentityServer()
 				.UseGoogleAuthentication(Configuration)
 				.UseLocalization(Configuration)
+				.UseCors(builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod())
 				.UseMvc(Configuration);
 		}
 

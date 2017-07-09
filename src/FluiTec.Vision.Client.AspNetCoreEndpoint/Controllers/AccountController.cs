@@ -8,6 +8,12 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 	[Authorize]
 	public class AccountController : Controller
     {
+	    public IActionResult SignIn()
+	    {
+		    var ctx = HttpContext;
+		    return RedirectToAction(actionName: "Index", controllerName: "Home");
+	    }
+
 		/// <summary>	Gets the index. </summary>
 		/// <returns>	An IActionResult. </returns>
 		/// <remarks>

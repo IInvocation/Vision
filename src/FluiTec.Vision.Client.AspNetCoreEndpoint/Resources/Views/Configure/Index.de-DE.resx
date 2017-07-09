@@ -117,13 +117,22 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="HomeHeader" xml:space="preserve">
-    <value>Home</value>
+  <data name="ClientRegistrationHeader" xml:space="preserve">
+    <value>Client-Registrierung</value>
+  </data>
+  <data name="ClientRegistrationStatusOkText" xml:space="preserve">
+    <value>OK!</value>
+  </data>
+  <data name="ClientRegistrationText" xml:space="preserve">
+    <value>Der Client muss beim Server registriert werden um verwendet zu werden.</value>
+  </data>
+  <data name="ConfigureHeader" xml:space="preserve">
+    <value>Konfiguration</value>
   </data>
   <data name="IndexHeader" xml:space="preserve">
     <value>Übersicht</value>
   </data>
-  <data name="YourVisionClientHeader" xml:space="preserve">
-    <value>Dein VisionClient-Server</value>
+  <data name="StatusHeader" xml:space="preserve">
+    <value>: Status</value>
   </data>
 </root>
