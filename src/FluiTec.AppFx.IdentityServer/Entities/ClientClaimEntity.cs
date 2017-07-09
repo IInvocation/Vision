@@ -14,6 +14,10 @@ namespace FluiTec.AppFx.IdentityServer.Entities
 		/// <value>	The type of the claim. </value>
 		public string ClaimType { get; set; }
 
+		/// <summary>	Gets or sets the claim value. </summary>
+		/// <value>	The claim value. </value>
+		public string ClaimValue { get; set; }
+
 		/// <summary>	Gets or sets the identifier. </summary>
 		/// <value>	The identifier. </value>
 		public int Id { get; set; }

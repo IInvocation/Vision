@@ -70,7 +70,7 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 						tempElem.Scopes.Add(scope);
 
 					// add claim
-					if (clientClaim != null &&  tempElem.ClientClaims.Count(c => c.ClaimType == clientClaim.ClaimType) < 1)
+					if (clientClaim != null &&  tempElem.ClientClaims.Count(c => c.Id == clientClaim.Id) < 1)
 						tempElem.ClientClaims.Add(clientClaim);
 
 					return tempElem;

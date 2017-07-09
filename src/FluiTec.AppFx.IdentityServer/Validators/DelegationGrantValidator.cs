@@ -47,10 +47,10 @@ namespace FluiTec.AppFx.IdentityServer.Validators
 				return;
 			}
 
-			var delegationAllowed = result.Client.Claims.Any(c => c.Type == GrantType);
+			var delegationAllowed = result.Client.Claims.Any(c => c.Type == GrantType && c.Value == context.Request.Client.ClientId);
 			if (!delegationAllowed)
 			{
-				_logger.LogInformation(message: "AccessToken-Client not allowed to use delegation (ClientClaim missing).");
+				_logger.LogInformation($"{result.Client.ClientName} not allowed to use delegation for {context.Request.Client.ClientName} (fitting Claim is missing).");
 				context.Result = new GrantValidationResult(TokenRequestErrors.UnauthorizedClient);
 				return;
 			}

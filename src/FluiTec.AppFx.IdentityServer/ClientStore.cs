@@ -43,7 +43,7 @@ namespace FluiTec.AppFx.IdentityServer
 					RedirectUris = new List<string>(new []{ entity.Client.RedirectUri }),
 					PostLogoutRedirectUris = new List<string>(new []{ entity.Client.PostLogoutUri }),
 					AllowOfflineAccess = entity.Client.AllowOfflineAccess,
-					Claims = entity.ClientClaims.Select(claimEntity => new Claim(claimEntity.ClaimType, string.Empty)).ToList()
+					Claims = entity.ClientClaims.Select(claimEntity => new Claim(claimEntity.ClaimType, claimEntity.ClaimValue)).ToList()
 				};
 
 				return Task.FromResult(client);
