@@ -17,7 +17,7 @@ namespace FluiTec.AppFx.IdentityServer
 	/// <summary>	A signing credential store. </summary>
 	public class SigningCredentialStore : ISigningCredentialStore, IValidationKeysStore
 	{
-		private const int RsaKeyLength = 64;
+		private const int RsaKeyLength = 32;
 		private const string Algorithm = "RS256";
 
 		#region Constructors
@@ -110,9 +110,12 @@ namespace FluiTec.AppFx.IdentityServer
 		/// <returns></returns>
 		private static RsaSecurityKey CreateRsaSecurityKey()
 		{
-			var rsa = RSA.Create();
-			var key = new RsaSecurityKey(rsa) {KeyId = CryptoRandom.CreateUniqueId(RsaKeyLength)};
-			return key;
+			using (var rsa = RSA.Create())
+			{
+				rsa.KeySize = 2048;
+				var key = new RsaSecurityKey(rsa) { KeyId = CryptoRandom.CreateUniqueId(RsaKeyLength) };
+				return key;
+			}
 		}
 
 		/// <summary>	Creates rsa security key. </summary>

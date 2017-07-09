@@ -18,45 +18,6 @@
     <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\css\images\overlay.png" Link="wwwroot\css\images\overlay.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\banner.jpg" Link="wwwroot\images\banner.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\pic01.jpg" Link="wwwroot\images\pic01.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\pic02.jpg" Link="wwwroot\images\pic02.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\pic03.jpg" Link="wwwroot\images\pic03.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\pic04.jpg" Link="wwwroot\images\pic04.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\pic05.jpg" Link="wwwroot\images\pic05.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\pic06.jpg" Link="wwwroot\images\pic06.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\pic07.jpg" Link="wwwroot\images\pic07.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\pic08.jpg" Link="wwwroot\images\pic08.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\pic09.jpg" Link="wwwroot\images\pic09.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\slide01.jpg" Link="wwwroot\images\slide01.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\slide02.jpg" Link="wwwroot\images\slide02.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
-    <Content Include="..\FluiTec.Vision.Server.Host.AspCoreHost\wwwroot\images\slide03.jpg" Link="wwwroot\images\slide03.jpg">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="wwwroot\css\custom.css" />
     <Content Include="wwwroot\css\font-awesome.min.css" />
     <Content Include="wwwroot\css\skel.css" />
@@ -79,6 +40,45 @@
     <Content Include="wwwroot\fonts\fontawesome-webfont.ttf" />
     <Content Include="wwwroot\fonts\fontawesome-webfont.woff" />
     <Content Include="wwwroot\fonts\FontAwesome.otf" />
+    <Content Include="wwwroot\images\banner.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic02.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic03.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic04.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic05.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic06.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic07.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic08.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\pic09.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\slide01.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\slide02.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="wwwroot\images\slide03.jpg">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="wwwroot\images\status\status_globe_error.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
