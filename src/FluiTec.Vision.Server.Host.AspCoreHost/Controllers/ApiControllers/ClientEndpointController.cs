@@ -1,3 +1,5 @@
+using System.Linq;
+using FluiTec.AppFx.Identity;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models.ClientEndpointViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -8,7 +10,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 	/// <summary>	A controller for handling client endpoints. </summary>
 	[Produces(contentType: "application/json")]
 	[Route(template: "api/ClientEndpoint")]
-	[AllowAnonymous]
+	[Authorize(nameof(IdentityPolicies.IsClientEndpointUser))]
 	public class ClientEndpointController : Controller
 	{
 		/// <summary>	The logger. </summary>
@@ -29,7 +31,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 		{
 			if (!ModelState.IsValid) return StatusCode(statusCode: 422);
 
-			_logger.LogInformation($"API posted new ClientEndpoint for {model.Email}.");
+			_logger.LogInformation($"API posted new ClientEndpoint for {User.Claims.Single(c => c.Type == "sub").Value}.");
 
 			// save model to be accepted by user
 

@@ -27,6 +27,10 @@ namespace FluiTec.AppFx.Identity
 			})
 		};
 
+		/// <summary>	Gets the is client endpoint user. </summary>
+		/// <value>	The is client endpoint user. </value>
+		public static string IsClientEndpointUser { get; } = nameof(IsClientEndpointUser);
+
 		/// <summary>
 		///     Gets the policies in this collection.
 		/// </summary>

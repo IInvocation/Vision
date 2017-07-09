@@ -1,10 +1,14 @@
-﻿using System.IdentityModel.Tokens.Jwt;
+﻿using System;
+using System.IdentityModel.Tokens.Jwt;
 using System.Threading.Tasks;
 using FluiTec.AppFx.Options;
 using FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration;
+using IdentityModel;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.OpenIdConnect;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting.Internal;
+using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenIdConnectOptions = Microsoft.AspNetCore.Builder.OpenIdConnectOptions;
@@ -48,7 +52,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions
 				
 				UseTokenLifetime = true,
 				GetClaimsFromUserInfoEndpoint = true,
-				SaveTokens = true
+				SaveTokens = true,
 			});
 			return app;
 		}

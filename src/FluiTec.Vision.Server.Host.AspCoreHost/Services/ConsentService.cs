@@ -145,9 +145,14 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Services
 
 			var grantedConsent = new ConsentResponse
 			{
-				RememberConsent = false, // otherwise IdSrv will enter duplicate key...
+				RememberConsent = true,
 				ScopesConsented = scopes
 			};
+
+			// delete the grant key to let IdSrv readd it
+			await _grantStore.RemoveAsync(grantedAlready.Key);
+
+			// signal allowed grant, savin persisted grant
 			await _interaction.GrantConsentAsync(request, grantedConsent);
 
 			return true;

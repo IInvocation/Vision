@@ -54,7 +54,6 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 	    public async Task<IActionResult> ConfigureClientRegistration(ClientRegistrationViewModel model)
 	    {
 		    var accessToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "access_token");
-		    var identityToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "identity_token");
 		    var refreshToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token");
 
 		    var payload = new
@@ -66,10 +65,12 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 		    var tokenClient = new TokenClient(disco.TokenEndpoint, _openIdOptions.DelegationClientId, _openIdOptions.DelegationClientSecret);
 
 		    var response = await tokenClient.RequestCustomGrantAsync(grantType: "delegation", scope: "clientendpoint", extra: payload);
+		    var bearerAccessToken = response.AccessToken;
 
-			var client = new HttpClient {BaseAddress = new Uri(uriString: "http://localhost:5020/api/")};
+			var client = new HttpClient {BaseAddress = new Uri($"{_openIdOptions.Authority}/api/")};
 			client.DefaultRequestHeaders.Accept
 				.Add(new MediaTypeWithQualityHeaderValue(mediaType: "application/json"));
+			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme: "Bearer",parameter: bearerAccessToken);
 			var json = JsonConvert.SerializeObject(model);
 
 		    var result = await client.PostAsync(requestUri: "ClientEndpoint", content: new StringContent(json, Encoding.UTF8, mediaType: "application/json"));

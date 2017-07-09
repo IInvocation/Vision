@@ -1,4 +1,5 @@
-﻿using FluiTec.AppFx.Identity;
+﻿using System.Linq.Expressions;
+using FluiTec.AppFx.Identity;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -19,12 +20,20 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 
 			services.AddAuthorization(options =>
 			{
+				// add the simple policy-templates
 				foreach(var policyTemplate in IdentityPolicies.GetPolicies())
 					options.AddPolicy(policyTemplate.PolicyName, policy =>
 					{
 						foreach (var claim in policyTemplate.Claims)
 							policy.RequireClaim(claim);
 					});
+
+				// add the ClientEndpoint-Template (uses JWT-authentication)
+				options.AddPolicy(IdentityPolicies.IsClientEndpointUser, policy =>
+				{
+					policy.RequireClaim(claimType: "scope", requiredValues: new[] { "clientendpoint"});
+					policy.RequireClaim(claimType: "aud", requiredValues: new[] { "clientendpoint" });
+				});
 			});
 
 			return services;
