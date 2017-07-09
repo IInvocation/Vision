@@ -27,14 +27,6 @@
 		/// <value>	The client secret. </value>
 		public string ClientSecret { get; set; }
 
-		/// <summary>	Gets or sets the identifier of the delegation client. </summary>
-		/// <value>	The identifier of the delegation client. </value>
-		public string DelegationClientId { get; set; }
-
-		/// <summary>	Gets or sets the delegation client secret. </summary>
-		/// <value>	The delegation client secret. </value>
-		public string DelegationClientSecret { get; set; }
-
 		/// <summary>	Gets or sets the type of the response. </summary>
 		/// <value>	The type of the response. </value>
 		public string ResponseType { get; set; }

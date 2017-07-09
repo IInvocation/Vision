@@ -1,14 +1,8 @@
-﻿using System;
+﻿using System.Dynamic;
 using System.IdentityModel.Tokens.Jwt;
-using System.Threading.Tasks;
-using FluiTec.AppFx.Options;
 using FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration;
-using IdentityModel;
-using Microsoft.AspNetCore.Authentication;
-using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication.OpenIdConnect;
+using FluiTec.Vision.ClientEndpointApi;
 using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using OpenIdConnectOptions = Microsoft.AspNetCore.Builder.OpenIdConnectOptions;
@@ -20,14 +14,15 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions
 		public static IServiceCollection ConfigureOpenIdConnect(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
-			var config = new ConfigurationSettingsService<Configuration.OpenIdConnectOptions>(configuration, configKey: "OpenIdConnect");
-			services.AddScoped<ISettingsService<Configuration.OpenIdConnectOptions>>(provider => config);
+			services.AddScoped(provider => new ConfigurationSettingsService<Configuration.OpenIdConnectOptions>(configuration, configKey: "OpenIdConnect").Get());
+			services.AddScoped(provider => new ConfigurationSettingsService<DelegationApiOptions>(configuration, configKey: "ClientEndpoint").Get());
+			services.AddScoped<ClientEndpointService>();
 			return services;
 		}
 
 		public static IApplicationBuilder UseOpenIdConnect(this IApplicationBuilder app, IConfigurationRoot configuration)
 		{
-			var settings = app.ApplicationServices.GetService<ISettingsService<Configuration.OpenIdConnectOptions>>().Get();
+			var settings = app.ApplicationServices.GetService<Configuration.OpenIdConnectOptions>();
 
 			app.UseCookieAuthentication(new CookieAuthenticationOptions
 			{

@@ -1,18 +1,10 @@
-﻿using System;
-using System.IdentityModel.Tokens.Jwt;
-using System.Net.Http;
-using System.Net.Http.Headers;
-using System.Security.Claims;
-using System.Text;
+﻿using System.Security.Claims;
 using System.Threading.Tasks;
-using FluiTec.AppFx.Options;
-using FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration;
 using FluiTec.Vision.Client.AspNetCoreEndpoint.Models.ConfigureViewModels;
-using IdentityModel.Client;
+using FluiTec.Vision.ClientEndpointApi;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 
 namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 {
@@ -20,65 +12,78 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 	[Authorize]
 	public class ConfigureController : Controller
 	{
-		/// <summary>	Options for controlling the open identifier. </summary>
-		private readonly OpenIdConnectOptions _openIdOptions;
+		/// <summary>	The endpoint service. </summary>
+		private readonly ClientEndpointService _endpointService;
 
-	    /// <summary>	Constructor. </summary>
-	    /// <param name="settingsService">	The settings service. </param>
-	    public ConfigureController(ISettingsService<OpenIdConnectOptions> settingsService)
-	    {
-		    _openIdOptions = settingsService.Get();
-	    }
+		/// <summary>	Options for controlling the operation. </summary>
+		private readonly DelegationApiOptions _options;
+
+		/// <summary>	Constructor. </summary>
+		/// <param name="options">		  	Options for controlling the operation. </param>
+		/// <param name="endpointService">	The endpoint service. </param>
+		public ConfigureController(DelegationApiOptions options, ClientEndpointService endpointService)
+		{
+			_options = options;
+			_endpointService = endpointService;
+		}
 
 		/// <summary>	Gets the index. </summary>
 		/// <returns>	An IActionResult. </returns>
 		public IActionResult Index()
-	    {
-            return View();
-        }
+		{
+			return View();
+		}
 
-	    /// <summary>	Configure client registration. </summary>
-	    /// <returns>	An IActionResult. </returns>
-	    public IActionResult ConfigureClientRegistration()
-	    {
-		    var vm = new ClientRegistrationViewModel {Email = User.FindFirstValue(claimType: "email"), MachineName = "Friday", ForwardFridayCalls = true};
-		    return View(vm);
-	    }
+		/// <summary>	Configure client registration. </summary>
+		/// <returns>	An IActionResult. </returns>
+		public IActionResult ConfigureClientRegistration()
+		{
+			var vm = new ClientRegistrationViewModel
+			{
+				Email = User.FindFirstValue(claimType: "email"),
+				MachineName = "Friday",
+				ForwardFridayCalls = true
+			};
+			return View(vm);
+		}
 
-	    /// <summary>
-	    /// (An Action that handles HTTP POST requests) configure client registration.
-	    /// </summary>
-	    /// <param name="model">	The model. </param>
-	    /// <returns>	An IActionResult. </returns>
+		/// <summary>
+		///     (An Action that handles HTTP POST requests) configure client registration.
+		/// </summary>
+		/// <param name="model">	The model. </param>
+		/// <returns>	An IActionResult. </returns>
 		[HttpPost]
-	    public async Task<IActionResult> ConfigureClientRegistration(ClientRegistrationViewModel model)
-	    {
-		    var accessToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "access_token");
-		    var refreshToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token");
+		public async Task<IActionResult> ConfigureClientRegistration(ClientRegistrationViewModel model)
+		{
+			_endpointService.Init(await HttpContext.Authentication.GetTokenAsync(tokenName: "access_token"),
+				await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token"));
+			await _endpointService.RegisterClientEndpoint(new ClientEndpointModel {MachineName = model.MachineName, EndpointHost = _options.EndpointHost});
 
-		    var payload = new
-		    {
-			    token = accessToken
-		    };
+			//   var accessToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "access_token");
+			//   var refreshToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token");
 
-			var disco = await DiscoveryClient.GetAsync(_openIdOptions.Authority);
-		    var tokenClient = new TokenClient(disco.TokenEndpoint, _openIdOptions.DelegationClientId, _openIdOptions.DelegationClientSecret);
+			//   var payload = new
+			//   {
+			//    token = accessToken
+			//   };
 
-		    var response = await tokenClient.RequestCustomGrantAsync(grantType: "delegation", scope: "clientendpoint", extra: payload);
-		    var bearerAccessToken = response.AccessToken;
+			//var disco = await DiscoveryClient.GetAsync(_openIdOptions.Authority);
+			//   var tokenClient = new TokenClient(disco.TokenEndpoint, _openIdOptions.DelegationClientId, _openIdOptions.DelegationClientSecret);
 
-			var client = new HttpClient {BaseAddress = new Uri($"{_openIdOptions.Authority}/api/")};
-			client.DefaultRequestHeaders.Accept
-				.Add(new MediaTypeWithQualityHeaderValue(mediaType: "application/json"));
-			client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme: "Bearer",parameter: bearerAccessToken);
-			var json = JsonConvert.SerializeObject(model);
+			//   var response = await tokenClient.RequestCustomGrantAsync(grantType: "delegation", scope: "clientendpoint", extra: payload);
+			//   var bearerAccessToken = response.AccessToken;
 
-		    var result = await client.PostAsync(requestUri: "ClientEndpoint", content: new StringContent(json, Encoding.UTF8, mediaType: "application/json"));
-		    result.EnsureSuccessStatusCode();
+			//var client = new HttpClient {BaseAddress = new Uri($"{_openIdOptions.Authority}/api/")};
+			//client.DefaultRequestHeaders.Accept
+			//	.Add(new MediaTypeWithQualityHeaderValue(mediaType: "application/json"));
+			//client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme: "Bearer",parameter: bearerAccessToken);
+			//var json = JsonConvert.SerializeObject(model);
+
+			//   var result = await client.PostAsync(requestUri: "ClientEndpoint", content: new StringContent(json, Encoding.UTF8, mediaType: "application/json"));
+			//   result.EnsureSuccessStatusCode();
 
 			// redirect user to accept new ClientEndpoint
-		    return Redirect(url: "http://localhost:5020/Manage");
-	    }
-    }
+			return Redirect(url: "http://localhost:5020/Manage");
+		}
+	}
 }
-

@@ -137,6 +137,7 @@
     <ProjectReference Include="..\FluiTec.AppFx.IdentityServer\FluiTec.AppFx.IdentityServer.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Identity\FluiTec.AppFx.Identity.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Options\FluiTec.AppFx.Options.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.ClientEndpointApi\FluiTec.Vision.ClientEndpointApi.csproj" />
     <ProjectReference Include="..\FuiTec.AppFx.Mail\FuiTec.AppFx.Mail.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -325,6 +326,18 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Update="appsettings.Development.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.Production.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Update="appsettings.secret.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Update="wwwroot/css\custom.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

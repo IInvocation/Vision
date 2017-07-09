@@ -1,6 +1,7 @@
 using System.Linq;
+using System.Security.Claims;
 using FluiTec.AppFx.Identity;
-using FluiTec.Vision.Server.Host.AspCoreHost.Models.ClientEndpointViewModels;
+using FluiTec.Vision.ClientEndpointApi;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -27,11 +28,12 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 		/// <param name="model">	The model. </param>
 		/// <returns>	An IActionResult. </returns>
 		[HttpPost]
-		public IActionResult Post([FromBody] ClientRegistrationViewModel model)
+		public IActionResult Post([FromBody] ClientEndpointModel model)
 		{
 			if (!ModelState.IsValid) return StatusCode(statusCode: 422);
 
-			_logger.LogInformation($"API posted new ClientEndpoint for {User.Claims.Single(c => c.Type == "sub").Value}.");
+			// since we're using JWT directly - we'll have to use ms-specific claims for now
+			_logger.LogInformation($"API posted new ClientEndpoint for {User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value}.");
 
 			// save model to be accepted by user
 

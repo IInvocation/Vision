@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using FluiTec.AppFx.Identity.Entities;
 using FluiTec.AppFx.IdentityServer;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 {
@@ -57,30 +59,26 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 
 			// enable jwt-authentication for api-calls of the ClientEndpoint-API
 			var options = app.ApplicationServices.GetService<ClientEndpointApiOptions>();
-			app.UseIdentityServerAuthentication(new IdentityServerAuthenticationOptions
+			var credentialStore = app.ApplicationServices.GetService<ISigningCredentialStore>();
+			var securityKey = credentialStore.GetSigningCredentialsAsync().Result.Key;
+
+			// using jwt-bearer manually duo to identityserver taking wrong signing-material
+			app.UseJwtBearerAuthentication(new JwtBearerOptions
 			{
 				Authority = options.Authority,
 				RequireHttpsMetadata = false,
 				AutomaticAuthenticate = options.AutomaticAuthenticate,
 				AutomaticChallenge = options.AutomaticChallenge,
-				LegacyAudienceValidation = false,
-				JwtBearerEvents = new JwtBearerEvents
+				TokenValidationParameters = new TokenValidationParameters
 				{
-					OnAuthenticationFailed = OnAuthenticationFailed,
-					OnChallenge = OnChallenge
+					ValidAudience = $"{options.Authority}/resources",
+					ValidIssuer = options.Authority,
+					IssuerSigningKey = securityKey,
+					IssuerSigningKeyResolver = (string token, SecurityToken securityToken, string kid, TokenValidationParameters validationParameters) => 
+					new List<SecurityKey> { securityKey }
 				}
 			});
 			return app;
-		}
-
-		private static Task OnChallenge(JwtBearerChallengeContext jwtBearerChallengeContext)
-		{
-			throw new NotImplementedException();
-		}
-
-		private static Task OnAuthenticationFailed(AuthenticationFailedContext authenticationFailedContext)
-		{
-			throw new NotImplementedException();
 		}
 	}
 }
