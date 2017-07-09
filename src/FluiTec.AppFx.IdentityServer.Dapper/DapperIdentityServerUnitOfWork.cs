@@ -51,6 +51,9 @@ namespace FluiTec.AppFx.IdentityServer.Dapper
 		/// <summary>	The signing credential repository. </summary>
 		private ISigningCredentialRepository _signingCredentialRepository;
 
+		/// <summary>	The grant repository. </summary>
+		private IGrantRepository _grantRepository;
+
 		#endregion
 
 		#region IIdentityServerUnitOfWork
@@ -91,6 +94,10 @@ namespace FluiTec.AppFx.IdentityServer.Dapper
 		public ISigningCredentialRepository SigningCredentialRepository => _signingCredentialRepository ??
 		                                                       (_signingCredentialRepository =
 			                                                       GetRepository<ISigningCredentialRepository>());
+
+		/// <summary>	The grant repository. </summary>
+		public IGrantRepository GrantRepository => _grantRepository ??
+		                                           (_grantRepository = GetRepository<IGrantRepository>());
 
 		#endregion
 	}

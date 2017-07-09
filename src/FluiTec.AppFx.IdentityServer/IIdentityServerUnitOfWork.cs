@@ -49,5 +49,9 @@ namespace FluiTec.AppFx.IdentityServer
 		/// <summary>	Gets the signing credential repository. </summary>
 		/// <value>	The signing credential repository. </value>
 		ISigningCredentialRepository SigningCredentialRepository { get; }
+
+		/// <summary>	Gets the grant repository. </summary>
+		/// <value>	The grant repository. </value>
+		IGrantRepository GrantRepository { get; }
 	}
 }

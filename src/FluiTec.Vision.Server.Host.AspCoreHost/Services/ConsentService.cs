@@ -1,10 +1,13 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models.IdentityViewModels;
 using IdentityServer4;
 using IdentityServer4.Models;
 using IdentityServer4.Services;
 using IdentityServer4.Stores;
+using Microsoft.AspNetCore.Http;
+using Newtonsoft.Json;
 using Consent = FluiTec.Vision.Server.Host.AspCoreHost.Resources.Views.Identity.Consent;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Services
@@ -14,6 +17,9 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Services
 	{
 		/// <summary>	The client store. </summary>
 		private readonly IClientStore _clientStore;
+
+		/// <summary>	The grant store. </summary>
+		private readonly IPersistedGrantStore _grantStore;
 
 		/// <summary>	The interaction. </summary>
 		private readonly IIdentityServerInteractionService _interaction;
@@ -25,14 +31,17 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Services
 		/// <param name="interaction">  	The interaction. </param>
 		/// <param name="clientStore">  	The client store. </param>
 		/// <param name="resourceStore">	The resource store. </param>
+		/// <param name="grantStore">   	The grant store. </param>
 		public ConsentService(
 			IIdentityServerInteractionService interaction,
 			IClientStore clientStore,
-			IResourceStore resourceStore)
+			IResourceStore resourceStore,
+			IPersistedGrantStore grantStore)
 		{
 			_interaction = interaction;
 			_clientStore = clientStore;
 			_resourceStore = resourceStore;
+			_grantStore = grantStore;
 		}
 
 		/// <summary>	Process the consent described by model. </summary>
@@ -48,11 +57,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Services
 			ConsentResponse grantedConsent = null;
 
 			if (model.Button == Consent.DenyAccessText)
-			{
 				grantedConsent = ConsentResponse.Denied;
-			}
 			else if (model.Button == Consent.AllowAccessText)
-			{
 				if (model.ScopesConsented != null && model.ScopesConsented.Any())
 				{
 					var scopes = model.ScopesConsented;
@@ -69,11 +75,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Services
 				{
 					result.ValidationError = ConsentOptions.MustChooseOneErrorMessage;
 				}
-			}
 			else
-			{
 				result.ValidationError = ConsentOptions.InvalidSelectionErrorMessage;
-			}
 
 			if (grantedConsent != null)
 			{
@@ -114,6 +117,40 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Services
 				return CreateConsentViewModel(model, returnUrl, client, resources);
 
 			return null;
+		}
+
+		/// <summary>	Did user consent already asynchronous. </summary>
+		/// <param name="returnUrl">	URL of the return. </param>
+		/// <param name="context">  	The context. </param>
+		/// <returns>	A Task&lt;bool&gt; </returns>
+		public async Task<bool> DidUserConsentAlreadyAsync(string returnUrl, HttpContext context)
+		{
+			var user = context.User;
+			var request = await _interaction.GetAuthorizationContextAsync(returnUrl);
+			if (request == null) return false;
+			var client = await _clientStore.FindEnabledClientByIdAsync(request.ClientId);
+			if (client == null) return false;
+
+			var grants = await _grantStore.GetAllAsync(user.Claims.FirstOrDefault(c => c.Type == "sub").Value);
+			var grantedAlready = grants.SingleOrDefault(g => g.Type == "user_consent" && g.ClientId == client.ClientId &&
+			                       (!g.Expiration.HasValue || g.Expiration >= IdentityServerDateTime.UtcNow));
+
+			if (grantedAlready == null) return false;
+
+			dynamic data = JsonConvert.DeserializeObject(grantedAlready.Data);
+			var jScopes = data.Scopes;
+			var scopes = new List<string>();
+			foreach (var jScope in jScopes)
+				scopes.Add(jScope.ToString());
+
+			var grantedConsent = new ConsentResponse
+			{
+				RememberConsent = false, // otherwise IdSrv will enter duplicate key...
+				ScopesConsented = scopes
+			};
+			await _interaction.GrantConsentAsync(request, grantedConsent);
+
+			return true;
 		}
 
 		/// <summary>	Creates consent view model. </summary>

@@ -30,6 +30,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 			idSrv.Services.AddScoped<IExtensionGrantValidator, DelegationGrantValidator>();
 			idSrv.Services.AddScoped<IValidationKeysStore, SigningCredentialStore>();
 			idSrv.Services.AddScoped<ISigningCredentialStore, SigningCredentialStore>();
+			idSrv.Services.AddScoped<IPersistedGrantStore, GrantStore>();
+
 			idSrv.AddAspNetIdentity<IdentityUserEntity>();
 			idSrv.AddClientStore<ClientStore>();
 			idSrv.AddResourceStore<ResourceStore>();
