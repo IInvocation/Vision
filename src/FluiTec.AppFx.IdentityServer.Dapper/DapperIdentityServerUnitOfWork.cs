@@ -45,6 +45,9 @@ namespace FluiTec.AppFx.IdentityServer.Dapper
 		/// <summary>	The identity resource scope repository. </summary>
 		private IIdentityResourceScopeRepository _identityResourceScopeRepository;
 
+		/// <summary>	The client claim repository. </summary>
+		private IClientClaimRepository _clientClaimRepository;
+
 		#endregion
 
 		#region IIdentityServerUnitOfWork
@@ -75,6 +78,11 @@ namespace FluiTec.AppFx.IdentityServer.Dapper
 
 		/// <summary>	The identity resource scope repository. </summary>
 		public IIdentityResourceScopeRepository IdentityResourceScopeRepository => _identityResourceScopeRepository ?? (_identityResourceScopeRepository = GetRepository<IIdentityResourceScopeRepository>());
+
+		/// <summary>	The client claim repository. </summary>
+		public IClientClaimRepository ClientClaimRepository => _clientClaimRepository ??
+		                                                       (_clientClaimRepository =
+			                                                       GetRepository<IClientClaimRepository>());
 
 		#endregion
 	}

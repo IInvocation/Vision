@@ -41,5 +41,9 @@ namespace FluiTec.AppFx.IdentityServer
 		/// <summary>	Gets the identity resource scope repository. </summary>
 		/// <value>	The identity resource scope repository. </value>
 		IIdentityResourceScopeRepository IdentityResourceScopeRepository { get; }
+
+		/// <summary>	Gets the client claim repository. </summary>
+		/// <value>	The client claim repository. </value>
+		IClientClaimRepository ClientClaimRepository { get; }
 	}
 }

@@ -2,9 +2,12 @@
 using IdentityServer4.Models;
 using IdentityServer4.Validation;
 
-namespace FluiTec.AppFx.IdentityServer
+namespace FluiTec.AppFx.IdentityServer.Validators
 {
 	/// <summary>	A default redirect URI validator. </summary>
+	/// <remarks>
+	/// Mimics the default UriValidator of IdentityServer		 
+	/// </remarks>
 	public class DefaultRedirectUriValidator : IRedirectUriValidator
 	{
 		/// <summary>	Is redirect URI valid asynchronous. </summary>

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using IdentityServer4.Models;
 using IdentityServer4.Stores;
@@ -41,7 +42,8 @@ namespace FluiTec.AppFx.IdentityServer
 					AllowedScopes = entity.Scopes.Select(s => s.Name).ToList(),
 					RedirectUris = new List<string>(new []{ entity.Client.RedirectUri }),
 					PostLogoutRedirectUris = new List<string>(new []{ entity.Client.PostLogoutUri }),
-					AllowOfflineAccess = entity.Client.AllowOfflineAccess
+					AllowOfflineAccess = entity.Client.AllowOfflineAccess,
+					Claims = entity.ClientClaims.Select(claimEntity => new Claim(claimEntity.ClaimType, string.Empty)).ToList()
 				};
 
 				return Task.FromResult(client);

@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
-namespace FluiTec.Vision.Server.Host.AspCoreHost.Configuration
+namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 {
 	/// <summary>	A controller for handling client endpoints. </summary>
 	[Produces(contentType: "application/json")]

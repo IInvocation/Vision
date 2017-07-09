@@ -1,5 +1,6 @@
 ﻿using FluiTec.AppFx.Identity.Entities;
 using FluiTec.AppFx.IdentityServer;
+using FluiTec.AppFx.IdentityServer.Validators;
 using IdentityServer4.Validation;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,6 +22,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 			});
 
 			idSrv.Services.AddScoped<IRedirectUriValidator, LocalhostRedirectUriValidator>();
+			idSrv.Services.AddScoped<IExtensionGrantValidator, DelegationGrantValidator>();
 			idSrv.AddTemporarySigningCredential();
 			idSrv.AddAspNetIdentity<IdentityUserEntity>();
 			idSrv.AddClientStore<ClientStore>();

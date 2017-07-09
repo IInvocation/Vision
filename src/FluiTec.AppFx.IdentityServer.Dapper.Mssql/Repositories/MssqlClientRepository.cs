@@ -44,10 +44,12 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 			              $" ON client.{nameof(ClientEntity.Id)} = cScope.{nameof(ClientScopeEntity.ClientId)}" +
 			              $" LEFT JOIN {UnitOfWork.DapperDataService.NameService.NameByType(typeof(ScopeEntity))} AS scope" +
 			              $" ON cScope.{nameof(ClientScopeEntity.ScopeId)} = scope.{nameof(ScopeEntity.Id)}" +
+						  $" LEFT JOIN {UnitOfWork.DapperDataService.NameService.NameByType(typeof(ClientClaimEntity))} AS cClaim" +
+						  $" ON client.{nameof(ClientEntity.Id)} = cClaim.{nameof(ClientClaimEntity.ClientId)}" +
 			              $" WHERE client.{nameof(ClientEntity.ClientId)} = @ClientId";
 			var lookup = new Dictionary<int, CompoundClientEntity>();
-			UnitOfWork.Connection.Query<ClientEntity, ClientScopeEntity, ScopeEntity, CompoundClientEntity>(command,
-				(entity, clientScope, scope) =>
+			UnitOfWork.Connection.Query<ClientEntity, ClientScopeEntity, ScopeEntity, ClientClaimEntity, CompoundClientEntity>(command,
+				(entity, clientScope, scope, clientClaim) =>
 				{
 					// make sure the pk exists
 					if (entity == null || entity.Id == default(int))
@@ -64,8 +66,12 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 					var tempElem = lookup[entity.Id];
 
 					// add scope
-					if (scope != null)
+					if (scope != null && tempElem.Scopes.Count(s => s.Id == scope.Id) < 1)
 						tempElem.Scopes.Add(scope);
+
+					// add claim
+					if (clientClaim != null &&  tempElem.ClientClaims.Count(c => c.ClaimType == clientClaim.ClaimType) < 1)
+						tempElem.ClientClaims.Add(clientClaim);
 
 					return tempElem;
 				}, new { ClientId = clientId }, UnitOfWork.Transaction);

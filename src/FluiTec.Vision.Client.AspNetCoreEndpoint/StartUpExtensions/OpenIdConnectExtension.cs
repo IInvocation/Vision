@@ -47,8 +47,8 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions
 				Scope = {"friday", "offline_access", "openid", "profile"},
 				
 				UseTokenLifetime = true,
-
-				GetClaimsFromUserInfoEndpoint = true
+				GetClaimsFromUserInfoEndpoint = true,
+				SaveTokens = true
 			});
 			return app;
 		}
