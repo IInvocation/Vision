@@ -45,5 +45,9 @@ namespace FluiTec.AppFx.IdentityServer
 		/// <summary>	Gets the client claim repository. </summary>
 		/// <value>	The client claim repository. </value>
 		IClientClaimRepository ClientClaimRepository { get; }
+
+		/// <summary>	Gets the signing credential repository. </summary>
+		/// <value>	The signing credential repository. </value>
+		ISigningCredentialRepository SigningCredentialRepository { get; }
 	}
 }
