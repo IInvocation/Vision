@@ -1,7 +1,12 @@
 ﻿using System;
+using System.Net;
+using System.Threading.Tasks;
 using FluiTec.AppFx.Identity;
 using FluiTec.AppFx.Identity.Entities;
+using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
 using FluiTec.Vision.Server.Host.AspCoreHost.Localization;
+using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,12 +22,27 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 		public static IServiceCollection ConfigureIdentity(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
+			var options = new ConfigurationSettingsService<CookieOptions>(configuration, configKey: "Cookies").Get();
+			services.AddSingleton(options);
 			services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>(config =>
 				{
 					config.SignIn.RequireConfirmedEmail = true;
 					config.Lockout.AllowedForNewUsers = true;
 					config.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromMinutes(value: 5);
-					config.Lockout.MaxFailedAccessAttempts = 3;
+					config.Cookies.ApplicationCookie.Events = new CookieAuthenticationEvents
+					{
+						// disable redirect to login for api-users
+						OnRedirectToLogin = context =>
+						{
+							if (context.Request.Path.StartsWithSegments(options.ApiOnlyPath) &&
+							    context.Response.StatusCode == (int) HttpStatusCode.OK)
+								context.Response.StatusCode = (int) HttpStatusCode.Unauthorized;
+							else
+								context.Response.Redirect(context.RedirectUri);
+
+							return Task.CompletedTask;
+						}
+					};
 				})
 				.AddErrorDescriber<MultiLanguageIdentityErrorDescriber>()
 				.AddDefaultTokenProviders();
