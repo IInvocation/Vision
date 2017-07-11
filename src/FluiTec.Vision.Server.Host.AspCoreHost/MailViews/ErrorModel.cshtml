@@ -1,0 +1,55 @@
+﻿@using FluiTec.Vision.Server.Host.AspCoreHost.Models.HomeMailViewModels
+@model ErrorModel
+<html>
+<head>
+	<title>@Model.ApplicationName - @Model.Subject</title>
+	<style media="screen" type="text/css">
+
+		body {
+			margin: 20px;
+			padding: 0;
+			background-color: #FFFFFF;
+		}
+		a:link, a:visited { 
+			color: #e0555a;
+			text-decoration: none;
+		}
+		a:hover, a:active {
+			color: #000000;
+		}
+	</style>
+</head>
+<body>
+<p></p>
+<table width="700" align="center" cellspacing="0" cellpadding="15" style="border: 1px #808080 solid; background: #fff;">
+	<tr>
+		<td>
+			<p style="text-align: center; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 20px; color: #e0555a;">@Model.ApplicationName</p>
+		</td>
+	</tr>
+	<tr>
+		<td style="border-bottom: 5px #646464 solid; border-top: 5px #646464 solid; padding: 10px; background-color: #646464">
+			<p style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 18px; font-weight: bold; color: #FFFFFF" align="center">@Model.Header</p>
+			<p style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 14px; font-weight: bold; color: #FFFFFF" align="center"><i>@Model.Subject</i>
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #435058;">
+				@Raw(Model.ExceptionPreText) - @Raw(Model.ErrorRoute)
+			</p>
+		</td>
+	</tr>
+	<tr>
+		<td>
+			<p style="font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 12px; color: #435058;">
+				@Raw(Model.ExceptionText)
+			</p>
+		</td>
+	</tr>
+</table>
+<p style="text-align: center; font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 11px; color: #435058;">&copy; @Model.ApplicationName<br/><a href="@Model.ApplicationUrl" target="_blank">@Model.ApplicationUrlDisplay</a>
+</p>
+</body>
+</html>

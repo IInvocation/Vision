@@ -149,6 +149,10 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ConfirmMailModel.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\MailModels\ErrorModel.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ErrorModel.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\MailModels\RecoverPasswordModel.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>RecoverPasswordModel.Designer.cs</LastGenOutput>
@@ -256,6 +260,9 @@
     <EmbeddedResource Update="Resources\Views\Manage\SetPassword.de-DE.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
+    <EmbeddedResource Update="Resources\Views\Shared\Error.de-DE.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+    </EmbeddedResource>
     <EmbeddedResource Update="Resources\Views\Shared\_Banner.en-US.resx">
       <Generator>ResXFileCodeGenerator</Generator>
     </EmbeddedResource>
@@ -298,6 +305,11 @@
       <DesignTime>True</DesignTime>
       <AutoGen>True</AutoGen>
       <DependentUpon>ConfirmMailModel.resx</DependentUpon>
+    </Compile>
+    <Compile Update="Resources\MailModels\ErrorModel.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>ErrorModel.resx</DependentUpon>
     </Compile>
     <Compile Update="Resources\MailModels\RecoverPasswordModel.Designer.cs">
       <DesignTime>True</DesignTime>

@@ -10,12 +10,12 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountMailViewModels
 		/// <param name="validationUrl">	URL of the validation. </param>
 		public ConfirmMailModel(string validationUrl)
 		{
-			Subject = Resources.MailModels.ConfirmMailModel.Subject;
-			Header = Resources.MailModels.ConfirmMailModel.Header;
-
 			ApplicationName = Global.ApplicationName;
 			ApplicationUrl = Global.ApplicationUrl;
 			ApplicationUrlDisplay = Global.ApplicationUrlDisplay;
+
+			Subject = Resources.MailModels.ConfirmMailModel.Subject;
+			Header = Resources.MailModels.ConfirmMailModel.Header;
 
 			PleaseConfirmText = Resources.MailModels.ConfirmMailModel.PleaseConfirmText;
 			ConfirmLinkText = Resources.MailModels.ConfirmMailModel.ConfirmLinkText;

@@ -13,7 +13,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions
 		public static IServiceCollection ConfigureOpenIdConnect(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
-			services.AddSingleton(configuration.GetConfiguration<OpenIdConnectOptions>());
+			services.AddSingleton(configuration.GetConfiguration<Configuration.OpenIdConnectOptions>());
 			services.AddSingleton(configuration.GetConfiguration<DelegationApiOptions>());
 			services.AddSingleton<ClientEndpointService>(); // to keep tokens in store
 			return services;
