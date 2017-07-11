@@ -21,7 +21,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 		public static IServiceCollection ConfigureDataServices(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
-			services.AddSingleton(configuration.GetConfiguration<MssqlDapperServiceOptions>());
+			services.AddSingleton<IDapperServiceOptions>(configuration.GetConfiguration<MssqlDapperServiceOptions>());
 			services.AddSingleton(configuration.GetConfiguration<MailServiceOptions>());
 
 			services.AddScoped<IIdentityDataService, MssqlDapperIdentityDataService>();
