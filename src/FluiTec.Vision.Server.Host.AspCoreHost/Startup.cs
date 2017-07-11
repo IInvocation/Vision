@@ -42,6 +42,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 				.ConfigureIdentity(Configuration)
 				.ConfigureLocalization(Configuration)
 				.ConfigureIdentityServer(Configuration)
+				.ConfigureStatusCodeHandler(Configuration)
 				.ConfigureMvc(Configuration);
 
 			// Add application services.
@@ -63,7 +64,9 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 				.UseGoogleAuthentication(Configuration)
 				.UseLocalization(Configuration)
 				.UseCors(builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod())
-				.UseMvc(Configuration);
+				.UseStatusCodeHandler(Configuration)
+				.UseMvc(Configuration); 
+
 		}
 
 		#endregion

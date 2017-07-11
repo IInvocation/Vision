@@ -30,7 +30,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 		[HttpPost]
 		public IActionResult Post([FromBody] ClientEndpointModel model)
 		{
-			if (!ModelState.IsValid) return StatusCode(statusCode: 422);
+			if (!ModelState.IsValid) return new BadRequestObjectResult(ModelState);
 
 			// since we're using JWT directly - we'll have to use ms-specific claims for now
 			_logger.LogInformation($"API posted new ClientEndpoint for {User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value}.");

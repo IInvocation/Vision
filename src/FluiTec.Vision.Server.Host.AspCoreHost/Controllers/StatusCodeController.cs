@@ -19,7 +19,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 		/// <summary>	Indexes. </summary>
 		/// <param name="statusCode">	The status code. </param>
 		/// <returns>	An IActionResult. </returns>
-	    [HttpGet("/StatusCode/{statusCode}")]
+	    [HttpGet(template: "/StatusCode/{statusCode}")]
 		public IActionResult Index(int statusCode)
         {
 	        var reExecute = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();

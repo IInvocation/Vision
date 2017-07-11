@@ -22,7 +22,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 		public static IServiceCollection ConfigureIdentity(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
-			var options = configuration.GetConfiguration<CookieOptions>();
+			var options = configuration.GetConfiguration<ApiOptions>();
 			services.AddSingleton(options);
 			services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>(config =>
 				{

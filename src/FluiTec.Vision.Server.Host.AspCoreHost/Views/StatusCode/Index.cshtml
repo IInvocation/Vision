@@ -1,13 +1,14 @@
-﻿<header class="major">
+﻿@model int
+@{
+<header class="major">
 	<h2><localize>ErrorHeader</localize></h2>
-	<p><localize>UnknownErrorHeader</localize></p>
+	<p><localize>StatusCodeHeader</localize> @Model</p>
 </header>
 <div class="container">
 	<section id="content">
 		<section>
-			<h3 class="text-danger"><localize>UnknownErrorHeader</localize></h3>
-			<p class="text-danger"><localize>ErrorDescriptionText</localize></p>
-			<p><localize>InBetweenText</localize></p>
+			@Html.Partial("_Code_" + Model)
 		</section>
 	</section>
 </div>
+}

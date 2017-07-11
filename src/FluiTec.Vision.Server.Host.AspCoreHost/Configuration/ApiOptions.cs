@@ -2,9 +2,9 @@
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Configuration
 {
-	/// <summary>	A MVC options. </summary>
-	[ConfigurationName("Cookies")]
-	public class CookieOptions
+	/// <summary>	An API options. </summary>
+	[ConfigurationName(name: "Api")]
+	public class ApiOptions
 	{
 		/// <summary>	Gets or sets the full pathname of the API only file. </summary>
 		/// <value>	The full pathname of the API only file. </value>
