@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using FluiTec.AppFx.Identity.Entities;
 using FluiTec.AppFx.IdentityServer;
 using FluiTec.AppFx.IdentityServer.Configuration;
 using FluiTec.AppFx.IdentityServer.Validators;
-using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
-using IdentityServer4.AccessTokenValidation;
+using FluiTec.AppFx.Options;
 using IdentityServer4.Stores;
 using IdentityServer4.Validation;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 {
@@ -26,8 +23,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 		public static IServiceCollection ConfigureIdentityServer(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
-			services.AddSingleton(new ConfigurationSettingsService<SigningOptions>(configuration, configKey: "Signing").Get());
-			services.AddSingleton(new ConfigurationSettingsService<ClientEndpointApiOptions>(configuration, configKey: "ClientEndpointApi").Get());
+			services.AddSingleton(configuration.GetConfiguration<SigningOptions>());
+			services.AddSingleton(configuration.GetConfiguration<ClientEndpointApiOptions>());
 
 			var idSrv = services.AddIdentityServer(options =>
 			{

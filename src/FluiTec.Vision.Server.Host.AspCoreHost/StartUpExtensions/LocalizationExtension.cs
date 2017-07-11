@@ -1,11 +1,12 @@
 ﻿using System.Globalization;
 using System.Linq;
-using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
+using FluiTec.AppFx.Options;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
+using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 {
@@ -19,7 +20,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 		public static IServiceCollection ConfigureLocalization(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
-			var locConfig = new ConfigurationSettingsService<CultureOptions>(configuration, configKey: "Localization").Get();
+			var locConfig = configuration.GetConfiguration<CultureOptions>();
 
 			services.Configure<RequestLocalizationOptions>(options =>
 			{

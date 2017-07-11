@@ -1,6 +1,9 @@
-﻿namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration
+﻿using FluiTec.AppFx.Options;
+
+namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration
 {
 	/// <summary>	Open identifier connect options. </summary>
+	[ConfigurationName("OpenIdConnect")]
 	public class OpenIdConnectOptions
 	{
 		/// <summary>	Gets or sets the authentication scheme. </summary>

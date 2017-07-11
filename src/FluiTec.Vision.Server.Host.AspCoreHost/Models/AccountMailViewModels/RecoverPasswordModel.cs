@@ -1,5 +1,5 @@
-﻿using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
-using FuiTec.AppFx.Mail;
+﻿using FuiTec.AppFx.Mail;
+using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountMailViewModels
 {

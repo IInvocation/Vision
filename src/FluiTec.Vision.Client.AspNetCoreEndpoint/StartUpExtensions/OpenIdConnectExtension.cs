@@ -1,6 +1,5 @@
-﻿using System.Dynamic;
-using System.IdentityModel.Tokens.Jwt;
-using FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration;
+﻿using System.IdentityModel.Tokens.Jwt;
+using FluiTec.AppFx.Options;
 using FluiTec.Vision.ClientEndpointApi;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
@@ -14,9 +13,9 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions
 		public static IServiceCollection ConfigureOpenIdConnect(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
-			services.AddScoped(provider => new ConfigurationSettingsService<Configuration.OpenIdConnectOptions>(configuration, configKey: "OpenIdConnect").Get());
-			services.AddScoped(provider => new ConfigurationSettingsService<DelegationApiOptions>(configuration, configKey: "ClientEndpoint").Get());
-			services.AddScoped<ClientEndpointService>();
+			services.AddSingleton(configuration.GetConfiguration<OpenIdConnectOptions>());
+			services.AddSingleton(configuration.GetConfiguration<DelegationApiOptions>());
+			services.AddSingleton<ClientEndpointService>(); // to keep tokens in store
 			return services;
 		}
 

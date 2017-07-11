@@ -1,8 +1,7 @@
 ﻿using System;
-using FluiTec.AppFx.Options;
 using Microsoft.Extensions.Configuration;
 
-namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration
+namespace FluiTec.AppFx.Options
 {
 	/// <summary>	A configuration settings service. </summary>
 	/// <typeparam name="TSettings">	Type of the settings. </typeparam>
@@ -41,33 +40,6 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration
 
 			// parse config-section
 			Settings = section.Get<TSettings>();
-
-			// try to find properties that end with Type
-			//var kvs = section.AsEnumerable(makePathsRelative: true).Where(kv => kv.Key.EndsWith(value: "Type")).ToList();
-			//var settingsType = typeof(TSettings);
-			//foreach (var kv in kvs)
-			//{
-			//	var propertyNameToMatch = kv.Key.Substring(0, kv.Key.Length - 4);
-			//	// try to match with existing properties
-			//	if (!settingsType.GetTypeInfo().DeclaredProperties.Select(p => p.Name).Contains(propertyNameToMatch)) continue;
-			//	{
-			//		// split value to get name of Assembly and Type
-			//		var split = kv.Value.Split(',');
-			//		var assemblyName = split[0];
-			//		var typeName = split[1];
-
-			//		// load the assembly
-			//		var assembly = AssemblyLoader.Default.LoadByName(assemblyName);
-
-			//		// get the type from the loaded assembly
-			//		var type = assembly.GetType(typeName);
-
-			//		// create the instance
-			//		var instance = Activator.CreateInstance(type);
-
-			//		settingsType.GetTypeInfo().DeclaredProperties.Single(p => p.Name == propertyNameToMatch).SetValue(Settings, instance);
-			//	}
-			//}
 
 			return Settings;
 		}

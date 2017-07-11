@@ -1,6 +1,9 @@
-﻿namespace FluiTec.Vision.ClientEndpointApi
+﻿using FluiTec.AppFx.Options;
+
+namespace FluiTec.Vision.ClientEndpointApi
 {
 	/// <summary>	A delegation API options. </summary>
+	[ConfigurationName("ClientEndpoint")]
 	public class DelegationApiOptions
 	{
 		/// <summary>	Gets or sets the endpoint host. </summary>

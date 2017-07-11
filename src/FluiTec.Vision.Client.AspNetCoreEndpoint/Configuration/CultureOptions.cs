@@ -1,8 +1,10 @@
 ﻿using System.Collections.Generic;
+using FluiTec.AppFx.Options;
 
 namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration
 {
 	/// <summary>	A culture options. </summary>
+	[ConfigurationName("Localization")]
 	public class CultureOptions
 	{
 		/// <summary>	Default constructor. </summary>

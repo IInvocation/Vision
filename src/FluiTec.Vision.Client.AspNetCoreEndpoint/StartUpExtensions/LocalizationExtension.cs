@@ -1,5 +1,6 @@
 ﻿using System.Globalization;
 using System.Linq;
+using FluiTec.AppFx.Options;
 using FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Localization;
@@ -19,7 +20,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions
 		public static IServiceCollection ConfigureLocalization(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
-			var locConfig = new ConfigurationSettingsService<CultureOptions>(configuration, configKey: "Localization").Get();
+			var locConfig = configuration.GetConfiguration<CultureOptions>();
 
 			services.Configure<RequestLocalizationOptions>(options =>
 			{

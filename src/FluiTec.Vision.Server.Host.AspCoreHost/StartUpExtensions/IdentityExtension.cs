@@ -3,10 +3,10 @@ using System.Net;
 using System.Threading.Tasks;
 using FluiTec.AppFx.Identity;
 using FluiTec.AppFx.Identity.Entities;
+using FluiTec.AppFx.Options;
 using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
 using FluiTec.Vision.Server.Host.AspCoreHost.Localization;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -22,7 +22,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 		public static IServiceCollection ConfigureIdentity(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
-			var options = new ConfigurationSettingsService<CookieOptions>(configuration, configKey: "Cookies").Get();
+			var options = configuration.GetConfiguration<CookieOptions>();
 			services.AddSingleton(options);
 			services.AddIdentity<IdentityUserEntity, IdentityRoleEntity>(config =>
 				{

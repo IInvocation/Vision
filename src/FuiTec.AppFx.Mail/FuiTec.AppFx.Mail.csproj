@@ -9,4 +9,8 @@
     <PackageReference Include="RazorLight" Version="1.1.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\FluiTec.AppFx.Options\FluiTec.AppFx.Options.csproj" />
+  </ItemGroup>
+
 </Project>

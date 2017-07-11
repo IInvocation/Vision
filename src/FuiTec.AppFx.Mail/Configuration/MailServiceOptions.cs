@@ -1,6 +1,9 @@
-﻿namespace FuiTec.AppFx.Mail.Configuration
+﻿using FluiTec.AppFx.Options;
+
+namespace FuiTec.AppFx.Mail.Configuration
 {
 	/// <summary>	A web mail options. </summary>
+	[ConfigurationName("Mail")]
 	public class MailServiceOptions
 	{
 		/// <summary>	Gets or sets the SMTP server. </summary>

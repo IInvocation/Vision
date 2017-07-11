@@ -1,6 +1,9 @@
-﻿namespace FluiTec.Vision.Server.Host.AspCoreHost.Configuration
+﻿using FluiTec.AppFx.Options;
+
+namespace FluiTec.Vision.Server.Host.AspCoreHost.Configuration
 {
 	/// <summary>	A client endpoint API options. </summary>
+	[ConfigurationName("ClientEndpointApi")]
 	public class ClientEndpointApiOptions
 	{
 		/// <summary>	Gets or sets the authority. </summary>

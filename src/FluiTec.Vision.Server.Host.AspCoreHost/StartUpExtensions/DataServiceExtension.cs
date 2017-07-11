@@ -4,7 +4,7 @@ using FluiTec.AppFx.Identity;
 using FluiTec.AppFx.Identity.Dapper.Mssql;
 using FluiTec.AppFx.IdentityServer;
 using FluiTec.AppFx.IdentityServer.Dapper.Mssql;
-using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
+using FluiTec.AppFx.Options;
 using FuiTec.AppFx.Mail.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -21,8 +21,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 		public static IServiceCollection ConfigureDataServices(this IServiceCollection services,
 			IConfigurationRoot configuration)
 		{
-			services.AddSingleton<IDapperServiceOptions>(new ConfigurationSettingsService<MssqlDapperServiceOptions>(configuration, configKey: "Dapper").Get());
-			services.AddSingleton(new ConfigurationSettingsService<MailServiceOptions>(configuration, configKey: "Mail").Get());
+			services.AddSingleton(configuration.GetConfiguration<MssqlDapperServiceOptions>());
+			services.AddSingleton(configuration.GetConfiguration<MailServiceOptions>());
 
 			services.AddScoped<IIdentityDataService, MssqlDapperIdentityDataService>();
 			services.AddScoped<IIdentityServerDataService, MssqlDapperIdentityServerDataService>();
