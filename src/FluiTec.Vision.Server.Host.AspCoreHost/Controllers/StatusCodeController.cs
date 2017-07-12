@@ -23,7 +23,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 		public IActionResult Index(int statusCode)
         {
 	        var reExecute = HttpContext.Features.Get<IStatusCodeReExecuteFeature>();
-	        _logger.LogInformation($"Unexpected Status Code: {statusCode}, OriginalPath: {reExecute.OriginalPath}");
+	        _logger.LogInformation($"Status Code: {statusCode}, OriginalPath: {reExecute.OriginalPath}");
 	        return View(statusCode);
 		}
     }
