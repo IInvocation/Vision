@@ -99,7 +99,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.Client.AspNe
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Endpoint", "Endpoint", "{644A9BBB-63C5-46C8-9FF5-A72AF6366FCC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.Vision.ClientEndpointApi", "FluiTec.Vision.ClientEndpointApi\FluiTec.Vision.ClientEndpointApi.csproj", "{56F53A15-EECD-4943-83A4-846969669F54}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.ClientEndpointApi", "FluiTec.Vision.ClientEndpointApi\FluiTec.Vision.ClientEndpointApi.csproj", "{56F53A15-EECD-4943-83A4-846969669F54}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.AppFx.Data.LiteDb.Test", "FluiTec.AppFx.Data.LiteDb.Test\FluiTec.AppFx.Data.LiteDb.Test.csproj", "{1A28C5DD-6983-48ED-92EE-5AB57556BECD}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -227,6 +229,10 @@ Global
 		{56F53A15-EECD-4943-83A4-846969669F54}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56F53A15-EECD-4943-83A4-846969669F54}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56F53A15-EECD-4943-83A4-846969669F54}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1A28C5DD-6983-48ED-92EE-5AB57556BECD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1A28C5DD-6983-48ED-92EE-5AB57556BECD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1A28C5DD-6983-48ED-92EE-5AB57556BECD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1A28C5DD-6983-48ED-92EE-5AB57556BECD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -278,5 +284,6 @@ Global
 		{9C978FF8-5296-4069-A9F4-752A475268EE} = {AC85FB69-7FAB-43C0-AAC2-59AFF803C152}
 		{644A9BBB-63C5-46C8-9FF5-A72AF6366FCC} = {311CE01C-7DA8-44FB-8316-FF018B089EAF}
 		{56F53A15-EECD-4943-83A4-846969669F54} = {AC85FB69-7FAB-43C0-AAC2-59AFF803C152}
+		{1A28C5DD-6983-48ED-92EE-5AB57556BECD} = {01BEA7BF-0E6E-4EF9-AC00-622AA39A8A04}
 	EndGlobalSection
 EndGlobal

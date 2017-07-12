@@ -41,7 +41,11 @@ namespace FluiTec.AppFx.Data.LiteDb
 		/// <param name="entities">	An IEnumerable&lt;TEntity&gt; of items to append to this. </param>
 		public void AddRange(IEnumerable<TEntity> entities)
 		{
-			Collection.InsertBulk(entities);
+			foreach (var entity in entities)
+				Collection.Insert(entity);
+
+			// BulkInsert not supported with transactions
+			// Collection.InsertBulk(entities);
 		}
 
 		/// <summary>	Updates the given entity. </summary>
