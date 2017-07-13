@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:xctk="http://schemas.xceed.com/wpf/xaml/toolkit"
+        xmlns:i="http://schemas.microsoft.com/expression/2010/interactivity"
         mc:Ignorable="d"
         Title="{Binding Title}" 
 		Height="300" 
@@ -22,7 +23,13 @@
 					 ItemsSource="{Binding Wizard.XPages}" 
 					 CurrentPage="{Binding Wizard.CurrentXPage}" 
 					 CanSelectNextPage="{Binding Wizard.CanSelectNextPage}" 
-					 CanFinish="{Binding Wizard.CanFinish}">
+					 CanFinish="{Binding Wizard.CanFinish}"
+					 >
+			<i:Interaction.Triggers>
+				<i:EventTrigger EventName="Finish">
+					<i:InvokeCommandAction Command="{Binding FinishCommand}"/>
+				</i:EventTrigger>
+			</i:Interaction.Triggers>
 		</xctk:Wizard>
     </Grid>
 </controls:MetroWindow>
