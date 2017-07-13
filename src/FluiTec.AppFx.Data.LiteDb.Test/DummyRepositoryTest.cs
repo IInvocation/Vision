@@ -149,7 +149,11 @@ namespace FluiTec.AppFx.Data.LiteDb.Test
 		    Initialize();
 		    try
 		    {
-			    Repository.Add(new DummyEntity());
+			    foreach (var entry in Repository.GetAll())
+			    {
+				    Repository.Delete(entry);
+			    }
+				Repository.Add(new DummyEntity());
 			    UnitOfWork.Commit();
 		    }
 		    catch (Exception)
@@ -159,13 +163,15 @@ namespace FluiTec.AppFx.Data.LiteDb.Test
 		    }
 
 		    Initialize();
+
 		    try
 		    {
-			    foreach (var entry in Repository.GetAll())
-			    {
+				Assert.AreEqual(1, Repository.GetAll().Count());
+				foreach (var entry in Repository.GetAll())
+				{
 					Repository.Delete(entry);
 				}
-			    UnitOfWork.Commit();
+				UnitOfWork.Commit();
 		    }
 		    catch (Exception)
 		    {

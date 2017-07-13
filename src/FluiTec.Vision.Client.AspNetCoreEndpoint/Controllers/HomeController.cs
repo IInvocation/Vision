@@ -15,7 +15,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 		/// <param name="logger">	The logger. </param>
 		public HomeController(ILogger<HomeController> logger)
 		{
-			
+			_logger = logger;
 		}
 
 		/// <summary>	Gets the index. </summary>
@@ -42,21 +42,19 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 			var route = exceptionFeature?.Path;
 
 			// only execute if there was a real exception
-			if (exception != null)
-			{
-				_logger.LogError(0, exception, "Unhandled exception");
+			if (exception == null) return View();
 
-				// collect additional exception-info from log?
+			_logger.LogError(0, exception, "Unhandled exception");
+
+			// collect additional exception-info from log?
 				
-				try
-				{
-					// TODO: Call not yet existent server-api to alert developer about exception
-				}
-				catch (Exception e)
-				{
-					_logger.LogError(0, e, "Unhandled exception in error-handling api");
-				}
-				
+			try
+			{
+				// TODO: Call not yet existent server-api to alert developer about exception
+			}
+			catch (Exception e)
+			{
+				_logger.LogError(0, e, "Unhandled exception in error-handling api");
 			}
 
 			return View();
