@@ -8,6 +8,14 @@ namespace FluiTec.AppFx.Data.LiteDb
 	/// <summary>	A litedb data service. </summary>
 	public abstract class LiteDbDataService : DataService
 	{
+		#region Fields
+
+		/// <summary>	Gets a value indicating whether this object use singleton connection. </summary>
+		/// <value>	True if use singleton connection, false if not. </value>
+		private readonly bool _useSingletonConnection;
+
+		#endregion
+
 		#region Properties
 
 		/// <summary>	Gets or sets the database. </summary>
@@ -62,17 +70,17 @@ namespace FluiTec.AppFx.Data.LiteDb
 		#region Constructors
 
 		/// <summary>	Specialised constructor for use only by derived class. </summary>
-		/// <exception cref="ArgumentNullException">
-		///     Thrown when one or more required arguments are
-		///     null.
-		/// </exception>
-		/// <param name="dbFilePath">			Full pathname of the database file. </param>
-		/// <param name="applicationFolder">	Pathname of the application folder. </param>
 		/// <remarks>
-		///     If dbFilePath isnt rooted or doesnt start with a dot - an applicationFolder is required, because the service will
-		///     save in local-appdata
+		/// If dbFilePath isnt rooted or doesnt start with a dot - an applicationFolder is required,
+		/// because the service will save in local-appdata.
 		/// </remarks>
-		protected LiteDbDataService(string dbFilePath, string applicationFolder = null)
+		/// <exception cref="ArgumentNullException"> Thrown when one or more required arguments are null. </exception>
+		/// <exception cref="ArgumentException">	 Thrown when one or more arguments have unsupported or
+		/// illegal values. </exception>
+		/// <param name="useSingletonConnection">	True to use singleton connection. </param>
+		/// <param name="dbFilePath">			 	Full pathname of the database file. </param>
+		/// <param name="applicationFolder">	 	(Optional) Pathname of the application folder. </param>
+		protected LiteDbDataService(bool? useSingletonConnection, string dbFilePath, string applicationFolder = null)
 		{
 			if (string.IsNullOrWhiteSpace(dbFilePath)) throw new ArgumentNullException(nameof(dbFilePath));
 
@@ -80,14 +88,19 @@ namespace FluiTec.AppFx.Data.LiteDb
 				if (string.IsNullOrWhiteSpace(applicationFolder))
 					throw new ArgumentException(
 						$"Giving non-rooted {nameof(dbFilePath)} requires giving an {nameof(applicationFolder)}.");
+			_useSingletonConnection = useSingletonConnection ?? false;
 
-			Database = new LiteDatabase(dbFilePath);
+			if (_useSingletonConnection)
+				Database = LiteDbDatabaseSingleton.GetDatabase(dbFilePath);
+			else
+				Database = new LiteDatabase(dbFilePath);
 		}
 
 		/// <summary>	Specialised constructor for use only by derived class. </summary>
 		/// <param name="options">	Options for controlling the operation. </param>
-		protected LiteDbDataService(ILiteDbServiceOptions options) : this(options?.DbFileName, options?.ApplicationFolder)
+		protected LiteDbDataService(ILiteDbServiceOptions options) : this(options?.UseSingletonConnection, options?.DbFileName, options?.ApplicationFolder)
 		{
+			
 		}
 
 		#endregion
@@ -100,7 +113,8 @@ namespace FluiTec.AppFx.Data.LiteDb
 		/// </summary>
 		public override void Dispose()
 		{
-			Dispose(disposing: true);
+			if (!_useSingletonConnection)
+				Dispose(disposing: true);
 		}
 
 		/// <summary>
@@ -113,8 +127,11 @@ namespace FluiTec.AppFx.Data.LiteDb
 		/// </param>
 		protected virtual void Dispose(bool disposing)
 		{
-			Database?.Dispose();
-			Database = null;
+			if (!_useSingletonConnection)
+			{
+				Database?.Dispose();
+				Database = null;
+			}
 		}
 
 		#endregion

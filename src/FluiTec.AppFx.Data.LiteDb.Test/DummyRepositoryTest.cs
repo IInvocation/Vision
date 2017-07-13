@@ -38,18 +38,8 @@ namespace FluiTec.AppFx.Data.LiteDb.Test
 		    DataService?.Dispose();
 	    }
 
-		[TestMethod]
-	    public void RunTest()
-	    {
-		    CanAddEntity();
-		    CanAddEntityRange();
-		    CanUpdateEntity();
-		    CanDeleteByInstance();
-		    CanDeleteById();
-		    TestCommit();
-	    }
-
-	    public void CanAddEntity()
+	    [TestMethod]
+		public void CanAddEntity()
 	    {
 		    Initialize();
 		    try
@@ -69,16 +59,19 @@ namespace FluiTec.AppFx.Data.LiteDb.Test
 		    }
 	    }
 
-	    public void CanAddEntityRange()
+	    [TestMethod]
+		public void CanAddEntityRange()
 	    {
 		    Initialize();
 		    try
 		    {
+			    var originalCount = Repository.GetAll().Count();
+
 			    var entities = new[] { new DummyEntity(), new DummyEntity() };
 			    Repository.AddRange(entities);
 			    var repoCount = Repository.GetAll().Count();
 
-			    Assert.AreEqual(entities.Length, repoCount);
+			    Assert.AreEqual(entities.Length, repoCount + originalCount);
 		    }
 		    catch (Exception)
 		    {
@@ -87,7 +80,8 @@ namespace FluiTec.AppFx.Data.LiteDb.Test
 		    }
 	    }
 
-	    public void CanUpdateEntity()
+	    [TestMethod]
+		public void CanUpdateEntity()
 	    {
 		    Initialize();
 		    try
@@ -109,7 +103,8 @@ namespace FluiTec.AppFx.Data.LiteDb.Test
 		    }
 	    }
 
-	    public void CanDeleteByInstance()
+	    [TestMethod]
+		public void CanDeleteByInstance()
 	    {
 		    Initialize();
 		    try
@@ -128,7 +123,8 @@ namespace FluiTec.AppFx.Data.LiteDb.Test
 		    }
 	    }
 
-	    public void CanDeleteById()
+	    [TestMethod]
+		public void CanDeleteById()
 	    {
 		    Initialize();
 		    try
@@ -147,7 +143,8 @@ namespace FluiTec.AppFx.Data.LiteDb.Test
 		    }
 	    }
 
-	    public void TestCommit()
+	    [TestMethod]
+		public void TestCommit()
 	    {
 		    Initialize();
 		    try
@@ -164,8 +161,10 @@ namespace FluiTec.AppFx.Data.LiteDb.Test
 		    Initialize();
 		    try
 		    {
-			    Assert.AreEqual(Repository.GetAll().Count(), 1);
-			    Repository.Delete(Repository.GetAll().First());
+			    foreach (var entry in Repository.GetAll())
+			    {
+					Repository.Delete(entry);
+				}
 			    UnitOfWork.Commit();
 		    }
 		    catch (Exception)
