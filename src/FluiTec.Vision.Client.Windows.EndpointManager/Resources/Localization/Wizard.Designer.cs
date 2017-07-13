@@ -22,14 +22,14 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Global {
+    public class Wizard {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Global() {
+        internal Wizard() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Global", typeof(Global).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Wizard", typeof(Wizard).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,11 +61,38 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to FluiTech:Vision Endpunkt.
+        ///   Looks up a localized string similar to Zurück.
         /// </summary>
-        public static string ApplicationName {
+        public static string BackButtonLabel {
             get {
-                return ResourceManager.GetString("ApplicationName", resourceCulture);
+                return ResourceManager.GetString("BackButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Abbrechen.
+        /// </summary>
+        public static string CancelButtonLabel {
+            get {
+                return ResourceManager.GetString("CancelButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Abschließen.
+        /// </summary>
+        public static string FinishButtonLabel {
+            get {
+                return ResourceManager.GetString("FinishButtonLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Weiter.
+        /// </summary>
+        public static string NextButtonLabel {
+            get {
+                return ResourceManager.GetString("NextButtonLabel", resourceCulture);
             }
         }
     }
