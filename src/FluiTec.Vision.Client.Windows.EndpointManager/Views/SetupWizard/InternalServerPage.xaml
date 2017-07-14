@@ -4,9 +4,19 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              mc:Ignorable="d" 
-             d:DesignHeight="300" d:DesignWidth="300" d:DataContext="{d:InternalServerViewModel }">
+             d:DesignHeight="300" 
+			 d:DesignWidth="300" 
+             xmlns:res="clr-namespace:FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Setup.Wizard"
+             xmlns:setupWizard="clr-namespace:FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard"
+             d:DataContext="{d:DesignInstance setupWizard:InternalServerViewModel }">
 	<Grid>
-		<Label>MyContent</Label>
-		<TextBox Text="{Binding Path=Test, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="*" />
+		</Grid.RowDefinitions>
+		<StackPanel Orientation="Horizontal">
+			<Label Content="{x:Static res:InternalServer.PortLabel}"/>
+			<TextBox MinWidth="70" Text="{Binding Path=LocalPort, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+		</StackPanel>
 	</Grid>
 </UserControl>

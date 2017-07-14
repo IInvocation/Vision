@@ -107,6 +107,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Global.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Localization\Views\Setup\Wizard\InternalServer.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>InternalServer.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Localization\Wizard.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -160,6 +165,10 @@
     <EmbeddedResource Include="Resources\Localization\Global.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Global.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Localization\Views\Setup\Wizard\InternalServer.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>InternalServer.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Localization\Wizard.de-DE.resx" />
     <EmbeddedResource Include="Resources\Localization\Wizard.resx">
