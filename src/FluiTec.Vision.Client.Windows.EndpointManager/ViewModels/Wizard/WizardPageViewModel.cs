@@ -16,7 +16,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard
 		}
 
 		/// <summary>	Validates this object. </summary>
-		protected void Validate()
+		public void Validate()
 		{
 			IsValid = ValidateModel();
 		}

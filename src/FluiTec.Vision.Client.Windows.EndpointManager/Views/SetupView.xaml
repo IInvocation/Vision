@@ -22,7 +22,7 @@
 					 NextButtonContent="{x:Static res:Wizard.NextButtonLabel}" 
 					 FinishButtonContent="{x:Static res:Wizard.FinishButtonLabel}" 
 					 ItemsSource="{Binding Wizard.XPages}" 
-					 CurrentPage="{Binding Wizard.CurrentXPage}" 
+					 CurrentPage="{Binding Wizard.CurrentXPage, Mode=TwoWay}" 
 					 CanSelectNextPage="{Binding Wizard.CanSelectNextPage}" 
 					 CanFinish="{Binding Wizard.CanFinish}"
 					 >

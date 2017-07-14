@@ -19,10 +19,32 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard
 		/// <summary>	The current x coordinate page. </summary>
 		private WizardPage _currentXPage;
 
+		private IReadOnlyList<WizardPageViewModel> _pages;
+
 		/// <summary>	Gets or sets the pages. </summary>
 		/// <value>	The pages. </value>
+		public IReadOnlyList<WizardPageViewModel> Pages
+		{
+			get => _pages;
+			set
+			{
+				_pages = value;
+				WireUpPages();
+			}
+		}
 
-		public List<WizardPageViewModel> Pages { get; set; }
+		/// <summary>	Wire up pages. </summary>
+		private void WireUpPages()
+		{
+			if (Pages == null || Pages.Count < 1) return;
+			for (var i = 0; i < Pages.Count; i++)
+			{
+				if (i > 0)
+					Pages[i].Previous = Pages[i - 1];
+				if (i < Pages.Count - 1)
+					Pages[i].Next = Pages[i + 1];
+			}
+		}
 
 		/// <summary>	Gets the pages. </summary>
 		/// <value>	The x coordinate pages. </value>
@@ -68,7 +90,11 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard
 				if (_currentPage != null)
 					_currentPage.PropertyChanged -= _currentPage_PropertyChanged;
 				_currentPage = value;
+				
 				_currentPage.PropertyChanged += _currentPage_PropertyChanged;
+
+				_currentPage.Validate();
+
 				var xpage = _wizardDictionary.Single(p => p.Value == value).Key;
 				if (!xpage.Equals(CurrentXPage))
 					CurrentXPage = xpage;
