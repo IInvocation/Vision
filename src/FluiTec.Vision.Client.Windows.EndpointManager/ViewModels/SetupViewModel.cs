@@ -46,9 +46,5 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 		/// <summary>	Gets or sets the finish command. </summary>
 		/// <value>	The finish command. </value>
 		public ICommand FinishCommand { get; set; }
-
-		/// <summary>	Gets or sets the page changed command. </summary>
-		/// <value>	The page changed command. </value>
-		public ICommand PageChangedCommand { get; set; }
 	}
 }
