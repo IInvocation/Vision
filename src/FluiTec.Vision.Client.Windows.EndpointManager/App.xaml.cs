@@ -10,6 +10,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 	{
 		protected override void OnStartup(StartupEventArgs e)
 		{
+			FindResource(resourceKey: "VisionNotifyIcon");
+
 			var view = new SetupView();
 			view.Show();
 

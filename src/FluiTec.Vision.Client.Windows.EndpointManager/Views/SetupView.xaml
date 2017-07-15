@@ -15,7 +15,7 @@
 		BorderThickness="0" 
 		GlowBrush="Black">
 	<Grid>
-		<xctk:Wizard FinishButtonClosesWindow="False" 
+		<xctk:Wizard FinishButtonClosesWindow="True" 
 					 HelpButtonVisibility="Hidden" 
 					 CancelButtonContent="{x:Static res:Wizard.CancelButtonLabel}" 
 					 BackButtonContent="{x:Static res:Wizard.BackButtonLabel}" 

@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using GalaSoft.MvvmLight;
@@ -24,7 +23,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard
 
 		/// <summary>	Gets or sets the pages. </summary>
 		/// <value>	The pages. </value>
-		public IReadOnlyCollection<WizardPageViewModel> Pages
+		public IReadOnlyList<WizardPageViewModel> Pages
 		{
 			get => _pages;
 			set

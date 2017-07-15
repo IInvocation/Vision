@@ -36,6 +36,9 @@
   <PropertyGroup>
     <StartupObject>FluiTec.Vision.Client.Windows.EndpointManager.Program</StartupObject>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>favicon.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="CoreCompat.Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=7186fe45db12933d, processorArchitecture=MSIL">
       <HintPath>..\packages\CoreCompat.Microsoft.Practices.ServiceLocation.1.3.0-r2\lib\net45\CoreCompat.Microsoft.Practices.ServiceLocation.dll</HintPath>
@@ -49,6 +52,9 @@
     </Reference>
     <Reference Include="GalaSoft.MvvmLight.Platform, Version=5.3.0.19032, Culture=neutral, PublicKeyToken=5f873c45e98af8a1, processorArchitecture=MSIL">
       <HintPath>..\packages\MvvmLightLibs.5.3.0.0\lib\net45\GalaSoft.MvvmLight.Platform.dll</HintPath>
+    </Reference>
+    <Reference Include="Hardcodet.Wpf.TaskbarNotification, Version=1.0.5.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Hardcodet.NotifyIcon.Wpf.1.0.8\lib\net451\Hardcodet.Wpf.TaskbarNotification.dll</HintPath>
     </Reference>
     <Reference Include="MahApps.Metro, Version=1.5.0.23, Culture=neutral, PublicKeyToken=f4fb5a3c4d1e5b4f, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.5.0\lib\net45\MahApps.Metro.dll</HintPath>
@@ -102,6 +108,9 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controls\TrayActionsControl.xaml.cs">
+      <DependentUpon>TrayActionsControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Localization\Global.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -125,6 +134,8 @@
     <Compile Include="ViewModels\SetupViewModel.cs" />
     <Compile Include="ViewModels\SetupWizard\InternalServerViewModel.cs" />
     <Compile Include="ViewModels\SetupWizard\WelcomeViewModel.cs" />
+    <Compile Include="ViewModels\TrayActionsViewModel.cs" />
+    <Compile Include="ViewModels\TrayActionViewModel.cs" />
     <Compile Include="ViewModels\ViewModelLocator.cs" />
     <Compile Include="ViewModels\Wizard\WizardModel.cs" />
     <Compile Include="ViewModels\Wizard\WizardPageViewModel.cs" />
@@ -138,6 +149,10 @@
       <DependentUpon>WelcomePage.xaml</DependentUpon>
     </Compile>
     <Compile Include="WebServer\IWebServerManager.cs" />
+    <Page Include="Controls\TrayActionsControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Resources\Icons.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -223,6 +238,15 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\quit.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
