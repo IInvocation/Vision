@@ -80,6 +80,9 @@
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="WpfAnimatedGif, Version=1.4.14.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\WpfAnimatedGif.1.4.14\lib\net\WpfAnimatedGif.dll</HintPath>
+    </Reference>
     <Reference Include="Xceed.Wpf.AvalonDock, Version=3.1.0.0, Culture=neutral, PublicKeyToken=3e4669d2f30244f4, processorArchitecture=MSIL">
       <HintPath>..\packages\Extended.Wpf.Toolkit.3.1\lib\net40\Xceed.Wpf.AvalonDock.dll</HintPath>
     </Reference>
@@ -144,6 +147,7 @@
     <Compile Include="ViewModels\SetupViewModel.cs" />
     <Compile Include="ViewModels\SetupWizard\ExternalServerViewModel.cs" />
     <Compile Include="ViewModels\SetupWizard\InternalServerViewModel.cs" />
+    <Compile Include="ViewModels\SetupWizard\UpnpStatus.cs" />
     <Compile Include="ViewModels\SetupWizard\WelcomeViewModel.cs" />
     <Compile Include="ViewModels\TrayActionsViewModel.cs" />
     <Compile Include="ViewModels\TrayActionViewModel.cs" />
@@ -281,6 +285,11 @@
   <ItemGroup>
     <Resource Include="Resources\Images\pause.png" />
     <Resource Include="Resources\Images\play.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\status_error.png" />
+    <Resource Include="Resources\Images\status_ok.png" />
+    <Resource Include="Resources\Images\status_unknown.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

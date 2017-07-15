@@ -117,13 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="ActivateUpnpLabel" xml:space="preserve">
+    <value>Upnp aktivieren:</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Definiert unter welcher Adresse der Server im Internet zu erreichen ist.</value>
   </data>
   <data name="Header" xml:space="preserve">
     <value>Externer Server</value>
   </data>
+  <data name="ManualHostNameLabel" xml:space="preserve">
+    <value>URL:</value>
+  </data>
+  <data name="ModeLabelManual" xml:space="preserve">
+    <value>Manuell</value>
+  </data>
+  <data name="ModeLabelUpnp" xml:space="preserve">
+    <value>Automatisch</value>
+  </data>
   <data name="ServerModeLabel" xml:space="preserve">
     <value>Betriebsmodus:</value>
+  </data>
+  <data name="UpnpStatusLabel" xml:space="preserve">
+    <value>Status:</value>
+  </data>
+  <data name="UpnpStatusText_Error" xml:space="preserve">
+    <value>Upnp nicht möglich - manuelle Konfiguration nötig</value>
+  </data>
+  <data name="UpnpStatusText_Ok" xml:space="preserve">
+    <value>Upnp aktiviert</value>
+  </data>
+  <data name="UpnpStatusText_Unknown" xml:space="preserve">
+    <value />
+  </data>
+  <data name="UpnpStatusText_Working" xml:space="preserve">
+    <value>In Arbeit...</value>
   </data>
 </root>

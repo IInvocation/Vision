@@ -62,6 +62,15 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.V
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Upnp aktivieren: ähnelt.
+        /// </summary>
+        public static string ActivateUpnpLabel {
+            get {
+                return ResourceManager.GetString("ActivateUpnpLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Definiert unter welcher Adresse der Server im Internet zu erreichen ist. ähnelt.
         /// </summary>
         public static string Description {
@@ -112,6 +121,51 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.V
         public static string ServerModeLabel {
             get {
                 return ResourceManager.GetString("ServerModeLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Status: ähnelt.
+        /// </summary>
+        public static string UpnpStatusLabel {
+            get {
+                return ResourceManager.GetString("UpnpStatusLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Upnp nicht möglich - manuelle Konfiguration nötig ähnelt.
+        /// </summary>
+        public static string UpnpStatusText_Error {
+            get {
+                return ResourceManager.GetString("UpnpStatusText_Error", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Upnp aktiviert ähnelt.
+        /// </summary>
+        public static string UpnpStatusText_Ok {
+            get {
+                return ResourceManager.GetString("UpnpStatusText_Ok", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die  ähnelt.
+        /// </summary>
+        public static string UpnpStatusText_Unknown {
+            get {
+                return ResourceManager.GetString("UpnpStatusText_Unknown", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die In Arbeit... ähnelt.
+        /// </summary>
+        public static string UpnpStatusText_Working {
+            get {
+                return ResourceManager.GetString("UpnpStatusText_Working", resourceCulture);
             }
         }
     }

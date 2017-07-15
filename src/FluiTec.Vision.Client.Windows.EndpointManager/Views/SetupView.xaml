@@ -9,8 +9,8 @@
 		xmlns:res="clr-namespace:FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization"
         mc:Ignorable="d"
         Title="{Binding Title}" 
-		Height="300" 
-		Width="500" 
+		Height="400" 
+		Width="600" 
 		DataContext="{Binding Setup, Source={StaticResource Locator}}"
 		BorderThickness="0" 
 		GlowBrush="Black">

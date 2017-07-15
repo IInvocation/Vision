@@ -15,16 +15,25 @@
 		</Grid.Resources>
 		<StackPanel  Orientation="Vertical">
 			<StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-				<Label Content="{x:Static res:ExternalServer.ServerModeLabel}" Width="100" />
-				<ComboBox ItemsSource="{Binding ServerModes}" SelectedItem="{Binding SelectedServerMode, Mode=TwoWay}" MinWidth="120"/>
+				<Label Content="{x:Static res:ExternalServer.ServerModeLabel}" Width="120" />
+				<ComboBox ItemsSource="{Binding ServerModes}" SelectedItem="{Binding SelectedServerMode, Mode=TwoWay}" MinWidth="135"/>
 			</StackPanel>
-			<Grid Visibility="{Binding UpnpContentVisible, Converter={StaticResource BoolToVis}, FallbackValue=False}">
-				<Label Content="UPNP" />
-			</Grid>
-			<Grid Visibility="{Binding ManualContentVisible, Converter={StaticResource BoolToVis}, FallbackValue=True}">
+			<StackPanel Visibility="{Binding UpnpContentVisible, Converter={StaticResource BoolToVis}, FallbackValue=False}" Orientation="Vertical" Margin="0,0,0,10">
 				<StackPanel Orientation="Horizontal">
-					<Label Content="{x:Static res:ExternalServer.ManualHostNameLabel}" Width="100" />
-					<TextBox Text="{Binding ManualHostName, UpdateSourceTrigger=PropertyChanged}" MinWidth="120" />
+					<Label Content="{x:Static res:ExternalServer.ActivateUpnpLabel}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" />
+					<Button Margin="5,0,0,0"><Image Source="/Resources/Images/play.png" /></Button>
+					<Button Margin="5,0,0,0"><Image Source="/Resources/Images/pause.png" /></Button>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+					<Label Content="{x:Static res:ExternalServer.UpnpStatusLabel}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" />
+					<Image Source="{Binding UpnpStatusImage}" Visibility="Hidden"/>
+					<Label Content="{Binding UpnpStatusText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
+				</StackPanel>
+			</StackPanel>
+			<Grid Visibility="{Binding ManualContentVisible, Converter={StaticResource BoolToVis}, FallbackValue=True}" Margin="0,0,0,10">
+				<StackPanel Orientation="Horizontal">
+					<Label Content="{x:Static res:ExternalServer.ManualHostNameLabel}" Width="120" />
+					<TextBox Text="{Binding ManualHostName, UpdateSourceTrigger=PropertyChanged}" MinWidth="135" />
 				</StackPanel>
 			</Grid>
 		</StackPanel>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Setup.Wizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard;
@@ -11,6 +12,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 	/// <summary>	A ViewModel for the external server. </summary>
 	public class ExternalServerViewModel : WizardPageViewModel
 	{
+		#region Fields
+
 		/// <summary>	The server modes. </summary>
 		private ObservableCollection<string> _serverModes;
 
@@ -20,7 +23,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		/// <summary>	Name of the manual host. </summary>
 		private string _manualHostName;
 
-		#region Fields
+		/// <summary>	The status. </summary>
+		private UpnpStatus _upnpStatus;
 
 		#endregion
 
@@ -39,6 +43,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 				ExternalServer.ModeLabelManual
 			});
 			SelectedServerMode = ServerModes[index: 0];
+
+			UpnpStatus = UpnpStatus.Unknown;
 		}
 
 		#endregion
@@ -51,9 +57,9 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		{
 			var result = new[]
 			{
-				ServerModes.Contains(SelectedServerMode),
-				IsManualContentValid() || IsUpnpContentValid()
-			}.All(b => b);
+				SelectedServerMode == ExternalServer.ModeLabelManual && IsManualContentValid(),
+				SelectedServerMode == ExternalServer.ModeLabelUpnp && IsUpnpContentValid()
+			}.Any(b => b);
 
 			return result;
 		}
@@ -73,7 +79,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		/// <returns>	True if the upnp content is valid, false if not. </returns>
 		private bool IsUpnpContentValid()
 		{
-			return UpnpContentVisible && false;
+			return UpnpContentVisible && UpnpStatus == UpnpStatus.Ok;
 		}
 
 		#endregion
@@ -123,6 +129,66 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 				OnPropertyChanged();
 			}
 		}
+
+		/// <summary>	Gets or sets the status. </summary>
+		/// <value>	The status. </value>
+		public UpnpStatus UpnpStatus
+		{
+			get => _upnpStatus;
+			set
+			{
+				_upnpStatus = value;
+				OnPropertyChanged();
+				OnPropertyChanged(nameof(UpnpStatusText));
+			}
+		}
+
+		/// <summary>	Gets the upnp status text. </summary>
+		/// <exception cref="ArgumentOutOfRangeException">	Thrown when one or more arguments are outside
+		/// 												the required range. </exception>
+		/// <value>	The upnp status text. </value>
+		public string UpnpStatusText
+		{
+			get
+			{
+				switch (UpnpStatus)
+				{
+					case UpnpStatus.Unknown:
+						return ExternalServer.UpnpStatusText_Unknown;
+					case UpnpStatus.Working:
+						return ExternalServer.UpnpStatusText_Working;
+					case UpnpStatus.Ok:
+						return ExternalServer.UpnpStatusText_Ok;
+					case UpnpStatus.Error:
+						return ExternalServer.UpnpStatusText_Error;
+					default:
+						return ExternalServer.UpnpStatusText_Unknown;
+				}
+			}
+		}
+
+		/// <summary>	Gets the upnp status image. </summary>
+		/// <value>	The upnp status image. </value>
+		public BitmapImage UpnpStatusImage
+		{
+			get
+			{
+				switch (UpnpStatus)
+				{
+					case UpnpStatus.Unknown:
+						return new BitmapImage(new Uri(uriString: @"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/status_unknown.png", uriKind: UriKind.Relative));
+					case UpnpStatus.Working:
+						return new BitmapImage(new Uri(uriString: @"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/status_unknown.png", uriKind: UriKind.Relative));
+					case UpnpStatus.Ok:
+						return new BitmapImage(new Uri(uriString: @"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/status_ok.png", uriKind: UriKind.Relative));
+					case UpnpStatus.Error:
+						return new BitmapImage(new Uri(uriString: @"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/status_error.png", uriKind: UriKind.Relative));
+					default:
+						return new BitmapImage(new Uri(uriString: @"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/status_unknown.png", uriKind: UriKind.Relative));
+				}
+			}
+		}
+
 		#endregion
 	}
 }
