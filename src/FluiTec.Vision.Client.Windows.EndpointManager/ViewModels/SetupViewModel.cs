@@ -5,7 +5,6 @@ using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard;
 using GalaSoft.MvvmLight;
 using GalaSoft.MvvmLight.CommandWpf;
-using MessageBox = System.Windows.MessageBox;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 {
@@ -19,10 +18,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 			Title = Global.ApplicationName;
 
 			// init commands
-			FinishCommand = new RelayCommand(() =>
-			{
-				MessageBox.Show(messageBoxText: "Finish");
-			});
+			FinishCommand = new RelayCommand(() => { });
 
 			// init wizard
 			Wizard = new WizardModel
@@ -30,7 +26,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 				Pages = new List<WizardPageViewModel>
 				{
 					new WelcomeViewModel(),
-					new InternalServerViewModel()
+					new InternalServerViewModel(),
+					new ExternalServerViewModel()
 				}.AsReadOnly()
 			};
 		}

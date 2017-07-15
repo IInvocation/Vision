@@ -121,6 +121,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Tray.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Localization\Views\Setup\Wizard\ExternalServer.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExternalServer.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Localization\Views\Setup\Wizard\InternalServer.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -137,6 +142,7 @@
       <DependentUpon>Wizard.resx</DependentUpon>
     </Compile>
     <Compile Include="ViewModels\SetupViewModel.cs" />
+    <Compile Include="ViewModels\SetupWizard\ExternalServerViewModel.cs" />
     <Compile Include="ViewModels\SetupWizard\InternalServerViewModel.cs" />
     <Compile Include="ViewModels\SetupWizard\WelcomeViewModel.cs" />
     <Compile Include="ViewModels\TrayActionsViewModel.cs" />
@@ -146,6 +152,9 @@
     <Compile Include="ViewModels\Wizard\WizardPageViewModel.cs" />
     <Compile Include="Views\SetupView.xaml.cs">
       <DependentUpon>SetupView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SetupWizard\ExternalServerPage.xaml.cs">
+      <DependentUpon>ExternalServerPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SetupWizard\InternalServerPage.xaml.cs">
       <DependentUpon>InternalServerPage.xaml</DependentUpon>
@@ -165,6 +174,10 @@
     <Page Include="Resources\IconsNonShared.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\SetupWizard\ExternalServerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\SetupWizard\InternalServerPage.xaml">
       <SubType>Designer</SubType>
@@ -204,10 +217,17 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Tray.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Localization\Views\Setup\Wizard\ExternalServer.de-DE.resx" />
+    <EmbeddedResource Include="Resources\Localization\Views\Setup\Wizard\ExternalServer.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExternalServer.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Localization\Views\Setup\Wizard\InternalServer.de-DE.resx" />
     <EmbeddedResource Include="Resources\Localization\Views\Setup\Wizard\InternalServer.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>InternalServer.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Localization\Views\Setup\Wizard\Welcome.de-DE.resx" />
     <EmbeddedResource Include="Resources\Localization\Views\Setup\Wizard\Welcome.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Welcome.Designer.cs</LastGenOutput>
