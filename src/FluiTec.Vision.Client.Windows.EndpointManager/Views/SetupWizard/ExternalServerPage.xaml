@@ -7,21 +7,25 @@
              xmlns:res="clr-namespace:FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Setup.Wizard"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             d:DataContext="{d:DesignInstance setupWizard:ExternalServerViewModel }">
+             d:DataContext="{d:DesignInstance setupWizard:ExternalServerViewModel }"
+			 >
 	<Grid>
 		<Grid.Resources>
 			<BooleanToVisibilityConverter x:Key="BoolToVis" />
 		</Grid.Resources>
 		<StackPanel  Orientation="Vertical">
-			<StackPanel Orientation="Horizontal">
-				<Label Content="{x:Static res:ExternalServer.ServerModeLabel}" />
+			<StackPanel Orientation="Horizontal" Margin="0,0,0,10">
+				<Label Content="{x:Static res:ExternalServer.ServerModeLabel}" Width="100" />
 				<ComboBox ItemsSource="{Binding ServerModes}" SelectedItem="{Binding SelectedServerMode, Mode=TwoWay}" MinWidth="120"/>
 			</StackPanel>
-			<Grid Visibility="{Binding UpnpContentVisible, Converter={StaticResource BoolToVis}}">
+			<Grid Visibility="{Binding UpnpContentVisible, Converter={StaticResource BoolToVis}, FallbackValue=False}">
 				<Label Content="UPNP" />
 			</Grid>
-			<Grid Visibility="{Binding ManualContentVisible, Converter={StaticResource BoolToVis}}">
-				<Label Content="MANUAL" />
+			<Grid Visibility="{Binding ManualContentVisible, Converter={StaticResource BoolToVis}, FallbackValue=True}">
+				<StackPanel Orientation="Horizontal">
+					<Label Content="{x:Static res:ExternalServer.ManualHostNameLabel}" Width="100" />
+					<TextBox Text="{Binding ManualHostName, UpdateSourceTrigger=PropertyChanged}" MinWidth="120" />
+				</StackPanel>
 			</Grid>
 		</StackPanel>
 	</Grid>

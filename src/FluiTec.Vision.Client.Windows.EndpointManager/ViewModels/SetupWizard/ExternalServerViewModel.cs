@@ -1,4 +1,6 @@
-﻿using System.Collections.ObjectModel;
+﻿using System;
+using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows.Navigation;
 using FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Setup.Wizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard;
@@ -9,8 +11,14 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 	/// <summary>	A ViewModel for the external server. </summary>
 	public class ExternalServerViewModel : WizardPageViewModel
 	{
+		/// <summary>	The server modes. </summary>
 		private ObservableCollection<string> _serverModes;
+
+		/// <summary>	The selected server mode. </summary>
 		private string _selectedServerMode;
+
+		/// <summary>	Name of the manual host. </summary>
+		private string _manualHostName;
 
 		#region Fields
 
@@ -41,7 +49,31 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		/// <returns>	True if it succeeds, false if it fails. </returns>
 		protected override bool ValidateModel()
 		{
-			return base.ValidateModel();
+			var result = new[]
+			{
+				ServerModes.Contains(SelectedServerMode),
+				IsManualContentValid() || IsUpnpContentValid()
+			}.All(b => b);
+
+			return result;
+		}
+
+		/// <summary>	Query if this object is manual content valid. </summary>
+		/// <returns>	True if the manual content is valid, false if not. </returns>
+		private bool IsManualContentValid()
+		{
+			var result = ManualContentVisible
+			             && !string.IsNullOrWhiteSpace(ManualHostName)
+			             && Uri.TryCreate(ManualHostName, UriKind.Absolute, out Uri uriResult)
+			             && (uriResult.Scheme == Uri.UriSchemeHttp || uriResult.Scheme == Uri.UriSchemeHttps);
+			return result;
+		}
+
+		/// <summary>	Query if this object is upnp content valid. </summary>
+		/// <returns>	True if the upnp content is valid, false if not. </returns>
+		private bool IsUpnpContentValid()
+		{
+			return UpnpContentVisible && false;
 		}
 
 		#endregion
@@ -72,12 +104,25 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			set
 			{
 				_selectedServerMode = value;
+				Validate();
 				OnPropertyChanged();
 				OnPropertyChanged(nameof(UpnpContentVisible));
 				OnPropertyChanged(nameof(ManualContentVisible));
 			}
 		}
 
+		/// <summary>	Gets or sets the name of the manual host. </summary>
+		/// <value>	The name of the manual host. </value>
+		public string ManualHostName
+		{
+			get => _manualHostName;
+			set
+			{
+				_manualHostName = value;
+				Validate();
+				OnPropertyChanged();
+			}
+		}
 		#endregion
 	}
 }

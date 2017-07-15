@@ -56,12 +56,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			return new[]
 			{
 				LocalPort > 0
-			}.Any(b => b);
+			}.All(b => b);
 		}
-
-		#endregion
-
-		#region Methods
 
 		/// <summary>	Finds the freeportinrange of the given arguments. </summary>
 		/// <exception cref="ApplicationException"> Thrown when an Application error condition occurs. </exception>

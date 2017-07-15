@@ -80,6 +80,15 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.V
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die URL: ähnelt.
+        /// </summary>
+        public static string ManualHostNameLabel {
+            get {
+                return ResourceManager.GetString("ManualHostNameLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Manuell ähnelt.
         /// </summary>
         public static string ModeLabelManual {
