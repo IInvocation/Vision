@@ -116,6 +116,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Global.resx</DependentUpon>
     </Compile>
+    <Compile Include="Resources\Localization\Tray.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Tray.resx</DependentUpon>
+    </Compile>
     <Compile Include="Resources\Localization\Views\Setup\Wizard\InternalServer.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -194,6 +199,11 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Global.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Localization\Tray.de-DE.resx" />
+    <EmbeddedResource Include="Resources\Localization\Tray.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Tray.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Resources\Localization\Views\Setup\Wizard\InternalServer.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>InternalServer.Designer.cs</LastGenOutput>
@@ -247,6 +257,10 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\quit.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\pause.png" />
+    <Resource Include="Resources\Images\play.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

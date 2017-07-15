@@ -7,7 +7,7 @@ using GalaSoft.MvvmLight.CommandWpf;
 namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 {
 	/// <summary>	A ViewModel for the tray action. </summary>
-	public class TrayActionViewModel : ViewModelBase
+	public class TrayActionViewModel : ViewModelBase, ITrayItem
 	{
 		/// <summary>	The image source. </summary>
 		private BitmapImage _imageSource;
@@ -52,5 +52,17 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 			get => _clickCommand;
 			set => Set(ref _clickCommand, value);
 		}
+	}
+
+	/// <summary>	A tray separator. </summary>
+	public class TraySeparator : ITrayItem
+	{
+		
+	}
+
+	/// <summary>	Interface for tray item. </summary>
+	public interface ITrayItem
+	{
+		
 	}
 }

@@ -3,18 +3,18 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:viewModels="clr-namespace:FluiTec.Vision.Client.Windows.EndpointManager.ViewModels"
              mc:Ignorable="d" 
              d:DesignHeight="300" d:DesignWidth="300"
-             Width="150" Height="100"
+             Width="150" Height="Auto"
 			 Background="Transparent"
              DataContext="{Binding Tray, Source={StaticResource Locator}}">
 	<Border BorderBrush="#FF353535" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8" Background="White" Opacity=".9">
 		<Grid>
-			<Label Content="{Binding Header, FallbackValue=Header}" FontWeight="Bold" FontSize="15" Foreground="#e0555a"/>
-			<Separator Foreground="#FF353535" Margin="0,-30,0,0"/>
+			<Label Content="{Binding Header, FallbackValue=Header}" FontWeight="Bold" FontSize="15" Foreground="#e0555a" />
 			<ItemsControl ItemsSource="{Binding Actions}" Margin="0,35,0,0">
-				<ItemsControl.ItemTemplate>
-					<DataTemplate>
+				<ItemsControl.Resources>
+					<DataTemplate DataType="{x:Type viewModels:TrayActionViewModel}">
 						<StackPanel Orientation="Horizontal" Margin="5,0,0,0">
 							<Border BorderThickness="0">
 								<Border.InputBindings>
@@ -40,7 +40,10 @@
 							</Border>
 						</StackPanel>
 					</DataTemplate>
-				</ItemsControl.ItemTemplate>
+					<DataTemplate DataType="{x:Type viewModels:TraySeparator}">
+						<Separator />
+					</DataTemplate>
+				</ItemsControl.Resources>
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
 						<StackPanel Orientation="Vertical"/>
