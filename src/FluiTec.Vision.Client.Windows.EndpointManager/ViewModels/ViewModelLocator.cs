@@ -13,12 +13,15 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
         {
 	        var locator = ServiceLocator.Current.GetInstance<IServiceLocatorManager>();
 	        locator.Register<SetupViewModel>();
+			locator.Register<ExitViewModel>();
 			locator.Register<TrayActionsViewModel>();
         }
 
-        /// <summary>	Gets the setup. </summary>
-        /// <value>	The setup. </value>
+        /// <summary>	Tthe setup. </summary>
         public SetupViewModel Setup => ServiceLocator.Current.GetInstance<SetupViewModel>();
+
+	    /// <summary>	The exit. </summary>
+	    public ExitViewModel Exit => ServiceLocator.Current.GetInstance<ExitViewModel>();
 
 	    /// <summary>	The tray. </summary>
 	    public TrayActionsViewModel Tray => ServiceLocator.Current.GetInstance<TrayActionsViewModel>();

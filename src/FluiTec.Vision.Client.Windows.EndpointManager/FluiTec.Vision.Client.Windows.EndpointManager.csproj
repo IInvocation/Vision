@@ -103,9 +103,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Resources\Localization\Views\Exit\ExitView.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ExitView.resx</DependentUpon>
+    </Compile>
+    <Compile Include="ViewModels\ExitViewModel.cs" />
     <Compile Include="ViewModels\ITrayItem.cs" />
     <Compile Include="ViewModels\TraySeparator.cs" />
     <Compile Include="ViewModels\WebserverTrayActionViewModel.cs" />
+    <Compile Include="Views\ExitView.xaml.cs">
+      <DependentUpon>ExitView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\IViewService.cs" />
     <Compile Include="Views\ViewService.cs" />
     <Compile Include="WebServer\WebServerManager.cs" />
@@ -185,6 +194,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\ExitView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\SetupWizard\ExternalServerPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -226,6 +239,10 @@
     <EmbeddedResource Include="Resources\Localization\Tray.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Tray.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Localization\Views\Exit\ExitView.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>ExitView.Designer.cs</LastGenOutput>
     </EmbeddedResource>
     <EmbeddedResource Include="Resources\Localization\Views\Setup\Wizard\ExternalServer.de-DE.resx" />
     <EmbeddedResource Include="Resources\Localization\Views\Setup\Wizard\ExternalServer.resx">
@@ -303,6 +320,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\config.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\error.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

@@ -9,6 +9,10 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 	/// </summary>
 	public partial class App
 	{
+		/// <summary>	Gets or sets a value indicating whether the do show exit. </summary>
+		/// <value>	True if do show exit, false if not. </value>
+		public bool DoShowExit { get; set; }
+
 		/// <summary>	The icon. </summary>
 		private TaskbarIcon _icon;
 
@@ -16,11 +20,20 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 		/// <param name="e">	Event information to send to registered event handlers. </param>
 		protected override void OnStartup(StartupEventArgs e)
 		{
-			_icon = (TaskbarIcon) FindResource(resourceKey: "VisionNotifyIcon");
+			if (!DoShowExit)
+			{ 
+				_icon = (TaskbarIcon) FindResource(resourceKey: "VisionNotifyIcon");
 
-			// check for valid configuration
-			// available: start webserver and keep it running
-			// not available: run configuration-ui
+				// check for valid configuration
+				// available: start webserver and keep it running
+				// not available: run configuration-ui
+			}
+			else
+			{
+				var view = new ExitView();
+				view.Closed += (sender, args) => { Shutdown(); };
+				view.Show();
+			} 
 		}
 
 		/// <summary>	Raises the exit event. </summary>
@@ -30,7 +43,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 		/// </remarks>
 		protected override void OnExit(ExitEventArgs e)
 		{
-			_icon.Dispose();
+			_icon?.Dispose();
 			base.OnExit(e);
 		}
 	}

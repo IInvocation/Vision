@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization {
+namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Exit {
     using System;
     
     
@@ -22,24 +22,25 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Global {
+    internal class ExitView {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Global() {
+        internal ExitView() {
         }
         
         /// <summary>
         ///   Gibt die zwischengespeicherte ResourceManager-Instanz zurück, die von dieser Klasse verwendet wird.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Resources.ResourceManager ResourceManager {
+        internal static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Global", typeof(Global).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Exit.E" +
+                            "xitView", typeof(ExitView).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -51,7 +52,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization {
         ///   Ressourcenzuordnungen, die diese stark typisierte Ressourcenklasse verwenden.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        public static global::System.Globalization.CultureInfo Culture {
+        internal static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -61,11 +62,20 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization {
         }
         
         /// <summary>
-        ///   Sucht eine lokalisierte Zeichenfolge, die FluiTech:Vision Endpunkt ähnelt.
+        ///   Sucht eine lokalisierte Zeichenfolge, die Startfehler ähnelt.
         /// </summary>
-        public static string ApplicationName {
+        internal static string Header {
             get {
-                return ResourceManager.GetString("ApplicationName", resourceCulture);
+                return ResourceManager.GetString("Header", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Es kann immer nur eine Instanz gestartet werden! ähnelt.
+        /// </summary>
+        internal static string Message {
+            get {
+                return ResourceManager.GetString("Message", resourceCulture);
             }
         }
     }
