@@ -52,9 +52,11 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard
 		{
 			get
 			{
-				// dont fill double
-				_wizardDictionary.Clear();
+				// make sure not to project twice
+				if (_wizardDictionary != null && _wizardDictionary.Count >= 1)
+					return _wizardDictionary.Select(kv => kv.Key).ToList();
 
+				// project
 				var xpages = Pages
 					.Select(Project)
 					.ToList();
