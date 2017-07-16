@@ -1,0 +1,15 @@
+@using System.Text.Encodings.Web
+@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IViewLocalizer Localizer
+<section id="banner">
+	<div class="inner">
+		<h2>@Localizer[name: "ApplicationName"]</h2>
+		<p>@Localizer[name: "LandingHeader"]</p>
+		<ul class="actions">
+			<li>
+				<a asp-controller="Configure" asp-action="Index" class="button big scrolly"><localize>Configure</localize></a>
+			</li>
+		</ul>
+	</div>
+</section>

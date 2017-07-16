@@ -1,4 +1,5 @@
-﻿using System;
+﻿extern alias myservicelocation;
+using System;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight;
@@ -9,6 +10,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 	/// <summary>	A ViewModel for the tray action. </summary>
 	public class TrayActionViewModel : ViewModelBase, ITrayItem
 	{
+		#region Fields
+
 		/// <summary>	The image source. </summary>
 		private BitmapImage _imageSource;
 
@@ -18,16 +21,29 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 		/// <summary>	The click command. </summary>
 		private ICommand _clickCommand;
 
+		/// <summary>	True to enable, false to disable. </summary>
+		private bool _enabled;
+
+		#endregion
+
+		#region Constructors
+
 		/// <summary>	Constructor. </summary>
 		/// <param name="text">			 	The text. </param>
 		/// <param name="uriImageSource">	The URI image source. </param>
 		/// <param name="action">		 	The action. </param>
-		public TrayActionViewModel(string text, string uriImageSource, Action action)
+		/// <param name="enabled">		 	(Optional) True to enable, false to disable. </param>
+		public TrayActionViewModel(string text, string uriImageSource, Action action, bool enabled = true)
 		{
 			DisplayText = text;
 			ImageSource = new BitmapImage(new Uri(uriImageSource, UriKind.Relative));
 			ClickCommand = new RelayCommand(action);
+			Enabled = enabled;
 		}
+
+		#endregion
+
+		#region Properties
 
 		/// <summary>	Gets or sets the display text. </summary>
 		/// <value>	The display text. </value>
@@ -52,17 +68,15 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 			get => _clickCommand;
 			set => Set(ref _clickCommand, value);
 		}
-	}
 
-	/// <summary>	A tray separator. </summary>
-	public class TraySeparator : ITrayItem
-	{
-		
-	}
+		/// <summary>	Gets or sets a value indicating whether this object is enabled. </summary>
+		/// <value>	True if enabled, false if not. </value>
+		public virtual bool Enabled
+		{
+			get => _enabled;
+			set => Set(ref _enabled, value);
+		}
 
-	/// <summary>	Interface for tray item. </summary>
-	public interface ITrayItem
-	{
-		
+		#endregion
 	}
 }

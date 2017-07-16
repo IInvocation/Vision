@@ -1,0 +1,10 @@
+﻿@inject FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration.OpenIdConnectOptions OpenIdOptions
+@if (User.HasClaim(claim => claim.Type == "email"))
+{
+	<li class="opener" style="user-select: none; cursor: pointer; white-space: nowrap; opacitiy: 1;">
+		<a href="@OpenIdOptions.OpenIdProfileUri"><localize>Profile</localize></a>
+		<ul>
+			<li><a asp-controller="Account" asp-action="Logout"><localize>Logout</localize></a></li>
+		</ul>
+	</li> 
+}

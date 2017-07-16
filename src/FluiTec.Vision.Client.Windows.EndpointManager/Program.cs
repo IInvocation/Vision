@@ -1,6 +1,9 @@
-﻿using System;
+﻿extern alias myservicelocation;
+using System;
 using FluiTec.AppFx.InversionOfControl;
 using FluiTec.AppFx.InversionOfControl.SimpleIoC;
+using FluiTec.Vision.Client.Windows.EndpointManager.WebServer;
+using myservicelocation::Microsoft.Practices.ServiceLocation;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager
 {
@@ -17,8 +20,16 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 			var locatorManager = new SimpleIoCServiceLocatorManager();
 			locatorManager.SetLocatorProvider();
 			locatorManager.Register<IServiceLocatorManager>(locatorManager);
-
+			locatorManager.Register<IWebServerManager, WebServerManager>();
+			
+			app.Exit += (sender, args) => { StopServer(); };
 			app.Run();
+		}
+
+		/// <summary>	Stops a server. </summary>
+		private static void StopServer()
+		{
+			ServiceLocator.Current.GetInstance<IWebServerManager>().Stop();
 		}
 	}
 }

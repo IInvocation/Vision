@@ -1,0 +1,12 @@
+﻿<!DOCTYPE HTML>
+<html>
+	@Html.Partial("_Head")
+	<body class="landing">
+		@Html.Partial("_Header")
+		<section id="main" class="wrapper style1">
+			@RenderBody()
+		</section>
+		@Html.Partial("_Footer")
+		@RenderSection("Scripts", required: false)
+	</body>
+</html>

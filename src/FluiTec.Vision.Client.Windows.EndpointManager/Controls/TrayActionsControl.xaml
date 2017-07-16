@@ -9,6 +9,9 @@
              Width="150" Height="Auto"
 			 Background="Transparent"
              DataContext="{Binding Tray, Source={StaticResource Locator}}">
+	<UserControl.Resources>
+		<BooleanToVisibilityConverter x:Key="BoolToVis" />
+	</UserControl.Resources>
 	<Border BorderBrush="#FF353535" BorderThickness="1,1,1,1" CornerRadius="8,8,8,8" Background="White" Opacity=".9">
 		<Grid>
 			<Label Content="{Binding Header, FallbackValue=Header}" FontWeight="Bold" FontSize="15" Foreground="#e0555a" />
@@ -16,7 +19,7 @@
 				<ItemsControl.Resources>
 					<DataTemplate DataType="{x:Type viewModels:TrayActionViewModel}">
 						<StackPanel Orientation="Horizontal" Margin="5,0,0,0">
-							<Border BorderThickness="0">
+							<Border BorderThickness="0" Visibility="{Binding Enabled, Converter={StaticResource BoolToVis}}">
 								<Border.InputBindings>
 									<MouseBinding MouseAction="LeftClick" Command="{Binding ClickCommand}" />
 								</Border.InputBindings>

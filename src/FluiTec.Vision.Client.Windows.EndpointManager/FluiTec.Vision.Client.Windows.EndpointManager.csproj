@@ -103,6 +103,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ViewModels\ITrayItem.cs" />
+    <Compile Include="ViewModels\TraySeparator.cs" />
+    <Compile Include="ViewModels\WebserverTrayActionViewModel.cs" />
+    <Compile Include="WebServer\WebServerManager.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -241,6 +245,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Wizard.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="BuildEndpoint.bat" />
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -291,5 +296,16 @@
     <Resource Include="Resources\Images\status_ok.png" />
     <Resource Include="Resources\Images\status_unknown.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="AspNetCoreEndpoint\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
 </Project>
