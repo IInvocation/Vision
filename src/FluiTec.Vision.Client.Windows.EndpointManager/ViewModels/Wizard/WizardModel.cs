@@ -52,6 +52,9 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard
 		{
 			get
 			{
+				// dont fill double
+				_wizardDictionary.Clear();
+
 				var xpages = Pages
 					.Select(Project)
 					.ToList();

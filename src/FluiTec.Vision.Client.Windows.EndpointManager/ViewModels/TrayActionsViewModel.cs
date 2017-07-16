@@ -2,6 +2,7 @@
 using System.Collections.ObjectModel;
 using System.Windows;
 using FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization;
+using FluiTec.Vision.Client.Windows.EndpointManager.Views;
 using FluiTec.Vision.Client.Windows.EndpointManager.WebServer;
 using GalaSoft.MvvmLight;
 using myservicelocation::Microsoft.Practices.ServiceLocation;
@@ -22,6 +23,12 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 			Header = "FluiTech:Vision";
 			Actions = new ObservableCollection<ITrayItem>(new ITrayItem[]
 			{
+				new TraySeparator(),
+				new TrayActionViewModel(
+					Tray.ConfigurationLabel,
+					uriImageSource: "/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/config.png",
+					action: ShowConfig
+					),
 				new TraySeparator(),
 				new WebserverTrayActionViewModel(
 					Tray.ServerStartLabel,
@@ -51,14 +58,22 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 		/// <value>	The actions. </value>
 		public ObservableCollection<ITrayItem> Actions { get; set; }
 
+		/// <summary>	Starts a server. </summary>
 		private void StartServer()
 		{
 			_webServerManager.Start();
 		}
 
+		/// <summary>	Stops a server. </summary>
 		private void StopServer()
 		{
 			_webServerManager.Stop();
+		}
+
+		/// <summary>	Shows the configuration. </summary>
+		private void ShowConfig()
+		{
+			ServiceLocator.Current.GetInstance<IViewService>().Show(typeof(SetupView));
 		}
 	}
 }

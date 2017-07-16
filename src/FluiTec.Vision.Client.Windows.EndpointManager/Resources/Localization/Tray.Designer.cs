@@ -61,6 +61,15 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization {
         }
         
         /// <summary>
+        ///   Sucht eine lokalisierte Zeichenfolge, die Konfigurieren ähnelt.
+        /// </summary>
+        internal static string ConfigurationLabel {
+            get {
+                return ResourceManager.GetString("ConfigurationLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Sucht eine lokalisierte Zeichenfolge, die Beenden ähnelt.
         /// </summary>
         internal static string QuitLabel {

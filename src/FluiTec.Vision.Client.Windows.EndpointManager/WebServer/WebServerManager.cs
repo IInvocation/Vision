@@ -47,14 +47,14 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 			{
 				StartInfo = new ProcessStartInfo(fileName: "dotnet")
 				{
-					Arguments = "FluiTec.Vision.Client.AspNetCoreEndpoint.dll",
+					Arguments = Properties.Settings.Default.ServerExecutable,
 					UseShellExecute = false,
-					WorkingDirectory = "AspNetCoreEndpoint\\"
+					WorkingDirectory = Properties.Settings.Default.ServerDir
 				}
 			};
-#if DEBUG
-			_process.StartInfo.EnvironmentVariables[key: "ASPNETCORE_ENVIRONMENT"] = "Development";
-#endif
+			_process.StartInfo.EnvironmentVariables[key: "ASPNETCORE_ENVIRONMENT"] =
+				Properties.Settings.Default.AspNetCoreEnvironment;
+
 			_process.Exited += (sender, args) =>
 			{
 				RaiseStop();

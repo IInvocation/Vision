@@ -106,6 +106,8 @@
     <Compile Include="ViewModels\ITrayItem.cs" />
     <Compile Include="ViewModels\TraySeparator.cs" />
     <Compile Include="ViewModels\WebserverTrayActionViewModel.cs" />
+    <Compile Include="Views\IViewService.cs" />
+    <Compile Include="Views\ViewService.cs" />
     <Compile Include="WebServer\WebServerManager.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -298,6 +300,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="AspNetCoreEndpoint\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\config.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

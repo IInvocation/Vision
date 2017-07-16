@@ -18,9 +18,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 		{
 			_icon = (TaskbarIcon) FindResource(resourceKey: "VisionNotifyIcon");
 
-			var view = new SetupView();
-			view.Show();
-
 			// check for valid configuration
 			// available: start webserver and keep it running
 			// not available: run configuration-ui

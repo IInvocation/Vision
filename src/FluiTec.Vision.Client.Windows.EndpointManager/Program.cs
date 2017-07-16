@@ -2,6 +2,7 @@
 using System;
 using FluiTec.AppFx.InversionOfControl;
 using FluiTec.AppFx.InversionOfControl.SimpleIoC;
+using FluiTec.Vision.Client.Windows.EndpointManager.Views;
 using FluiTec.Vision.Client.Windows.EndpointManager.WebServer;
 using myservicelocation::Microsoft.Practices.ServiceLocation;
 
@@ -21,6 +22,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 			locatorManager.SetLocatorProvider();
 			locatorManager.Register<IServiceLocatorManager>(locatorManager);
 			locatorManager.Register<IWebServerManager, WebServerManager>();
+			locatorManager.Register<IViewService, ViewService>();
 			
 			app.Exit += (sender, args) => { StopServer(); };
 			app.Run();
