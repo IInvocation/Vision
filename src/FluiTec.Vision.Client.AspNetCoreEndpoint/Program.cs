@@ -24,7 +24,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 			        .UseWebListener(options =>
 			        {
 				        options.ListenerSettings.Authentication.Schemes = AuthenticationSchemes.None;
-				        options.ListenerSettings.Authentication.AllowAnonymous = true
+				        options.ListenerSettings.Authentication.AllowAnonymous = true;
 			        })
 			        .UseUrls(config.GetValue<string>(key: "ASPNETCORE_URLS"));
 
