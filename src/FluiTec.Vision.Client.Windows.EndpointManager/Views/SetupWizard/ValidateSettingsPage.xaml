@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="FluiTec.Vision.Client.Windows.EndpointManager.Views.SetupWizard.ValidateSettingsPage"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:setupWizard="clr-namespace:FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard"
+             xmlns:res="clr-namespace:FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Setup.Wizard"
+             mc:Ignorable="d" 
+             d:DesignHeight="300" d:DesignWidth="300"
+             d:DataContext="{d:DesignInstance setupWizard:ValidateSettingsViewModel }">
+    <Grid>
+        <Grid.RowDefinitions>
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+			<RowDefinition Height="Auto" />
+		</Grid.RowDefinitions>
+	    <StackPanel Grid.Row="0" Orientation="Vertical">
+		    <Label Content="{Binding Title}" FontWeight="Bold" FontSize="18"/>
+		    <TextBlock Text="{Binding Description}" Margin="5,0,0,0" TextWrapping="WrapWithOverflow" FontSize="14" />
+	    </StackPanel>
+		<!--Actions-->
+		<StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,10,0,0">
+			<Label Content="{x:Static res:ValidateSettings.TasksLabel}"></Label>
+			<ItemsControl ItemsSource="{Binding Actions}">
+				<ItemsControl.ItemTemplate>
+					<DataTemplate>
+						<StackPanel Orientation="Horizontal">
+							<Image Width="32" Height="32" Source="/Resources/Images/task.png" />
+							<Label Content="{Binding DisplayName}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+							<Image Source="{Binding StatusImage}" />
+						</StackPanel>
+					</DataTemplate>
+				</ItemsControl.ItemTemplate>
+			</ItemsControl>
+		</StackPanel>
+		<Button Grid.Row="2" Margin="0,10,0,0" Content="{x:Static res:ValidateSettings.ExecuteLabel}" Command="{Binding ExecuteValidationCommand}" />
+    </Grid>
+</UserControl>

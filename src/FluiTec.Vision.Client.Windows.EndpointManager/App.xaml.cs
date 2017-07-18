@@ -1,6 +1,10 @@
-﻿using System.Windows;
+﻿extern alias myservicelocation;
+using System.Windows;
+using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels;
 using FluiTec.Vision.Client.Windows.EndpointManager.Views;
+using FluiTec.Vision.Client.Windows.EndpointManager.WebServer;
 using Hardcodet.Wpf.TaskbarNotification;
+using myservicelocation::Microsoft.Practices.ServiceLocation;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager
 {
@@ -16,6 +20,9 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 		/// <summary>	The icon. </summary>
 		private TaskbarIcon _icon;
 
+		/// <summary>	The view model locator. </summary>
+		private ViewModelLocator _vmLocator;
+
 		/// <summary>	Raises the startup event. </summary>
 		/// <param name="e">	Event information to send to registered event handlers. </param>
 		protected override void OnStartup(StartupEventArgs e)
@@ -23,10 +30,9 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 			if (!DoShowExit)
 			{ 
 				_icon = (TaskbarIcon) FindResource(resourceKey: "VisionNotifyIcon");
+				_vmLocator = (ViewModelLocator) FindResource(resourceKey: "Locator");
 
-				// check for valid configuration
-				// available: start webserver and keep it running
-				// not available: run configuration-ui
+				RunInternal();
 			}
 			else
 			{
@@ -34,6 +40,26 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 				view.Closed += (sender, args) => { Shutdown(); };
 				view.Show();
 			} 
+		}
+
+		/// <summary>	Executes the internal operation. </summary>
+		private void RunInternal()
+		{
+			if (_vmLocator.Setup.CurrentServerSettings.Validated)
+			{
+				var serverManager = ServiceLocator.Current.GetInstance<IWebServerManager>();
+				if (!serverManager.IsRunning)
+					serverManager.Start();
+				else
+				{
+					serverManager.Restart();
+				}
+			}
+			else
+			{
+				var viewService = ServiceLocator.Current.GetInstance<IViewService>();
+				viewService.Show(typeof(SetupView));
+			}
 		}
 
 		/// <summary>	Raises the exit event. </summary>

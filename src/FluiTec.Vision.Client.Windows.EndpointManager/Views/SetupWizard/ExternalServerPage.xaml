@@ -13,23 +13,27 @@
 		<Grid.Resources>
 			<BooleanToVisibilityConverter x:Key="BoolToVis" />
 		</Grid.Resources>
-		<StackPanel  Orientation="Vertical">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"/>
+			<RowDefinition Height="Auto"/>
+		</Grid.RowDefinitions>
+		<StackPanel Grid.Row="0" Orientation="Vertical">
+			<Label Content="{Binding Title}" FontWeight="Bold" FontSize="18"/>
+			<TextBlock Text="{Binding Description}" Margin="5,0,0,0" TextWrapping="WrapWithOverflow" FontSize="14" />
+		</StackPanel>
+		<StackPanel Grid.Row="1" Orientation="Vertical" Margin="0,10,0,0">
 			<StackPanel Orientation="Horizontal" Margin="0,0,0,10">
 				<Label Content="{x:Static res:ExternalServer.ServerModeLabel}" Width="120" />
 				<ComboBox ItemsSource="{Binding ServerModes}" SelectedItem="{Binding SelectedServerMode, Mode=TwoWay}" MinWidth="135"/>
 			</StackPanel>
-			<StackPanel Visibility="{Binding UpnpContentVisible, Converter={StaticResource BoolToVis}, FallbackValue=False}" Orientation="Vertical" Margin="0,0,0,10">
-				<StackPanel Orientation="Horizontal">
-					<Label Content="{x:Static res:ExternalServer.ActivateUpnpLabel}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" />
-					<Button Margin="5,0,0,0"><Image Source="/Resources/Images/play.png" /></Button>
-					<Button Margin="5,0,0,0"><Image Source="/Resources/Images/pause.png" /></Button>
-				</StackPanel>
-				<StackPanel Orientation="Horizontal" Margin="0,0,0,10">
-					<Label Content="{x:Static res:ExternalServer.UpnpStatusLabel}" HorizontalAlignment="Center" VerticalAlignment="Center" Width="120" />
-					<Image Source="{Binding UpnpStatusImage}" Visibility="Hidden"/>
-					<Label Content="{Binding UpnpStatusText}" HorizontalAlignment="Center" VerticalAlignment="Center" />
-				</StackPanel>
-			</StackPanel>
+			<Grid Visibility="{Binding UpnpContentVisible, Converter={StaticResource BoolToVis}, FallbackValue=True}" Margin="0,0,0,10">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"/>
+					<RowDefinition Height="Auto" />
+				</Grid.RowDefinitions>
+				<Label Grid.Row="0"  Content="{x:Static res:ExternalServer.UseUpnpLabel}" HorizontalAlignment="Left" />
+				<TextBlock Grid.Row="1" Text="{x:Static res:ExternalServer.UseUpnpExplanation}" Width="300" HorizontalAlignment="Left" TextWrapping="WrapWithOverflow" Margin="5,0,0,0"/>
+			</Grid>
 			<Grid Visibility="{Binding ManualContentVisible, Converter={StaticResource BoolToVis}, FallbackValue=True}" Margin="0,0,0,10">
 				<StackPanel Orientation="Horizontal">
 					<Label Content="{x:Static res:ExternalServer.ManualHostNameLabel}" Width="120" />

@@ -118,27 +118,21 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="Description" xml:space="preserve">
-    <value>Definiert unter welcher Adresse der Server im Internet zu erreichen ist.</value>
+    <value>Führt verschiedene Aufgaben zur Validierung der (neuen) Einstellungen aus.</value>
   </data>
-  <data name="Header" xml:space="preserve">
-    <value>Externer Server</value>
+  <data name="ExecuteLabel" xml:space="preserve">
+    <value>Aufgaben ausführen</value>
   </data>
-  <data name="ManualHostNameLabel" xml:space="preserve">
-    <value>URL:</value>
+  <data name="StopServerErrorMessage" xml:space="preserve">
+    <value>Der Server konnte nicht gestoppt werden.</value>
   </data>
-  <data name="ModeLabelManual" xml:space="preserve">
-    <value>Manuell</value>
+  <data name="StopServerLabel" xml:space="preserve">
+    <value>Server stoppen</value>
   </data>
-  <data name="ModeLabelUpnp" xml:space="preserve">
-    <value>Automatisch</value>
+  <data name="TasksLabel" xml:space="preserve">
+    <value>Aufgaben:</value>
   </data>
-  <data name="ServerModeLabel" xml:space="preserve">
-    <value>Betriebsmodus:</value>
-  </data>
-  <data name="UseUpnpExplanation" xml:space="preserve">
-    <value>Beim Betrieb über UPNP wird versucht auf Ihrem Router einen Port freizuschalten, welcher automatisch auf Ihren PCweitergeleitet wird. Hiernach wird der Server zyklisch Ihre aktuelle IP-Adresse an den Server melden.</value>
-  </data>
-  <data name="UseUpnpLabel" xml:space="preserve">
-    <value>UPNP benutzen</value>
+  <data name="Title" xml:space="preserve">
+    <value>Einstellungen überprüfen</value>
   </data>
 </root>

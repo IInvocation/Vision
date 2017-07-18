@@ -22,14 +22,14 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.V
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class ExternalServer {
+    public class ValidateSettings {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal ExternalServer() {
+        internal ValidateSettings() {
         }
         
         /// <summary>
@@ -40,7 +40,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.V
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Setup." +
-                            "Wizard.ExternalServer", typeof(ExternalServer).Assembly);
+                            "Wizard.ValidateSettings", typeof(ValidateSettings).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -62,7 +62,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.V
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Definiert unter welcher Adresse der Server im Internet zu erreichen ist..
+        ///   Looks up a localized string similar to Führt verschiedene Aufgaben zur Validierung der (neuen) Einstellungen aus..
         /// </summary>
         public static string Description {
             get {
@@ -71,65 +71,47 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.V
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Externer Server.
+        ///   Looks up a localized string similar to Aufgaben ausführen.
         /// </summary>
-        public static string Header {
+        public static string ExecuteLabel {
             get {
-                return ResourceManager.GetString("Header", resourceCulture);
+                return ResourceManager.GetString("ExecuteLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to URL:.
+        ///   Looks up a localized string similar to Der Server konnte nicht gestoppt werden..
         /// </summary>
-        public static string ManualHostNameLabel {
+        public static string StopServerErrorMessage {
             get {
-                return ResourceManager.GetString("ManualHostNameLabel", resourceCulture);
+                return ResourceManager.GetString("StopServerErrorMessage", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Manuell.
+        ///   Looks up a localized string similar to Server stoppen.
         /// </summary>
-        public static string ModeLabelManual {
+        public static string StopServerLabel {
             get {
-                return ResourceManager.GetString("ModeLabelManual", resourceCulture);
+                return ResourceManager.GetString("StopServerLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Automatisch.
+        ///   Looks up a localized string similar to Aufgaben:.
         /// </summary>
-        public static string ModeLabelUpnp {
+        public static string TasksLabel {
             get {
-                return ResourceManager.GetString("ModeLabelUpnp", resourceCulture);
+                return ResourceManager.GetString("TasksLabel", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Betriebsmodus:.
+        ///   Looks up a localized string similar to Einstellungen überprüfen.
         /// </summary>
-        public static string ServerModeLabel {
+        public static string Title {
             get {
-                return ResourceManager.GetString("ServerModeLabel", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to Beim Betrieb über UPNP wird versucht auf Ihrem Router einen Port freizuschalten, welcher automatisch auf Ihren PCweitergeleitet wird. Hiernach wird der Server zyklisch Ihre aktuelle IP-Adresse an den Server melden..
-        /// </summary>
-        public static string UseUpnpExplanation {
-            get {
-                return ResourceManager.GetString("UseUpnpExplanation", resourceCulture);
-            }
-        }
-        
-        /// <summary>
-        ///   Looks up a localized string similar to UPNP benutzen.
-        /// </summary>
-        public static string UseUpnpLabel {
-            get {
-                return ResourceManager.GetString("UseUpnpLabel", resourceCulture);
+                return ResourceManager.GetString("Title", resourceCulture);
             }
         }
     }

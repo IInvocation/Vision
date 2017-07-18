@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Windows.Media;
 using GalaSoft.MvvmLight;
 using Xceed.Wpf.Toolkit;
 
@@ -127,7 +128,10 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard
 				Title = model.Title,
 				Description = model.Description,
 				Content = model.Content,
-				DataContext = model
+				DataContext = model,
+				PageType = WizardPageType.Blank,
+				Background = new SolidColorBrush(Colors.White),
+				Foreground = new SolidColorBrush(Colors.Black)
 			};
 
 			_wizardDictionary.Add(page, model);

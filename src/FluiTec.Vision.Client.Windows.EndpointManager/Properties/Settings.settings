@@ -11,5 +11,11 @@
     <Setting Name="ServerExecutable" Type="System.String" Scope="Application">
       <Value Profile="(Default)">FluiTec.Vision.Client.AspNetCoreEndpoint.dll</Value>
     </Setting>
+    <Setting Name="ApplicationDir" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">Vision\Endpoint\</Value>
+    </Setting>
+    <Setting Name="ServerConfigFileName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">appsettings.Server.json</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

@@ -13,9 +13,9 @@
 		Width="600" 
 		DataContext="{Binding Setup, Source={StaticResource Locator}}"
 		BorderThickness="0" 
-		GlowBrush="Black">
+		GlowBrush="Red">
 	<Grid>
-		<xctk:Wizard FinishButtonClosesWindow="True" 
+		<xctk:Wizard Name="wiz" FinishButtonClosesWindow="False" 
 					 HelpButtonVisibility="Hidden" 
 					 CancelButtonContent="{x:Static res:Wizard.CancelButtonLabel}" 
 					 BackButtonContent="{x:Static res:Wizard.BackButtonLabel}" 
@@ -25,6 +25,7 @@
 					 CurrentPage="{Binding Wizard.CurrentXPage, Mode=TwoWay}" 
 					 CanSelectNextPage="{Binding Wizard.CanSelectNextPage}" 
 					 CanFinish="{Binding Wizard.CanFinish}"
+					 Foreground="White"
 					 >
 			<i:Interaction.Triggers>
 				<i:EventTrigger EventName="Finish">

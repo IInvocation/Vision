@@ -1,4 +1,6 @@
-﻿namespace FluiTec.Vision.Client.Windows.EndpointManager.Views
+﻿using System.Windows.Media;
+
+namespace FluiTec.Vision.Client.Windows.EndpointManager.Views
 {
 	/// <summary>
 	/// Interaction logic for SetupView.xaml

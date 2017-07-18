@@ -109,22 +109,22 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard
 		}
 
 		/// <summary>	True to make back visible, false for invisible. </summary>
-		public bool BackVisible => Previous != null;
+		public virtual bool BackVisible => Previous != null;
 
 		/// <summary>	True to make back enabled, false for disabled. </summary>
-		public bool BackEnabled => Previous != null;
+		public virtual bool BackEnabled => Previous != null;
 
 		/// <summary>	True to make next visible, false for invisible. </summary>
-		public bool NextVisible => Next != null;
+		public virtual bool NextVisible => Next != null;
 
 		/// <summary>	True to enable, false to disable the next. </summary>
-		public bool NextEnabled => IsValid;
+		public virtual bool NextEnabled => IsValid;
 
 		/// <summary>	True to make finish visible, false for invisible. </summary>
-		public bool FinishVisible => Next == null;
+		public virtual bool FinishVisible => Next == null;
 
 		/// <summary>	True to enable, false to disable the finish. </summary>
-		public bool FinishEnabled => IsValid && Next == null;
+		public virtual bool FinishEnabled => IsValid && Next == null;
 
 		#endregion
 	}
