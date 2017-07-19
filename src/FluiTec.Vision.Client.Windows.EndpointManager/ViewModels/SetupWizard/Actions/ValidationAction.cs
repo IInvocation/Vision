@@ -28,20 +28,20 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.A
 
 		/// <summary>	Gets the action to execute. </summary>
 		/// <value>	The action to execute. </value>
-		public Func<ServerSettings, ValidationResult> ActionToExecute { get; set; }
+		public Func<ValidationResult> ActionToExecute { get; set; }
 
 		/// <summary>	Gets or sets a message describing the error. </summary>
 		/// <value>	A message describing the error. </value>
 		public string ErrorMessage { get; set; }
 
 		/// <summary>	Runs the given settings. </summary>
-		/// <param name="settings">	Options for controlling the operation. </param>
-		public void Run(ServerSettings settings)
+		public ValidationResult Run()
 		{
 			Status = ActionStatus.Executing;
-			var result = ActionToExecute.Invoke(settings);
+			var result = ActionToExecute.Invoke();
 			Status = result.Success ? ActionStatus.Successed : ActionStatus.Failed;
 			ErrorMessage = result.ErrorMessage;
+			return result;
 		}
 	}
 }

@@ -1,9 +1,12 @@
-﻿using System;
+﻿extern alias myservicelocation;
+using System;
 using System.Linq;
 using System.Net.NetworkInformation;
 using FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Setup.Wizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.Views.SetupWizard;
+using FluiTec.Vision.Client.Windows.EndpointManager.WebServer;
+using myservicelocation::Microsoft.Practices.ServiceLocation;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 {
@@ -25,7 +28,9 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			Description = InternalServer.Description;
 			Content = new InternalServerPage();
 
-			LocalPort = GetFreePortInRange(MIN_PORT, MAX_PORT);
+			var settings = ServiceLocator.Current.GetInstance<ISettingsManager>().CurrentSettings;
+
+			LocalPort = settings.Port > 0 ? settings.Port : GetFreePortInRange(MIN_PORT, MAX_PORT);
 		}
 
 		#endregion

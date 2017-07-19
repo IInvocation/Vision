@@ -1,7 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
-using FluiTec.Vision.Client.Windows.EndpointManager.WebServer;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.Actions
 {
@@ -21,12 +20,11 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.A
 		BitmapImage StatusImage { get; }
 
 		/// <summary>	Action to execute. </summary>
-		/// <returns>	A Func&lt;ServerSettings,ValidationResult&gt; </returns>
-		Func<ServerSettings, ValidationResult> ActionToExecute { get; }
+		/// <value>	The action to execute. </value>
+		Func<ValidationResult> ActionToExecute { get; }
 
 		/// <summary>	Runs this object. </summary>
-		/// <param name="settings">	Options for controlling the operation. </param>
-		void Run(ServerSettings settings);
+		ValidationResult Run();
 
 		/// <summary>	Gets or sets a message describing the error. </summary>
 		/// <value>	A message describing the error. </value>

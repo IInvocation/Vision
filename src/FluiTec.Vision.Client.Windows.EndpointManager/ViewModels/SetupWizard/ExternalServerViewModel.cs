@@ -1,9 +1,12 @@
-﻿using System;
+﻿extern alias myservicelocation;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
 using FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Setup.Wizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.Views.SetupWizard;
+using FluiTec.Vision.Client.Windows.EndpointManager.WebServer;
+using myservicelocation::Microsoft.Practices.ServiceLocation;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 {
@@ -32,12 +35,16 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			Description = ExternalServer.Description;
 			Content = new ExternalServerPage();
 
+			var settings = ServiceLocator.Current.GetInstance<ISettingsManager>().CurrentSettings;
+
 			ServerModes = new ObservableCollection<string>(new []
 			{
 				ExternalServer.ModeLabelUpnp,
 				ExternalServer.ModeLabelManual
 			});
-			SelectedServerMode = ServerModes[index: 0];
+			SelectedServerMode = ServerModes[settings.UseUpnp ? 0 : 1];
+			ManualHostName = settings.ExternalHostname;
+
 		}
 
 		#endregion
