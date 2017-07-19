@@ -12,19 +12,52 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 	/// <summary>	A program. </summary>
 	internal class Program
 	{
+		#region Fields
+
 		/// <summary>	The event. </summary>
-		static EventWaitHandle _sEvent;
+		private static EventWaitHandle _eventWaitHandle;
+
+		#endregion
 
 		/// <summary>	Main entry-point for this application. </summary>
 		[STAThread]
-		private static void Main()
+		private static void Main(params string[] args)
 		{
-			// prevent multiple instances with eventwaithandle
-			_sEvent = new EventWaitHandle(initialState: false, mode: EventResetMode.ManualReset, name: "vision_endpoint#startup", createdNew: out bool created);
-			if (created) Launch();
-			else Exit();
+			if (args == null || args.Length < 1)
+			{
+				if (IsFirstInstance())
+					Launch();
+				else
+					Exit();
+			}
+			else
+			{
+				LaunchCliMode(args);
+			}
 		}
 
+		#region Helpers
+
+		/// <summary>	Query if this object is first instance. </summary>
+		/// <returns>	True if first instance, false if not. </returns>
+		/// <remarks>
+		/// Uses an EventWaitHandle created by windows to determine other instances of this application.		 
+		/// </remarks>
+		private static bool IsFirstInstance()
+		{
+			_eventWaitHandle = new EventWaitHandle(initialState: false, mode: EventResetMode.ManualReset,
+				name: "vision_endpoint#startup", createdNew: out bool created);
+			return created;
+		}
+
+		#endregion
+
+		#region LaunchModes
+
+		/// <summary>	Launches the application. </summary>
+		/// <remarks>
+		/// Registers some Services via IoC, automatically shut's down the webserver when exiting		 
+		/// </remarks>
 		private static void Launch()
 		{
 			var app = new App();
@@ -35,11 +68,16 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 			locatorManager.Register<IServiceLocatorManager>(locatorManager);
 			locatorManager.Register<IWebServerManager, WebServerManager>();
 			locatorManager.Register<IViewService, ViewService>();
+			locatorManager.Register<ISettingsManager, SettingsManager>();
 
-			app.Exit += (sender, args) => { StopServer(); };
+			app.Exit += (sender, args) => { ServiceLocator.Current.GetInstance<IWebServerManager>().Stop(); };
 			app.Run();
 		}
 
+		/// <summary>	Exits the application. </summary>
+		/// <remarks>
+		/// Shows a message before exiting the application.		 
+		/// </remarks>
 		private static void Exit()
 		{
 			var app = new App();
@@ -54,10 +92,13 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 			app.Run();
 		}
 
-		/// <summary>	Stops a server. </summary>
-		private static void StopServer()
+		/// <summary>	Launch CLI mode. </summary>
+		/// <param name="args">	A variable-length parameters list containing arguments. </param>
+		private static void LaunchCliMode(params string[] args)
 		{
-			ServiceLocator.Current.GetInstance<IWebServerManager>().Stop();
+			
 		}
+
+		#endregion
 	}
 }

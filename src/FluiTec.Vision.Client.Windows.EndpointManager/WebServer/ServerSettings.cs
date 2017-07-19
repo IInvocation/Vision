@@ -1,8 +1,15 @@
-﻿namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
+﻿using Newtonsoft.Json;
+
+namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 {
 	/// <summary>	A server settings. </summary>
 	public class ServerSettings
 	{
+		/// <summary>	Gets or sets the name of the HTTP. </summary>
+		/// <value>	The name of the HTTP. </value>
+		[JsonProperty(propertyName: "ASPNETCORE_URLS")]
+		public string HttpName { get; set; }
+
 		/// <summary>	Gets or sets the port. </summary>
 		/// <value>	The port. </value>
 		public int Port { get; set; }

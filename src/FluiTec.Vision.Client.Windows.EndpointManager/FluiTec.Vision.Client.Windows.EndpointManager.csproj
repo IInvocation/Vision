@@ -149,7 +149,9 @@
       <DependentUpon>ValidateSettingsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViewService.cs" />
+    <Compile Include="WebServer\ISettingsManager.cs" />
     <Compile Include="WebServer\ServerSettings.cs" />
+    <Compile Include="WebServer\SettingsManager.cs" />
     <Compile Include="WebServer\WebServerManager.cs" />
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -290,6 +292,7 @@
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>InternalServer.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Localization\Views\Setup\Wizard\ValidateSettings.de-DE.resx" />
     <EmbeddedResource Include="Resources\Localization\Views\Setup\Wizard\ValidateSettings.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>ValidateSettings.Designer.cs</LastGenOutput>

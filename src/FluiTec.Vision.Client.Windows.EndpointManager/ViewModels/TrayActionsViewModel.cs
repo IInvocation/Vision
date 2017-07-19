@@ -19,6 +19,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 		public TrayActionsViewModel()
 		{
 			_webServerManager = ServiceLocator.Current.GetInstance<IWebServerManager>();
+			var settingsManager = ServiceLocator.Current.GetInstance<ISettingsManager>();
 
 			Header = "FluiTech:Vision";
 			Actions = new ObservableCollection<ITrayItem>(new ITrayItem[]
@@ -34,7 +35,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 					Tray.ServerStartLabel,
 					uriImageSource:@"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/play.png",
 					action: StartServer,
-					enabledFunction: manager => !manager.IsRunning
+					enabledFunction: manager => !manager.IsRunning && settingsManager.CurrentSettings.Validated
 				), 
 				new WebserverTrayActionViewModel(
 					Tray.ServerStopLabel,
@@ -71,7 +72,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 		}
 
 		/// <summary>	Shows the configuration. </summary>
-		private void ShowConfig()
+		private static void ShowConfig()
 		{
 			ServiceLocator.Current.GetInstance<IViewService>().Show(typeof(SetupView));
 		}

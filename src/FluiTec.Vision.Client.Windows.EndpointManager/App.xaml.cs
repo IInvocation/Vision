@@ -1,6 +1,5 @@
 ﻿extern alias myservicelocation;
 using System.Windows;
-using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels;
 using FluiTec.Vision.Client.Windows.EndpointManager.Views;
 using FluiTec.Vision.Client.Windows.EndpointManager.WebServer;
 using Hardcodet.Wpf.TaskbarNotification;
@@ -20,9 +19,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 		/// <summary>	The icon. </summary>
 		private TaskbarIcon _icon;
 
-		/// <summary>	The view model locator. </summary>
-		private ViewModelLocator _vmLocator;
-
 		/// <summary>	Raises the startup event. </summary>
 		/// <param name="e">	Event information to send to registered event handlers. </param>
 		protected override void OnStartup(StartupEventArgs e)
@@ -30,7 +26,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 			if (!DoShowExit)
 			{ 
 				_icon = (TaskbarIcon) FindResource(resourceKey: "VisionNotifyIcon");
-				_vmLocator = (ViewModelLocator) FindResource(resourceKey: "Locator");
 
 				RunInternal();
 			}
@@ -43,9 +38,9 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 		}
 
 		/// <summary>	Executes the internal operation. </summary>
-		private void RunInternal()
+		private static void RunInternal()
 		{
-			if (_vmLocator.Setup.CurrentServerSettings.Validated)
+			if (ServiceLocator.Current.GetInstance<ISettingsManager>().CurrentSettings.Validated)
 			{
 				var serverManager = ServiceLocator.Current.GetInstance<IWebServerManager>();
 				if (!serverManager.IsRunning)

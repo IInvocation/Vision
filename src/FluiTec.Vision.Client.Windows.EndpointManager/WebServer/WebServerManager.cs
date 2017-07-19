@@ -1,5 +1,7 @@
-﻿using System;
+﻿extern alias myservicelocation;
+using System;
 using System.Diagnostics;
+using myservicelocation::Microsoft.Practices.ServiceLocation;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 {
@@ -18,7 +20,21 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 
 		#region Fields
 
+		/// <summary>	The process. </summary>
 		private Process _process;
+
+		/// <summary>	The manager. </summary>
+		private readonly ISettingsManager _manager;
+
+		#endregion
+
+		#region Constructors
+
+		/// <summary>	Default constructor. </summary>
+		public WebServerManager()
+		{
+			_manager = ServiceLocator.Current.GetInstance<ISettingsManager>();
+		}
 
 		#endregion
 
@@ -42,6 +58,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 		public void Start()
 		{
 			if (IsRunning) return;
+			if (!_manager.CurrentSettings.Validated) return;
 
 			_process = new Process
 			{
