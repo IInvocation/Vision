@@ -123,6 +123,12 @@
   <data name="ExecuteLabel" xml:space="preserve">
     <value>Aufgaben ausführen</value>
   </data>
+  <data name="StartServerErrorMessage" xml:space="preserve">
+    <value>Der Server konnte nicht gestartet werden.</value>
+  </data>
+  <data name="StartServerLabel" xml:space="preserve">
+    <value>Server starten</value>
+  </data>
   <data name="StopServerErrorMessage" xml:space="preserve">
     <value>Der Server konnte nicht gestoppt werden.</value>
   </data>

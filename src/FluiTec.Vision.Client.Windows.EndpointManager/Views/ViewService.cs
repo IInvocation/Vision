@@ -24,6 +24,10 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Views
 				_windowDictionary.Add(windowType, window);
 			}
 			var windowToShow = _windowDictionary[windowType];
+
+			if (windowType == typeof(SetupView))
+				Application.Current.MainWindow = windowToShow;
+
 			windowToShow.Show();
 		}
 	}

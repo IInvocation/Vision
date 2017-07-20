@@ -1,6 +1,7 @@
 ﻿extern alias myservicelocation;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Windows;
 using System.Windows.Input;
 using FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Setup.Wizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.Actions;
@@ -82,16 +83,29 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 
 			var webServerManager = ServiceLocator.Current.GetInstance<IWebServerManager>();
 			Actions.Add(GetStopServerAction(webServerManager));
-			if (oldSettings.Port > 0)
+			if (oldSettings.Port > 0 && oldSettings.Port != newSettings.Port)
 				Actions.Add(GetRemoveHttpRegistration(oldSettings));
 			if (oldSettings.UpnpPort > 0)
 				Actions.Add(GetRemoveUpnpRegistration(oldSettings));
-			Actions.Add(AddHttpRegistration(newSettings));
+			if (oldSettings.Port != newSettings.Port)
+				Actions.Add(AddHttpRegistration(newSettings));
 			if (newSettings.UseUpnp)
 				Actions.Add(AddUpnpRegistration(newSettings));
 			Actions.Add(GetCheckConnectivity());
-			Actions.Add(GetStartServer());
+			Actions.Add(GetStartServer(webServerManager));
 		}
+
+		/// <summary>	Executes the validation actions operation. </summary>
+		private void RunValidationActions()
+		{
+			var endResult = Actions.Select(action => action.Run()).Any(result => !result.Success);
+			if (endResult == false)
+				Application.Current.MainWindow.Close();
+		}
+
+		#endregion
+
+		#region Actions
 
 		/// <summary>	Gets stop server action. </summary>
 		/// <param name="webServerManager">	Manager for web server. </param>
@@ -101,7 +115,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			return new ValidationAction
 			{
 				DisplayName = ValidateSettings.StopServerLabel,
-				ActionToExecute = settings =>
+				ActionToExecute = () =>
 				{
 					webServerManager.Stop();
 					return webServerManager.IsRunning ?
@@ -119,7 +133,12 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		/// <returns>	The remove HTTP registration. </returns>
 		private IValidationAction GetRemoveHttpRegistration(ServerSettings oldSettings)
 		{
-			throw new System.NotImplementedException();
+			return new ValidationAction
+			{
+				DisplayName = "Test",
+				ErrorMessage = "Bla",
+				ActionToExecute = () => new ValidationResult { Success = true }
+			};
 		}
 
 		/// <summary>	Gets remove upnp registration. </summary>
@@ -127,7 +146,12 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		/// <returns>	The remove upnp registration. </returns>
 		private IValidationAction GetRemoveUpnpRegistration(ServerSettings oldSettings)
 		{
-			throw new System.NotImplementedException();
+			return new ValidationAction
+			{
+				DisplayName = "Test",
+				ErrorMessage = "Bla",
+				ActionToExecute = () => new ValidationResult { Success = true }
+			};
 		}
 
 		/// <summary>	Adds a HTTP registration. </summary>
@@ -135,7 +159,12 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		/// <returns>	An IValidationAction. </returns>
 		private IValidationAction AddHttpRegistration(ServerSettings newSettings)
 		{
-			throw new System.NotImplementedException();
+			return new ValidationAction
+			{
+				DisplayName = "Test",
+				ErrorMessage = "Bla",
+				ActionToExecute = () => new ValidationResult { Success = true }
+			};
 		}
 
 		/// <summary>	Adds an upnp registration. </summary>
@@ -143,27 +172,45 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		/// <returns>	An IValidationAction. </returns>
 		private IValidationAction AddUpnpRegistration(ServerSettings newSettings)
 		{
-			throw new System.NotImplementedException();
+			return new ValidationAction
+			{
+				DisplayName = "Test",
+				ErrorMessage = "Bla",
+				ActionToExecute = () => new ValidationResult { Success = true }
+			};
 		}
 
 		/// <summary>	Check connectivity. </summary>
 		/// <returns>	An IValidationAction. </returns>
 		private IValidationAction GetCheckConnectivity()
 		{
-			throw new System.NotImplementedException();
+			return new ValidationAction
+			{
+				DisplayName = "Test",
+				ErrorMessage = "Bla",
+				ActionToExecute = () => new ValidationResult { Success = true }
+			};
 		}
 
 		/// <summary>	Gets start server. </summary>
+		/// <param name="webServerManager">	Manager for web server. </param>
 		/// <returns>	The start server. </returns>
-		private IValidationAction GetStartServer()
+		private static IValidationAction GetStartServer(IWebServerManager webServerManager)
 		{
-			throw new System.NotImplementedException();
-		}
-
-		/// <summary>	Executes the validation actions operation. </summary>
-		private void RunValidationActions()
-		{
-			var endResult = Actions.Select(action => action.Run()).Any(result => !result.Success);
+			return new ValidationAction
+			{
+				DisplayName = ValidateSettings.StartServerLabel,
+				ActionToExecute = () =>
+				{
+					webServerManager.Start();
+					return !webServerManager.IsRunning ?
+						new ValidationResult
+						{
+							Success = false,
+							ErrorMessage = ValidateSettings.StartServerErrorMessage
+						} : new ValidationResult { Success = true };
+				}
+			};
 		}
 
 		#endregion

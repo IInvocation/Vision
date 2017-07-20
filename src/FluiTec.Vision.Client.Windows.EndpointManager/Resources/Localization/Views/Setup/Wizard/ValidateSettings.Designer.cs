@@ -80,6 +80,24 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.V
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Der Server konnte nicht gestartet werden..
+        /// </summary>
+        public static string StartServerErrorMessage {
+            get {
+                return ResourceManager.GetString("StartServerErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Server starten.
+        /// </summary>
+        public static string StartServerLabel {
+            get {
+                return ResourceManager.GetString("StartServerLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Der Server konnte nicht gestoppt werden..
         /// </summary>
         public static string StopServerErrorMessage {

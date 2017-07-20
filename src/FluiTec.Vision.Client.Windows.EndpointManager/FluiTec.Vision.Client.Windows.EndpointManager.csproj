@@ -379,6 +379,12 @@
       <Install>false</Install>
     </BootstrapperPackage>
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\status_executing.png" />
+    <Resource Include="Resources\Images\status_failed.png" />
+    <Resource Include="Resources\Images\status_successed.png" />
+    <Resource Include="Resources\Images\status_waiting.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>
