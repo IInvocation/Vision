@@ -114,7 +114,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 			var cmdArgs = $"advfirewall firewall delete rule name=\"{ApplicationName}{RemoveFirewallExceptionPort}\" " +
 			              $"protocol=TCP localport={RemoveFirewallExceptionPort}";
 
-			var ok = new Process
+			new Process
 				{
 					StartInfo = new ProcessStartInfo(fileName: "netsh")
 					{
@@ -125,10 +125,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 				}
 				.RedirectOutputToConsole()
 				.RunAndWait();
-			if (!ok)
-			{
-				throw new Exception($"Could not delete firewall-exception for port {RemoveFirewallExceptionPort}");
-			}
+
+
 		}
 
 		/// <summary>	Executes the add firewall exception operation. </summary>
@@ -156,6 +154,10 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 			{
 				throw new Exception($"Could not add firewall-exception for port {AddFirewallExceptionPort}");
 			}
+
+			// save changed settings for auto-delete
+			RemoveFirewallException = true;
+			RemoveFirewallExceptionPort = AddFirewallExceptionPort;
 		}
 
 		/// <summary>	Executes the remove ssl certificate operation. </summary>
@@ -173,7 +175,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 
 			var cmdArgs = $"http delete sslcert ipport=0.0.0.0:{RemoveSslCertificatePort}";
 
-			var ok = new Process
+			new Process
 				{
 					StartInfo = new ProcessStartInfo(fileName: "netsh")
 					{
@@ -184,11 +186,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 				}
 				.RedirectOutputToConsole()
 				.RunAndWait();
-
-			if (!ok)
-			{
-				throw new Exception($"Could not remove ssl-certificate for port {AddSslCertificatePort}");
-			}
 		}
 
 		/// <summary>	Executes the add ssl certificate operation. </summary>
@@ -236,6 +233,10 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 			{
 				throw new Exception($"Could not add ssl-certificate for port {AddSslCertificatePort}");
 			}
+
+			// save changed settings for auto-delete
+			RemoveSslCertificate = true;
+			RemoveSslCertificatePort = AddSslCertificatePort;
 		}
 
 		/// <summary>	Executes the remove URL reservation operation. </summary>
@@ -247,7 +248,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 
 			var cmdArgs = $"http delete urlacl url={RemoveUrlReservationUri}";
 
-			var ok = new Process
+			new Process
 				{
 					StartInfo = new ProcessStartInfo(fileName: "netsh")
 					{
@@ -258,11 +259,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 				}
 				.RedirectOutputToConsole()
 				.RunAndWait();
-
-			if (!ok)
-			{
-				throw new Exception($"Could not remove url-reservation for uri {RemoveUrlReservationUri}");
-			}
 		}
 
 		/// <summary>	Executes the add URL reservation operation. </summary>
@@ -291,8 +287,12 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 
 			if (!ok)
 			{
-				throw new Exception($"Could not add url-reservation for uri {RemoveUrlReservationUri}");
+				throw new Exception($"Could not add url-reservation for url {AddUrlReservationUri}");
 			}
+
+			// save changed settings for auto-delete
+			RemoveUrlReservation = true;
+			RemoveUrlReservationUri = AddUrlReservationUri;
 		}
 
 		#endregion

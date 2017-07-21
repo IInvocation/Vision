@@ -1,7 +1,4 @@
 ﻿using System;
-using System.IO;
-using System.IO.Pipes;
-using System.Linq;
 using CommandLine;
 using FluiTec.AppFx.Cli;
 using FluiTec.Vision.Client.Windows.EndpointHelper.Helpers;

@@ -45,7 +45,23 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Options
 			var configuration = JsonConvert.DeserializeObject<HttpConfiguration>(fileContent);
 			if (configuration == null || !configuration.IsValid)
 				throw new InvalidOperationException(message: "Konfigurationsdatei ist ungültig!");
-			configuration.Run();
+
+			try
+			{
+				configuration.Run();
+				using (var sw = new StreamWriter(FilePath, append: false, encoding: System.Text.Encoding.Default))
+				{
+					sw.Write(JsonConvert.SerializeObject(configuration, Formatting.Indented));
+				}
+			}
+			catch (Exception) // catch errors and autosave
+			{
+				using (var sw = new StreamWriter(FilePath, append: false, encoding: System.Text.Encoding.Default))
+				{
+					sw.Write(JsonConvert.SerializeObject(configuration, Formatting.Indented));
+				}
+				throw;
+			}
 		}
 	}
 }

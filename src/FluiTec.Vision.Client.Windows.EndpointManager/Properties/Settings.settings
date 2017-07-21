@@ -20,5 +20,8 @@
     <Setting Name="ApplicationName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">FluiTec_Vision_Endpoint</Value>
     </Setting>
+    <Setting Name="SafeApplicationName" Type="System.String" Scope="User">
+      <Value Profile="(Default)">FluiTec.Vision.Endpoint</Value>
+    </Setting>
   </Settings>
 </SettingsFile>
