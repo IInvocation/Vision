@@ -120,6 +120,18 @@
   <data name="AddUpnpLabel" xml:space="preserve">
     <value>Upnp-Konfigfuration hinzufügen</value>
   </data>
+  <data name="CheckConnectivityLabel" xml:space="preserve">
+    <value>Konnektivität prüfen</value>
+  </data>
+  <data name="CheckConnectiviyErrorMessage" xml:space="preserve">
+    <value>Der Webserver ist nicht erreichbar.</value>
+  </data>
+  <data name="ConfigureHttpErrorMessage" xml:space="preserve">
+    <value>Der Webserver konnte nicht konfiguriert werden.</value>
+  </data>
+  <data name="ConfigureHttpLabel" xml:space="preserve">
+    <value>Webserver konfigurieren</value>
+  </data>
   <data name="Description" xml:space="preserve">
     <value>Führt verschiedene Aufgaben zur Validierung der (neuen) Einstellungen aus.</value>
   </data>

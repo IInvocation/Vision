@@ -57,6 +57,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.A
 			{
 				Set(ref _status, value);
 				StatusImage = FromStatus(_status);
+				RaisePropertyChanged(nameof(IsFailed));
 			}
 		}
 
@@ -83,6 +84,9 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.A
 			get => _errorMessage;
 			set => Set(ref _errorMessage, value);
 		}
+
+		/// <summary>	The status. </summary>
+		public bool IsFailed => Status == ActionStatus.Failed;
 
 		#endregion
 

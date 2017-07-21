@@ -334,6 +334,10 @@
       <Project>{cc391009-4e81-4fe1-a59f-cdc4aba8776e}</Project>
       <Name>FluiTec.AppFx.Upnp</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FluiTec.Vision.Client.Windows.EndpointHelper\FluiTec.Vision.Client.Windows.EndpointHelper.csproj">
+      <Project>{e07bbaf7-306c-4d49-9e77-d7209d04464b}</Project>
+      <Name>FluiTec.Vision.Client.Windows.EndpointHelper</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\SetupView.xaml">

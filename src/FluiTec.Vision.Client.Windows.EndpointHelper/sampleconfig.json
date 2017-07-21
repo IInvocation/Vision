@@ -1,0 +1,16 @@
+﻿{
+	"ApplicationName": "FluiTech_Vision_Endpoint",
+	"RemoveFirewallException": "true",
+	"RemoveFirewallExceptionPort": "1235",
+	"AddFirewallException": "true",
+	"AddFirewallExceptionPort": "1235",
+	"RemoveSslCertificate": "true",
+	"RemoveSslCertificatePort": "1235",
+	"AddSslCertificate": "true",
+	"AddSslCertificatePort": "1235",
+	"AddSslCertificateApplicationId": "9903ED01-A73C-4874-8ABF-D2678E3AE23D",
+	"RemoveUrlReservation": "true",
+	"RemoveUrlReservationUri": "https://+:1235/",
+	"AddUrlReservation": "true",
+	"AddUrlReservationUri": "https://+:1235/"
+}

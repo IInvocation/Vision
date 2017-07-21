@@ -1,6 +1,7 @@
 ﻿extern alias myservicelocation;
 using System;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -12,6 +13,7 @@ using FluiTec.Vision.Client.Windows.EndpointManager.Views.SetupWizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.WebServer;
 using GalaSoft.MvvmLight.CommandWpf;
 using FluiTec.AppFx.Upnp;
+using FluiTec.Vision.Client.Windows.EndpointHelper.Helpers;
 using myservicelocation::Microsoft.Practices.ServiceLocation;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
@@ -165,9 +167,29 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		{
 			return new ValidationAction
 			{
-				DisplayName = "Test",
-				ErrorMessage = "Bla",
-				ActionToExecute = () => Task.FromResult(new ValidationResult { Success = true })
+				DisplayName = ValidateSettings.ConfigureHttpLabel,
+				ErrorMessage = ValidateSettings.ConfigureHttpErrorMessage,
+				ActionToExecute = () =>
+				{
+					return Task<ValidationResult>.Factory.StartNew(() =>
+					{
+						var cmdArgs = $"-a {Properties.Settings.Default.ApplicationDir} -f config.json";
+
+						var ok = new Process
+							{
+								StartInfo = new ProcessStartInfo(fileName: "Helper\\FluiTec.Vision.Client.Windows.EndpointHelper.exe")
+								{
+									Arguments = cmdArgs,
+									UseShellExecute = false,
+									Verb = "runas"
+								}
+							}
+							.RedirectOutputToConsole(createNoWindow: false)
+							.RunAndWait();
+
+						return new ValidationResult {Success = ok, ErrorMessage = ok ? string.Empty : ValidateSettings.ConfigureHttpErrorMessage};
+					});
+				}
 			};
 		}
 
@@ -195,9 +217,9 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		{
 			return new ValidationAction
 			{
-				DisplayName = "Test",
-				ErrorMessage = "Bla",
-				ActionToExecute = () => Task.FromResult(new ValidationResult { Success = true })
+				DisplayName = ValidateSettings.CheckConnectivityLabel,
+				ErrorMessage = ValidateSettings.CheckConnectiviyErrorMessage,
+				ActionToExecute = () => Task.FromResult(new ValidationResult { Success = false })
 			};
 		}
 

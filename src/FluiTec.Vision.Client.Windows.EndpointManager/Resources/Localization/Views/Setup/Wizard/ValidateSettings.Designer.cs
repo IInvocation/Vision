@@ -71,6 +71,42 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.V
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Konnektivität prüfen.
+        /// </summary>
+        public static string CheckConnectivityLabel {
+            get {
+                return ResourceManager.GetString("CheckConnectivityLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Der Webserver ist nicht erreichbar..
+        /// </summary>
+        public static string CheckConnectiviyErrorMessage {
+            get {
+                return ResourceManager.GetString("CheckConnectiviyErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Der Webserver konnte nicht konfiguriert werden..
+        /// </summary>
+        public static string ConfigureHttpErrorMessage {
+            get {
+                return ResourceManager.GetString("ConfigureHttpErrorMessage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Webserver konfigurieren.
+        /// </summary>
+        public static string ConfigureHttpLabel {
+            get {
+                return ResourceManager.GetString("ConfigureHttpLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Führt verschiedene Aufgaben zur Validierung der (neuen) Einstellungen aus..
         /// </summary>
         public static string Description {
