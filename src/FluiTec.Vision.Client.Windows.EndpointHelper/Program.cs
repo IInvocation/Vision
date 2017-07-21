@@ -1,6 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.IO.Pipes;
+using System.Linq;
 using CommandLine;
 using FluiTec.AppFx.Cli;
 using FluiTec.Vision.Client.Windows.EndpointHelper.Helpers;
@@ -27,7 +28,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper
 					{
 						ConsoleHelper.ReportSuccess($"Datei {options.FilePath} wird verarbeitet...");
 						options.Execute();
-						ReportStatusUsingPipe(ok: true);
+						ProcessHelper.ReportStatusUsingPipe(ok: true, args: args);
 					}
 					else
 					{
@@ -40,36 +41,13 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper
 					Console.WriteLine(value: 
 						"Ausgabe zur Fehlersuche bitte erst mit <ENTER> schließen, wenn die Ursache des Problems von Ihnen ermittelt wurde!");
 					Console.ReadLine();
-					ReportStatusUsingPipe(ok: false);
+					ProcessHelper.ReportStatusUsingPipe(ok: false, args: args);
 				}
 				
 			}
 			else
 			{
 				CliHelper.RestartAsAdministrator(shutDownAction: null, args: args);
-			}
-		}
-
-		/// <summary>	Reports status using pipe. </summary>
-		/// <param name="ok">	True if the operation was a success, false if it failed. </param>
-		private static void ReportStatusUsingPipe(bool ok)
-		{
-			try
-			{
-				using (var client = new NamedPipeClientStream(serverName: ".", pipeName: "vision_endpoint_config_pipe",
-					direction: PipeDirection.InOut))
-				{
-					client.Connect();
-					using (var sw = new StreamWriter(client))
-					{
-						sw.WriteLine(ok ? 0 : -1);
-						sw.Flush();
-					}
-				}
-			}
-			catch (Exception)
-			{
-				// silently ignore, since someone probably started this manually via cli
 			}
 		}
 	}
