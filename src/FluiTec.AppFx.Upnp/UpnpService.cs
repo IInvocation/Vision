@@ -122,9 +122,7 @@ namespace FluiTec.AppFx.Upnp
 				var mapList = maps as IList<Mapping> ?? maps.ToList();
 				var maxPortPublic = mapList.Select(map => map.PublicPort).Max();
 
-				var newMap =
-					device.CreatePortMapAsync(new Mapping(Protocol.Tcp, ipAddress, privatePort, maxPortPublic + 1, int.MaxValue,
-						$"{applicationName}_{maxPortPublic + 1}"));
+				await device.CreatePortMapAsync(new Mapping(Protocol.Tcp, ipAddress, privatePort, maxPortPublic + 1, int.MaxValue, $"{applicationName}_{maxPortPublic + 1}"));
 
 				return await GetPortMapping($"{applicationName}_{maxPortPublic + 1}", maxPortPublic + 1, ipAddress);
 			}

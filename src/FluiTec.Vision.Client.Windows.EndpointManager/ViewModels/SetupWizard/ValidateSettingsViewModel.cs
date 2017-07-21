@@ -185,7 +185,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 								}
 							}
 							.RedirectOutputToConsole(createNoWindow: false)
-							.RunAndWait();
+							.RunAndWaitForForNamedPipeResult(pipeName: "vision_endpoint_config_pipe");
 
 						return new ValidationResult {Success = ok, ErrorMessage = ok ? string.Empty : ValidateSettings.ConfigureHttpErrorMessage};
 					});
