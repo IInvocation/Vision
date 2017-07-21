@@ -170,9 +170,17 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 			var cn = $"CN={Environment.MachineName}-{ApplicationName}";
 			var caCn = $"CN={Environment.MachineName}-{ApplicationName}-CA";
 
-			SslHelper.RemoveCertsFromStore(cn, StoreName.My, StoreLocation.LocalMachine);
-			SslHelper.RemoveCertsFromStore(caCn, StoreName.My, StoreLocation.LocalMachine);
-
+			try
+			{
+				SslHelper.RemoveCertsFromStore(cn, StoreName.My, StoreLocation.LocalMachine);
+				SslHelper.RemoveCertsFromStore(caCn, StoreName.CertificateAuthority, StoreLocation.LocalMachine);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
+			
 			var cmdArgs = $"http delete sslcert ipport=0.0.0.0:{RemoveSslCertificatePort}";
 
 			new Process

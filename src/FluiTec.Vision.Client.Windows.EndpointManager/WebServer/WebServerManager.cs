@@ -66,7 +66,9 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 				{
 					Arguments = Properties.Settings.Default.ServerExecutable,
 					UseShellExecute = false,
-					WorkingDirectory = Properties.Settings.Default.ServerDir
+					WorkingDirectory = Properties.Settings.Default.ServerDir,
+					RedirectStandardInput = true,
+					RedirectStandardError = true
 				}
 			};
 			_process.StartInfo.EnvironmentVariables[key: "ASPNETCORE_ENVIRONMENT"] =
@@ -75,10 +77,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 			_process.Exited += (sender, args) =>
 			{
 				RaiseStop();
-#if DEBUG
-				var output = _process.StandardOutput.ReadToEnd();
-				Debug.WriteLine(output);
-#endif
+
 				var errors = _process.StandardError.ReadToEnd();
 				if (errors != string.Empty)
 				{
@@ -88,16 +87,9 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 			};
 
 			//// set up output redirection
-			_process.StartInfo.RedirectStandardOutput = true;
-			_process.StartInfo.RedirectStandardError = true;
 			_process.EnableRaisingEvents = true;
 			_process.StartInfo.CreateNoWindow = true;
 
-#if DEBUG
-			// handle output
-			_process.ErrorDataReceived += (sender, args) => { Debug.WriteLine(args.Data); };
-			_process.OutputDataReceived += (sender, args) => { Debug.WriteLine(args.Data); };
-#endif
 			_process.Start();
 			RaiseStart();
 		}
