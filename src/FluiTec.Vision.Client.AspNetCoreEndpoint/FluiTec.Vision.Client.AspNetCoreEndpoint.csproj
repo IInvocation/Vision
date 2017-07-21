@@ -153,9 +153,6 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Update="appsettings.Server.json">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Update="appsettings.Development.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

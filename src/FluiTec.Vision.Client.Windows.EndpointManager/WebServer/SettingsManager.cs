@@ -1,7 +1,6 @@
 ﻿using System;
 using System.IO;
 using System.Text;
-using FluiTec.Vision.Client.Windows.EndpointManager.Properties;
 using Newtonsoft.Json;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
@@ -36,6 +35,10 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 		/// <param name="settings">	The settings to save. </param>
 		public void Save(ServerSettings settings)
 		{
+			var dirName = GetConfigDirectoryName();
+			if (!Directory.Exists(dirName))
+				Directory.CreateDirectory(dirName);
+
 			using (var sw = new StreamWriter(GetConfigFileName(), append: false, encoding: Encoding.Default))
 			{
 				sw.Write(JsonConvert.SerializeObject(settings));
@@ -44,15 +47,24 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 			CurrentSettings = settings;
 		}
 
+		/// <summary>	Gets configuration directory name. </summary>
+		/// <returns>	The configuration directory name. </returns>
+		private static string GetConfigDirectoryName()
+		{
+			var appdata = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+			const string visionDir = "Vision";
+			const string endpointDir = "Endpoint";
+
+			return Path.Combine(appdata, visionDir, endpointDir);
+		}
+
 		/// <summary>	Gets configuration file name. </summary>
 		/// <returns>	The configuration file name. </returns>
 		private static string GetConfigFileName()
 		{
-			var appdata = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
-			var appFolder = Settings.Default.ApplicationDir;
-			var fileName = Settings.Default.ServerConfigFileName;
+			const string fileName = "appsettings.Server.json";
 
-			var filePath = Path.Combine(appdata, appFolder, fileName);
+			var filePath = Path.Combine(GetConfigDirectoryName(), fileName);
 
 			return filePath;
 		}

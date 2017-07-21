@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Net.Http.Server;
@@ -10,11 +11,13 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
     {
         public static void Main(string[] args)
         {
-	        try
+	        GetOsSpecificAppData();
+
+			try
 	        {
-		        var config = new ConfigurationBuilder()
+				var config = new ConfigurationBuilder()
 			        .AddCommandLine(args)
-			        .AddJsonFile(path: "appsettings.Server.json")
+			        .AddJsonFile(GetServerFileLocation(), optional: false)
 			        .Build();
 
 		        var builder = new WebHostBuilder()
@@ -37,5 +40,31 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 		        throw;
 	        }
         }
+
+	    private static string GetServerFileLocation()
+	    {
+		    var appData = GetOsSpecificAppData();
+
+		    const string visionDir = "Vision";
+		    const string endpointDir = "Endpoint";
+		    const string fileName = "appsettings.Server.json";
+
+		    var filePath = Path.Combine(appData, visionDir, endpointDir, fileName);
+		    return filePath;
+	    }
+
+	    private static string GetOsSpecificAppData()
+	    {
+		    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+		    {
+			    return Environment.GetEnvironmentVariable(variable: "LOCALAPPDATA");
+		    }
+		    if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+		    {
+			    return Environment.GetEnvironmentVariable(variable: "Home");
+		    }
+
+			throw new Exception($"Unsupported runtime-os, implement {nameof(GetOsSpecificAppData)} for the given system.");
+	    }
     }
 }

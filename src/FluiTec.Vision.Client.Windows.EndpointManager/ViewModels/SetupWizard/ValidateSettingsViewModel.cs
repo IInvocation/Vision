@@ -93,7 +93,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 				Port = _internalSettings.LocalPort,
 				UseUpnp = _externalSettings.UpnpContentVisible,
 				UpnpPort = 0,
-				HttpName = $"http://+:{_internalSettings.LocalPort}"
+				HttpName = $"https://+:{_internalSettings.LocalPort}/",
+				Validated = true
 			};
 
 			var webServerManager = ServiceLocator.Current.GetInstance<IWebServerManager>();
@@ -271,7 +272,17 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		/// <returns>	The save server configuration action. </returns>
 		private static IValidationAction GetSaveServerConfigurationAction(ServerSettings newSettings)
 		{
-			throw new NotImplementedException();
+			return new ValidationAction
+			{
+				DisplayName = "SaveSettings",
+				ActionToExecute = () =>
+				{
+					var settingsManager = ServiceLocator.Current.GetInstance<ISettingsManager>();
+					settingsManager.Save(newSettings);
+					return Task.FromResult(new ValidationResult {Success = true});
+				}
+			};
+			
 		}
 
 		/// <summary>	Gets start server. </summary>
