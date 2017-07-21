@@ -274,7 +274,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		{
 			return new ValidationAction
 			{
-				DisplayName = "SaveSettings",
+				DisplayName = ValidateSettings.SaveSettingsLabel,
 				ActionToExecute = () =>
 				{
 					var settingsManager = ServiceLocator.Current.GetInstance<ISettingsManager>();

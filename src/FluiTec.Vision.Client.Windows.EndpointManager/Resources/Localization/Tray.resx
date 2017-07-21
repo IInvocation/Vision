@@ -126,6 +126,9 @@
   <data name="NoValidServerSettingsTitle" xml:space="preserve">
     <value>Serverstart nicht möglich</value>
   </data>
+  <data name="OpenServerLabel" xml:space="preserve">
+    <value>Server öffnen</value>
+  </data>
   <data name="QuitLabel" xml:space="preserve">
     <value>Beenden</value>
   </data>

@@ -393,6 +393,9 @@
     <Resource Include="Resources\Images\status_successed.png" />
     <Resource Include="Resources\Images\status_waiting.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\home.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>

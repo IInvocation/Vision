@@ -1,5 +1,6 @@
 ﻿extern alias myservicelocation;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.Windows;
 using FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization;
 using FluiTec.Vision.Client.Windows.EndpointManager.Views;
@@ -42,7 +43,13 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 					uriImageSource:@"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/pause.png",
 					action: StopServer,
 					enabledFunction: manager => manager.IsRunning
-				),		
+				),
+				new WebserverTrayActionViewModel(
+					Tray.OpenServerLabel,
+					uriImageSource: "/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/home.png",
+					action: ShowServer,
+					enabledFunction: manager => manager.IsRunning
+				),
 				new TraySeparator(),
 				new TrayActionViewModel(
 					Tray.QuitLabel, 
@@ -75,6 +82,13 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 		private static void ShowConfig()
 		{
 			ServiceLocator.Current.GetInstance<IViewService>().Show(typeof(SetupView));
+		}
+
+		/// <summary>	Shows the server. </summary>
+		private static void ShowServer()
+		{
+			var port = ServiceLocator.Current.GetInstance<ISettingsManager>().CurrentSettings.Port;
+			Process.Start($"https://localhost:{port}");
 		}
 	}
 }
