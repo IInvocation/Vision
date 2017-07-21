@@ -21,19 +21,12 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 
 		/// <summary>	Main entry-point for this application. </summary>
 		[STAThread]
-		private static void Main(params string[] args)
+		private static void Main()
 		{
-			if (args == null || args.Length < 1)
-			{
-				if (IsFirstInstance())
-					Launch();
-				else
-					Exit();
-			}
+			if (IsFirstInstance())
+				Launch();
 			else
-			{
-				LaunchCliMode(args);
-			}
+				Exit();
 		}
 
 		#region Helpers
@@ -90,13 +83,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 
 			app.DoShowExit = true;
 			app.Run();
-		}
-
-		/// <summary>	Launch CLI mode. </summary>
-		/// <param name="args">	A variable-length parameters list containing arguments. </param>
-		private static void LaunchCliMode(params string[] args)
-		{
-			
 		}
 
 		#endregion
