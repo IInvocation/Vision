@@ -14,7 +14,7 @@ namespace FluiTec.AppFx.Upnp
 		#region Const
 
 		/// <summary>	The upnp timeout. </summary>
-		private const int UPNP_TIMEOUT = 100;
+		private const int UpnpTimeout = 3000;
 
 		#endregion
 
@@ -47,7 +47,7 @@ namespace FluiTec.AppFx.Upnp
 				var mappingName = $"{applicationName}_{publicPort}";
 
 				var discoverer = new NatDiscoverer();
-				var cts = new CancellationTokenSource(UPNP_TIMEOUT);
+				var cts = new CancellationTokenSource(UpnpTimeout);
 				var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
 				var map = await device.GetSpecificMappingAsync(Protocol.Tcp, publicPort);
 
@@ -86,7 +86,7 @@ namespace FluiTec.AppFx.Upnp
 				var mappingName = $"{applicationName}_{publicPort}";
 
 				var discoverer = new NatDiscoverer();
-				var cts = new CancellationTokenSource(UPNP_TIMEOUT);
+				var cts = new CancellationTokenSource(UpnpTimeout);
 				var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
 
 				var mapping = await GetPortMapping(mappingName, publicPort, ipAddress);
@@ -115,7 +115,7 @@ namespace FluiTec.AppFx.Upnp
 				if (ipAddress == null) ipAddress = LocalIpAddress;
 
 				var discoverer = new NatDiscoverer();
-				var cts = new CancellationTokenSource(UPNP_TIMEOUT);
+				var cts = new CancellationTokenSource(UpnpTimeout);
 				var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
 				var maps = await device.GetAllMappingsAsync();
 
