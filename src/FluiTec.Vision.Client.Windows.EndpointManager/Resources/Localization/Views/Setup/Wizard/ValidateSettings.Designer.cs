@@ -62,6 +62,15 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.V
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Upnp-Konfigfuration hinzufügen.
+        /// </summary>
+        public static string AddUpnpLabel {
+            get {
+                return ResourceManager.GetString("AddUpnpLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Führt verschiedene Aufgaben zur Validierung der (neuen) Einstellungen aus..
         /// </summary>
         public static string Description {
@@ -76,6 +85,15 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.V
         public static string ExecuteLabel {
             get {
                 return ResourceManager.GetString("ExecuteLabel", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Upnp-Konfiguration entfernen.
+        /// </summary>
+        public static string RemoveUpnpLabel {
+            get {
+                return ResourceManager.GetString("RemoveUpnpLabel", resourceCulture);
             }
         }
         

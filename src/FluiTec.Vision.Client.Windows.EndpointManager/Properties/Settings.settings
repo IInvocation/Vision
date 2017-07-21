@@ -17,5 +17,8 @@
     <Setting Name="ServerConfigFileName" Type="System.String" Scope="Application">
       <Value Profile="(Default)">appsettings.Server.json</Value>
     </Setting>
+    <Setting Name="ApplicationName" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">FluiTec_Vision_Endpoint</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

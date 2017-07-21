@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Reflection;
+using System.Threading.Tasks;
 using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight;
 
@@ -20,7 +21,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.A
 		private BitmapImage _statusImage;
 
 		/// <summary>	The action to execute. </summary>
-		private Func<ValidationResult> _actionToExecute;
+		private Func<Task<ValidationResult>> _actionToExecute;
 
 		/// <summary>	Message describing the error. </summary>
 		private string _errorMessage;
@@ -69,7 +70,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.A
 
 		/// <summary>	Gets the action to execute. </summary>
 		/// <value>	The action to execute. </value>
-		public Func<ValidationResult> ActionToExecute
+		public Func<Task<ValidationResult>> ActionToExecute
 		{
 			get => _actionToExecute;
 			set => Set(ref _actionToExecute, value);
@@ -118,13 +119,26 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.A
 		}
 
 		/// <summary>	Runs the given settings. </summary>
-		public ValidationResult Run()
+		public async Task<ValidationResult> Run()
 		{
 			Status = ActionStatus.Executing;
-			var result = ActionToExecute.Invoke();
-			Status = result.Success ? ActionStatus.Successed : ActionStatus.Failed;
-			ErrorMessage = result.ErrorMessage;
-			return result;
+			try
+			{
+				var result = await ActionToExecute.Invoke();
+				Status = result.Success ? ActionStatus.Successed : ActionStatus.Failed;
+				ErrorMessage = result.ErrorMessage;
+				return result;
+			}
+			catch (Exception e)
+			{
+				Status = ActionStatus.Failed;
+				ErrorMessage = e.Message;
+				return new ValidationResult
+				{
+					Success = false,
+					ErrorMessage = ErrorMessage
+				};
+			}
 		}
 
 		#endregion

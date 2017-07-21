@@ -117,34 +117,7 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="AddUpnpLabel" xml:space="preserve">
-    <value>Upnp-Konfigfuration hinzufügen</value>
-  </data>
-  <data name="Description" xml:space="preserve">
-    <value>Führt verschiedene Aufgaben zur Validierung der (neuen) Einstellungen aus.</value>
-  </data>
-  <data name="ExecuteLabel" xml:space="preserve">
-    <value>Aufgaben ausführen</value>
-  </data>
-  <data name="RemoveUpnpLabel" xml:space="preserve">
-    <value>Upnp-Konfiguration entfernen</value>
-  </data>
-  <data name="StartServerErrorMessage" xml:space="preserve">
-    <value>Der Server konnte nicht gestartet werden.</value>
-  </data>
-  <data name="StartServerLabel" xml:space="preserve">
-    <value>Server starten</value>
-  </data>
-  <data name="StopServerErrorMessage" xml:space="preserve">
-    <value>Der Server konnte nicht gestoppt werden.</value>
-  </data>
-  <data name="StopServerLabel" xml:space="preserve">
-    <value>Server stoppen</value>
-  </data>
-  <data name="TasksLabel" xml:space="preserve">
-    <value>Aufgaben:</value>
-  </data>
-  <data name="Title" xml:space="preserve">
-    <value>Einstellungen überprüfen</value>
+  <data name="DeviceNotFound" xml:space="preserve">
+    <value>Es wurde kein Upnp-fähiger Router gefunden!</value>
   </data>
 </root>

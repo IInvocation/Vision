@@ -11,6 +11,13 @@ namespace FluiTec.AppFx.Upnp
 	/// <summary>	An upnp service. </summary>
 	public class UpnpService
 	{
+		#region Const
+
+		/// <summary>	The upnp timeout. </summary>
+		private const int UPNP_TIMEOUT = 100;
+
+		#endregion
+
 		#region Fields
 
 		private IPAddress _localIpAddress;
@@ -27,57 +34,104 @@ namespace FluiTec.AppFx.Upnp
 		#region Methods
 
 		/// <summary>	Checks if the given Tcp-PortMapping exists on the Upnp-RootDevice. </summary>
-		/// <param name="mappingName">	Name of the mapping. </param>
-		/// <param name="publicPort"> 	The public port. </param>
-		/// <param name="ipAddress">  	(Optional) The IP address. If NULL - local ip will be assumed. </param>
+		/// <param name="applicationName">	Name of the application. </param>
+		/// <param name="publicPort">	  	The public port. </param>
+		/// <param name="ipAddress">	   (Optional) The IP address. If NULL - local ip will be
+		/// assumed. </param>
 		/// <returns>	Returns the PortMapping if available. </returns>
-		public async Task<PortMapping> GetPortMapping(string mappingName, int publicPort, IPAddress ipAddress = null)
+		public async Task<PortMapping> GetPortMapping(string applicationName, int publicPort, IPAddress ipAddress = null)
 		{
-			if (ipAddress == null) ipAddress = LocalIpAddress;
-
-			var discoverer = new NatDiscoverer();
-			var cts = new CancellationTokenSource(10000);
-			var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
-			var map = await device.GetSpecificMappingAsync(Protocol.Tcp, publicPort);
-
-			var exists = map != null &&
-			             mappingName == map.Description &&
-			             map.PublicPort == publicPort &&
-			             map.PrivateIP.Equals(ipAddress);
-			if (!exists) return null;
-			return new PortMapping
+			try
 			{
-				Name = map.Description,
-				PublicAddress = map.PublicIP,
-				PublicPort = map.PublicPort,
-				PrivateAddress = map.PrivateIP,
-				PrivatePort = map.PrivatePort
-			};
+				if (ipAddress == null) ipAddress = LocalIpAddress;
+				var mappingName = $"{applicationName}_{publicPort}";
+
+				var discoverer = new NatDiscoverer();
+				var cts = new CancellationTokenSource(UPNP_TIMEOUT);
+				var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
+				var map = await device.GetSpecificMappingAsync(Protocol.Tcp, publicPort);
+
+				var exists = map != null &&
+				             mappingName == map.Description &&
+				             map.PublicPort == publicPort &&
+				             map.PrivateIP.Equals(ipAddress);
+
+				if (!exists) return null;
+
+				return new PortMapping
+				{
+					Name = map.Description,
+					PublicAddress = map.PublicIP,
+					PublicPort = map.PublicPort,
+					PrivateAddress = map.PrivateIP,
+					PrivatePort = map.PrivatePort
+				};
+			}
+			catch (NatDeviceNotFoundException e)
+			{
+				throw new UpnpException(ExceptionMessages.DeviceNotFound, e);
+			}
+		}
+
+		/// <summary>	Removes the port mapping. </summary>
+		/// <param name="applicationName">	Name of the mapping. </param>
+		/// <param name="publicPort"> 	The public port. </param>
+		/// <param name="ipAddress">   (Optional) The IP address. If NULL - local ip will be assumed. </param>
+		/// <returns>	A Task. </returns>
+		public async Task RemovePortMapping(string applicationName, int publicPort, IPAddress ipAddress = null)
+		{
+			try
+			{
+				if (ipAddress == null) ipAddress = LocalIpAddress;
+				var mappingName = $"{applicationName}_{publicPort}";
+
+				var discoverer = new NatDiscoverer();
+				var cts = new CancellationTokenSource(UPNP_TIMEOUT);
+				var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
+
+				var mapping = await GetPortMapping(mappingName, publicPort, ipAddress);
+
+				if (mapping != null)
+				{
+					await device.DeletePortMapAsync(new Mapping(Protocol.Tcp, IPAddress.Parse(mapping.PrivatecIpAddress), mapping.PrivatePort, mapping.PublicPort, int.MaxValue, mapping.Name));
+				}
+			}
+			catch (NatDeviceNotFoundException e)
+			{
+				throw new UpnpException(ExceptionMessages.DeviceNotFound, e);
+			}
 		}
 
 		/// <summary>	Adds a port mapping. </summary>
 		/// <param name="applicationName">	Name of the application. </param>
-		/// <param name="ipAddress">	  	(Optional) The IP address. If NULL - local ip will be
-		/// 								assumed. </param>
+		/// <param name="privatePort">	  	The private port. </param>
+		/// <param name="ipAddress">	   (Optional) The IP address. If NULL - local ip will be
+		/// assumed. </param>
 		/// <returns>	A Task&lt;PortMapping&gt; </returns>
-		public async Task<PortMapping> AddPortMapping(string applicationName, IPAddress ipAddress = null)
+		public async Task<PortMapping> AddPortMapping(string applicationName, int privatePort, IPAddress ipAddress = null)
 		{
-			if (ipAddress == null) ipAddress = LocalIpAddress;
+			try
+			{
+				if (ipAddress == null) ipAddress = LocalIpAddress;
 
-			var discoverer = new NatDiscoverer();
-			var cts = new CancellationTokenSource(10000);
-			var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
-			var maps = await device.GetAllMappingsAsync();
+				var discoverer = new NatDiscoverer();
+				var cts = new CancellationTokenSource(UPNP_TIMEOUT);
+				var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
+				var maps = await device.GetAllMappingsAsync();
 
-			var mapList = maps as IList<Mapping> ?? maps.ToList();
-			var maxPortPublic = mapList.Select(map => map.PublicPort).Max();
-			var maxPortPrivate = mapList.Select(map => map.PrivatePort).Max();
+				var mapList = maps as IList<Mapping> ?? maps.ToList();
+				var maxPortPublic = mapList.Select(map => map.PublicPort).Max();
 
-			var newMap =
-				device.CreatePortMapAsync(new Mapping(Protocol.Tcp, ipAddress, maxPortPrivate + 1, maxPortPublic + 1, int.MaxValue,
-					$"{applicationName}"));
+				var newMap =
+					device.CreatePortMapAsync(new Mapping(Protocol.Tcp, ipAddress, privatePort, maxPortPublic + 1, int.MaxValue,
+						$"{applicationName}_{maxPortPublic + 1}"));
 
-			return await GetPortMapping(applicationName, maxPortPublic + 1, ipAddress);
+				return await GetPortMapping($"{applicationName}_{maxPortPublic + 1}", maxPortPublic + 1, ipAddress);
+			}
+			catch (NatDeviceNotFoundException e)
+			{
+				throw new UpnpException(ExceptionMessages.DeviceNotFound, e);
+			}
 		}
 
 		/// <summary>	Gets IP addres. </summary>

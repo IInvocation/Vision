@@ -330,6 +330,10 @@
       <Project>{9994c7d6-344e-45d6-9176-54f55c58d2a3}</Project>
       <Name>FluiTec.AppFx.InversionOfControl</Name>
     </ProjectReference>
+    <ProjectReference Include="..\FluiTec.AppFx.Upnp\FluiTec.AppFx.Upnp.csproj">
+      <Project>{cc391009-4e81-4fe1-a59f-cdc4aba8776e}</Project>
+      <Name>FluiTec.AppFx.Upnp</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Page Include="Views\SetupView.xaml">

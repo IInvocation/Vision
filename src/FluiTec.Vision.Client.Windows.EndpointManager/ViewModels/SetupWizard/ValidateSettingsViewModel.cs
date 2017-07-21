@@ -1,6 +1,8 @@
 ﻿extern alias myservicelocation;
+using System;
 using System.Collections.ObjectModel;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Setup.Wizard;
@@ -9,6 +11,7 @@ using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.Views.SetupWizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.WebServer;
 using GalaSoft.MvvmLight.CommandWpf;
+using FluiTec.AppFx.Upnp;
 using myservicelocation::Microsoft.Practices.ServiceLocation;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
@@ -37,13 +40,17 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		{
 			_externalSettings = externalSettings;
 			_internalSettings = internalSettings;
+			Actions = new ObservableCollection<IValidationAction>();
+
+			_externalSettings.PropertyChanged += (sender, args) => BuildActions();
+			_internalSettings.PropertyChanged += (sender, args) => BuildActions();
 
 			Title = ValidateSettings.Title;
 			Description = ValidateSettings.Description;
 			Content = new ValidateSettingsPage();
 
 			ExecuteValidationCommand = new RelayCommand(RunValidationActions);
-			Actions = new ObservableCollection<IValidationAction>();
+			
 			BuildActions();
 		}
 
@@ -70,6 +77,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		/// <summary>	Builds the actions. </summary>
 		private void BuildActions()
 		{
+			Actions.Clear();
+
 			var manager = ServiceLocator.Current.GetInstance<ISettingsManager>();
 			var oldSettings = manager.CurrentSettings;
 			var newSettings = new ServerSettings
@@ -82,13 +91,12 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			};
 
 			var webServerManager = ServiceLocator.Current.GetInstance<IWebServerManager>();
-			Actions.Add(GetStopServerAction(webServerManager));
-			if (oldSettings.Port > 0 && oldSettings.Port != newSettings.Port)
-				Actions.Add(GetRemoveHttpRegistration(oldSettings));
+
+			if (webServerManager.IsRunning)
+				Actions.Add(GetStopServerAction(webServerManager));
 			if (oldSettings.UpnpPort > 0)
 				Actions.Add(GetRemoveUpnpRegistration(oldSettings));
-			if (oldSettings.Port != newSettings.Port)
-				Actions.Add(AddHttpRegistration(newSettings));
+			Actions.Add(GetConfigureHttpAccessAction(oldSettings, newSettings));
 			if (newSettings.UseUpnp)
 				Actions.Add(AddUpnpRegistration(newSettings));
 			Actions.Add(GetCheckConnectivity());
@@ -96,11 +104,15 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		}
 
 		/// <summary>	Executes the validation actions operation. </summary>
-		private void RunValidationActions()
+		private async void RunValidationActions()
 		{
-			var endResult = Actions.Select(action => action.Run()).Any(result => !result.Success);
-			if (endResult == false)
-				Application.Current.MainWindow.Close();
+			foreach (var action in Actions)
+			{
+				var result = await action.Run();
+				if (!result.Success)
+					return;
+			}
+			Application.Current.MainWindow.Close();
 		}
 
 		#endregion
@@ -119,64 +131,61 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 				{
 					webServerManager.Stop();
 					return webServerManager.IsRunning ?
-						new ValidationResult
+						Task.FromResult(new ValidationResult
 						{
 							Success = false,
 							ErrorMessage = ValidateSettings.StopServerErrorMessage
-						} : new ValidationResult { Success = true };
+						}) 
+						: Task.FromResult(new ValidationResult { Success = true });
 				}
-			};
-		}
-
-		/// <summary>	Gets remove HTTP registration. </summary>
-		/// <param name="oldSettings">	The old settings. </param>
-		/// <returns>	The remove HTTP registration. </returns>
-		private IValidationAction GetRemoveHttpRegistration(ServerSettings oldSettings)
-		{
-			return new ValidationAction
-			{
-				DisplayName = "Test",
-				ErrorMessage = "Bla",
-				ActionToExecute = () => new ValidationResult { Success = true }
 			};
 		}
 
 		/// <summary>	Gets remove upnp registration. </summary>
 		/// <param name="oldSettings">	The old settings. </param>
 		/// <returns>	The remove upnp registration. </returns>
-		private IValidationAction GetRemoveUpnpRegistration(ServerSettings oldSettings)
+		private static IValidationAction GetRemoveUpnpRegistration(ServerSettings oldSettings)
 		{
 			return new ValidationAction
 			{
-				DisplayName = "Test",
-				ErrorMessage = "Bla",
-				ActionToExecute = () => new ValidationResult { Success = true }
+				DisplayName = ValidateSettings.RemoveUpnpLabel,
+				ActionToExecute = async () =>
+				{
+					await new UpnpService().RemovePortMapping(Properties.Settings.Default.ApplicationName, oldSettings.UpnpPort);
+					return new ValidationResult {Success = true};
+				}
 			};
 		}
 
-		/// <summary>	Adds a HTTP registration. </summary>
+		/// <summary>	Gets configure HTTP access action. </summary>
+		/// <param name="oldSettings">	The old settings. </param>
 		/// <param name="newSettings">	The new settings. </param>
-		/// <returns>	An IValidationAction. </returns>
-		private IValidationAction AddHttpRegistration(ServerSettings newSettings)
+		/// <returns>	The configure HTTP access action. </returns>
+		private IValidationAction GetConfigureHttpAccessAction(ServerSettings oldSettings, ServerSettings newSettings)
 		{
 			return new ValidationAction
 			{
 				DisplayName = "Test",
 				ErrorMessage = "Bla",
-				ActionToExecute = () => new ValidationResult { Success = true }
+				ActionToExecute = () => Task.FromResult(new ValidationResult { Success = true })
 			};
 		}
 
 		/// <summary>	Adds an upnp registration. </summary>
 		/// <param name="newSettings">	The new settings. </param>
 		/// <returns>	An IValidationAction. </returns>
-		private IValidationAction AddUpnpRegistration(ServerSettings newSettings)
+		private static IValidationAction AddUpnpRegistration(ServerSettings newSettings)
 		{
 			return new ValidationAction
 			{
-				DisplayName = "Test",
+				DisplayName = ValidateSettings.AddUpnpLabel,
 				ErrorMessage = "Bla",
-				ActionToExecute = () => new ValidationResult { Success = true }
+				ActionToExecute = async () =>
+				{
+					var mapping = await new UpnpService().AddPortMapping(Properties.Settings.Default.ApplicationName, newSettings.Port);
+					newSettings.UpnpPort = mapping.PublicPort;
+					return new ValidationResult {Success = true};
+				}
 			};
 		}
 
@@ -188,7 +197,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			{
 				DisplayName = "Test",
 				ErrorMessage = "Bla",
-				ActionToExecute = () => new ValidationResult { Success = true }
+				ActionToExecute = () => Task.FromResult(new ValidationResult { Success = true })
 			};
 		}
 
@@ -204,11 +213,12 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 				{
 					webServerManager.Start();
 					return !webServerManager.IsRunning ?
-						new ValidationResult
+						Task.FromResult(new ValidationResult
 						{
 							Success = false,
 							ErrorMessage = ValidateSettings.StartServerErrorMessage
-						} : new ValidationResult { Success = true };
+						}) 
+						: Task.FromResult(new ValidationResult { Success = true });
 				}
 			};
 		}

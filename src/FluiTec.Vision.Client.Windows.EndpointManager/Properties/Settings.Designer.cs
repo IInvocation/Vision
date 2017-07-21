@@ -67,5 +67,14 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Properties {
                 return ((string)(this["ServerConfigFileName"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("FluiTec_Vision_Endpoint")]
+        public string ApplicationName {
+            get {
+                return ((string)(this["ApplicationName"]));
+            }
+        }
     }
 }
