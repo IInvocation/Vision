@@ -9,7 +9,7 @@ namespace FluiTec.AppFx.Cli
 	    /// <summary>	Restart as administrator. </summary>
 	    /// <param name="args">			 	A variable-length parameters list containing arguments. </param>
 	    /// <param name="shutDownAction">	The shut down action. </param>
-	    public static void RestartAsAdministrator(Action shutDownAction, params string[] args)
+	    public static void RestartAsAdministrator(Action shutDownAction = null, params string[] args)
 	    {
 			var exeName = Process.GetCurrentProcess().MainModule.FileName;
 		    var startInfo = new ProcessStartInfo(exeName)
@@ -18,7 +18,7 @@ namespace FluiTec.AppFx.Cli
 				Arguments = string.Join(separator: " ", value: args)
 		    };
 		    Process.Start(startInfo);
-		    shutDownAction.Invoke();
+		    shutDownAction?.Invoke();
 		}
 
 	    /// <summary>	Query if this object is administrator. </summary>
