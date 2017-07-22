@@ -349,12 +349,6 @@
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="favicon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\favicon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Images\quit.png" />
   </ItemGroup>
   <ItemGroup>
@@ -395,6 +389,12 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Resources\Images\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
