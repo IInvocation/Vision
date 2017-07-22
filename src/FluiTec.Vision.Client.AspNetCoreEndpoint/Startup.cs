@@ -19,6 +19,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 				.AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
 				.AddJsonFile(path: "appsettings.secret.json", optional: false, reloadOnChange: true)
 				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+				.AddJsonFile(Program.GetServerFileLocation(), optional: false)
 				.AddEnvironmentVariables();
 			Configuration = builder.Build();
 		}

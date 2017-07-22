@@ -11,8 +11,6 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
     {
         public static void Main(string[] args)
         {
-	        GetOsSpecificAppData();
-
 			try
 	        {
 				var config = new ConfigurationBuilder()
@@ -41,7 +39,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 	        }
         }
 
-	    private static string GetServerFileLocation()
+	    internal static string GetServerFileLocation()
 	    {
 		    var appData = GetOsSpecificAppData();
 
@@ -53,7 +51,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 		    return filePath;
 	    }
 
-	    private static string GetOsSpecificAppData()
+	    internal static string GetOsSpecificAppData()
 	    {
 		    if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
 		    {

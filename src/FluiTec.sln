@@ -134,6 +134,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Artwork", "Artwork", "{9300
 		Artwork\fluitech_max.png = Artwork\fluitech_max.png
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Authentication", "Authentication", "{C14B95A1-E74A-40AF-9BC0-0DAD44F35146}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FluiTec.AppFx.Authentication.Amazon", "FluiTec.AppFx.Authentication.Amazon\FluiTec.AppFx.Authentication.Amazon.csproj", "{0F42E561-02C1-4D18-9F4B-A985881F8ED5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -292,6 +296,10 @@ Global
 		{DA860E67-4129-4018-BA25-9DC903CFC601}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA860E67-4129-4018-BA25-9DC903CFC601}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA860E67-4129-4018-BA25-9DC903CFC601}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0F42E561-02C1-4D18-9F4B-A985881F8ED5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0F42E561-02C1-4D18-9F4B-A985881F8ED5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0F42E561-02C1-4D18-9F4B-A985881F8ED5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0F42E561-02C1-4D18-9F4B-A985881F8ED5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -357,5 +365,7 @@ Global
 		{5812FBC3-152E-4651-A3FA-BCA8697B06B9} = {9374F46E-83EB-4051-961D-6E215BF94BD8}
 		{DA860E67-4129-4018-BA25-9DC903CFC601} = {5812FBC3-152E-4651-A3FA-BCA8697B06B9}
 		{93004909-9964-4780-8913-1237837650AB} = {247CDAED-738C-457A-8A0C-2B80EC084214}
+		{C14B95A1-E74A-40AF-9BC0-0DAD44F35146} = {9374F46E-83EB-4051-961D-6E215BF94BD8}
+		{0F42E561-02C1-4D18-9F4B-A985881F8ED5} = {C14B95A1-E74A-40AF-9BC0-0DAD44F35146}
 	EndGlobalSection
 EndGlobal

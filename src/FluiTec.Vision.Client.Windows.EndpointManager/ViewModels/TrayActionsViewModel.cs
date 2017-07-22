@@ -87,7 +87,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 		/// <summary>	Shows the server. </summary>
 		private static void ShowServer()
 		{
-			var port = ServiceLocator.Current.GetInstance<ISettingsManager>().CurrentSettings.Port;
+			var port = ServiceLocator.Current.GetInstance<ISettingsManager>().CurrentSettings.SslPort;
 			Process.Start($"https://localhost:{port}");
 		}
 	}

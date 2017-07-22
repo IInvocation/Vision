@@ -16,6 +16,9 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		#region Fields
 
 		/// <summary>	The local port. </summary>
+		private int _localSslPort;
+
+		/// <summary>	The local port. </summary>
 		private int _localPort;
 
 		#endregion
@@ -30,12 +33,26 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 
 			var settings = ServiceLocator.Current.GetInstance<ISettingsManager>().CurrentSettings;
 
-			LocalPort = settings.Port > 0 ? settings.Port : GetFreePortInRange(MIN_PORT, MAX_PORT);
+			LocalSslPort = settings.SslPort > 0 ? settings.SslPort : GetFreePortInRange(MinPort, MaxPort);
+			LocalPort = settings.Port > 0 ? settings.Port : GetFreePortInRange(LocalSslPort+1, MaxPort);
 		}
 
 		#endregion
 
 		#region Properties
+
+		/// <summary>	Gets or sets the local port. </summary>
+		/// <value>	The local port. </value>
+		public int LocalSslPort
+		{
+			get => _localSslPort;
+			set
+			{
+				_localSslPort = value;
+				Validate();
+				OnPropertyChanged();
+			}
+		}
 
 		/// <summary>	Gets or sets the local port. </summary>
 		/// <value>	The local port. </value>
@@ -60,6 +77,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		{
 			return new[]
 			{
+				LocalSslPort > 0 &&
 				LocalPort > 0
 			}.All(b => b);
 		}
@@ -104,10 +122,10 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		#region Constants
 
 		/// <summary>	The minimum port. </summary>
-		private const int MIN_PORT = 1000;
+		private const int MinPort = 1000;
 
 		/// <summary>	The maximum port. </summary>
-		private const int MAX_PORT = 6000;
+		private const int MaxPort = 6000;
 
 		#endregion
 	}

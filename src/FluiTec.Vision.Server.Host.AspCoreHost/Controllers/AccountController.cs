@@ -211,7 +211,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
                 {
                     return View(viewName: "ExternalLoginFailure");
                 }
-                var user = new IdentityUserEntity { Name = model.Email, Email = model.Email };
+
+				var user = new IdentityUserEntity { Name = model.Email, Email = model.Email };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

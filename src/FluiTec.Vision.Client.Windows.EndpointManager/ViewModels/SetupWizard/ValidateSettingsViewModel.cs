@@ -90,10 +90,10 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			var newSettings = new ServerSettings
 			{
 				ExternalHostname = _externalSettings.ManualHostName,
-				Port = _internalSettings.LocalPort,
+				SslPort = _internalSettings.LocalSslPort,
 				UseUpnp = _externalSettings.UpnpContentVisible,
 				UpnpPort = 0,
-				HttpName = $"https://+:{_internalSettings.LocalPort}/",
+				HttpName = $"https://+:{_internalSettings.LocalSslPort}/",
 				Validated = true
 			};
 
@@ -233,12 +233,12 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 
 			config.ApplicationName = Settings.Default.ApplicationName;
 			config.AddFirewallException = true;
-			config.AddFirewallExceptionPort = newSettings.Port;
+			config.AddFirewallExceptionPort = newSettings.SslPort;
 			config.AddSslCertificate = true;
-			config.AddSslCertificatePort = newSettings.Port;
+			config.AddSslCertificatePort = newSettings.SslPort;
 			config.AddSslCertificateApplicationId = Guid.NewGuid();
 			config.AddUrlReservation = true;
-			config.AddUrlReservationUri = $"https://+:{newSettings.Port}/";
+			config.AddUrlReservationUri = $"https://+:{newSettings.SslPort}/";
 
 
 			var json = JsonConvert.SerializeObject(config, Formatting.Indented);
@@ -260,7 +260,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 				DisplayName = ValidateSettings.AddUpnpLabel,
 				ActionToExecute = async () =>
 				{
-					var mapping = await new UpnpService().AddPortMapping(Settings.Default.SafeApplicationName, newSettings.Port);
+					var mapping = await new UpnpService().AddPortMapping(Settings.Default.SafeApplicationName, newSettings.SslPort);
 					newSettings.UpnpPort = mapping.PublicPort;
 					return new ValidationResult {Success = true};
 				}
