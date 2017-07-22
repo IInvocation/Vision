@@ -3,13 +3,9 @@
 namespace FluiTec.Vision.ClientEndpointApi
 {
 	/// <summary>	A delegation API options. </summary>
-	[ConfigurationName("ClientEndpoint")]
+	[ConfigurationName(name: "ClientEndpoint")]
 	public class DelegationApiOptions
 	{
-		/// <summary>	Gets or sets the endpoint host. </summary>
-		/// <value>	The endpoint host. </value>
-		public string EndpointHost { get; set; }
-
 		/// <summary>	Gets or sets the authority. </summary>
 		/// <value>	The authority. </value>
 		public string Authority { get; set; }

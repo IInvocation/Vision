@@ -1,4 +1,4 @@
-﻿using System.Security.Claims;
+﻿using System;
 using System.Threading.Tasks;
 using FluiTec.Vision.Client.AspNetCoreEndpoint.Models.ConfigureViewModels;
 using FluiTec.Vision.ClientEndpointApi;
@@ -38,10 +38,12 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 		/// <returns>	An IActionResult. </returns>
 		public IActionResult ConfigureClientRegistration()
 		{
+			var machineName = Environment.MachineName;
+			machineName = machineName.Length >= 2 ? string.Concat(machineName.Substring(startIndex: 0,length: 1).ToUpper(), machineName.Substring(startIndex: 1).ToLower()) : machineName;
+
 			var vm = new ClientRegistrationViewModel
 			{
-				Email = User.FindFirstValue(claimType: "email"),
-				MachineName = "Friday",
+				MachineName =machineName,
 				ForwardFridayCalls = true
 			};
 			return View(vm);
@@ -57,7 +59,11 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 		{
 			_endpointService.Init(await HttpContext.Authentication.GetTokenAsync(tokenName: "access_token"),
 				await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token"));
-			await _endpointService.RegisterClientEndpoint(new ClientEndpointModel {MachineName = model.MachineName, EndpointHost = _options.EndpointHost});
+			await _endpointService.RegisterClientEndpoint(new ClientEndpointModel
+			{
+				MachineName = model.MachineName,
+				EndpointHost = string.Empty //TODO Add method to get own public ip-address or manually entered hostname
+			});
 
 			//   var accessToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "access_token");
 			//   var refreshToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token");

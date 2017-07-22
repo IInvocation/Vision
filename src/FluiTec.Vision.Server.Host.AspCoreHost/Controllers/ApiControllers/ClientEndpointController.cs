@@ -11,7 +11,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 	/// <summary>	A controller for handling client endpoints. </summary>
 	[Produces(contentType: "application/json")]
 	[Route(template: "api/ClientEndpoint")]
-	[Authorize(nameof(IdentityPolicies.IsClientEndpointUser))]
 	public class ClientEndpointController : Controller
 	{
 		/// <summary>	The logger. </summary>
@@ -28,6 +27,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 		/// <param name="model">	The model. </param>
 		/// <returns>	An IActionResult. </returns>
 		[HttpPost]
+		[Authorize(nameof(IdentityPolicies.IsClientEndpointUser))]
 		public IActionResult Post([FromBody] ClientEndpointModel model)
 		{
 			if (!ModelState.IsValid) return new BadRequestObjectResult(ModelState);
@@ -39,5 +39,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 
 			return Ok(model);
 		}
+
+
 	}
 }

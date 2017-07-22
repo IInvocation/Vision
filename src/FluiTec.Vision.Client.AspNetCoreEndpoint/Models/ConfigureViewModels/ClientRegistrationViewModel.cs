@@ -5,12 +5,6 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Models.ConfigureViewModels
     /// <summary>	A ViewModel for the client registration. </summary>
     public class ClientRegistrationViewModel
     {
-		/// <summary>	Gets or sets the email. </summary>
-		/// <value>	The email. </value>
-		[Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(Resources.ViewModels.Model))]
-		[EmailAddress(ErrorMessageResourceName = "EmailMessage", ErrorMessageResourceType = typeof(Resources.ViewModels.Model))]
-		public string Email { get; set; }
-
 		/// <summary>	Gets or sets the name of the machine. </summary>
 		/// <value>	The name of the machine. </value>
 		[Required(ErrorMessageResourceName = "RequiredMessage", ErrorMessageResourceType = typeof(Resources.ViewModels.Model))]

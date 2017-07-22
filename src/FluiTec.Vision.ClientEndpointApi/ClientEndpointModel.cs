@@ -10,5 +10,13 @@
 		/// <summary>	Gets or sets the endpoint host. </summary>
 		/// <value>	The endpoint host. </value>
 		public string EndpointHost { get; set; }
+
+		/// <summary>	Gets or sets a value indicating whether the forward jarvis. </summary>
+		/// <value>	True if forward jarvis, false if not. </value>
+		public bool ForwardJarvis { get; set; }
+
+		/// <summary>	Gets or sets a value indicating whether the forward friday. </summary>
+		/// <value>	True if forward friday, false if not. </value>
+		public bool ForwardFriday { get; set; }
 	}
 }
