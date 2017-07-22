@@ -16,7 +16,7 @@
 						@foreach (var provider in loginProviders)
 						{
 							<li>
-								<input type="submit" class="btn btn-default" name="provider" value="@provider.AuthenticationScheme" title="@Localizer["ExternalLoginProviderDescription", provider.DisplayName]" />
+								<input type="submit" style="padding-left:40px" class="btn btn-default @provider.AuthenticationScheme-btn" name="provider" value="@provider.AuthenticationScheme" title="@Localizer["ExternalLoginProviderDescription", provider.DisplayName]" />
 							</li>                                                                                                                                                                                             
 						}
 					</ul>

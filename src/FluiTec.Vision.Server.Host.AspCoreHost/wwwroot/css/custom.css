@@ -10,6 +10,22 @@
 	color: #F08080;
 }
 
+.Amazon-btn {
+	background-image: url("images/amazon.png");
+	background-repeat: no-repeat;
+	background-size: 32px;
+	background-position-y: center;
+	background-position-x: 5px;
+}
+
+.Google-btn {
+	background-image: url("images/google.png");
+	background-repeat: no-repeat;
+	background-size: 25px;
+	background-position-y: center;
+	background-position-x: 7px;
+}
+
 input[type="text"].hidden {
 	visibility: hidden;
 	display: none;

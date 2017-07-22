@@ -22,6 +22,8 @@
     </Content>
     <Content Include="wwwroot\css\ie\v8.css" />
     <Content Include="wwwroot\css\ie\v9.css" />
+    <Content Include="wwwroot\css\images\amazon.png" />
+    <Content Include="wwwroot\css\images\google.png" />
     <Content Include="wwwroot\css\images\overlay.png" />
     <Content Include="wwwroot\css\skel.css" />
     <Content Include="wwwroot\css\style-large.css">
