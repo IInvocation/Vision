@@ -109,6 +109,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 			var host = _serverSettings.UseUpnp ? $"{_serverSettings.UpnpPort}" : _serverSettings.ExternalHostname;
 			var registration = await _endpointService.RegisterClientEndpoint(new ClientEndpointModel
 			{
+				RegistrationId = _managerService.CurrentSettings?.RegistrationId ?? -1,
 				UseUpnp = _serverSettings.UseUpnp,
 				MachineName = model.MachineName,
 				EndpointHost = host,

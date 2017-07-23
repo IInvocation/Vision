@@ -54,6 +54,8 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 
 		#endregion
 
+		#region Routes
+
 		/// <summary>	Post this message. </summary>
 		/// <param name="model">	The model. </param>
 		/// <returns>	An IActionResult. </returns>
@@ -70,17 +72,18 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 			var user = GetUserByIdentifier(User.Claims.Single(c => c.Type == ClaimTypes.NameIdentifier).Value);
 
 			// check if machine for the given user already exists
-			var existingEndpoint = TryGetEndpointEntity(user, model.MachineName);
+			var existingEndpoint = TryGetEndpointEntity(user, model.RegistrationId);
 			if (existingEndpoint != null)
-				return new BadRequestObjectResult(error: "Duplicate registration");
+				return Ok(UpdateExistingEndpoint(existingEndpoint, model));
 
 			// create necessary entities
 			var client = CreateClient(model.MachineName);
-			CreateEndpoint(user, client, model);
+			var endpoint = CreateEndpoint(user, client, model);
 
 			// create registration-response
 			var registrationModel = new ClientEndpointRegistrationModel
 			{
+				RegistrationId = endpoint.Id,
 				ClientId = client.ClientId,
 				ClientSecret = client.Secret
 			};
@@ -88,7 +91,39 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 			return Ok(registrationModel);
 		}
 
+		#endregion
+
 		#region Helpers
+
+		/// <summary>	Updates the existing endpoint described by entity. </summary>
+		/// <param name="entity">	The entity. </param>
+		/// <param name="model"> 	The model. </param>
+		/// <returns>	A ClientEndpointRegistrationModel. </returns>
+		private ClientEndpointRegistrationModel UpdateExistingEndpoint(ClientEndpointEntity entity, ClientEndpointModel model)
+		{
+			using (var uow = _endpointDataService.StartUnitOfWork())
+			{
+				entity.UseUpnp = model.UseUpnp;
+				entity.CurrentUpnpIpAddress = GetCallerIpAddress();
+				entity.EndpointHost = model.EndpointHost;
+				entity.ForwardFriday = model.ForwardFriday;
+				entity.ForwardJarvis = model.ForwardJarvis;
+				entity.MachineName = model.MachineName;
+				uow.ClientEndpointRepository.Update(entity);
+				uow.Commit();
+			}
+
+			using (var uow = _identityServerDataService.StartUnitOfWork())
+			{
+				var client = uow.ClientRepository.Get(entity.ClientId);
+				return new ClientEndpointRegistrationModel
+				{
+					RegistrationId = entity.Id,
+					ClientId = client.ClientId,
+					ClientSecret = client.Secret
+				};
+			}
+		}
 
 		/// <summary>	Gets caller IP address. </summary>
 		/// <returns>	The caller IP address. </returns>
@@ -109,14 +144,14 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 		}
 
 		/// <summary>	Try get endpoint entity. </summary>
-		/// <param name="user">		  	The user. </param>
-		/// <param name="machineName">	Name of the machine. </param>
+		/// <param name="user">		 	The user. </param>
+		/// <param name="endpointId">	Name of the machine. </param>
 		/// <returns>	A ClientEndpointEntity. </returns>
-		private ClientEndpointEntity TryGetEndpointEntity(IdentityUserEntity user, string machineName)
+		private ClientEndpointEntity TryGetEndpointEntity(IdentityUserEntity user, int endpointId)
 		{
 			using (var uow = _endpointDataService.StartUnitOfWork())
 			{
-				var result = uow.ClientEndpointRepository.FindByUserAndMachine(user.Id, machineName);
+				var result = uow.ClientEndpointRepository.FindByUserAndId(user.Id, endpointId);
 				return result;
 			}
 		}

@@ -67,7 +67,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Services
 		/// <returns>	The configuration file name. </returns>
 		private static string GetConfigFileName()
 		{
-			const string fileName = "appsettings.registration.json";
+			const string fileName = "appsettings.Registration.json";
 
 			var filePath = Path.Combine(GetConfigDirectoryName(), fileName);
 

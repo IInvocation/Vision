@@ -15,10 +15,10 @@ namespace FluiTec.Vision.Endpoint.Dapper.Repositories
 		{
 		}
 
-		/// <summary>	Searches for the first user and machine. </summary>
-		/// <param name="userId">	  	Identifier for the user. </param>
-		/// <param name="machineName">	Name of the machine. </param>
-		/// <returns>	The found user and machine. </returns>
-		public abstract ClientEndpointEntity FindByUserAndMachine(int userId, string machineName);
+		/// <summary>	Searches for the first user and identifier. </summary>
+		/// <param name="userId">	Identifier for the user. </param>
+		/// <param name="id">	 	The identifier. </param>
+		/// <returns>	The found user and identifier. </returns>
+		public abstract ClientEndpointEntity FindByUserAndId(int userId, int id);
 	}
 }

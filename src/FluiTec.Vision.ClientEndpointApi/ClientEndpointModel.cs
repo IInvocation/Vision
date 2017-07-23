@@ -3,6 +3,10 @@
 	/// <summary>	A data Model for the client endpoint. </summary>
 	public class ClientEndpointModel
 	{
+		/// <summary>	Gets or sets the identifier of the registration. </summary>
+		/// <value>	The identifier of the registration. </value>
+		public int RegistrationId { get; set; }
+
 		/// <summary>	Gets or sets a value indicating whether this object use upnp. </summary>
 		/// <value>	True if use upnp, false if not. </value>
 		public bool UseUpnp { get; set; }

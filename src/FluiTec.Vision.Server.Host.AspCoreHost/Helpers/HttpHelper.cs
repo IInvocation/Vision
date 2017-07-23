@@ -40,6 +40,10 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Helpers
 		    if (ip.IsNullOrWhitespace())
 			    throw new Exception("Unable to determine caller's IP.");
 
+			// for local connections
+		    if (ip == "::1")
+			    ip = "127.0.0.1";
+
 		    return ip;
 	    }
 

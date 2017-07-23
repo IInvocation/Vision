@@ -15,15 +15,15 @@ namespace FluiTec.Vision.Endpoint.Dapper.Mssql.Repositories
 		}
 
 		/// <summary>	Searches for the first user and machine. </summary>
-		/// <param name="userId">	  	Identifier for the user. </param>
-		/// <param name="machineName">	Name of the machine. </param>
+		/// <param name="userId">	Identifier for the user. </param>
+		/// <param name="id">	 	Name of the machine. </param>
 		/// <returns>	The found user and machine. </returns>
-		public override ClientEndpointEntity FindByUserAndMachine(int userId, string machineName)
+		public override ClientEndpointEntity FindByUserAndId(int userId, int id)
 		{
 			var command =
-				$"SELECT * FROM {TableName} WHERE {nameof(ClientEndpointEntity.UserId)} = @Uid AND {nameof(ClientEndpointEntity.MachineName)} = @MachineName";
+				$"SELECT * FROM {TableName} WHERE {nameof(ClientEndpointEntity.UserId)} = @Uid AND {nameof(ClientEndpointEntity.Id)} = @Id";
 			return UnitOfWork.Connection.QuerySingleOrDefault<ClientEndpointEntity>(command,
-				new {Uid = userId, MachineName = machineName},
+				new {Uid = userId, Id = id},
 				UnitOfWork.Transaction);
 		}
 	}
