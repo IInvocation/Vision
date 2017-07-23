@@ -165,7 +165,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 				DisplayName = ValidateSettings.RemoveUpnpLabel,
 				ActionToExecute = async () =>
 				{
-					await new UpnpService().RemovePortMapping(oldSettings.UpnpPort);
+					await new UpnpService().RemovePortMapping(oldSettings.SslPort);
 					return new ValidationResult {Success = true};
 				}
 			};

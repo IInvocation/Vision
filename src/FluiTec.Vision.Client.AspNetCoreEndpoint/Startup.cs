@@ -35,6 +35,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 			services
 				.ConfigureLocalization(Configuration)
 				.ConfigureDataServices(Configuration)
+				.ConfigureServerSettings(Configuration)
 				.ConfigureOpenIdConnect(Configuration)
 				.ConfigureMvc(Configuration);
 		}

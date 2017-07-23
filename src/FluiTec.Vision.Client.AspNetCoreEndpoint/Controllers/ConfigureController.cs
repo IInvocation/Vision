@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading.Tasks;
+using FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration;
 using FluiTec.Vision.Client.AspNetCoreEndpoint.Models.ConfigureViewModels;
 using FluiTec.Vision.ClientEndpointApi;
 using Microsoft.AspNetCore.Authentication;
@@ -15,16 +16,16 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 		/// <summary>	The endpoint service. </summary>
 		private readonly ClientEndpointService _endpointService;
 
-		/// <summary>	Options for controlling the operation. </summary>
-		private readonly DelegationApiOptions _options;
+		/// <summary>	The server settings. </summary>
+		private readonly ServerSettings _serverSettings;
 
 		/// <summary>	Constructor. </summary>
-		/// <param name="options">		  	Options for controlling the operation. </param>
 		/// <param name="endpointService">	The endpoint service. </param>
-		public ConfigureController(DelegationApiOptions options, ClientEndpointService endpointService)
+		/// <param name="serverSettings"> 	The server settings. </param>
+		public ConfigureController(ClientEndpointService endpointService, ServerSettings serverSettings)
 		{
-			_options = options;
 			_endpointService = endpointService;
+			_serverSettings = serverSettings;
 		}
 
 		/// <summary>	Gets the index. </summary>
@@ -38,12 +39,16 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 		/// <returns>	An IActionResult. </returns>
 		public IActionResult ConfigureClientRegistration()
 		{
+			// make machinename start UpperCase and continue LowerCase
 			var machineName = Environment.MachineName;
-			machineName = machineName.Length >= 2 ? string.Concat(machineName.Substring(startIndex: 0,length: 1).ToUpper(), machineName.Substring(startIndex: 1).ToLower()) : machineName;
+			machineName = machineName.Length >= 2
+				? string.Concat(machineName.Substring(startIndex: 0, length: 1).ToUpper(),
+					machineName.Substring(startIndex: 1).ToLower())
+				: machineName;
 
 			var vm = new ClientRegistrationViewModel
 			{
-				MachineName =machineName,
+				MachineName = machineName,
 				ForwardFridayCalls = true
 			};
 			return View(vm);
@@ -57,39 +62,46 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ConfigureClientRegistration(ClientRegistrationViewModel model)
 		{
+			if (await IsRegistrationNecessary(model))
+			{
+				await DoRegistration(model);
+			}
+			else
+			{
+				await UpdateRegistration(model);
+			}
+
+			return Redirect(url: "http://localhost:5020/Manage");
+		}
+
+		private Task<bool> IsRegistrationNecessary(ClientRegistrationViewModel model)
+		{
+			return Task.FromResult(result: true);
+		}
+
+		/// <summary>	Executes the registration operation. </summary>
+		/// <param name="model">	The model. </param>
+		/// <returns>	A Task. </returns>
+		private async Task DoRegistration(ClientRegistrationViewModel model)
+		{
+			// initialize service, exchanging user tokens for delegation tokens
 			_endpointService.Init(await HttpContext.Authentication.GetTokenAsync(tokenName: "access_token"),
 				await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token"));
+
+			// do registration
+			var host = _serverSettings.UseUpnp ? $"upnp:{_serverSettings.UpnpPort}" : _serverSettings.ExternalHostname;
 			await _endpointService.RegisterClientEndpoint(new ClientEndpointModel
 			{
 				MachineName = model.MachineName,
-				EndpointHost = string.Empty //TODO Add method to get own public ip-address or manually entered hostname
+				EndpointHost = host
 			});
 
-			//   var accessToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "access_token");
-			//   var refreshToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token");
+			//  if upnp was used - start upnp-ip-monitor
+		}
 
-			//   var payload = new
-			//   {
-			//    token = accessToken
-			//   };
-
-			//var disco = await DiscoveryClient.GetAsync(_openIdOptions.Authority);
-			//   var tokenClient = new TokenClient(disco.TokenEndpoint, _openIdOptions.DelegationClientId, _openIdOptions.DelegationClientSecret);
-
-			//   var response = await tokenClient.RequestCustomGrantAsync(grantType: "delegation", scope: "clientendpoint", extra: payload);
-			//   var bearerAccessToken = response.AccessToken;
-
-			//var client = new HttpClient {BaseAddress = new Uri($"{_openIdOptions.Authority}/api/")};
-			//client.DefaultRequestHeaders.Accept
-			//	.Add(new MediaTypeWithQualityHeaderValue(mediaType: "application/json"));
-			//client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme: "Bearer",parameter: bearerAccessToken);
-			//var json = JsonConvert.SerializeObject(model);
-
-			//   var result = await client.PostAsync(requestUri: "ClientEndpoint", content: new StringContent(json, Encoding.UTF8, mediaType: "application/json"));
-			//   result.EnsureSuccessStatusCode();
-
-			// redirect user to accept new ClientEndpoint
-			return Redirect(url: "http://localhost:5020/Manage");
+		private Task UpdateRegistration(ClientRegistrationViewModel model)
+		{
+			return Task.FromResult(result: 0);
 		}
 	}
 }
