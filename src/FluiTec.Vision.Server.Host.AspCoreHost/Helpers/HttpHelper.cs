@@ -38,7 +38,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Helpers
 		    // _httpContextAccessor.HttpContext?.Request?.Host this is the local host.
 
 		    if (ip.IsNullOrWhitespace())
-			    throw new Exception("Unable to determine caller's IP.");
+			    throw new Exception(message: "Unable to determine caller's IP.");
 
 			// for local connections
 		    if (ip == "::1")

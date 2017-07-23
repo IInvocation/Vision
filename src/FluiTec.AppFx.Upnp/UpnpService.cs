@@ -1,6 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http.Headers;
 using System.Net.Sockets;
 using System.Threading;
 using System.Threading.Tasks;
@@ -122,6 +124,7 @@ namespace FluiTec.AppFx.Upnp
 				var discoverer = new NatDiscoverer();
 				var cts = new CancellationTokenSource(UpnpTimeout);
 				var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
+
 				var maps = await device.GetAllMappingsAsync();
 
 				var enumeratedMaps = maps as IList<Mapping> ?? maps.ToList();
@@ -144,6 +147,16 @@ namespace FluiTec.AppFx.Upnp
 			{
 				throw new UpnpException(ExceptionMessages.DeviceNotFound, e);
 			}
+		}
+
+		/// <summary>	Gets public IP address. </summary>
+		/// <returns>	The public IP address. </returns>
+		public async Task<IPAddress> GetPublicIpAddress()
+		{
+			var discoverer = new NatDiscoverer();
+			var cts = new CancellationTokenSource(UpnpTimeout);
+			var device = await discoverer.DiscoverDeviceAsync(PortMapper.Upnp, cts);
+			return await device.GetExternalIPAsync();
 		}
 
 		/// <summary>	Gets IP addres. </summary>
