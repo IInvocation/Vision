@@ -478,7 +478,7 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 					var list = _instancesRegistry[classType];
 
 					var pairs = list.Where(pair => pair.Key == key).ToList();
-					for (var index = 0; index < pairs.Count(); index++)
+					for (var index = 0; index < pairs.Count; index++)
 					{
 						list.Remove(pairs[index].Key);
 					}

@@ -28,7 +28,10 @@ namespace FuiTec.AppFx.Mail
 		}
 
 		/// <summary>	Constructor. </summary>
+		/// <exception cref="ArgumentNullException">	Thrown when one or more required arguments are
+		/// 											null. </exception>
 		/// <param name="viewPath">	Full pathname of the view file. </param>
+		/// <param name="options"> 	Options for controlling the operation. </param>
 		public MailKitTemplatingMailService(string viewPath, MailServiceOptions options) : base(viewPath)
 		{
 			Options = options ?? throw new ArgumentNullException(nameof(options));

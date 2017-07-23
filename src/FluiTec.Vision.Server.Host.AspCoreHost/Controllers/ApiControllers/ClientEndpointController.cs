@@ -160,6 +160,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.ApiControllers
 		/// <param name="client">	The client. </param>
 		/// <param name="model"> 	The model. </param>
 		/// <returns>	The new endpoint. </returns>
+		// ReSharper disable once UnusedMethodReturnValue.Local
 		private ClientEndpointEntity CreateEndpoint(IdentityUserEntity user, ClientEntity client, ClientEndpointModel model)
 		{
 			using (var uow = _endpointDataService.StartUnitOfWork())

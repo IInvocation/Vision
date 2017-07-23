@@ -15,6 +15,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 		#region Fields
 
 		/// <summary>	The event. </summary>
+		// ReSharper disable once NotAccessedField.Local
 		private static EventWaitHandle _eventWaitHandle;
 
 		#endregion

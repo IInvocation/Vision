@@ -123,7 +123,10 @@
   <data name="Header" xml:space="preserve">
     <value>Interner Server</value>
   </data>
-  <data name="PortLabel" xml:space="preserve">
-    <value>Lokaler Port:</value>
+  <data name="SslPortDescription" xml:space="preserve">
+    <value>Port, auf dem abgesichert mit SSL gelauscht wird - dieser Port wird auch von anderen Maschinen aus erreichbar sein.</value>
+  </data>
+  <data name="SslPortLabel" xml:space="preserve">
+    <value>Lokaler SSL-Port:</value>
   </data>
 </root>

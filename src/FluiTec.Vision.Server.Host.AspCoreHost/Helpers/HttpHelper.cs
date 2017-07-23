@@ -71,7 +71,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Helpers
 		    return csvList
 			    .TrimEnd(',')
 			    .Split(',')
-			    .AsEnumerable<string>()
+			    .AsEnumerable()
 			    .Select(s => s.Trim())
 			    .ToList();
 	    }

@@ -278,6 +278,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Tray.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Localization\Views\Exit\ExitView.de-DE.resx" />
     <EmbeddedResource Include="Resources\Localization\Views\Exit\ExitView.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExitView.Designer.cs</LastGenOutput>

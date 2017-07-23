@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using FluiTec.AppFx.Identity;
@@ -411,14 +412,16 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
                 return View(viewName: "Error");
             }
 
-            var message = $"{Resources.Controllers.AccountController.SecurityCodeIs} " + code;
-	        if (model.SelectedProvider == "Email")
+	        switch (model.SelectedProvider)
 	        {
-		        //await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "Security Code", message);
-	        }
-	        else if (model.SelectedProvider == "Phone")
-	        {
-		        //await _smsSender.SendSmsAsync(await _userManager.GetPhoneNumberAsync(user), message);
+		        case "Email":
+			        //await _emailSender.SendEmailAsync(await _userManager.GetEmailAsync(user), "Security Code", message);
+			        break;
+		        case "Phone":
+			        //await _smsSender.SendSmsAsync(await _userManager.GetPhoneNumberAsync(user), message);
+			        break;
+				default:
+					throw new NotImplementedException();
 	        }
 
 	        return RedirectToAction(nameof(VerifyCode), new { Provider = model.SelectedProvider, model.ReturnUrl, model.RememberMe });

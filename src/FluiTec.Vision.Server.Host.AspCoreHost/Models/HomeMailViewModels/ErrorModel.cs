@@ -8,8 +8,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Models.HomeMailViewModels
 	{
 		/// <summary>	Constructor. </summary>
 		/// <param name="exception"> 	The exception. </param>
-		/// <param name="errorRoute">	The error route. </param>
-		public ErrorModel(Exception exception, string errorRoute)
+		public ErrorModel(Exception exception)
 		{
 			ApplicationName = Global.ApplicationName;
 			ApplicationUrl = Global.ApplicationUrl;

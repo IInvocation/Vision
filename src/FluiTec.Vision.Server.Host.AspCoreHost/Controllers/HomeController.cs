@@ -66,7 +66,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 
 				try
 				{
-					var mailModel = new ErrorModel(exception, route);
+					var mailModel = new ErrorModel(exception);
 					await _mailService.SendEmailAsync(_mailOptions.FromMail, mailModel);
 				}
 				catch (Exception e)

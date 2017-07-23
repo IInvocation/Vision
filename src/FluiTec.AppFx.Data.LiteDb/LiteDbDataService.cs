@@ -90,10 +90,7 @@ namespace FluiTec.AppFx.Data.LiteDb
 						$"Giving non-rooted {nameof(dbFilePath)} requires giving an {nameof(applicationFolder)}.");
 			_useSingletonConnection = useSingletonConnection ?? false;
 
-			if (_useSingletonConnection)
-				Database = LiteDbDatabaseSingleton.GetDatabase(dbFilePath);
-			else
-				Database = new LiteDatabase(dbFilePath);
+			Database = _useSingletonConnection ? LiteDbDatabaseSingleton.GetDatabase(dbFilePath) : new LiteDatabase(dbFilePath);
 		}
 
 		/// <summary>	Specialised constructor for use only by derived class. </summary>
