@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Text;
 using CommandLine;
 using FluiTec.Vision.Client.Windows.EndpointHelper.Configuration;
 using Newtonsoft.Json;
@@ -37,7 +38,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Options
 		public void Execute()
 		{
 			string fileContent;
-			using (var sr = new StreamReader(FilePath, System.Text.Encoding.Default))
+			using (var sr = new StreamReader(FilePath, Encoding.Default))
 			{
 				fileContent = sr.ReadToEnd();
 			}
@@ -49,14 +50,14 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Options
 			try
 			{
 				configuration.Run();
-				using (var sw = new StreamWriter(FilePath, append: false, encoding: System.Text.Encoding.Default))
+				using (var sw = new StreamWriter(FilePath, append: false, encoding: Encoding.Default))
 				{
 					sw.Write(JsonConvert.SerializeObject(configuration, Formatting.Indented));
 				}
 			}
 			catch (Exception) // catch errors and autosave
 			{
-				using (var sw = new StreamWriter(FilePath, append: false, encoding: System.Text.Encoding.Default))
+				using (var sw = new StreamWriter(FilePath, append: false, encoding: Encoding.Default))
 				{
 					sw.Write(JsonConvert.SerializeObject(configuration, Formatting.Indented));
 				}

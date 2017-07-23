@@ -13,19 +13,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 	/// <summary>	A ViewModel for the external server. </summary>
 	public class ExternalServerViewModel : WizardPageViewModel
 	{
-		#region Fields
-
-		/// <summary>	The server modes. </summary>
-		private ObservableCollection<string> _serverModes;
-
-		/// <summary>	The selected server mode. </summary>
-		private string _selectedServerMode;
-
-		/// <summary>	Name of the manual host. </summary>
-		private string _manualHostName;
-
-		#endregion
-
 		#region Constructors
 
 		/// <summary>	Default constructor. </summary>
@@ -37,15 +24,27 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 
 			var settings = ServiceLocator.Current.GetInstance<ISettingsManager>().CurrentSettings;
 
-			ServerModes = new ObservableCollection<string>(new []
+			ServerModes = new ObservableCollection<string>(new[]
 			{
 				ExternalServer.ModeLabelUpnp,
 				ExternalServer.ModeLabelManual
 			});
 			SelectedServerMode = ServerModes[settings.UseUpnp ? 0 : 1];
 			ManualHostName = settings.ExternalHostname;
-
 		}
+
+		#endregion
+
+		#region Fields
+
+		/// <summary>	The server modes. </summary>
+		private ObservableCollection<string> _serverModes;
+
+		/// <summary>	The selected server mode. </summary>
+		private string _selectedServerMode;
+
+		/// <summary>	Name of the manual host. </summary>
+		private string _manualHostName;
 
 		#endregion
 
@@ -99,7 +98,11 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		public ObservableCollection<string> ServerModes
 		{
 			get => _serverModes;
-			set { _serverModes = value; OnPropertyChanged();}
+			set
+			{
+				_serverModes = value;
+				OnPropertyChanged();
+			}
 		}
 
 		/// <summary>	Gets or sets the selected server mode. </summary>

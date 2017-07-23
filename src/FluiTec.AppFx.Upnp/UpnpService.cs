@@ -35,8 +35,10 @@ namespace FluiTec.AppFx.Upnp
 
 		/// <summary>	Checks if the given Tcp-PortMapping exists on the Upnp-RootDevice. </summary>
 		/// <param name="privatePort"></param>
-		/// <param name="ipAddress">	   (Optional) The IP address. If NULL - local ip will be
-		///     assumed. </param>
+		/// <param name="ipAddress">
+		///     (Optional) The IP address. If NULL - local ip will be
+		///     assumed.
+		/// </param>
 		/// <returns>	Returns the PortMapping if available. </returns>
 		public async Task<PortMapping> GetPortMapping(int privatePort, IPAddress ipAddress = null)
 		{
@@ -76,8 +78,10 @@ namespace FluiTec.AppFx.Upnp
 		/// <summary>	Removes the port mapping. </summary>
 		/// <exception cref="UpnpException">	Thrown when an Upnp error condition occurs. </exception>
 		/// <param name="privatePort">	  	The private port. </param>
-		/// <param name="ipAddress">	  	(Optional) The IP address. If NULL - local ip will be
-		/// 								assumed. </param>
+		/// <param name="ipAddress">
+		///     (Optional) The IP address. If NULL - local ip will be
+		///     assumed.
+		/// </param>
 		/// <returns>	A Task. </returns>
 		public async Task RemovePortMapping(int privatePort, IPAddress ipAddress = null)
 		{
@@ -92,9 +96,8 @@ namespace FluiTec.AppFx.Upnp
 				var mapping = await GetPortMapping(privatePort, ipAddress);
 
 				if (mapping != null)
-				{
-					await device.DeletePortMapAsync(new Mapping(Protocol.Tcp, IPAddress.Parse(mapping.PrivatecIpAddress), mapping.PrivatePort, mapping.PublicPort, int.MaxValue, mapping.Name));
-				}
+					await device.DeletePortMapAsync(new Mapping(Protocol.Tcp, IPAddress.Parse(mapping.PrivatecIpAddress),
+						mapping.PrivatePort, mapping.PublicPort, int.MaxValue, mapping.Name));
 			}
 			catch (NatDeviceNotFoundException e)
 			{
@@ -105,8 +108,10 @@ namespace FluiTec.AppFx.Upnp
 		/// <summary>	Adds a port mapping. </summary>
 		/// <param name="applicationName">	Name of the application. </param>
 		/// <param name="privatePort">	  	The private port. </param>
-		/// <param name="ipAddress">	   (Optional) The IP address. If NULL - local ip will be
-		/// assumed. </param>
+		/// <param name="ipAddress">
+		///     (Optional) The IP address. If NULL - local ip will be
+		///     assumed.
+		/// </param>
 		/// <returns>	A Task&lt;PortMapping&gt; </returns>
 		public async Task<PortMapping> AddPortMapping(string applicationName, int privatePort, IPAddress ipAddress = null)
 		{
@@ -123,15 +128,15 @@ namespace FluiTec.AppFx.Upnp
 				var mapList = maps as IList<Mapping> ?? enumeratedMaps.ToList();
 				var maxPortPublic = mapList.Select(map => map.PublicPort).Max();
 
-				var exists = enumeratedMaps.SingleOrDefault(map => 
-				map.PrivatePort == privatePort &&
-				map.PrivateIP.Equals(ipAddress));
+				var exists = enumeratedMaps.SingleOrDefault(map =>
+					map.PrivatePort == privatePort &&
+					map.PrivateIP.Equals(ipAddress));
 
 				if (exists != null)
 					await RemovePortMapping(exists.PrivatePort, ipAddress);
 
 				await device.CreatePortMapAsync(new Mapping(Protocol.Tcp, ipAddress, privatePort, maxPortPublic + 1, int.MaxValue,
-						$"{applicationName}_{maxPortPublic + 1}"));
+					$"{applicationName}_{maxPortPublic + 1}"));
 
 				return await GetPortMapping(privatePort, ipAddress);
 			}
@@ -145,7 +150,7 @@ namespace FluiTec.AppFx.Upnp
 		/// <returns>	The IP addres. </returns>
 		private static IPAddress GetLocalIpAddress()
 		{
-			using (var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, 0))
+			using (var socket = new Socket(AddressFamily.InterNetwork, SocketType.Dgram, protocolType: 0))
 			{
 				socket.Connect(host: "8.8.8.8", port: 65530);
 				var endPoint = socket.LocalEndPoint as IPEndPoint;

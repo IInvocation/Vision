@@ -113,7 +113,7 @@ namespace FluiTec.AppFx.IdentityServer
 			using (var rsa = RSA.Create())
 			{
 				rsa.KeySize = 2048;
-				var key = new RsaSecurityKey(rsa) { KeyId = CryptoRandom.CreateUniqueId(RsaKeyLength) };
+				var key = new RsaSecurityKey(rsa) {KeyId = CryptoRandom.CreateUniqueId(RsaKeyLength)};
 				return key;
 			}
 		}

@@ -44,7 +44,6 @@ namespace FluiTec.AppFx.Data
 
 		/// <summary>	Gets or sets the logger factory. </summary>
 		/// <value>	The logger factory. </value>
-
 		/// <summary>   Commits the UnitOfWork. </summary>
 		public abstract void Commit();
 

@@ -11,7 +11,7 @@ namespace FluiTec.AppFx.IdentityServer.Validators
 		/// <param name="client">	   	The client. </param>
 		/// <returns>	A Task&lt;bool&gt; </returns>
 		/// <remarks>
-		/// Adds functionality to support various endpoints hosted on localhost	 
+		///     Adds functionality to support various endpoints hosted on localhost
 		/// </remarks>
 		public override Task<bool> IsRedirectUriValidAsync(string requestedUri, Client client)
 		{

@@ -10,22 +10,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 	/// <summary>	A ViewModel for the tray action. </summary>
 	public class TrayActionViewModel : ViewModelBase, ITrayItem
 	{
-		#region Fields
-
-		/// <summary>	The image source. </summary>
-		private BitmapImage _imageSource;
-
-		/// <summary>	The display text. </summary>
-		private string _displayText;
-
-		/// <summary>	The click command. </summary>
-		private ICommand _clickCommand;
-
-		/// <summary>	True to enable, false to disable. </summary>
-		private bool _enabled;
-
-		#endregion
-
 		#region Constructors
 
 		/// <summary>	Constructor. </summary>
@@ -40,6 +24,22 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 			ClickCommand = new RelayCommand(action);
 			Enabled = enabled;
 		}
+
+		#endregion
+
+		#region Fields
+
+		/// <summary>	The image source. </summary>
+		private BitmapImage _imageSource;
+
+		/// <summary>	The display text. </summary>
+		private string _displayText;
+
+		/// <summary>	The click command. </summary>
+		private ICommand _clickCommand;
+
+		/// <summary>	True to enable, false to disable. </summary>
+		private bool _enabled;
 
 		#endregion
 

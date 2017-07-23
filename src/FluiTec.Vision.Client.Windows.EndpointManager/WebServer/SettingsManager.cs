@@ -24,16 +24,12 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 		{
 			var filePath = GetConfigFileName();
 			if (File.Exists(filePath))
-			{
 				using (var sr = new StreamReader(filePath, Encoding.Default))
 				{
 					CurrentSettings = JsonConvert.DeserializeObject<ServerSettings>(sr.ReadToEnd());
 				}
-			}
 			else
-			{
 				CurrentSettings = new ServerSettings();
-			}	
 		}
 
 		/// <summary>	Saves the given settings. </summary>

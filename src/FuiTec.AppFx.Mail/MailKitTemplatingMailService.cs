@@ -17,6 +17,41 @@ namespace FuiTec.AppFx.Mail
 
 		#endregion
 
+		#region Methods
+
+		protected void SendMail<TModel>(TModel model, string email, string content) where TModel : IMailModel
+		{
+			var message = new MimeMessage();
+			message.From.Add(new MailboxAddress(Options.FromName, Options.FromMail));
+			message.To.Add(new MailboxAddress(email, email));
+			message.Subject = model.Subject;
+
+			message.Body = new TextPart(subtype: "html")
+			{
+				Text = content
+			};
+
+			using (var client = new SmtpClient())
+			{
+				// currently acceppt all certificates
+				client.ServerCertificateValidationCallback = (s, c, h, e) => true;
+
+				client.Connect(Options.SmtpServer, Options.SmtpPort, Options.EnableSsl);
+
+				// Note: since we don't have an OAuth2 token, disable
+				// the XOAUTH2 authentication mechanism.
+				client.AuthenticationMechanisms.Remove(item: "XOAUTH2");
+
+				// Note: only needed if the SMTP server requires authentication
+				client.Authenticate(Options.Username, Options.Password);
+
+				client.Send(message);
+				client.Disconnect(quit: true);
+			}
+		}
+
+		#endregion
+
 		#region Constructors
 
 		/// <summary>	Constructor. </summary>
@@ -28,8 +63,10 @@ namespace FuiTec.AppFx.Mail
 		}
 
 		/// <summary>	Constructor. </summary>
-		/// <exception cref="ArgumentNullException">	Thrown when one or more required arguments are
-		/// 											null. </exception>
+		/// <exception cref="ArgumentNullException">
+		///     Thrown when one or more required arguments are
+		///     null.
+		/// </exception>
 		/// <param name="viewPath">	Full pathname of the view file. </param>
 		/// <param name="options"> 	Options for controlling the operation. </param>
 		public MailKitTemplatingMailService(string viewPath, MailServiceOptions options) : base(viewPath)
@@ -68,41 +105,6 @@ namespace FuiTec.AppFx.Mail
 				var text = Parse(templateName, model);
 				SendMail(model, email, text);
 			});
-		}
-
-		#endregion
-
-		#region Methods
-
-		protected void SendMail<TModel>(TModel model, string email, string content) where TModel : IMailModel
-		{
-			var message = new MimeMessage();
-			message.From.Add(new MailboxAddress(Options.FromName, Options.FromMail));
-			message.To.Add(new MailboxAddress(email, email));
-			message.Subject = model.Subject;
-
-			message.Body = new TextPart(subtype: "html")
-			{
-				Text = content
-			};
-
-			using (var client = new SmtpClient())
-			{
-				// currently acceppt all certificates
-				client.ServerCertificateValidationCallback = (s, c, h, e) => true;
-
-				client.Connect(Options.SmtpServer, Options.SmtpPort, Options.EnableSsl);
-
-				// Note: since we don't have an OAuth2 token, disable
-				// the XOAUTH2 authentication mechanism.
-				client.AuthenticationMechanisms.Remove(item: "XOAUTH2");
-
-				// Note: only needed if the SMTP server requires authentication
-				client.Authenticate(Options.Username, Options.Password);
-
-				client.Send(message);
-				client.Disconnect(quit: true);
-			}
 		}
 
 		#endregion

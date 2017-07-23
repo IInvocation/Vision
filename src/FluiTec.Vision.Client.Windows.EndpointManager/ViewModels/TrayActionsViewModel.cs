@@ -30,17 +30,17 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 					Tray.ConfigurationLabel,
 					uriImageSource: "/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/config.png",
 					action: ShowConfig
-					),
+				),
 				new TraySeparator(),
 				new WebserverTrayActionViewModel(
 					Tray.ServerStartLabel,
-					uriImageSource:@"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/play.png",
+					uriImageSource: @"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/play.png",
 					action: StartServer,
 					enabledFunction: manager => !manager.IsRunning && settingsManager.CurrentSettings.Validated
-				), 
+				),
 				new WebserverTrayActionViewModel(
 					Tray.ServerStopLabel,
-					uriImageSource:@"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/pause.png",
+					uriImageSource: @"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/pause.png",
 					action: StopServer,
 					enabledFunction: manager => manager.IsRunning
 				),
@@ -52,8 +52,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels
 				),
 				new TraySeparator(),
 				new TrayActionViewModel(
-					Tray.QuitLabel, 
-					uriImageSource: @"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/quit.png", 
+					Tray.QuitLabel,
+					uriImageSource: @"/FluiTec.Vision.Client.Windows.EndpointManager;component/Resources/Images/quit.png",
 					action: () => Application.Current.Shutdown())
 			});
 		}

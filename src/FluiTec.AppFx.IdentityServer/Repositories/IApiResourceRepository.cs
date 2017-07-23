@@ -21,16 +21,15 @@ namespace FluiTec.AppFx.IdentityServer.Repositories
 		IEnumerable<ApiResourceEntity> GetByIds(int[] ids);
 
 		/// <summary>	Gets all compounds in this collection. </summary>
-		///
 		/// <returns>
-		/// An enumerator that allows foreach to be used to process all compounds in this collection.
+		///     An enumerator that allows foreach to be used to process all compounds in this collection.
 		/// </returns>
 		IEnumerable<CompoundApiResource> GetAllCompound();
 
 		/// <summary>	Gets the scope names in this collection. </summary>
 		/// <param name="scopeNames">	List of names of the scopes. </param>
 		/// <returns>
-		/// An enumerator that allows foreach to be used to process the scope names in this collection.
+		///     An enumerator that allows foreach to be used to process the scope names in this collection.
 		/// </returns>
 		IEnumerable<CompoundApiResource> GetByScopeNamesCompound(IEnumerable<string> scopeNames);
 

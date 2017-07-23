@@ -6,7 +6,8 @@ using FluiTec.Vision.Endpoint.Repositories;
 namespace FluiTec.Vision.Endpoint.Dapper.Repositories
 {
 	/// <summary>	A dapper client endpoint repository. </summary>
-	public abstract class DapperClientEndpointRepository : DapperRepository<ClientEndpointEntity, int>, IClientEndpointRepository
+	public abstract class DapperClientEndpointRepository : DapperRepository<ClientEndpointEntity, int>,
+		IClientEndpointRepository
 	{
 		/// <summary>	Constructor. </summary>
 		/// <param name="unitOfWork">	The unit of work. </param>

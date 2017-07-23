@@ -1,7 +1,7 @@
 ﻿namespace FluiTec.Vision.Client.Windows.EndpointManager.Controls
 {
 	/// <summary>
-	/// Interaktionslogik für TrayActionsControl.xaml
+	///     Interaktionslogik für TrayActionsControl.xaml
 	/// </summary>
 	public partial class TrayActionsControl
 	{

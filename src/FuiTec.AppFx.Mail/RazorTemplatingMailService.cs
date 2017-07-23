@@ -40,7 +40,8 @@ namespace FuiTec.AppFx.Mail
 		/// <param name="templateName">	Name of the template. </param>
 		/// <param name="model">	   	The model. </param>
 		/// <returns>	A Task. </returns>
-		public abstract Task SendEmailAsync<TModel>(string email, string templateName, TModel model) where TModel : IMailModel;
+		public abstract Task SendEmailAsync<TModel>(string email, string templateName, TModel model)
+			where TModel : IMailModel;
 
 		/// <summary>	Gets view name. </summary>
 		/// <typeparam name="TModel">	Type of the model. </typeparam>

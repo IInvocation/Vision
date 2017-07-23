@@ -9,6 +9,16 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.A
 	/// <summary>	A validation action. </summary>
 	public class ValidationAction : ViewModelBase, IValidationAction
 	{
+		#region Constructors
+
+		/// <summary>	Default constructor. </summary>
+		public ValidationAction()
+		{
+			Status = ActionStatus.Waiting;
+		}
+
+		#endregion
+
 		#region Fields
 
 		/// <summary>	Name of the display. </summary>
@@ -25,16 +35,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.A
 
 		/// <summary>	Message describing the error. </summary>
 		private string _errorMessage;
-
-		#endregion
-
-		#region Constructors
-
-		/// <summary>	Default constructor. </summary>
-		public ValidationAction()
-		{
-			Status = ActionStatus.Waiting;
-		}
 
 		#endregion
 
@@ -113,13 +113,13 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.A
 					statusImageName = "failed";
 					break;
 				default:
-					throw new ArgumentOutOfRangeException(nameof(status), status, null);
+					throw new ArgumentOutOfRangeException(nameof(status), status, message: null);
 			}
 
 			return new BitmapImage(new Uri(@"pack://application:,,,/"
-			                       + Assembly.GetExecutingAssembly().GetName().Name
-			                       + ";component/"
-			                       + $"Resources/Images/status_{statusImageName}.png", UriKind.Absolute));
+			                               + Assembly.GetExecutingAssembly().GetName().Name
+			                               + ";component/"
+			                               + $"Resources/Images/status_{statusImageName}.png", UriKind.Absolute));
 		}
 
 		/// <summary>	Runs the given settings. </summary>

@@ -1,7 +1,7 @@
 ﻿namespace FluiTec.Vision.Client.Windows.EndpointManager.Views
 {
 	/// <summary>
-	/// Interaktionslogik für ExitView.xaml
+	///     Interaktionslogik für ExitView.xaml
 	/// </summary>
 	public partial class ExitView
 	{

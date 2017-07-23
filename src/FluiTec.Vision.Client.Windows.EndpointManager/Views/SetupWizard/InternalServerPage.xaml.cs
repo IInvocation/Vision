@@ -1,7 +1,7 @@
 ﻿namespace FluiTec.Vision.Client.Windows.EndpointManager.Views.SetupWizard
 {
 	/// <summary>
-	/// Interaction logic for InternalServerPage.xaml
+	///     Interaction logic for InternalServerPage.xaml
 	/// </summary>
 	public partial class InternalServerPage
 	{

@@ -13,16 +13,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 	/// <summary>	A ViewModel for the internal server. </summary>
 	public class InternalServerViewModel : WizardPageViewModel
 	{
-		#region Fields
-
-		/// <summary>	The local port. </summary>
-		private int _localSslPort;
-
-		/// <summary>	The local port. </summary>
-		private int _localPort;
-
-		#endregion
-
 		#region Constructors
 
 		public InternalServerViewModel()
@@ -34,8 +24,18 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			var settings = ServiceLocator.Current.GetInstance<ISettingsManager>().CurrentSettings;
 
 			LocalSslPort = settings.SslPort > 0 ? settings.SslPort : GetFreePortInRange(MinPort, MaxPort);
-			LocalPort = settings.Port > 0 ? settings.Port : GetFreePortInRange(LocalSslPort+1, MaxPort);
+			LocalPort = settings.Port > 0 ? settings.Port : GetFreePortInRange(LocalSslPort + 1, MaxPort);
 		}
+
+		#endregion
+
+		#region Fields
+
+		/// <summary>	The local port. </summary>
+		private int _localSslPort;
+
+		/// <summary>	The local port. </summary>
+		private int _localPort;
 
 		#endregion
 

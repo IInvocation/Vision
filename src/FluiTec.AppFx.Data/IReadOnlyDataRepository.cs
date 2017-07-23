@@ -4,7 +4,6 @@ using System.Collections.Generic;
 namespace FluiTec.AppFx.Data
 {
 	/// <summary>	Interface for a read only data repository. </summary>
-	///
 	/// <typeparam name="TEntity">	Type of the entity. </typeparam>
 	/// <typeparam name="TKey">   	Type of the key. </typeparam>
 	public interface IReadOnlyDataRepository<out TEntity, in TKey> : IRepository

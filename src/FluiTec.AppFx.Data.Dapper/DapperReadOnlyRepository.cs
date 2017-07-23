@@ -19,7 +19,8 @@ namespace FluiTec.AppFx.Data.Dapper
 		{
 			UnitOfWork = unitOfWork as DapperUnitOfWork;
 			if (UnitOfWork == null)
-				throw new ArgumentException($"{nameof(unitOfWork)} was either null or does not implement {nameof(DapperUnitOfWork)}!");
+				throw new ArgumentException(
+					$"{nameof(unitOfWork)} was either null or does not implement {nameof(DapperUnitOfWork)}!");
 
 			TableName = GetTableName(typeof(TEntity));
 		}

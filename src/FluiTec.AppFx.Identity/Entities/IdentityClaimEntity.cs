@@ -3,7 +3,7 @@
 namespace FluiTec.AppFx.Identity.Entities
 {
 	/// <summary>	An identity claim entity. </summary>
-	[EntityName("IdentityClaim")]
+	[EntityName(name: "IdentityClaim")]
 	public class IdentityClaimEntity : IEntity<int>
 	{
 		/// <summary>	Gets or sets the identifier of the user. </summary>

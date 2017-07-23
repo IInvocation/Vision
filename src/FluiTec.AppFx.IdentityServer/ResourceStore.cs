@@ -70,7 +70,7 @@ namespace FluiTec.AppFx.IdentityServer
 				using (var uow = _dataService.StartUnitOfWork())
 				{
 					var entity = uow.ApiResourceRepository.GetByNameCompount(name);
-					return FromCompoundEntities(new[] { entity }).SingleOrDefault();
+					return FromCompoundEntities(new[] {entity}).SingleOrDefault();
 				}
 			});
 		}
@@ -80,7 +80,7 @@ namespace FluiTec.AppFx.IdentityServer
 		public Task<Resources> GetAllResources()
 		{
 			return Task<Resources>.Factory.StartNew(
-				() => new Resources { ApiResources = GetAllApiResources(), IdentityResources = GetAllIdentityResources() });
+				() => new Resources {ApiResources = GetAllApiResources(), IdentityResources = GetAllIdentityResources()});
 		}
 
 		#endregion

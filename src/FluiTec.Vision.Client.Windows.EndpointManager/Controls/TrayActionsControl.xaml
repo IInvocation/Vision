@@ -1,13 +1,13 @@
 ﻿<UserControl x:Class="FluiTec.Vision.Client.Windows.EndpointManager.Controls.TrayActionsControl"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:viewModels="clr-namespace:FluiTec.Vision.Client.Windows.EndpointManager.ViewModels"
-             mc:Ignorable="d" 
+             mc:Ignorable="d"
              d:DesignHeight="300" d:DesignWidth="300"
              Width="150" Height="Auto"
-			 Background="Transparent"
+             Background="Transparent"
              DataContext="{Binding Tray, Source={StaticResource Locator}}">
 	<UserControl.Resources>
 		<BooleanToVisibilityConverter x:Key="BoolToVis" />
@@ -25,15 +25,16 @@
 								</Border.InputBindings>
 								<StackPanel Orientation="Horizontal">
 									<Image Width="32" Height="32" Source="{Binding ImageSource}" />
-									<Label Content="{Binding DisplayText}" Foreground="#FF353535" HorizontalAlignment="Center" VerticalAlignment="Center">
+									<Label Content="{Binding DisplayText}" Foreground="#FF353535" HorizontalAlignment="Center"
+									       VerticalAlignment="Center">
 										<Label.Style>
 											<Style TargetType="{x:Type Label}">
 												<Style.Triggers>
 													<Trigger Property="IsMouseOver" Value="true">
-														<Setter Property="FontWeight" Value="Bold"></Setter>
+														<Setter Property="FontWeight" Value="Bold" />
 													</Trigger>
 													<Trigger Property="IsMouseOver" Value="false">
-														<Setter Property="FontWeight" Value="Normal"></Setter>
+														<Setter Property="FontWeight" Value="Normal" />
 													</Trigger>
 												</Style.Triggers>
 											</Style>
@@ -49,7 +50,7 @@
 				</ItemsControl.Resources>
 				<ItemsControl.ItemsPanel>
 					<ItemsPanelTemplate>
-						<StackPanel Orientation="Vertical"/>
+						<StackPanel Orientation="Vertical" />
 					</ItemsPanelTemplate>
 				</ItemsControl.ItemsPanel>
 			</ItemsControl>

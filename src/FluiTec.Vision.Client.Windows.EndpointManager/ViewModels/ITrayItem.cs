@@ -3,6 +3,5 @@
 	/// <summary>	Interface for tray item. </summary>
 	public interface ITrayItem
 	{
-		
 	}
 }

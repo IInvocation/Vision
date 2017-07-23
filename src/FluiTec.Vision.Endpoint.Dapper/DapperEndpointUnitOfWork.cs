@@ -3,23 +3,23 @@ using FluiTec.Vision.Endpoint.Repositories;
 
 namespace FluiTec.Vision.Endpoint.Dapper
 {
-    /// <summary>	A dapper endpoint unit of work. </summary>
-    public class DapperEndpointUnitOfWork : DapperUnitOfWork, IEndpointUnitOfWork
-    {
-	    #region Constructors
+	/// <summary>	A dapper endpoint unit of work. </summary>
+	public class DapperEndpointUnitOfWork : DapperUnitOfWork, IEndpointUnitOfWork
+	{
+		#region Fields
 
-	    /// <summary>	Constructor. </summary>
-	    /// <param name="dataService">	The data service. </param>
-	    public DapperEndpointUnitOfWork(DapperDataService dataService) : base(dataService)
-	    {
-	    }
+		/// <summary>	The client endpoint repository. </summary>
+		private IClientEndpointRepository _clientEndpointRepository;
 
 		#endregion
 
-		#region Fields
+		#region Constructors
 
-	    /// <summary>	The client endpoint repository. </summary>
-	    private IClientEndpointRepository _clientEndpointRepository;
+		/// <summary>	Constructor. </summary>
+		/// <param name="dataService">	The data service. </param>
+		public DapperEndpointUnitOfWork(DapperDataService dataService) : base(dataService)
+		{
+		}
 
 		#endregion
 
@@ -27,7 +27,9 @@ namespace FluiTec.Vision.Endpoint.Dapper
 
 		/// <summary>	Gets the client endpoint repository. </summary>
 		/// <value>	The client endpoint repository. </value>
-		public IClientEndpointRepository ClientEndpointRepository => _clientEndpointRepository ?? (_clientEndpointRepository = GetRepository<IClientEndpointRepository>());
+		public IClientEndpointRepository ClientEndpointRepository => _clientEndpointRepository ??
+		                                                             (_clientEndpointRepository =
+			                                                             GetRepository<IClientEndpointRepository>());
 
 		#endregion
 	}

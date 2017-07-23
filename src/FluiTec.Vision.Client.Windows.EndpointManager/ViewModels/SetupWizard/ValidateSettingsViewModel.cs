@@ -3,45 +3,35 @@ using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
 using System.IO;
-using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using FluiTec.AppFx.Upnp;
+using FluiTec.Vision.Client.Windows.EndpointHelper.Configuration;
+using FluiTec.Vision.Client.Windows.EndpointHelper.Helpers;
+using FluiTec.Vision.Client.Windows.EndpointManager.Properties;
 using FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Setup.Wizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.Actions;
 using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.Views.SetupWizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.WebServer;
 using GalaSoft.MvvmLight.CommandWpf;
-using FluiTec.AppFx.Upnp;
-using FluiTec.Vision.Client.Windows.EndpointHelper.Configuration;
-using FluiTec.Vision.Client.Windows.EndpointHelper.Helpers;
-using FluiTec.Vision.Client.Windows.EndpointManager.Properties;
 using myservicelocation::Microsoft.Practices.ServiceLocation;
 using Newtonsoft.Json;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 {
-    /// <summary>	A ViewModel for validating previous settings. </summary>
-    public class ValidateSettingsViewModel : WizardPageViewModel
+	/// <summary>	A ViewModel for validating previous settings. </summary>
+	public class ValidateSettingsViewModel : WizardPageViewModel
 	{
-		#region Fields
-
-		/// <summary>	The external settings. </summary>
-		private readonly ExternalServerViewModel _externalSettings;
-
-		/// <summary>	The internal settings. </summary>
-		private readonly InternalServerViewModel _internalSettings;
-
-		#endregion
-
 		#region Constructors
 
 		/// <summary>	Constructor. </summary>
 		/// <param name="externalSettings">	The external settings. </param>
 		/// <param name="internalSettings">	The internal settings. </param>
 		public ValidateSettingsViewModel(
-			ExternalServerViewModel externalSettings, 
+			ExternalServerViewModel externalSettings,
 			InternalServerViewModel internalSettings)
 		{
 			_externalSettings = externalSettings;
@@ -56,7 +46,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			Content = new ValidateSettingsPage();
 
 			ExecuteValidationCommand = new RelayCommand(RunValidationActions);
-			
+
 			BuildActions();
 		}
 
@@ -75,6 +65,16 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 		/// <summary>	Gets or sets the execute validation command. </summary>
 		/// <value>	The execute validation command. </value>
 		public ICommand ExecuteValidationCommand { get; set; }
+
+		#endregion
+
+		#region Fields
+
+		/// <summary>	The external settings. </summary>
+		private readonly ExternalServerViewModel _externalSettings;
+
+		/// <summary>	The internal settings. </summary>
+		private readonly InternalServerViewModel _internalSettings;
 
 		#endregion
 
@@ -144,13 +144,13 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 				ActionToExecute = () =>
 				{
 					webServerManager.Stop();
-					return webServerManager.IsRunning ?
-						Task.FromResult(new ValidationResult
+					return webServerManager.IsRunning
+						? Task.FromResult(new ValidationResult
 						{
 							Success = false,
 							ErrorMessage = ValidateSettings.StopServerErrorMessage
-						}) 
-						: Task.FromResult(new ValidationResult { Success = true });
+						})
+						: Task.FromResult(new ValidationResult {Success = true});
 				}
 			};
 		}
@@ -188,7 +188,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 
 						// call the helper application and let it process the config-file
 						var cmdArgs = $"-a {Settings.Default.ApplicationDir} -f {fileName}";
-				
+
 						var ok = new Process
 							{
 								StartInfo = new ProcessStartInfo(fileName: "Helper\\FluiTec.Vision.Client.Windows.EndpointHelper.exe")
@@ -201,7 +201,11 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 							.RedirectOutputToConsole(createNoWindow: false)
 							.RunAndWaitForForNamedPipeResult(pipeName: "vision_endpoint_config_pipe");
 
-						return new ValidationResult {Success = ok, ErrorMessage = ok ? string.Empty : ValidateSettings.ConfigureHttpErrorMessage};
+						return new ValidationResult
+						{
+							Success = ok,
+							ErrorMessage = ok ? string.Empty : ValidateSettings.ConfigureHttpErrorMessage
+						};
 					});
 				}
 			};
@@ -222,12 +226,10 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 
 			HttpConfiguration config;
 			if (File.Exists(filePath))
-			{
-				using (var sr = new StreamReader(filePath, System.Text.Encoding.Default))
+				using (var sr = new StreamReader(filePath, Encoding.Default))
 				{
 					config = JsonConvert.DeserializeObject<HttpConfiguration>(sr.ReadToEnd());
 				}
-			}
 			else
 				config = new HttpConfiguration();
 
@@ -242,7 +244,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 
 
 			var json = JsonConvert.SerializeObject(config, Formatting.Indented);
-			using (var sw = new StreamWriter(filePath, append: false, encoding: System.Text.Encoding.Default))
+			using (var sw = new StreamWriter(filePath, append: false, encoding: Encoding.Default))
 			{
 				sw.Write(json);
 			}
@@ -282,7 +284,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 					return Task.FromResult(new ValidationResult {Success = true});
 				}
 			};
-			
 		}
 
 		/// <summary>	Gets start server. </summary>
@@ -297,13 +298,13 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 				{
 					webServerManager.Start();
 					await Task.Delay(TimeSpan.FromSeconds(value: 5));
-					return !webServerManager.IsRunning ?
-						new ValidationResult
+					return !webServerManager.IsRunning
+						? new ValidationResult
 						{
 							Success = false,
 							ErrorMessage = ValidateSettings.StartServerErrorMessage
 						}
-						: new ValidationResult { Success = true };
+						: new ValidationResult {Success = true};
 				}
 			};
 		}
@@ -316,7 +317,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			{
 				DisplayName = ValidateSettings.CheckConnectivityLabel,
 				ErrorMessage = ValidateSettings.CheckConnectiviyErrorMessage,
-				ActionToExecute = () => Task.FromResult(new ValidationResult { Success = false })
+				ActionToExecute = () => Task.FromResult(new ValidationResult {Success = false})
 			};
 		}
 

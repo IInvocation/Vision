@@ -29,7 +29,7 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 		public override IEnumerable<ScopeEntity> GetByIds(int[] ids)
 		{
 			var command = $"SELECT * FROM {TableName} WHERE {nameof(ScopeEntity.Id)} IN @Ids";
-			return UnitOfWork.Connection.Query<ScopeEntity>(command, new { Ids = ids },
+			return UnitOfWork.Connection.Query<ScopeEntity>(command, new {Ids = ids},
 				UnitOfWork.Transaction);
 		}
 
@@ -41,7 +41,7 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 		public override IEnumerable<ScopeEntity> GetByNames(string[] names)
 		{
 			var command = $"SELECT * FROM {TableName} WHERE {nameof(ScopeEntity.Name)} IN @Names";
-			return UnitOfWork.Connection.Query<ScopeEntity>(command, new { Names = names },
+			return UnitOfWork.Connection.Query<ScopeEntity>(command, new {Names = names},
 				UnitOfWork.Transaction);
 		}
 

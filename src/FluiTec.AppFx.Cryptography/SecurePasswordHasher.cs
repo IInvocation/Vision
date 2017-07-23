@@ -44,8 +44,8 @@ namespace FluiTec.AppFx.Cryptography
 
 			//combine salt and hash
 			var hashBytes = new byte[SaltSize + HashSize];
-			Array.Copy(salt, 0, hashBytes, 0, SaltSize);
-			Array.Copy(hash, 0, hashBytes, SaltSize, HashSize);
+			Array.Copy(salt, sourceIndex: 0, destinationArray: hashBytes, destinationIndex: 0, length: SaltSize);
+			Array.Copy(hash, sourceIndex: 0, destinationArray: hashBytes, destinationIndex: SaltSize, length: HashSize);
 
 			//convert to base64
 			var base64Hash = Convert.ToBase64String(hashBytes);
@@ -61,7 +61,7 @@ namespace FluiTec.AppFx.Cryptography
 		/// <returns>the hash</returns>
 		public static string Hash(string password)
 		{
-			return Hash(password, 10000);
+			return Hash(password, iterations: 10000);
 		}
 
 		/// <summary>
@@ -86,10 +86,10 @@ namespace FluiTec.AppFx.Cryptography
 
 			//check hash
 			if (!IsHashSupported(hashedPassword))
-				throw new NotSupportedException("The hashtype is not supported");
+				throw new NotSupportedException(message: "The hashtype is not supported");
 
 			//extract iteration and Base64 string
-			var splittedHashString = hashedPassword.Replace($"${HashIdentifier}${HashVersion}$", "").Split('$');
+			var splittedHashString = hashedPassword.Replace($"${HashIdentifier}${HashVersion}$", newValue: "").Split('$');
 			var iterations = int.Parse(splittedHashString[0]);
 			var base64Hash = splittedHashString[1];
 
@@ -98,7 +98,7 @@ namespace FluiTec.AppFx.Cryptography
 
 			//get salt
 			var salt = new byte[SaltSize];
-			Array.Copy(hashBytes, 0, salt, 0, SaltSize);
+			Array.Copy(hashBytes, sourceIndex: 0, destinationArray: salt, destinationIndex: 0, length: SaltSize);
 
 			//create hash with given salt
 			var pbkdf2 = new Rfc2898DeriveBytes(password, salt, iterations);

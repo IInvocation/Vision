@@ -10,7 +10,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Helpers
 	public static class ProcessHelper
 	{
 		/// <summary>	. </summary>
-		private static string _pipeArg = "-pipename:";
+		private static readonly string _pipeArg = "-pipename:";
 
 		/// <summary>	The Process extension method that redirect output to console. </summary>
 		/// <param name="process">		 	The process to act on. </param>
@@ -25,12 +25,12 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Helpers
 			process.StartInfo.CreateNoWindow = createNoWindow;
 
 			// handle output
-			process.ErrorDataReceived += (sender, args) => 
+			process.ErrorDataReceived += (sender, args) =>
 			{
 				if (!string.IsNullOrWhiteSpace(args.Data))
 					Console.WriteLine(args.Data);
 			};
-			process.OutputDataReceived += (sender, args) => 
+			process.OutputDataReceived += (sender, args) =>
 			{
 				if (!string.IsNullOrWhiteSpace(args.Data))
 					Console.WriteLine(args.Data);
@@ -55,7 +55,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Helpers
 		}
 
 		/// <summary>
-		/// The Process extension method that executes the and wait for named pipe result operation.
+		///     The Process extension method that executes the and wait for named pipe result operation.
 		/// </summary>
 		/// <param name="process"> 	The process to act on. </param>
 		/// <param name="pipeName">	Name of the pipe. </param>
@@ -78,9 +78,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Helpers
 					{
 						var line = sr.ReadLine();
 						if (!string.IsNullOrWhiteSpace(line))
-						{
 							i = int.Parse(line);
-						}
 					}
 					return i == 0;
 				}

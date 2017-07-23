@@ -49,7 +49,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Helpers
 				{
 					if (retry > 0)
 					{
-						Console.WriteLine("Sleeping for {0} // Retry {1} of {2}...", retryInterval, retry, retryCount);
+						Console.WriteLine(format: "Sleeping for {0} // Retry {1} of {2}...", arg0: retryInterval, arg1: retry,
+							arg2: retryCount);
 						Thread.Sleep(retryInterval);
 					}
 					return action();

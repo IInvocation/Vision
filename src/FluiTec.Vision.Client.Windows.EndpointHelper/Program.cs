@@ -14,7 +14,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper
 		private static void Main(string[] args)
 		{
 			if (CliHelper.IsAdministrator())
-			{
 				try
 				{
 					var options = new ConfigFileOptions();
@@ -35,17 +34,13 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper
 				catch (Exception e)
 				{
 					ConsoleHelper.ReportFault(e.Message);
-					Console.WriteLine(value: 
+					Console.WriteLine(value:
 						"Ausgabe zur Fehlersuche bitte erst mit <ENTER> schließen, wenn die Ursache des Problems von Ihnen ermittelt wurde!");
 					Console.ReadLine();
 					ProcessHelper.ReportStatusUsingPipe(ok: false, args: args);
 				}
-				
-			}
 			else
-			{
 				CliHelper.RestartAsAdministrator(shutDownAction: null, args: args);
-			}
 		}
 	}
 }

@@ -3,6 +3,5 @@
 	/// <summary>	A tray separator. </summary>
 	public class TraySeparator : ITrayItem
 	{
-		
 	}
 }
