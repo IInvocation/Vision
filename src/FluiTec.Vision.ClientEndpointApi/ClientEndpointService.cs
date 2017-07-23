@@ -45,7 +45,7 @@ namespace FluiTec.Vision.ClientEndpointApi
 		///     invalid.
 		/// </exception>
 		/// <param name="model">	The model. </param>
-		public async Task RegisterClientEndpoint(ClientEndpointModel model)
+		public async Task<ClientEndpointRegistrationModel> RegisterClientEndpoint(ClientEndpointModel model)
 		{
 			var bearerToken = await GetDelegationAccessToken();
 
@@ -57,6 +57,11 @@ namespace FluiTec.Vision.ClientEndpointApi
 
 			var result = await client.PostAsync(_options.ClientEndpointPath, new StringContent(json, Encoding.UTF8, mediaType: "application/json"));
 			result.EnsureSuccessStatusCode();
+
+			var content = await result.Content.ReadAsStringAsync();
+			var registration = JsonConvert.DeserializeObject<ClientEndpointRegistrationModel>(content); 
+			
+			return registration;
 		}
 
 		/// <summary>	Gets delegation access token. </summary>

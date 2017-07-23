@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration;
 using FluiTec.Vision.Client.AspNetCoreEndpoint.Models.ConfigureViewModels;
+using FluiTec.Vision.Client.AspNetCoreEndpoint.Services;
 using FluiTec.Vision.ClientEndpointApi;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -13,26 +14,43 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 	[Authorize]
 	public class ConfigureController : Controller
 	{
+		#region Fields
+
 		/// <summary>	The endpoint service. </summary>
 		private readonly ClientEndpointService _endpointService;
 
 		/// <summary>	The server settings. </summary>
 		private readonly ServerSettings _serverSettings;
 
+		/// <summary>	Manager for service. </summary>
+		private readonly EndpointManagerService _managerService;
+
+		#endregion
+
+		#region Constructors
+
 		/// <summary>	Constructor. </summary>
+		///
 		/// <param name="endpointService">	The endpoint service. </param>
 		/// <param name="serverSettings"> 	The server settings. </param>
-		public ConfigureController(ClientEndpointService endpointService, ServerSettings serverSettings)
+		/// <param name="managerService"> 	Manager for service. </param>
+		public ConfigureController(ClientEndpointService endpointService, ServerSettings serverSettings, EndpointManagerService managerService)
 		{
 			_endpointService = endpointService;
 			_serverSettings = serverSettings;
+			_managerService = managerService;
 		}
+
+		#endregion
+
+		#region Routes
 
 		/// <summary>	Gets the index. </summary>
 		/// <returns>	An IActionResult. </returns>
 		public IActionResult Index()
 		{
-			return View();
+			var model = new RegistrationStatusModel {Registered = !IsRegistrationNecessary()};
+			return View(model);
 		}
 
 		/// <summary>	Configure client registration. </summary>
@@ -62,21 +80,20 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ConfigureClientRegistration(ClientRegistrationViewModel model)
 		{
-			if (await IsRegistrationNecessary(model))
-			{
-				await DoRegistration(model);
-			}
-			else
-			{
-				await UpdateRegistration(model);
-			}
+			await DoRegistration(model);
 
 			return Redirect(url: "http://localhost:5020/Manage");
 		}
 
-		private Task<bool> IsRegistrationNecessary(ClientRegistrationViewModel model)
+		#endregion
+
+		#region Helpers
+
+		/// <summary>	Is registration necessary. </summary>
+		/// <returns>	A Task&lt;bool&gt; </returns>
+		private bool IsRegistrationNecessary()
 		{
-			return Task.FromResult(result: true);
+			return _managerService.CurrentSettings == null;
 		}
 
 		/// <summary>	Executes the registration operation. </summary>
@@ -89,19 +106,20 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 				await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token"));
 
 			// do registration
-			var host = _serverSettings.UseUpnp ? $"upnp:{_serverSettings.UpnpPort}" : _serverSettings.ExternalHostname;
-			await _endpointService.RegisterClientEndpoint(new ClientEndpointModel
+			var host = _serverSettings.UseUpnp ? $"{_serverSettings.UpnpPort}" : _serverSettings.ExternalHostname;
+			var registration = await _endpointService.RegisterClientEndpoint(new ClientEndpointModel
 			{
+				UseUpnp = _serverSettings.UseUpnp,
 				MachineName = model.MachineName,
-				EndpointHost = host
+				EndpointHost = host,
+				ForwardFriday = model.ForwardFridayCalls,
+				ForwardJarvis = model.ForwardJarvisCalls
 			});
 
-			//  if upnp was used - start upnp-ip-monitor
+			// save credentials
+			_managerService.Save(registration);
 		}
 
-		private Task UpdateRegistration(ClientRegistrationViewModel model)
-		{
-			return Task.FromResult(result: 0);
-		}
+		#endregion
 	}
 }

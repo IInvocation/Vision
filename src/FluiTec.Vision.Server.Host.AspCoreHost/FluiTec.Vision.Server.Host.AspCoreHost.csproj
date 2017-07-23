@@ -141,6 +141,9 @@
     <ProjectReference Include="..\FluiTec.AppFx.Identity\FluiTec.AppFx.Identity.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Options\FluiTec.AppFx.Options.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.ClientEndpointApi\FluiTec.Vision.ClientEndpointApi.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.Endpoint.Dapper.Mssql\FluiTec.Vision.Endpoint.Dapper.Mssql.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.Endpoint.Dapper\FluiTec.Vision.Endpoint.Dapper.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.Endpoint\FluiTec.Vision.Endpoint.csproj" />
     <ProjectReference Include="..\FuiTec.AppFx.Mail\FuiTec.AppFx.Mail.csproj" />
   </ItemGroup>
   <ItemGroup>

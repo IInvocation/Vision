@@ -3,6 +3,10 @@
 	/// <summary>	A data Model for the client endpoint. </summary>
 	public class ClientEndpointModel
 	{
+		/// <summary>	Gets or sets a value indicating whether this object use upnp. </summary>
+		/// <value>	True if use upnp, false if not. </value>
+		public bool UseUpnp { get; set; }
+
 		/// <summary>	Gets or sets the name of the machine. </summary>
 		/// <value>	The name of the machine. </value>
 		public string MachineName { get; set; }

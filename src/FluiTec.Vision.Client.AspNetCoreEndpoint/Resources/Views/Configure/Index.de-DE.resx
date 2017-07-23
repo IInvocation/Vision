@@ -120,6 +120,9 @@
   <data name="ClientRegistrationHeader" xml:space="preserve">
     <value>Client-Registrierung</value>
   </data>
+  <data name="ClientRegistrationStatusErrorText" xml:space="preserve">
+    <value>Nicht registriert</value>
+  </data>
   <data name="ClientRegistrationStatusOkText" xml:space="preserve">
     <value>OK!</value>
   </data>

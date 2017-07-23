@@ -1,4 +1,5 @@
-﻿using FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions;
+﻿using FluiTec.Vision.Client.AspNetCoreEndpoint.Services;
+using FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,7 +38,8 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 				.ConfigureDataServices(Configuration)
 				.ConfigureServerSettings(Configuration)
 				.ConfigureOpenIdConnect(Configuration)
-				.ConfigureMvc(Configuration);
+				.ConfigureMvc(Configuration)
+				.AddScoped<EndpointManagerService>();
 		}
 
 		/// <summary>	Configures. </summary>

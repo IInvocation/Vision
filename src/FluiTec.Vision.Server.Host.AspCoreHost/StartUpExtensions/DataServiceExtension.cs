@@ -5,6 +5,8 @@ using FluiTec.AppFx.Identity.Dapper.Mssql;
 using FluiTec.AppFx.IdentityServer;
 using FluiTec.AppFx.IdentityServer.Dapper.Mssql;
 using FluiTec.AppFx.Options;
+using FluiTec.Vision.Endpoint;
+using FluiTec.Vision.Endpoint.Dapper.Mssql;
 using FuiTec.AppFx.Mail.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -26,6 +28,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 
 			services.AddScoped<IIdentityDataService, MssqlDapperIdentityDataService>();
 			services.AddScoped<IIdentityServerDataService, MssqlDapperIdentityServerDataService>();
+			services.AddScoped<IEndpointDataService, MssqlDapperEndpointDataService>();
 
 			return services;
 		}

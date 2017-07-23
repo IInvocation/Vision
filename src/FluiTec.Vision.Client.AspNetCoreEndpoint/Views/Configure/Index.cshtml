@@ -1,4 +1,6 @@
-﻿@using Microsoft.AspNetCore.Mvc.Localization
+﻿@model RegistrationStatusModel
+@using FluiTec.Vision.Client.AspNetCoreEndpoint.Models.ConfigureViewModels
+@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
 <header class="major">
@@ -12,7 +14,14 @@
 				<tr>
 					<td class="pull-left"><b><localize>ClientRegistrationHeader</localize></b></td>
 					<td class="pull-left"><localize>ClientRegistrationText</localize></td>
-					<td><a style="border-bottom: none" asp-controller="Configure" asp-action="ConfigureClientRegistration"><img src="images/status/status_globe_ok.png" width="64" height="64" alt="@Localizer[name: "ClientRegistrationStatusOkText"]" /></a></td>
+					@if (Model.Registered)
+					{
+						<td><a style="border-bottom: none" asp-controller="Configure" asp-action="ConfigureClientRegistration"><img src="images/status/status_globe_ok.png" width="64" height="64" alt="@Localizer[name: "ClientRegistrationStatusOkText"]"/></a></td>
+					}
+					else
+					{
+						<td><a style="border-bottom: none" asp-controller="Configure" asp-action="ConfigureClientRegistration"><img src="images/status/status_globe_error.png" width="64" height="64" alt="@Localizer[name: "ClientRegistrationStatusErrorText"]" /></a></td>
+					}
 				</tr>
 			</table>
 		</section>
