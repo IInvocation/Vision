@@ -10,7 +10,6 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
     {
 	    public IActionResult SignIn()
 	    {
-		    var ctx = HttpContext;
 		    return RedirectToAction(actionName: "Index", controllerName: "Home");
 	    }
 

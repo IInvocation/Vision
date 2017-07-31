@@ -30,7 +30,7 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 		public override IEnumerable<IdentityResourceClaimEntity> GetByIdentityId(int id)
 		{
 			var command = $"SELECT * FROM {TableName} WHERE {nameof(IdentityResourceClaimEntity.IdentityResourceId)} = @CId";
-			return UnitOfWork.Connection.Query<IdentityResourceClaimEntity>(command, new { CId = id },
+			return UnitOfWork.Connection.Query<IdentityResourceClaimEntity>(command, new {CId = id},
 				UnitOfWork.Transaction);
 		}
 

@@ -9,10 +9,10 @@ namespace FluiTec.AppFx.IdentityServer.Validators
 	/// <summary>	A delegation grant validator. </summary>
 	public class DelegationGrantValidator : IExtensionGrantValidator
 	{
+		private readonly ILogger<DelegationGrantValidator> _logger;
+
 		/// <summary>	The validator. </summary>
 		private readonly ITokenValidator _validator;
-
-		private readonly ILogger<DelegationGrantValidator> _logger;
 
 		/// <summary>	Constructor. </summary>
 		/// <param name="validator">	The validator. </param>
@@ -40,17 +40,19 @@ namespace FluiTec.AppFx.IdentityServer.Validators
 			}
 
 			var result = await _validator.ValidateAccessTokenAsync(userToken);
-			
+
 			if (result.IsError)
 			{
 				context.Result = new GrantValidationResult(TokenRequestErrors.InvalidGrant);
 				return;
 			}
 
-			var delegationAllowed = result.Client.Claims.Any(c => c.Type == GrantType && c.Value == context.Request.Client.ClientId);
+			var delegationAllowed =
+				result.Client.Claims.Any(c => c.Type == GrantType && c.Value == context.Request.Client.ClientId);
 			if (!delegationAllowed)
 			{
-				_logger.LogInformation($"{result.Client.ClientName} not allowed to use delegation for {context.Request.Client.ClientName} (fitting Claim is missing).");
+				_logger.LogInformation(
+					$"{result.Client.ClientName} not allowed to use delegation for {context.Request.Client.ClientName} (fitting Claim is missing).");
 				context.Result = new GrantValidationResult(TokenRequestErrors.UnauthorizedClient);
 				return;
 			}
@@ -58,7 +60,8 @@ namespace FluiTec.AppFx.IdentityServer.Validators
 			// get user's identity
 			var sub = result.Claims.FirstOrDefault(c => c.Type == "sub").Value;
 
-			_logger.LogInformation($"Issuing DelegationGrant for {result.Claims.FirstOrDefault(c => c.Type == "email")?.Value}.");
+			_logger.LogInformation(
+				$"Issuing DelegationGrant for {result.Claims.FirstOrDefault(c => c.Type == "email")?.Value}.");
 
 			// grant
 			context.Result = new GrantValidationResult(sub, authenticationMethod: "delegation");

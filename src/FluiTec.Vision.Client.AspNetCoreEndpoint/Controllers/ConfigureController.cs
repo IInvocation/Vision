@@ -1,6 +1,8 @@
-﻿using System.Security.Claims;
+﻿using System;
 using System.Threading.Tasks;
+using FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration;
 using FluiTec.Vision.Client.AspNetCoreEndpoint.Models.ConfigureViewModels;
+using FluiTec.Vision.Client.AspNetCoreEndpoint.Services;
 using FluiTec.Vision.ClientEndpointApi;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
@@ -12,36 +14,59 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 	[Authorize]
 	public class ConfigureController : Controller
 	{
+		#region Fields
+
 		/// <summary>	The endpoint service. </summary>
 		private readonly ClientEndpointService _endpointService;
 
-		/// <summary>	Options for controlling the operation. </summary>
-		private readonly DelegationApiOptions _options;
+		/// <summary>	The server settings. </summary>
+		private readonly ServerSettings _serverSettings;
+
+		/// <summary>	Manager for service. </summary>
+		private readonly EndpointManagerService _managerService;
+
+		#endregion
+
+		#region Constructors
 
 		/// <summary>	Constructor. </summary>
-		/// <param name="options">		  	Options for controlling the operation. </param>
+		///
 		/// <param name="endpointService">	The endpoint service. </param>
-		public ConfigureController(DelegationApiOptions options, ClientEndpointService endpointService)
+		/// <param name="serverSettings"> 	The server settings. </param>
+		/// <param name="managerService"> 	Manager for service. </param>
+		public ConfigureController(ClientEndpointService endpointService, ServerSettings serverSettings, EndpointManagerService managerService)
 		{
-			_options = options;
 			_endpointService = endpointService;
+			_serverSettings = serverSettings;
+			_managerService = managerService;
 		}
+
+		#endregion
+
+		#region Routes
 
 		/// <summary>	Gets the index. </summary>
 		/// <returns>	An IActionResult. </returns>
 		public IActionResult Index()
 		{
-			return View();
+			var model = new RegistrationStatusModel {Registered = !IsRegistrationNecessary()};
+			return View(model);
 		}
 
 		/// <summary>	Configure client registration. </summary>
 		/// <returns>	An IActionResult. </returns>
 		public IActionResult ConfigureClientRegistration()
 		{
+			// make machinename start UpperCase and continue LowerCase
+			var machineName = Environment.MachineName;
+			machineName = machineName.Length >= 2
+				? string.Concat(machineName.Substring(startIndex: 0, length: 1).ToUpper(),
+					machineName.Substring(startIndex: 1).ToLower())
+				: machineName;
+
 			var vm = new ClientRegistrationViewModel
 			{
-				Email = User.FindFirstValue(claimType: "email"),
-				MachineName = "Friday",
+				MachineName = machineName,
 				ForwardFridayCalls = true
 			};
 			return View(vm);
@@ -55,35 +80,47 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 		[HttpPost]
 		public async Task<IActionResult> ConfigureClientRegistration(ClientRegistrationViewModel model)
 		{
-			_endpointService.Init(await HttpContext.Authentication.GetTokenAsync(tokenName: "access_token"),
-				await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token"));
-			await _endpointService.RegisterClientEndpoint(new ClientEndpointModel {MachineName = model.MachineName, EndpointHost = _options.EndpointHost});
+			await DoRegistration(model);
 
-			//   var accessToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "access_token");
-			//   var refreshToken = await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token");
-
-			//   var payload = new
-			//   {
-			//    token = accessToken
-			//   };
-
-			//var disco = await DiscoveryClient.GetAsync(_openIdOptions.Authority);
-			//   var tokenClient = new TokenClient(disco.TokenEndpoint, _openIdOptions.DelegationClientId, _openIdOptions.DelegationClientSecret);
-
-			//   var response = await tokenClient.RequestCustomGrantAsync(grantType: "delegation", scope: "clientendpoint", extra: payload);
-			//   var bearerAccessToken = response.AccessToken;
-
-			//var client = new HttpClient {BaseAddress = new Uri($"{_openIdOptions.Authority}/api/")};
-			//client.DefaultRequestHeaders.Accept
-			//	.Add(new MediaTypeWithQualityHeaderValue(mediaType: "application/json"));
-			//client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue(scheme: "Bearer",parameter: bearerAccessToken);
-			//var json = JsonConvert.SerializeObject(model);
-
-			//   var result = await client.PostAsync(requestUri: "ClientEndpoint", content: new StringContent(json, Encoding.UTF8, mediaType: "application/json"));
-			//   result.EnsureSuccessStatusCode();
-
-			// redirect user to accept new ClientEndpoint
 			return Redirect(url: "http://localhost:5020/Manage");
 		}
+
+		#endregion
+
+		#region Helpers
+
+		/// <summary>	Is registration necessary. </summary>
+		/// <returns>	A Task&lt;bool&gt; </returns>
+		private bool IsRegistrationNecessary()
+		{
+			return _managerService.CurrentSettings == null;
+		}
+
+		/// <summary>	Executes the registration operation. </summary>
+		/// <param name="model">	The model. </param>
+		/// <returns>	A Task. </returns>
+		private async Task DoRegistration(ClientRegistrationViewModel model)
+		{
+			// initialize service, exchanging user tokens for delegation tokens
+			_endpointService.Init(await HttpContext.Authentication.GetTokenAsync(tokenName: "access_token"),
+				await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token"));
+
+			// do registration
+			var host = _serverSettings.UseUpnp ? $"{_serverSettings.UpnpPort}" : _serverSettings.ExternalHostname;
+			var registration = await _endpointService.RegisterClientEndpoint(new ClientEndpointModel
+			{
+				RegistrationId = _managerService.CurrentSettings?.RegistrationId ?? -1,
+				UseUpnp = _serverSettings.UseUpnp,
+				MachineName = model.MachineName,
+				EndpointHost = host,
+				ForwardFriday = model.ForwardFridayCalls,
+				ForwardJarvis = model.ForwardJarvisCalls
+			});
+
+			// save credentials
+			_managerService.Save(registration);
+		}
+
+		#endregion
 	}
 }

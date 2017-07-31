@@ -1,6 +1,7 @@
 ﻿extern alias myservicelocation;
 using System;
 using System.Diagnostics;
+using FluiTec.Vision.Client.Windows.EndpointManager.Properties;
 using myservicelocation::Microsoft.Practices.ServiceLocation;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
@@ -8,6 +9,31 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 	/// <summary>	Manager for web servers. </summary>
 	public class WebServerManager : IWebServerManager
 	{
+		#region Constructors
+
+		/// <summary>	Default constructor. </summary>
+		public WebServerManager()
+		{
+			_manager = ServiceLocator.Current.GetInstance<ISettingsManager>();
+		}
+
+		#endregion
+
+		#region Properties
+
+		/// <summary>	Gets or sets a value indicating whether this object is running. </summary>
+		/// <value>	True if this object is running, false if not. </value>
+		public bool IsRunning
+		{
+			get
+			{
+				var result = !_process?.HasExited ?? false;
+				return result;
+			}
+		}
+
+		#endregion
+
 		#region Events
 
 		/// <summary>	Event queue for all listeners interested in Started events. </summary>
@@ -28,30 +54,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 
 		#endregion
 
-		#region Constructors
-
-		/// <summary>	Default constructor. </summary>
-		public WebServerManager()
-		{
-			_manager = ServiceLocator.Current.GetInstance<ISettingsManager>();
-		}
-
-		#endregion
-
-		#region Properties
-
-		/// <summary>	Gets or sets a value indicating whether this object is running. </summary>
-		/// <value>	True if this object is running, false if not. </value>
-		public bool IsRunning {
-			get
-			{
-				var result = !_process?.HasExited ?? false;
-				return result;
-			}
-		} 
-
-		#endregion
-
 		#region Methods
 
 		/// <summary>	Starts this object. </summary>
@@ -64,40 +66,29 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 			{
 				StartInfo = new ProcessStartInfo(fileName: "dotnet")
 				{
-					Arguments = Properties.Settings.Default.ServerExecutable,
+					Arguments = Settings.Default.ServerExecutable,
 					UseShellExecute = false,
-					WorkingDirectory = Properties.Settings.Default.ServerDir
+					WorkingDirectory = Settings.Default.ServerDir,
+					RedirectStandardInput = true,
+					RedirectStandardError = true
 				}
 			};
 			_process.StartInfo.EnvironmentVariables[key: "ASPNETCORE_ENVIRONMENT"] =
-				Properties.Settings.Default.AspNetCoreEnvironment;
+				Settings.Default.AspNetCoreEnvironment;
 
 			_process.Exited += (sender, args) =>
 			{
 				RaiseStop();
-#if DEBUG
-				var output = _process.StandardOutput.ReadToEnd();
-				Debug.WriteLine(output);
-#endif
+
 				var errors = _process.StandardError.ReadToEnd();
 				if (errors != string.Empty)
-				{
-					// auto-restart on error-exit
 					Start();
-				}
 			};
 
 			//// set up output redirection
-			_process.StartInfo.RedirectStandardOutput = true;
-			_process.StartInfo.RedirectStandardError = true;
 			_process.EnableRaisingEvents = true;
 			_process.StartInfo.CreateNoWindow = true;
 
-#if DEBUG
-			// handle output
-			_process.ErrorDataReceived += (sender, args) => { Debug.WriteLine(args.Data); };
-			_process.OutputDataReceived += (sender, args) => { Debug.WriteLine(args.Data); };
-#endif
 			_process.Start();
 			RaiseStart();
 		}

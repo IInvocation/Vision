@@ -47,7 +47,7 @@ namespace FluiTec.AppFx.Identity.Dapper
 
 		/// <summary>	The user login repository. </summary>
 		public IUserLoginRepository LoginRepository => _loginRepository ??
-		                                                   (_loginRepository = GetRepository<IUserLoginRepository>());
+		                                               (_loginRepository = GetRepository<IUserLoginRepository>());
 
 		#endregion
 	}

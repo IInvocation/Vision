@@ -92,7 +92,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 		#endregion
 
 		#region Methods
-		
+
 		/// <summary>	Runs this object. </summary>
 		public void Run()
 		{
@@ -108,13 +108,13 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 		private void ExecuteRemoveFirewallException()
 		{
 			if (!RemoveFirewallException) return;
-			
+
 			ConsoleHelper.ReportStatus($"Removing firewall-exception for port {RemoveFirewallExceptionPort}");
 
 			var cmdArgs = $"advfirewall firewall delete rule name=\"{ApplicationName}{RemoveFirewallExceptionPort}\" " +
 			              $"protocol=TCP localport={RemoveFirewallExceptionPort}";
 
-			var ok = new Process
+			new Process
 				{
 					StartInfo = new ProcessStartInfo(fileName: "netsh")
 					{
@@ -125,10 +125,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 				}
 				.RedirectOutputToConsole()
 				.RunAndWait();
-			if (!ok)
-			{
-				throw new Exception($"Could not delete firewall-exception for port {RemoveFirewallExceptionPort}");
-			}
 		}
 
 		/// <summary>	Executes the add firewall exception operation. </summary>
@@ -153,9 +149,11 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 				.RedirectOutputToConsole()
 				.RunAndWait();
 			if (!ok)
-			{
 				throw new Exception($"Could not add firewall-exception for port {AddFirewallExceptionPort}");
-			}
+
+			// save changed settings for auto-delete
+			RemoveFirewallException = true;
+			RemoveFirewallExceptionPort = AddFirewallExceptionPort;
 		}
 
 		/// <summary>	Executes the remove ssl certificate operation. </summary>
@@ -168,12 +166,20 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 			var cn = $"CN={Environment.MachineName}-{ApplicationName}";
 			var caCn = $"CN={Environment.MachineName}-{ApplicationName}-CA";
 
-			SslHelper.RemoveCertsFromStore(cn, StoreName.My, StoreLocation.LocalMachine);
-			SslHelper.RemoveCertsFromStore(caCn, StoreName.My, StoreLocation.LocalMachine);
+			try
+			{
+				SslHelper.RemoveCertsFromStore(cn, StoreName.My, StoreLocation.LocalMachine);
+				SslHelper.RemoveCertsFromStore(caCn, StoreName.CertificateAuthority, StoreLocation.LocalMachine);
+			}
+			catch (Exception e)
+			{
+				Console.WriteLine(e);
+				throw;
+			}
 
 			var cmdArgs = $"http delete sslcert ipport=0.0.0.0:{RemoveSslCertificatePort}";
 
-			var ok = new Process
+			new Process
 				{
 					StartInfo = new ProcessStartInfo(fileName: "netsh")
 					{
@@ -184,11 +190,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 				}
 				.RedirectOutputToConsole()
 				.RunAndWait();
-
-			if (!ok)
-			{
-				throw new Exception($"Could not remove ssl-certificate for port {AddSslCertificatePort}");
-			}
 		}
 
 		/// <summary>	Executes the add ssl certificate operation. </summary>
@@ -202,23 +203,28 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 			RetryHelper.Do(() =>
 			{
 				// create ca
-				var caCert = SslHelper.GenerateCaCertificate($"CN={Environment.MachineName}-{ApplicationName}-CA", out AsymmetricKeyParameter caPrivateKey, DateTime.Now.AddYears(value: 10));
+				var caCert = SslHelper.GenerateCaCertificate($"CN={Environment.MachineName}-{ApplicationName}-CA",
+					out AsymmetricKeyParameter caPrivateKey, DateTime.Now.AddYears(value: 10));
 
 				// add ca-cert to store
 				SslHelper.AddCertToStore(caCert, StoreName.My, StoreLocation.LocalMachine);
 
 				// create selfsigned cert
-				var cert = SslHelper.GenerateSelfSignedCertificate($"CN={Environment.MachineName}-{ApplicationName}", $"CN={Environment.MachineName}-{ApplicationName}-CA", caPrivateKey, DateTime.Now.AddYears(value: 10));
+				var cert = SslHelper.GenerateSelfSignedCertificate($"CN={Environment.MachineName}-{ApplicationName}",
+					$"CN={Environment.MachineName}-{ApplicationName}-CA", caPrivateKey, DateTime.Now.AddYears(value: 10));
 
 				// add cert to store
 				var p12 = cert.Export(X509ContentType.Pfx);
-				SslHelper.AddCertToStore(new X509Certificate2(p12, (string)null, X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet), StoreName.My, StoreLocation.LocalMachine);
+				SslHelper.AddCertToStore(
+					new X509Certificate2(p12, (string) null, X509KeyStorageFlags.Exportable | X509KeyStorageFlags.PersistKeySet),
+					StoreName.My, StoreLocation.LocalMachine);
 
 				// get thumbprint (used by netsh, etc.)
 				certHash = cert.Thumbprint?.ToLower();
 			}, TimeSpan.Zero);
 
-			var cmdArgs = $"http add sslcert ipport=0.0.0.0:{AddSslCertificatePort} certhash={certHash} appid={{{AddSslCertificateApplicationId}}}";
+			var cmdArgs =
+				$"http add sslcert ipport=0.0.0.0:{AddSslCertificatePort} certhash={certHash} appid={{{AddSslCertificateApplicationId}}}";
 
 			var ok = new Process
 				{
@@ -233,9 +239,11 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 				.RunAndWait();
 
 			if (!ok)
-			{
 				throw new Exception($"Could not add ssl-certificate for port {AddSslCertificatePort}");
-			}
+
+			// save changed settings for auto-delete
+			RemoveSslCertificate = true;
+			RemoveSslCertificatePort = AddSslCertificatePort;
 		}
 
 		/// <summary>	Executes the remove URL reservation operation. </summary>
@@ -247,7 +255,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 
 			var cmdArgs = $"http delete urlacl url={RemoveUrlReservationUri}";
 
-			var ok = new Process
+			new Process
 				{
 					StartInfo = new ProcessStartInfo(fileName: "netsh")
 					{
@@ -258,11 +266,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 				}
 				.RedirectOutputToConsole()
 				.RunAndWait();
-
-			if (!ok)
-			{
-				throw new Exception($"Could not remove url-reservation for uri {RemoveUrlReservationUri}");
-			}
 		}
 
 		/// <summary>	Executes the add URL reservation operation. </summary>
@@ -273,7 +276,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 			ConsoleHelper.ReportStatus($"Adding url-reservation for uri {AddUrlReservationUri}");
 
 			var sid = new SecurityIdentifier(WellKnownSidType.WorldSid, domainSid: null);
-			var account = (NTAccount)sid.Translate(typeof(NTAccount));
+			var account = (NTAccount) sid.Translate(typeof(NTAccount));
 
 			var cmdArgs = $"http add urlacl url={AddUrlReservationUri} user={account.Value}";
 
@@ -290,9 +293,11 @@ namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration
 				.RunAndWait();
 
 			if (!ok)
-			{
-				throw new Exception($"Could not add url-reservation for uri {RemoveUrlReservationUri}");
-			}
+				throw new Exception($"Could not add url-reservation for url {AddUrlReservationUri}");
+
+			// save changed settings for auto-delete
+			RemoveUrlReservation = true;
+			RemoveUrlReservationUri = AddUrlReservationUri;
 		}
 
 		#endregion

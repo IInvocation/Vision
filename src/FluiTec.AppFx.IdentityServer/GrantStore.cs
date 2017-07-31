@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using FluiTec.AppFx.IdentityServer.Entities;
 using IdentityServer4.Models;
-using IdentityServer4.Services;
 using IdentityServer4.Stores;
 
 namespace FluiTec.AppFx.IdentityServer
@@ -16,7 +14,6 @@ namespace FluiTec.AppFx.IdentityServer
 
 		/// <summary>	The data service. </summary>
 		private readonly IIdentityServerDataService _dataService;
-
 
 		#endregion
 
@@ -93,16 +90,16 @@ namespace FluiTec.AppFx.IdentityServer
 				{
 					var entities = uow.GrantRepository.FindBySubjectId(subjectId);
 					return entities.Select(entity => new PersistedGrant
-					{
-						ClientId = entity.ClientId,
-						CreationTime = entity.CreationTime,
-						Data = entity.Data,
-						Expiration = entity.Expiration,
-						Key = entity.GrantKey,
-						SubjectId = entity.SubjectId,
-						Type = entity.Type
-					})
-					.ToList();
+						{
+							ClientId = entity.ClientId,
+							CreationTime = entity.CreationTime,
+							Data = entity.Data,
+							Expiration = entity.Expiration,
+							Key = entity.GrantKey,
+							SubjectId = entity.SubjectId,
+							Type = entity.Type
+						})
+						.ToList();
 				}
 			});
 		}

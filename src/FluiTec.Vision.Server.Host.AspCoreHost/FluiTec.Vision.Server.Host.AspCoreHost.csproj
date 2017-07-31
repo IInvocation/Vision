@@ -22,6 +22,8 @@
     </Content>
     <Content Include="wwwroot\css\ie\v8.css" />
     <Content Include="wwwroot\css\ie\v9.css" />
+    <Content Include="wwwroot\css\images\amazon.png" />
+    <Content Include="wwwroot\css\images\google.png" />
     <Content Include="wwwroot\css\images\overlay.png" />
     <Content Include="wwwroot\css\skel.css" />
     <Content Include="wwwroot\css\style-large.css">
@@ -126,6 +128,7 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\FluiTec.AppFx.Authentication.Amazon\FluiTec.AppFx.Authentication.Amazon.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Cryptography\FluiTec.AppFx.Cryptography.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Data.Dapper.Mssql\FluiTec.AppFx.Data.Dapper.Mssql.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Data.Dapper\FluiTec.AppFx.Data.Dapper.csproj" />
@@ -138,6 +141,9 @@
     <ProjectReference Include="..\FluiTec.AppFx.Identity\FluiTec.AppFx.Identity.csproj" />
     <ProjectReference Include="..\FluiTec.AppFx.Options\FluiTec.AppFx.Options.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.ClientEndpointApi\FluiTec.Vision.ClientEndpointApi.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.Endpoint.Dapper.Mssql\FluiTec.Vision.Endpoint.Dapper.Mssql.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.Endpoint.Dapper\FluiTec.Vision.Endpoint.Dapper.csproj" />
+    <ProjectReference Include="..\FluiTec.Vision.Endpoint\FluiTec.Vision.Endpoint.csproj" />
     <ProjectReference Include="..\FuiTec.AppFx.Mail\FuiTec.AppFx.Mail.csproj" />
   </ItemGroup>
   <ItemGroup>
@@ -388,9 +394,6 @@
     </Content>
     <Content Update="wwwroot/css\style.css">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Update="wwwroot/favicon.ico">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Update="wwwroot/fonts\fontawesome-webfont.eot">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

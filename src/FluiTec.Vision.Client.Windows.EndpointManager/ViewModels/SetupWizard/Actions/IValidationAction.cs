@@ -24,9 +24,6 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.A
 		/// <value>	The action to execute. </value>
 		Func<Task<ValidationResult>> ActionToExecute { get; }
 
-		/// <summary>	Runs this object. </summary>
-		Task<ValidationResult> Run();
-
 		/// <summary>	Gets or sets a message describing the error. </summary>
 		/// <value>	A message describing the error. </value>
 		string ErrorMessage { get; set; }
@@ -34,5 +31,8 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.A
 		/// <summary>	Gets or sets a value indicating whether this object is failed. </summary>
 		/// <value>	True if this object is failed, false if not. </value>
 		bool IsFailed { get; }
+
+		/// <summary>	Runs this object. </summary>
+		Task<ValidationResult> Run();
 	}
 }

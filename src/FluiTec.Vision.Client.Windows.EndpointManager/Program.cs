@@ -15,6 +15,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 		#region Fields
 
 		/// <summary>	The event. </summary>
+		// ReSharper disable once NotAccessedField.Local
 		private static EventWaitHandle _eventWaitHandle;
 
 		#endregion
@@ -34,7 +35,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 		/// <summary>	Query if this object is first instance. </summary>
 		/// <returns>	True if first instance, false if not. </returns>
 		/// <remarks>
-		/// Uses an EventWaitHandle created by windows to determine other instances of this application.		 
+		///     Uses an EventWaitHandle created by windows to determine other instances of this application.
 		/// </remarks>
 		private static bool IsFirstInstance()
 		{
@@ -49,7 +50,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 
 		/// <summary>	Launches the application. </summary>
 		/// <remarks>
-		/// Registers some Services via IoC, automatically shut's down the webserver when exiting		 
+		///     Registers some Services via IoC, automatically shut's down the webserver when exiting
 		/// </remarks>
 		private static void Launch()
 		{
@@ -69,7 +70,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager
 
 		/// <summary>	Exits the application. </summary>
 		/// <remarks>
-		/// Shows a message before exiting the application.		 
+		///     Shows a message before exiting the application.
 		/// </remarks>
 		private static void Exit()
 		{

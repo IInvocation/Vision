@@ -141,6 +141,9 @@
   <data name="RemoveUpnpLabel" xml:space="preserve">
     <value>Upnp-Konfiguration entfernen</value>
   </data>
+  <data name="SaveSettingsLabel" xml:space="preserve">
+    <value>Einstellungen speichern</value>
+  </data>
   <data name="StartServerErrorMessage" xml:space="preserve">
     <value>Der Server konnte nicht gestartet werden.</value>
   </data>

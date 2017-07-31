@@ -22,7 +22,7 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 		/// <summary>	Registers this object. </summary>
 		/// <typeparam name="TInterface">	  	Type of the interface. </typeparam>
 		/// <typeparam name="TImplementation">	Type of the implementation. </typeparam>
-		public void Register<TInterface, TImplementation>() 
+		public void Register<TInterface, TImplementation>()
 			where TImplementation : class, TInterface
 			where TInterface : class
 		{

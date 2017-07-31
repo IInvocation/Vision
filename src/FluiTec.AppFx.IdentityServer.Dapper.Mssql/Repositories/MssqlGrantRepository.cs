@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dapper;
 using FluiTec.AppFx.Data;
 using FluiTec.AppFx.IdentityServer.Dapper.Repositories;
@@ -74,7 +73,7 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 			                              $"{nameof(GrantEntity.SubjectId)} = @SubjectId AND " +
 			                              $"{nameof(GrantEntity.ClientId)} = @ClientId AND " +
 			                              $"{nameof(GrantEntity.Type)} = @Type",
-				new { SubjectId = subject, ClientId = client, Type = type }, UnitOfWork.Transaction);
+				new {SubjectId = subject, ClientId = client, Type = type}, UnitOfWork.Transaction);
 		}
 
 		#endregion

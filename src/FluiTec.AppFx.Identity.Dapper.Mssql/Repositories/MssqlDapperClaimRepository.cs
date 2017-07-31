@@ -23,8 +23,9 @@ namespace FluiTec.AppFx.Identity.Dapper.Mssql.Repositories
 		/// </returns>
 		public override IEnumerable<int> GetUserIdsForClaimType(string claimType)
 		{
-			var command = $"SELECT {nameof(IdentityClaimEntity.UserId)} FROM {TableName} WHERE {nameof(IdentityClaimEntity.Type)} = @ClaimType";
-			return UnitOfWork.Connection.Query<int>(command, new { ClaimType = claimType },
+			var command =
+				$"SELECT {nameof(IdentityClaimEntity.UserId)} FROM {TableName} WHERE {nameof(IdentityClaimEntity.Type)} = @ClaimType";
+			return UnitOfWork.Connection.Query<int>(command, new {ClaimType = claimType},
 				UnitOfWork.Transaction);
 		}
 

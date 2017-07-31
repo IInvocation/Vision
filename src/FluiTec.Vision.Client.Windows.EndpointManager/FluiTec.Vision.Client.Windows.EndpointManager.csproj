@@ -278,6 +278,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Tray.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <EmbeddedResource Include="Resources\Localization\Views\Exit\ExitView.de-DE.resx" />
     <EmbeddedResource Include="Resources\Localization\Views\Exit\ExitView.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>ExitView.Designer.cs</LastGenOutput>
@@ -349,12 +350,6 @@
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="favicon.ico" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="Resources\favicon.ico" />
-  </ItemGroup>
-  <ItemGroup>
     <Resource Include="Resources\Images\quit.png" />
   </ItemGroup>
   <ItemGroup>
@@ -392,6 +387,15 @@
     <Resource Include="Resources\Images\status_failed.png" />
     <Resource Include="Resources\Images\status_successed.png" />
     <Resource Include="Resources\Images\status_waiting.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Images\home.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="favicon.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\favicon.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>

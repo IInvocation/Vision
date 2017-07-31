@@ -12,6 +12,10 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 
 		/// <summary>	Gets or sets the port. </summary>
 		/// <value>	The port. </value>
+		public int SslPort { get; set; }
+
+		/// <summary>	Gets or sets the port. </summary>
+		/// <value>	The port. </value>
 		public int Port { get; set; }
 
 		/// <summary>	Gets or sets a value indicating whether this object use upnp. </summary>

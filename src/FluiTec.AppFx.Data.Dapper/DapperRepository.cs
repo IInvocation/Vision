@@ -31,8 +31,8 @@ namespace FluiTec.AppFx.Data.Dapper
 		protected static TKey GetKey(long id)
 		{
 			if (typeof(TKey) != typeof(int))
-				throw new NotImplementedException("Currently there's only support for int as Primary Key");
-			return (TKey)(object)Convert.ToInt32(id);
+				throw new NotImplementedException(message: "Currently there's only support for int as Primary Key");
+			return (TKey) (object) Convert.ToInt32(id);
 		}
 
 		#endregion
@@ -69,7 +69,7 @@ namespace FluiTec.AppFx.Data.Dapper
 		/// <param name="id">	The Identifier to delete. </param>
 		public virtual void Delete(TKey id)
 		{
-			UnitOfWork.Connection.Execute($"DELETE FROM {TableName} WHERE Id = @Id", new { id }, UnitOfWork.Transaction);
+			UnitOfWork.Connection.Execute($"DELETE FROM {TableName} WHERE Id = @Id", new {id}, UnitOfWork.Transaction);
 		}
 
 		/// <summary>	Deletes the given entity. </summary>

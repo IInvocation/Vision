@@ -17,10 +17,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.Views
 			if (!_windowDictionary.ContainsKey(windowType))
 			{
 				var window = (Window) Activator.CreateInstance(windowType);
-				window.Closed += (sender, args) =>
-				{
-					_windowDictionary.Remove(sender.GetType());
-				};
+				window.Closed += (sender, args) => { _windowDictionary.Remove(sender.GetType()); };
 				_windowDictionary.Add(windowType, window);
 			}
 			var windowToShow = _windowDictionary[windowType];

@@ -42,7 +42,9 @@ namespace FluiTec.AppFx.IdentityServer
 			var claims = await GetClaimsFromUser(user);
 
 			var requestedClaimTypes = context.RequestedClaimTypes;
-			claims = requestedClaimTypes != null ? claims.Where(c => requestedClaimTypes.Contains(c.Type)) : claims.Take(0);
+			claims = requestedClaimTypes != null
+				? claims.Where(c => requestedClaimTypes.Contains(c.Type))
+				: claims.Take(count: 0);
 
 			context.IssuedClaims = claims.ToList();
 		}
@@ -74,9 +76,9 @@ namespace FluiTec.AppFx.IdentityServer
 				}
 
 				context.IsActive =
-				!user.LockoutEnabled ||
-				!user.LockedOutTill.HasValue ||
-				user.LockedOutTill <= DateTime.Now;
+					!user.LockoutEnabled ||
+					!user.LockedOutTill.HasValue ||
+					user.LockedOutTill <= DateTime.Now;
 			}
 		}
 
@@ -89,18 +91,14 @@ namespace FluiTec.AppFx.IdentityServer
 			};
 
 			if (_userManager.SupportsUserEmail)
-			{
 				claims.AddRange(new[]
 				{
 					new Claim(JwtClaimTypes.Email, user.Email),
 					new Claim(JwtClaimTypes.EmailVerified, user.EmailConfirmed ? "true" : "false", ClaimValueTypes.Boolean)
 				});
-			}
 
 			if (_userManager.SupportsUserClaim)
-			{
 				claims.AddRange(await _userManager.GetClaimsAsync(user));
-			}
 
 			if (!_userManager.SupportsUserRole) return claims;
 

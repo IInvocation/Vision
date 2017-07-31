@@ -22,7 +22,8 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 		public override SigningCredentialEntity GetLatest()
 		{
 			var command = $"SELECT TOP 1 * FROM {TableName} ORDER BY {nameof(SigningCredentialEntity.Issued)} DESC";
-			return UnitOfWork.Connection.QuerySingleOrDefault<SigningCredentialEntity>(command, param: null, transaction: UnitOfWork.Transaction);
+			return UnitOfWork.Connection.QuerySingleOrDefault<SigningCredentialEntity>(command, param: null,
+				transaction: UnitOfWork.Transaction);
 		}
 
 		/// <summary>	Gets validation valid. </summary>
@@ -31,7 +32,7 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 		public override IList<SigningCredentialEntity> GetValidationValid(DateTime validSince)
 		{
 			var command = $"SELECT * FROM {TableName} WHERE {nameof(SigningCredentialEntity.Issued)} > @validSince";
-			return UnitOfWork.Connection.Query<SigningCredentialEntity>(command, new { ValidSince = validSince },
+			return UnitOfWork.Connection.Query<SigningCredentialEntity>(command, new {ValidSince = validSince},
 				UnitOfWork.Transaction).ToList();
 		}
 	}

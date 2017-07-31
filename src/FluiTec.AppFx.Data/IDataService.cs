@@ -9,13 +9,13 @@ namespace FluiTec.AppFx.Data
 		/// <value>	The name. </value>
 		string Name { get; }
 
-		/// <summary>	Begins unit of work. </summary>
-		/// <returns>	An IUnitOfWork. </returns>
-		IUnitOfWork BeginUnitOfWork();
-
 		/// <summary>	Gets the name service. </summary>
 		/// <value>	The name service. </value>
 		IEntityNameService NameService { get; }
+
+		/// <summary>	Begins unit of work. </summary>
+		/// <returns>	An IUnitOfWork. </returns>
+		IUnitOfWork BeginUnitOfWork();
 
 		/// <summary>	Registers the repository provider described by repositoryProvider. </summary>
 		/// <typeparam name="TRepository">	Type of the repository. </typeparam>

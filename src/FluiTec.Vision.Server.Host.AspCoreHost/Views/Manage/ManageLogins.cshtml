@@ -38,7 +38,7 @@
 						<p>
 							@foreach (var provider in Model.OtherLogins)
 							{
-								<input type="submit" class="btn btn-default" name="provider" value="@provider.AuthenticationScheme" title="@Localizer["LoginHelpText", provider.DisplayName]" />
+								<input type="submit" style="padding-left:40px" class="btn btn-default @provider.AuthenticationScheme-btn" name="provider" value="@provider.AuthenticationScheme" title="@Localizer["LoginHelpText", provider.DisplayName]" />
 							}
 						</p>
 					</div>

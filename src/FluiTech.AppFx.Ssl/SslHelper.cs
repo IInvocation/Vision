@@ -75,9 +75,9 @@ namespace FluiTech.AppFx.Ssl
 			// merge into X509Certificate2
 			var x509 = new X509Certificate2(certificate.GetEncoded());
 
-			var seq = (Asn1Sequence)info.ParsePrivateKey();
+			var seq = (Asn1Sequence) info.ParsePrivateKey();
 			if (seq.Count != 9)
-				throw new PemException("malformed sequence in RSA private key");
+				throw new PemException(message: "malformed sequence in RSA private key");
 
 			var rsa = RsaPrivateKeyStructure.GetInstance(seq);
 			var rsaparams = new RsaPrivateCrtKeyParameters(
@@ -97,7 +97,7 @@ namespace FluiTech.AppFx.Ssl
 			var cspParams = new CspParameters
 			{
 				KeyContainerName = Guid.NewGuid().ToString(),
-				KeyNumber = (int)KeyNumber.Exchange,
+				KeyNumber = (int) KeyNumber.Exchange,
 				Flags = CspProviderFlags.UseMachineKeyStore
 			};
 

@@ -18,7 +18,8 @@ namespace FluiTec.AppFx.Options
 		{
 			if (ConfigurationNames.ContainsKey(entityType)) return ConfigurationNames[entityType];
 			var attribute =
-				entityType.GetTypeInfo().GetCustomAttributes(typeof(ConfigurationNameAttribute)).SingleOrDefault() as ConfigurationNameAttribute;
+				entityType.GetTypeInfo().GetCustomAttributes(typeof(ConfigurationNameAttribute))
+					.SingleOrDefault() as ConfigurationNameAttribute;
 			ConfigurationNames.Add(entityType, attribute != null ? attribute.Name : entityType.Name);
 
 			return ConfigurationNames[entityType];

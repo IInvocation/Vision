@@ -12,11 +12,11 @@ using Microsoft.Practices.ServiceLocation;
 namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 {
 	/// <summary>
-	/// A very simple IOC container with basic functionality needed to register and resolve
-	/// instances. If needed, this class can be replaced by another more elaborate
-	/// IOC container implementing the IServiceLocator interface.
-	/// The inspiration for this class is at https://gist.github.com/716137 but it has
-	/// been extended with additional features.
+	///     A very simple IOC container with basic functionality needed to register and resolve
+	///     instances. If needed, this class can be replaced by another more elaborate
+	///     IOC container implementing the IServiceLocator interface.
+	///     The inspiration for this class is at https://gist.github.com/716137 but it has
+	///     been extended with additional features.
 	/// </summary>
 	//// [ClassInfo(typeof(SimpleIoc),
 	////  VersionString = "4.2.7",
@@ -26,6 +26,8 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 	////  Email = "laurent@galasoft.ch")]
 	public class SimpleIoc : IServiceLocator
 	{
+		private static SimpleIoc _default;
+
 		private readonly Dictionary<Type, ConstructorInfo> _constructorInfos
 			= new Dictionary<Type, ConstructorInfo>();
 
@@ -44,50 +46,64 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 
 		private readonly object _syncLock = new object();
 
-		private static SimpleIoc _default;
-
 		/// <summary>
-		/// This class' default instance.
+		///     This class' default instance.
 		/// </summary>
 		public static SimpleIoc Default => _default ?? (_default = new SimpleIoc());
 
+		#region Implementation of IServiceProvider
+
 		/// <summary>
-		/// Checks whether at least one instance of a given class is already created in the container.
+		///     Gets the service object of the specified type.
+		/// </summary>
+		/// <returns>
+		///     A service object of type <paramref name="serviceType" />.
+		///     -or-
+		///     null if there is no service object of type <paramref name="serviceType" />.
+		/// </returns>
+		/// <param name="serviceType">An object that specifies the type of service object to get.</param>
+		public object GetService(Type serviceType)
+		{
+			return DoGetService(serviceType, _defaultKey);
+		}
+
+		#endregion
+
+		/// <summary>
+		///     Checks whether at least one instance of a given class is already created in the container.
 		/// </summary>
 		/// <typeparam name="TClass">The class that is queried.</typeparam>
 		/// <returns>True if at least on instance of the class is already created, false otherwise.</returns>
 		public bool ContainsCreated<TClass>()
 		{
-			return ContainsCreated<TClass>(null);
+			return ContainsCreated<TClass>(key: null);
 		}
 
 		/// <summary>
-		/// Checks whether the instance with the given key is already created for a given class
-		/// in the container.
+		///     Checks whether the instance with the given key is already created for a given class
+		///     in the container.
 		/// </summary>
 		/// <typeparam name="TClass">The class that is queried.</typeparam>
 		/// <param name="key">The key that is queried.</param>
-		/// <returns>True if the instance with the given key is already registered for the given class,
-		/// false otherwise.</returns>
+		/// <returns>
+		///     True if the instance with the given key is already registered for the given class,
+		///     false otherwise.
+		/// </returns>
 		public bool ContainsCreated<TClass>(string key)
 		{
 			var classType = typeof(TClass);
 
 			if (!_instancesRegistry.ContainsKey(classType))
-			{
 				return false;
-			}
 
 			if (string.IsNullOrEmpty(key))
-			{
 				return _instancesRegistry[classType].Count > 0;
-			}
 
 			return _instancesRegistry[classType].ContainsKey(key);
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether a given type T is already registered.
+		///     Gets a value indicating whether a given type T is already registered.
 		/// </summary>
 		/// <typeparam name="T">The type that the method checks for.</typeparam>
 		/// <returns>True if the type is registered, false otherwise.</returns>
@@ -98,8 +114,8 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 		}
 
 		/// <summary>
-		/// Gets a value indicating whether a given type T and a give key
-		/// are already registered.
+		///     Gets a value indicating whether a given type T and a give key
+		///     are already registered.
 		/// </summary>
 		/// <typeparam name="T">The type that the method checks for.</typeparam>
 		/// <param name="key">The key that the method checks for.</param>
@@ -112,15 +128,13 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 			{
 				if (!_interfaceToClassMap.ContainsKey(classType)
 				    || !_factories.ContainsKey(classType))
-				{
 					return false;
-				}
 				return _factories[classType].ContainsKey(key);
 			}
 		}
 
 		/// <summary>
-		/// Registers a given type for a given interface.
+		///     Registers a given type for a given interface.
 		/// </summary>
 		/// <typeparam name="TInterface">The interface for which instances will be resolved.</typeparam>
 		/// <typeparam name="TClass">The type that must be used to create instances.</typeparam>
@@ -132,17 +146,19 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 			where TClass : class
 			where TInterface : class
 		{
-			Register<TInterface, TClass>(false);
+			Register<TInterface, TClass>(createInstanceImmediately: false);
 		}
 
 		/// <summary>
-		/// Registers a given type for a given interface with the possibility for immediate
-		/// creation of the instance.
+		///     Registers a given type for a given interface with the possibility for immediate
+		///     creation of the instance.
 		/// </summary>
 		/// <typeparam name="TInterface">The interface for which instances will be resolved.</typeparam>
 		/// <typeparam name="TClass">The type that must be used to create instances.</typeparam>
-		/// <param name="createInstanceImmediately">If true, forces the creation of the default
-		/// instance of the provided class.</param>
+		/// <param name="createInstanceImmediately">
+		///     If true, forces the creation of the default
+		///     instance of the provided class.
+		/// </param>
 		[SuppressMessage(
 			category: "Microsoft.Design",
 			checkId: "CA1004",
@@ -159,12 +175,10 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 				if (_interfaceToClassMap.ContainsKey(interfaceType))
 				{
 					if (_interfaceToClassMap[interfaceType] != classType)
-					{
 						throw new InvalidOperationException(
 							string.Format(
-								"There is already a class registered for {0}.",
-								interfaceType.FullName));
-					}
+								format: "There is already a class registered for {0}.",
+								arg0: interfaceType.FullName));
 				}
 				else
 				{
@@ -176,14 +190,12 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 				DoRegister(interfaceType, factory, _defaultKey);
 
 				if (createInstanceImmediately)
-				{
 					GetInstance<TInterface>();
-				}
 			}
 		}
 
 		/// <summary>
-		/// Registers a given type.
+		///     Registers a given type.
 		/// </summary>
 		/// <typeparam name="TClass">The type that must be used to create instances.</typeparam>
 		[SuppressMessage(
@@ -193,19 +205,21 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 		public void Register<TClass>()
 			where TClass : class
 		{
-			Register<TClass>(false);
+			Register<TClass>(createInstanceImmediately: false);
 		}
 
 		/// <summary>
-		/// Registers a given type with the possibility for immediate
-		/// creation of the instance.
+		///     Registers a given type with the possibility for immediate
+		///     creation of the instance.
 		/// </summary>
 		/// <typeparam name="TClass">The type that must be used to create instances.</typeparam>
-		/// <param name="createInstanceImmediately">If true, forces the creation of the default
-		/// instance of the provided class.</param>
+		/// <param name="createInstanceImmediately">
+		///     If true, forces the creation of the default
+		///     instance of the provided class.
+		/// </param>
 		[SuppressMessage(
-			"Microsoft.Design",
-			"CA1004",
+			category: "Microsoft.Design",
+			checkId: "CA1004",
 			Justification = "This syntax is better than the alternatives.")]
 		public void Register<TClass>(bool createInstanceImmediately)
 			where TClass : class
@@ -213,9 +227,7 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 			var classType = typeof(TClass);
 
 			if (classType.GetTypeInfo().IsInterface)
-			{
 				throw new ArgumentException(message: "An interface cannot be registered alone.");
-			}
 
 			lock (_syncLock)
 			{
@@ -223,39 +235,32 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 				    && _factories[classType].ContainsKey(_defaultKey))
 				{
 					if (!_constructorInfos.ContainsKey(classType))
-					{
-						// Throw only if constructorinfos have not been
-						// registered, which means there is a default factory
-						// for this class.
 						throw new InvalidOperationException(
 							string.Format(format: "Class {0} is already registered.", arg0: classType));
-					}
 
 					return;
 				}
 
 				if (!_interfaceToClassMap.ContainsKey(classType))
-				{
-					_interfaceToClassMap.Add(classType, null);
-				}
+					_interfaceToClassMap.Add(classType, value: null);
 
 				_constructorInfos.Add(classType, GetConstructorInfo(classType));
 				Func<TClass> factory = MakeInstance<TClass>;
 				DoRegister(classType, factory, _defaultKey);
 
 				if (createInstanceImmediately)
-				{
 					GetInstance<TClass>();
-				}
 			}
 		}
 
 		/// <summary>
-		/// Registers a given instance for a given type.
+		///     Registers a given instance for a given type.
 		/// </summary>
 		/// <typeparam name="TClass">The type that is being registered.</typeparam>
-		/// <param name="factory">The factory method able to create the instance that
-		/// must be returned when the given type is resolved.</param>
+		/// <param name="factory">
+		///     The factory method able to create the instance that
+		///     must be returned when the given type is resolved.
+		/// </param>
 		public void Register<TClass>(Func<TClass> factory)
 			where TClass : class
 		{
@@ -263,21 +268,23 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 		}
 
 		/// <summary>
-		/// Registers a given instance for a given type with the possibility for immediate
-		/// creation of the instance.
+		///     Registers a given instance for a given type with the possibility for immediate
+		///     creation of the instance.
 		/// </summary>
 		/// <typeparam name="TClass">The type that is being registered.</typeparam>
-		/// <param name="factory">The factory method able to create the instance that
-		/// must be returned when the given type is resolved.</param>
-		/// <param name="createInstanceImmediately">If true, forces the creation of the default
-		/// instance of the provided class.</param>
+		/// <param name="factory">
+		///     The factory method able to create the instance that
+		///     must be returned when the given type is resolved.
+		/// </param>
+		/// <param name="createInstanceImmediately">
+		///     If true, forces the creation of the default
+		///     instance of the provided class.
+		/// </param>
 		public void Register<TClass>(Func<TClass> factory, bool createInstanceImmediately)
 			where TClass : class
 		{
 			if (factory == null)
-			{
 				throw new ArgumentNullException(nameof(factory));
-			}
 
 			lock (_syncLock)
 			{
@@ -285,31 +292,27 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 
 				if (_factories.ContainsKey(classType)
 				    && _factories[classType].ContainsKey(_defaultKey))
-				{
 					throw new InvalidOperationException(
 						string.Format(format: "There is already a factory registered for {0}.", arg0: classType.FullName));
-				}
 
 				if (!_interfaceToClassMap.ContainsKey(classType))
-				{
-					_interfaceToClassMap.Add(classType, null);
-				}
+					_interfaceToClassMap.Add(classType, value: null);
 
 				DoRegister(classType, factory, _defaultKey);
 
 				if (createInstanceImmediately)
-				{
 					GetInstance<TClass>();
-				}
 			}
 		}
 
 		/// <summary>
-		/// Registers a given instance for a given type and a given key.
+		///     Registers a given instance for a given type and a given key.
 		/// </summary>
 		/// <typeparam name="TClass">The type that is being registered.</typeparam>
-		/// <param name="factory">The factory method able to create the instance that
-		/// must be returned when the given type is resolved.</param>
+		/// <param name="factory">
+		///     The factory method able to create the instance that
+		///     must be returned when the given type is resolved.
+		/// </param>
 		/// <param name="key">The key for which the given instance is registered.</param>
 		public void Register<TClass>(Func<TClass> factory, string key)
 			where TClass : class
@@ -318,15 +321,19 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 		}
 
 		/// <summary>
-		/// Registers a given instance for a given type and a given key with the possibility for immediate
-		/// creation of the instance.
+		///     Registers a given instance for a given type and a given key with the possibility for immediate
+		///     creation of the instance.
 		/// </summary>
 		/// <typeparam name="TClass">The type that is being registered.</typeparam>
-		/// <param name="factory">The factory method able to create the instance that
-		/// must be returned when the given type is resolved.</param>
+		/// <param name="factory">
+		///     The factory method able to create the instance that
+		///     must be returned when the given type is resolved.
+		/// </param>
 		/// <param name="key">The key for which the given instance is registered.</param>
-		/// <param name="createInstanceImmediately">If true, forces the creation of the default
-		/// instance of the provided class.</param>
+		/// <param name="createInstanceImmediately">
+		///     If true, forces the creation of the default
+		///     instance of the provided class.
+		/// </param>
 		public void Register<TClass>(
 			Func<TClass> factory,
 			string key,
@@ -339,31 +346,25 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 
 				if (_factories.ContainsKey(classType)
 				    && _factories[classType].ContainsKey(key))
-				{
 					throw new InvalidOperationException(
 						string.Format(
 							format: "There is already a factory registered for {0} with key {1}.",
 							arg0: classType.FullName,
 							arg1: key));
-				}
 
 				if (!_interfaceToClassMap.ContainsKey(classType))
-				{
-					_interfaceToClassMap.Add(classType, null);
-				}
+					_interfaceToClassMap.Add(classType, value: null);
 
 				DoRegister(classType, factory, key);
 
 				if (createInstanceImmediately)
-				{
 					GetInstance<TClass>(key);
-				}
 			}
 		}
 
 		/// <summary>
-		/// Resets the instance in its original states. This deletes all the
-		/// registrations.
+		///     Resets the instance in its original states. This deletes all the
+		///     registrations.
 		/// </summary>
 		public void Reset()
 		{
@@ -377,8 +378,8 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 		}
 
 		/// <summary>
-		/// Unregisters a class from the cache and removes all the previously
-		/// created instances.
+		///     Unregisters a class from the cache and removes all the previously
+		///     created instances.
 		/// </summary>
 		/// <typeparam name="TClass">The class that must be removed.</typeparam>
 		[SuppressMessage(
@@ -394,39 +395,27 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 				Type resolveTo;
 
 				if (_interfaceToClassMap.ContainsKey(serviceType))
-				{
 					resolveTo = _interfaceToClassMap[serviceType] ?? serviceType;
-				}
 				else
-				{
 					resolveTo = serviceType;
-				}
 
 				if (_instancesRegistry.ContainsKey(serviceType))
-				{
 					_instancesRegistry.Remove(serviceType);
-				}
 
 				if (_interfaceToClassMap.ContainsKey(serviceType))
-				{
 					_interfaceToClassMap.Remove(serviceType);
-				}
 
 				if (_factories.ContainsKey(serviceType))
-				{
 					_factories.Remove(serviceType);
-				}
 
 				if (_constructorInfos.ContainsKey(resolveTo))
-				{
 					_constructorInfos.Remove(resolveTo);
-				}
 			}
 		}
 
 		/// <summary>
-		/// Removes the given instance from the cache. The class itself remains
-		/// registered and can be used to create other instances.
+		///     Removes the given instance from the cache. The class itself remains
+		///     registered and can be used to create other instances.
 		/// </summary>
 		/// <typeparam name="TClass">The type of the instance to be removed.</typeparam>
 		/// <param name="instance">The instance that must be removed.</param>
@@ -449,16 +438,14 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 
 					if (!_factories.ContainsKey(classType)) continue;
 					if (_factories[classType].ContainsKey(key))
-					{
 						_factories[classType].Remove(key);
-					}
 				}
 			}
 		}
 
 		/// <summary>
-		/// Removes the instance corresponding to the given key from the cache. The class itself remains
-		/// registered and can be used to create other instances.
+		///     Removes the instance corresponding to the given key from the cache. The class itself remains
+		///     registered and can be used to create other instances.
 		/// </summary>
 		/// <typeparam name="TClass">The type of the instance to be removed.</typeparam>
 		/// <param name="key">The key corresponding to the instance that must be removed.</param>
@@ -478,17 +465,13 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 					var list = _instancesRegistry[classType];
 
 					var pairs = list.Where(pair => pair.Key == key).ToList();
-					for (var index = 0; index < pairs.Count(); index++)
-					{
+					for (var index = 0; index < pairs.Count; index++)
 						list.Remove(pairs[index].Key);
-					}
 				}
 
 				if (!_factories.ContainsKey(classType)) return;
 				if (_factories[classType].ContainsKey(key))
-				{
 					_factories[classType].Remove(key);
-				}
 			}
 		}
 
@@ -497,21 +480,17 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 			lock (_syncLock)
 			{
 				if (string.IsNullOrEmpty(key))
-				{
 					key = _defaultKey;
-				}
 
 				Dictionary<string, object> instances;
 
 				if (!_instancesRegistry.ContainsKey(serviceType))
 				{
 					if (!_interfaceToClassMap.ContainsKey(serviceType))
-					{
 						throw new ActivationException(
 							string.Format(
 								format: "Type not found in cache: {0}.",
 								arg0: serviceType.FullName));
-					}
 
 					instances = new Dictionary<string, object>();
 					_instancesRegistry.Add(serviceType, instances);
@@ -522,33 +501,25 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 				}
 
 				if (instances.ContainsKey(key))
-				{
 					return instances[key];
-				}
 
 				object instance = null;
 
 				if (_factories.ContainsKey(serviceType))
-				{
 					if (_factories[serviceType].ContainsKey(key))
 					{
-						instance = _factories[serviceType][key].DynamicInvoke(null);
+						instance = _factories[serviceType][key].DynamicInvoke(args: null);
 					}
 					else
 					{
 						if (_factories[serviceType].ContainsKey(_defaultKey))
-						{
-							instance = _factories[serviceType][_defaultKey].DynamicInvoke(null);
-						}
+							instance = _factories[serviceType][_defaultKey].DynamicInvoke(args: null);
 						else
-						{
 							throw new ActivationException(
 								string.Format(
 									format: "Type not found in cache without a key: {0}",
 									arg0: serviceType.FullName));
-						}
 					}
-				}
 
 				instances.Add(key, instance);
 				return instance;
@@ -560,10 +531,7 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 			if (_factories.ContainsKey(classType))
 			{
 				if (_factories[classType].ContainsKey(key))
-				{
-					// The class is already registered, ignore and continue.
 					return;
-				}
 
 				_factories[classType].Add(key, factory);
 			}
@@ -586,47 +554,35 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 			Type resolveTo;
 
 			if (_interfaceToClassMap.ContainsKey(serviceType))
-			{
 				resolveTo = _interfaceToClassMap[serviceType] ?? serviceType;
-			}
 			else
-			{
 				resolveTo = serviceType;
-			}
 
 			var constructorInfos = resolveTo.GetTypeInfo().DeclaredConstructors.Where(c => c.IsPublic).ToArray();
 
 			if (constructorInfos.Length > 1)
 			{
 				if (constructorInfos.Length > 2)
-				{
 					return GetPreferredConstructorInfo(constructorInfos, resolveTo);
-				}
 
 				if (constructorInfos.FirstOrDefault(i => i.Name == ".cctor") == null)
-				{
 					return GetPreferredConstructorInfo(constructorInfos, resolveTo);
-				}
 
 				var first = constructorInfos.FirstOrDefault(i => i.Name != ".cctor");
 
 				if (first == null
 				    || !first.IsPublic)
-				{
 					throw new ActivationException(
 						string.Format(format: "Cannot register: No public constructor found in {0}.", arg0: resolveTo.Name));
-				}
 
 				return first;
 			}
 
 			if (constructorInfos.Length == 0
-			    || (constructorInfos.Length == 1
-			        && !constructorInfos[0].IsPublic))
-			{
+			    || constructorInfos.Length == 1
+			    && !constructorInfos[0].IsPublic)
 				throw new ActivationException(
 					string.Format(format: "Cannot register: No public constructor found in {0}.", arg0: resolveTo.Name));
-			}
 
 			return constructorInfos[0];
 		}
@@ -635,17 +591,15 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 		{
 			var preferredConstructorInfo
 				= (from t in constructorInfos
-                    let attribute = t.GetCustomAttribute(typeof(PreferredConstructorAttribute))
+					let attribute = t.GetCustomAttribute(typeof(PreferredConstructorAttribute))
 					where attribute != null
 					select t).FirstOrDefault();
 
 			if (preferredConstructorInfo == null)
-			{
 				throw new ActivationException(
 					string.Format(
 						format: "Cannot register: Multiple constructors found in {0} but none marked with PreferredConstructor.",
 						arg0: resolveTo.Name));
-			}
 
 			return preferredConstructorInfo;
 		}
@@ -662,137 +616,117 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 			var parameterInfos = constructor.GetParameters();
 
 			if (parameterInfos.Length == 0)
-			{
-				return (TClass)constructor.Invoke(_emptyArguments);
-			}
+				return (TClass) constructor.Invoke(_emptyArguments);
 
 			var parameters = new object[parameterInfos.Length];
 
 			foreach (var parameterInfo in parameterInfos)
-			{
 				parameters[parameterInfo.Position] = GetService(parameterInfo.ParameterType);
-			}
 
-			return (TClass)constructor.Invoke(parameters);
+			return (TClass) constructor.Invoke(parameters);
 		}
 
 		/// <summary>
-		/// Provides a way to get all the created instances of a given type available in the
-		/// cache. Registering a class or a factory does not automatically
-		/// create the corresponding instance! To create an instance, either register
-		/// the class or the factory with createInstanceImmediately set to true,
-		/// or call the GetInstance method before calling GetAllCreatedInstances.
-		/// Alternatively, use the GetAllInstances method, which auto-creates default
-		/// instances for all registered classes.
+		///     Provides a way to get all the created instances of a given type available in the
+		///     cache. Registering a class or a factory does not automatically
+		///     create the corresponding instance! To create an instance, either register
+		///     the class or the factory with createInstanceImmediately set to true,
+		///     or call the GetInstance method before calling GetAllCreatedInstances.
+		///     Alternatively, use the GetAllInstances method, which auto-creates default
+		///     instances for all registered classes.
 		/// </summary>
-		/// <param name="serviceType">The class of which all instances
-		/// must be returned.</param>
+		/// <param name="serviceType">
+		///     The class of which all instances
+		///     must be returned.
+		/// </param>
 		/// <returns>All the already created instances of the given type.</returns>
 		public IEnumerable<object> GetAllCreatedInstances(Type serviceType)
 		{
 			if (_instancesRegistry.ContainsKey(serviceType))
-			{
 				return _instancesRegistry[serviceType].Values;
-			}
 
 			return new List<object>();
 		}
 
 		/// <summary>
-		/// Provides a way to get all the created instances of a given type available in the
-		/// cache. Registering a class or a factory does not automatically
-		/// create the corresponding instance! To create an instance, either register
-		/// the class or the factory with createInstanceImmediately set to true,
-		/// or call the GetInstance method before calling GetAllCreatedInstances.
-		/// Alternatively, use the GetAllInstances method, which auto-creates default
-		/// instances for all registered classes.
+		///     Provides a way to get all the created instances of a given type available in the
+		///     cache. Registering a class or a factory does not automatically
+		///     create the corresponding instance! To create an instance, either register
+		///     the class or the factory with createInstanceImmediately set to true,
+		///     or call the GetInstance method before calling GetAllCreatedInstances.
+		///     Alternatively, use the GetAllInstances method, which auto-creates default
+		///     instances for all registered classes.
 		/// </summary>
-		/// <typeparam name="TService">The class of which all instances
-		/// must be returned.</typeparam>
+		/// <typeparam name="TService">
+		///     The class of which all instances
+		///     must be returned.
+		/// </typeparam>
 		/// <returns>All the already created instances of the given type.</returns>
 		public IEnumerable<TService> GetAllCreatedInstances<TService>()
 		{
 			var serviceType = typeof(TService);
 			return GetAllCreatedInstances(serviceType)
-				.Select(instance => (TService)instance);
+				.Select(instance => (TService) instance);
 		}
-
-		#region Implementation of IServiceProvider
-
-		/// <summary>
-		/// Gets the service object of the specified type.
-		/// </summary>
-		/// <returns>
-		/// A service object of type <paramref name="serviceType" />.
-		/// -or- 
-		/// null if there is no service object of type <paramref name="serviceType" />.
-		/// </returns>
-		/// <param name="serviceType">An object that specifies the type of service object to get.</param>
-		public object GetService(Type serviceType)
-		{
-			return DoGetService(serviceType, _defaultKey);
-		}
-
-		#endregion
 
 		#region Implementation of IServiceLocator
 
 		/// <summary>
-		/// Provides a way to get all the created instances of a given type available in the
-		/// cache. Calling this method auto-creates default
-		/// instances for all registered classes.
+		///     Provides a way to get all the created instances of a given type available in the
+		///     cache. Calling this method auto-creates default
+		///     instances for all registered classes.
 		/// </summary>
-		/// <param name="serviceType">The class of which all instances
-		/// must be returned.</param>
+		/// <param name="serviceType">
+		///     The class of which all instances
+		///     must be returned.
+		/// </param>
 		/// <returns>All the instances of the given type.</returns>
 		public IEnumerable<object> GetAllInstances(Type serviceType)
 		{
 			lock (_factories)
 			{
 				if (_factories.ContainsKey(serviceType))
-				{
 					foreach (var factory in _factories[serviceType])
-					{
 						GetInstance(serviceType, factory.Key);
-					}
-				}
 			}
 
 			if (_instancesRegistry.ContainsKey(serviceType))
-			{
 				return _instancesRegistry[serviceType].Values;
-			}
 
 
 			return new List<object>();
 		}
 
 		/// <summary>
-		/// Provides a way to get all the created instances of a given type available in the
-		/// cache. Calling this method auto-creates default
-		/// instances for all registered classes.
+		///     Provides a way to get all the created instances of a given type available in the
+		///     cache. Calling this method auto-creates default
+		///     instances for all registered classes.
 		/// </summary>
-		/// <typeparam name="TService">The class of which all instances
-		/// must be returned.</typeparam>
+		/// <typeparam name="TService">
+		///     The class of which all instances
+		///     must be returned.
+		/// </typeparam>
 		/// <returns>All the instances of the given type.</returns>
 		public IEnumerable<TService> GetAllInstances<TService>()
 		{
 			var serviceType = typeof(TService);
 			return GetAllInstances(serviceType)
-				.Select(instance => (TService)instance);
+				.Select(instance => (TService) instance);
 		}
 
 		/// <summary>
-		/// Provides a way to get an instance of a given type. If no instance had been instantiated 
-		/// before, a new instance will be created. If an instance had already
-		/// been created, that same instance will be returned.
-		/// <remarks>
-		/// If the class has not been registered before, this method
-		/// returns null!
-		/// </remarks>
+		///     Provides a way to get an instance of a given type. If no instance had been instantiated
+		///     before, a new instance will be created. If an instance had already
+		///     been created, that same instance will be returned.
+		///     <remarks>
+		///         If the class has not been registered before, this method
+		///         returns null!
+		///     </remarks>
 		/// </summary>
-		/// <param name="serviceType">The class of which an instance
-		/// must be returned.</param>
+		/// <param name="serviceType">
+		///     The class of which an instance
+		///     must be returned.
+		/// </param>
 		/// <returns>An instance of the given type.</returns>
 		public object GetInstance(Type serviceType)
 		{
@@ -800,14 +734,14 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 		}
 
 		/// <summary>
-		/// Provides a way to get an instance of a given type corresponding
-		/// to a given key. If no instance had been instantiated with this
-		/// key before, a new instance will be created. If an instance had already
-		/// been created with the same key, that same instance will be returned.
-		/// <remarks>
-		/// If the class has not been registered before, this method
-		/// returns null!
-		/// </remarks>
+		///     Provides a way to get an instance of a given type corresponding
+		///     to a given key. If no instance had been instantiated with this
+		///     key before, a new instance will be created. If an instance had already
+		///     been created with the same key, that same instance will be returned.
+		///     <remarks>
+		///         If the class has not been registered before, this method
+		///         returns null!
+		///     </remarks>
 		/// </summary>
 		/// <param name="serviceType">The class of which an instance must be returned.</param>
 		/// <param name="key">The key uniquely identifying this instance.</param>
@@ -818,38 +752,40 @@ namespace FluiTec.AppFx.InversionOfControl.SimpleIoC
 		}
 
 		/// <summary>
-		/// Provides a way to get an instance of a given type. If no instance had been instantiated 
-		/// before, a new instance will be created. If an instance had already
-		/// been created, that same instance will be returned.
-		/// <remarks>
-		/// If the class has not been registered before, this method
-		/// returns null!
-		/// </remarks>
+		///     Provides a way to get an instance of a given type. If no instance had been instantiated
+		///     before, a new instance will be created. If an instance had already
+		///     been created, that same instance will be returned.
+		///     <remarks>
+		///         If the class has not been registered before, this method
+		///         returns null!
+		///     </remarks>
 		/// </summary>
-		/// <typeparam name="TService">The class of which an instance
-		/// must be returned.</typeparam>
+		/// <typeparam name="TService">
+		///     The class of which an instance
+		///     must be returned.
+		/// </typeparam>
 		/// <returns>An instance of the given type.</returns>
 		public TService GetInstance<TService>()
 		{
-			return (TService)DoGetService(typeof(TService), _defaultKey);
+			return (TService) DoGetService(typeof(TService), _defaultKey);
 		}
 
 		/// <summary>
-		/// Provides a way to get an instance of a given type corresponding
-		/// to a given key. If no instance had been instantiated with this
-		/// key before, a new instance will be created. If an instance had already
-		/// been created with the same key, that same instance will be returned.
-		/// <remarks>
-		/// If the class has not been registered before, this method
-		/// returns null!
-		/// </remarks>
+		///     Provides a way to get an instance of a given type corresponding
+		///     to a given key. If no instance had been instantiated with this
+		///     key before, a new instance will be created. If an instance had already
+		///     been created with the same key, that same instance will be returned.
+		///     <remarks>
+		///         If the class has not been registered before, this method
+		///         returns null!
+		///     </remarks>
 		/// </summary>
 		/// <typeparam name="TService">The class of which an instance must be returned.</typeparam>
 		/// <param name="key">The key uniquely identifying this instance.</param>
 		/// <returns>An instance corresponding to the given type and key.</returns>
 		public TService GetInstance<TService>(string key)
 		{
-			return (TService)DoGetService(typeof(TService), key);
+			return (TService) DoGetService(typeof(TService), key);
 		}
 
 		#endregion

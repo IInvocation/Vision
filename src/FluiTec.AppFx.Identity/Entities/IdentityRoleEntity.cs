@@ -4,7 +4,7 @@ using FluiTec.AppFx.Data;
 namespace FluiTec.AppFx.Identity.Entities
 {
 	/// <summary>	An identity role entity. </summary>
-	[EntityName("IdentityRole")]
+	[EntityName(name: "IdentityRole")]
 	public class IdentityRoleEntity : IEntity<int>
 	{
 		/// <summary>	Gets or sets the identifier of the application. </summary>
@@ -25,10 +25,10 @@ namespace FluiTec.AppFx.Identity.Entities
 
 		/// <summary>	Gets or sets the identifier. </summary>
 		/// <value>	The identifier. </value>
-		public int Id { get; set; }
+		public Guid Identifier { get; set; }
 
 		/// <summary>	Gets or sets the identifier. </summary>
 		/// <value>	The identifier. </value>
-		public Guid Identifier { get; set; }
+		public int Id { get; set; }
 	}
 }

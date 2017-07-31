@@ -2,42 +2,36 @@
 using System;
 using System.Collections.ObjectModel;
 using System.Diagnostics;
-using System.Linq;
+using System.IO;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using FluiTec.AppFx.Upnp;
+using FluiTec.Vision.Client.Windows.EndpointHelper.Configuration;
+using FluiTec.Vision.Client.Windows.EndpointHelper.Helpers;
+using FluiTec.Vision.Client.Windows.EndpointManager.Properties;
 using FluiTec.Vision.Client.Windows.EndpointManager.Resources.Localization.Views.Setup.Wizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard.Actions;
 using FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.Wizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.Views.SetupWizard;
 using FluiTec.Vision.Client.Windows.EndpointManager.WebServer;
 using GalaSoft.MvvmLight.CommandWpf;
-using FluiTec.AppFx.Upnp;
-using FluiTec.Vision.Client.Windows.EndpointHelper.Helpers;
 using myservicelocation::Microsoft.Practices.ServiceLocation;
+using Newtonsoft.Json;
 
 namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 {
-    /// <summary>	A ViewModel for validating previous settings. </summary>
-    public class ValidateSettingsViewModel : WizardPageViewModel
+	/// <summary>	A ViewModel for validating previous settings. </summary>
+	public class ValidateSettingsViewModel : WizardPageViewModel
 	{
-		#region Fields
-
-		/// <summary>	The external settings. </summary>
-		private readonly ExternalServerViewModel _externalSettings;
-
-		/// <summary>	The internal settings. </summary>
-		private readonly InternalServerViewModel _internalSettings;
-
-		#endregion
-
 		#region Constructors
 
 		/// <summary>	Constructor. </summary>
 		/// <param name="externalSettings">	The external settings. </param>
 		/// <param name="internalSettings">	The internal settings. </param>
 		public ValidateSettingsViewModel(
-			ExternalServerViewModel externalSettings, 
+			ExternalServerViewModel externalSettings,
 			InternalServerViewModel internalSettings)
 		{
 			_externalSettings = externalSettings;
@@ -52,7 +46,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			Content = new ValidateSettingsPage();
 
 			ExecuteValidationCommand = new RelayCommand(RunValidationActions);
-			
+
 			BuildActions();
 		}
 
@@ -74,6 +68,16 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 
 		#endregion
 
+		#region Fields
+
+		/// <summary>	The external settings. </summary>
+		private readonly ExternalServerViewModel _externalSettings;
+
+		/// <summary>	The internal settings. </summary>
+		private readonly InternalServerViewModel _internalSettings;
+
+		#endregion
+
 		#region Methods
 
 		/// <summary>	Builds the actions. </summary>
@@ -86,23 +90,31 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			var newSettings = new ServerSettings
 			{
 				ExternalHostname = _externalSettings.ManualHostName,
-				Port = _internalSettings.LocalPort,
+				SslPort = _internalSettings.LocalSslPort,
 				UseUpnp = _externalSettings.UpnpContentVisible,
 				UpnpPort = 0,
-				HttpName = $"http://+:{_internalSettings.LocalPort}"
+				HttpName = $"https://+:{_internalSettings.LocalSslPort}/",
+				Validated = true
 			};
 
 			var webServerManager = ServiceLocator.Current.GetInstance<IWebServerManager>();
 
 			if (webServerManager.IsRunning)
 				Actions.Add(GetStopServerAction(webServerManager));
+
 			if (oldSettings.UpnpPort > 0)
 				Actions.Add(GetRemoveUpnpRegistration(oldSettings));
-			Actions.Add(GetConfigureHttpAccessAction(oldSettings, newSettings));
+
+			Actions.Add(GetConfigureHttpAccessAction(newSettings));
+
 			if (newSettings.UseUpnp)
 				Actions.Add(AddUpnpRegistration(newSettings));
-			Actions.Add(GetCheckConnectivity());
+
+			Actions.Add(GetSaveServerConfigurationAction(newSettings));
+
 			Actions.Add(GetStartServer(webServerManager));
+
+			Actions.Add(GetCheckConnectivity());
 		}
 
 		/// <summary>	Executes the validation actions operation. </summary>
@@ -132,13 +144,13 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 				ActionToExecute = () =>
 				{
 					webServerManager.Stop();
-					return webServerManager.IsRunning ?
-						Task.FromResult(new ValidationResult
+					return webServerManager.IsRunning
+						? Task.FromResult(new ValidationResult
 						{
 							Success = false,
 							ErrorMessage = ValidateSettings.StopServerErrorMessage
-						}) 
-						: Task.FromResult(new ValidationResult { Success = true });
+						})
+						: Task.FromResult(new ValidationResult {Success = true});
 				}
 			};
 		}
@@ -153,17 +165,16 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 				DisplayName = ValidateSettings.RemoveUpnpLabel,
 				ActionToExecute = async () =>
 				{
-					await new UpnpService().RemovePortMapping(Properties.Settings.Default.ApplicationName, oldSettings.UpnpPort);
+					await new UpnpService().RemovePortMapping(oldSettings.SslPort);
 					return new ValidationResult {Success = true};
 				}
 			};
 		}
 
 		/// <summary>	Gets configure HTTP access action. </summary>
-		/// <param name="oldSettings">	The old settings. </param>
 		/// <param name="newSettings">	The new settings. </param>
 		/// <returns>	The configure HTTP access action. </returns>
-		private IValidationAction GetConfigureHttpAccessAction(ServerSettings oldSettings, ServerSettings newSettings)
+		private static IValidationAction GetConfigureHttpAccessAction(ServerSettings newSettings)
 		{
 			return new ValidationAction
 			{
@@ -173,7 +184,10 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 				{
 					return Task<ValidationResult>.Factory.StartNew(() =>
 					{
-						var cmdArgs = $"-a {Properties.Settings.Default.ApplicationDir} -f config.json";
+						var fileName = CreateConfigurationFile(newSettings);
+
+						// call the helper application and let it process the config-file
+						var cmdArgs = $"-a {Settings.Default.ApplicationDir} -f {fileName}";
 
 						var ok = new Process
 							{
@@ -185,12 +199,57 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 								}
 							}
 							.RedirectOutputToConsole(createNoWindow: false)
-							.RunAndWait();
+							.RunAndWaitForForNamedPipeResult(pipeName: "vision_endpoint_config_pipe");
 
-						return new ValidationResult {Success = ok, ErrorMessage = ok ? string.Empty : ValidateSettings.ConfigureHttpErrorMessage};
+						return new ValidationResult
+						{
+							Success = ok,
+							ErrorMessage = ok ? string.Empty : ValidateSettings.ConfigureHttpErrorMessage
+						};
 					});
 				}
 			};
+		}
+
+		/// <summary>	Creates configuration file. </summary>
+		/// <param name="newSettings">	The new settings. </param>
+		private static string CreateConfigurationFile(ServerSettings newSettings)
+		{
+			var appdata = Environment.GetFolderPath(Environment.SpecialFolder.CommonApplicationData);
+			var appFolder = Settings.Default.ApplicationDir;
+			const string fileName = "config.json";
+
+			var dirPath = Path.Combine(appdata, appFolder);
+			var filePath = Path.Combine(appdata, appFolder, fileName);
+			if (!Directory.Exists(dirPath))
+				Directory.CreateDirectory(dirPath);
+
+			HttpConfiguration config;
+			if (File.Exists(filePath))
+				using (var sr = new StreamReader(filePath, Encoding.Default))
+				{
+					config = JsonConvert.DeserializeObject<HttpConfiguration>(sr.ReadToEnd());
+				}
+			else
+				config = new HttpConfiguration();
+
+			config.ApplicationName = Settings.Default.ApplicationName;
+			config.AddFirewallException = true;
+			config.AddFirewallExceptionPort = newSettings.SslPort;
+			config.AddSslCertificate = true;
+			config.AddSslCertificatePort = newSettings.SslPort;
+			config.AddSslCertificateApplicationId = Guid.NewGuid();
+			config.AddUrlReservation = true;
+			config.AddUrlReservationUri = $"https://+:{newSettings.SslPort}/";
+
+
+			var json = JsonConvert.SerializeObject(config, Formatting.Indented);
+			using (var sw = new StreamWriter(filePath, append: false, encoding: Encoding.Default))
+			{
+				sw.Write(json);
+			}
+
+			return fileName;
 		}
 
 		/// <summary>	Adds an upnp registration. </summary>
@@ -201,25 +260,29 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			return new ValidationAction
 			{
 				DisplayName = ValidateSettings.AddUpnpLabel,
-				ErrorMessage = "Bla",
 				ActionToExecute = async () =>
 				{
-					var mapping = await new UpnpService().AddPortMapping(Properties.Settings.Default.ApplicationName, newSettings.Port);
+					var mapping = await new UpnpService().AddPortMapping(Settings.Default.SafeApplicationName, newSettings.SslPort);
 					newSettings.UpnpPort = mapping.PublicPort;
 					return new ValidationResult {Success = true};
 				}
 			};
 		}
 
-		/// <summary>	Check connectivity. </summary>
-		/// <returns>	An IValidationAction. </returns>
-		private IValidationAction GetCheckConnectivity()
+		/// <summary>	Gets save server configuration action. </summary>
+		/// <param name="newSettings">	The new settings. </param>
+		/// <returns>	The save server configuration action. </returns>
+		private static IValidationAction GetSaveServerConfigurationAction(ServerSettings newSettings)
 		{
 			return new ValidationAction
 			{
-				DisplayName = ValidateSettings.CheckConnectivityLabel,
-				ErrorMessage = ValidateSettings.CheckConnectiviyErrorMessage,
-				ActionToExecute = () => Task.FromResult(new ValidationResult { Success = false })
+				DisplayName = ValidateSettings.SaveSettingsLabel,
+				ActionToExecute = () =>
+				{
+					var settingsManager = ServiceLocator.Current.GetInstance<ISettingsManager>();
+					settingsManager.Save(newSettings);
+					return Task.FromResult(new ValidationResult {Success = true});
+				}
 			};
 		}
 
@@ -231,17 +294,30 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.ViewModels.SetupWizard
 			return new ValidationAction
 			{
 				DisplayName = ValidateSettings.StartServerLabel,
-				ActionToExecute = () =>
+				ActionToExecute = async () =>
 				{
 					webServerManager.Start();
-					return !webServerManager.IsRunning ?
-						Task.FromResult(new ValidationResult
+					await Task.Delay(TimeSpan.FromSeconds(value: 5));
+					return !webServerManager.IsRunning
+						? new ValidationResult
 						{
 							Success = false,
 							ErrorMessage = ValidateSettings.StartServerErrorMessage
-						}) 
-						: Task.FromResult(new ValidationResult { Success = true });
+						}
+						: new ValidationResult {Success = true};
 				}
+			};
+		}
+
+		/// <summary>	Check connectivity. </summary>
+		/// <returns>	An IValidationAction. </returns>
+		private static IValidationAction GetCheckConnectivity()
+		{
+			return new ValidationAction
+			{
+				DisplayName = ValidateSettings.CheckConnectivityLabel,
+				ErrorMessage = ValidateSettings.CheckConnectiviyErrorMessage,
+				ActionToExecute = () => Task.FromResult(new ValidationResult {Success = false})
 			};
 		}
 

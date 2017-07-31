@@ -1,4 +1,5 @@
-﻿using FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions;
+﻿using FluiTec.Vision.Client.AspNetCoreEndpoint.Services;
+using FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -19,6 +20,7 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 				.AddJsonFile(path: "appsettings.json", optional: false, reloadOnChange: true)
 				.AddJsonFile(path: "appsettings.secret.json", optional: false, reloadOnChange: true)
 				.AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true)
+				.AddJsonFile(Program.GetServerFileLocation(), optional: false)
 				.AddEnvironmentVariables();
 			Configuration = builder.Build();
 		}
@@ -34,8 +36,10 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 			services
 				.ConfigureLocalization(Configuration)
 				.ConfigureDataServices(Configuration)
+				.ConfigureServerSettings(Configuration)
 				.ConfigureOpenIdConnect(Configuration)
-				.ConfigureMvc(Configuration);
+				.ConfigureMvc(Configuration)
+				.AddScoped<EndpointManagerService>();
 		}
 
 		/// <summary>	Configures. </summary>

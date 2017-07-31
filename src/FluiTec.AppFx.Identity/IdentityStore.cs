@@ -215,6 +215,7 @@ namespace FluiTec.AppFx.Identity
 			return Task.Factory.StartNew(() =>
 			{
 				var identityClaims = claims.Select(c => new IdentityClaimEntity {UserId = user.Id, Type = c.Type, Value = c.Value});
+				UnitOfWork.ClaimRepository.AddRange(identityClaims);
 			}, cancellationToken);
 		}
 
@@ -336,7 +337,7 @@ namespace FluiTec.AppFx.Identity
 			{
 				try
 				{
-					var entity = UnitOfWork.UserRepository.Add(user);
+					UnitOfWork.UserRepository.Add(user);
 					return IdentityResult.Success;
 				}
 				catch (Exception)
@@ -356,7 +357,7 @@ namespace FluiTec.AppFx.Identity
 			{
 				try
 				{
-					var entity = UnitOfWork.UserRepository.Update(user);
+					UnitOfWork.UserRepository.Update(user);
 					return IdentityResult.Success;
 				}
 				catch (Exception)
@@ -455,7 +456,7 @@ namespace FluiTec.AppFx.Identity
 			{
 				try
 				{
-					var entity = UnitOfWork.RoleRepository.Add(role);
+					UnitOfWork.RoleRepository.Add(role);
 					return IdentityResult.Success;
 				}
 				catch (Exception)
@@ -475,7 +476,7 @@ namespace FluiTec.AppFx.Identity
 			{
 				try
 				{
-					var entity = UnitOfWork.RoleRepository.Update(role);
+					UnitOfWork.RoleRepository.Update(role);
 					return IdentityResult.Success;
 				}
 				catch (Exception)
@@ -562,7 +563,6 @@ namespace FluiTec.AppFx.Identity
 		}
 
 		/// <summary>	Searches for the first identifier asynchronous. </summary>
-		/// <typeparam name="IdentityRoleEntity">	Type of the identity role entity. </typeparam>
 		/// <param name="roleId">				Identifier for the role. </param>
 		/// <param name="cancellationToken">	The cancellation token. </param>
 		/// <returns>	The found identifier asynchronous. </returns>
@@ -573,7 +573,6 @@ namespace FluiTec.AppFx.Identity
 		}
 
 		/// <summary>	Searches for the first name asynchronous. </summary>
-		/// <typeparam name="IdentityRoleEntity">	Type of the identity role entity. </typeparam>
 		/// <param name="normalizedRoleName">	Name of the normalized role. </param>
 		/// <param name="cancellationToken"> 	The cancellation token. </param>
 		/// <returns>	The found name asynchronous. </returns>

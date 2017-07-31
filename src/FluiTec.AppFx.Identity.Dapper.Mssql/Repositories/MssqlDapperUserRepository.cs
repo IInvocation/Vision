@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Dapper;
 using FluiTec.AppFx.Data;
 using FluiTec.AppFx.Identity.Dapper.Repositories;
@@ -44,7 +43,8 @@ namespace FluiTec.AppFx.Identity.Dapper.Mssql.Repositories
 		public override IdentityUserEntity FindByNormalizedEmail(string normalizedEmail)
 		{
 			var command = $"SELECT * FROM {TableName} WHERE {nameof(IdentityUserEntity.NormalizedEmail)} = @NormalizedEmail";
-			return UnitOfWork.Connection.QuerySingleOrDefault<IdentityUserEntity>(command, new { NormalizedEmail = normalizedEmail },
+			return UnitOfWork.Connection.QuerySingleOrDefault<IdentityUserEntity>(command,
+				new {NormalizedEmail = normalizedEmail},
 				UnitOfWork.Transaction);
 		}
 

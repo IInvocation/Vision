@@ -3,7 +3,7 @@
 namespace FluiTec.AppFx.Identity.Entities
 {
 	/// <summary>	An identity user role entity. </summary>
-	[EntityName("IdentityUserRole")]
+	[EntityName(name: "IdentityUserRole")]
 	public class IdentityUserRoleEntity : IEntity<int>
 	{
 		/// <summary>	Gets or sets the identifier of the role. </summary>

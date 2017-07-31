@@ -28,7 +28,7 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 		/// <returns>	The by name. </returns>
 		public override ApiResourceEntity GetByName(string name)
 		{
-			var command = $"SELECT * FROM {TableName} WHERE {nameof(ClientEntity.ClientId)} = @Name";
+			var command = $"SELECT * FROM {TableName} WHERE {nameof(ApiResourceEntity.Name)} = @Name";
 			return UnitOfWork.Connection.QuerySingleOrDefault<ApiResourceEntity>(command, new {Name = name},
 				UnitOfWork.Transaction);
 		}

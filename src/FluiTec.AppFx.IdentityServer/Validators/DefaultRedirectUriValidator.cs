@@ -6,7 +6,7 @@ namespace FluiTec.AppFx.IdentityServer.Validators
 {
 	/// <summary>	A default redirect URI validator. </summary>
 	/// <remarks>
-	/// Mimics the default UriValidator of IdentityServer		 
+	///     Mimics the default UriValidator of IdentityServer
 	/// </remarks>
 	public class DefaultRedirectUriValidator : IRedirectUriValidator
 	{

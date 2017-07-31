@@ -29,7 +29,7 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 		public override ClientEntity GetByClientId(string clientId)
 		{
 			var command = $"SELECT * FROM {TableName} WHERE {nameof(ClientEntity.ClientId)} = @ClientId";
-			return UnitOfWork.Connection.QuerySingleOrDefault<ClientEntity>(command, new { ClientId = clientId },
+			return UnitOfWork.Connection.QuerySingleOrDefault<ClientEntity>(command, new {ClientId = clientId},
 				UnitOfWork.Transaction);
 		}
 
@@ -43,11 +43,12 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 			              $" ON client.{nameof(ClientEntity.Id)} = cScope.{nameof(ClientScopeEntity.ClientId)}" +
 			              $" LEFT JOIN {UnitOfWork.DapperDataService.NameService.NameByType(typeof(ScopeEntity))} AS scope" +
 			              $" ON cScope.{nameof(ClientScopeEntity.ScopeId)} = scope.{nameof(ScopeEntity.Id)}" +
-						  $" LEFT JOIN {UnitOfWork.DapperDataService.NameService.NameByType(typeof(ClientClaimEntity))} AS cClaim" +
-						  $" ON client.{nameof(ClientEntity.Id)} = cClaim.{nameof(ClientClaimEntity.ClientId)}" +
+			              $" LEFT JOIN {UnitOfWork.DapperDataService.NameService.NameByType(typeof(ClientClaimEntity))} AS cClaim" +
+			              $" ON client.{nameof(ClientEntity.Id)} = cClaim.{nameof(ClientClaimEntity.ClientId)}" +
 			              $" WHERE client.{nameof(ClientEntity.ClientId)} = @ClientId";
 			var lookup = new Dictionary<int, CompoundClientEntity>();
-			UnitOfWork.Connection.Query<ClientEntity, ClientScopeEntity, ScopeEntity, ClientClaimEntity, CompoundClientEntity>(command,
+			UnitOfWork.Connection.Query<ClientEntity, ClientScopeEntity, ScopeEntity, ClientClaimEntity, CompoundClientEntity>(
+				command,
 				(entity, clientScope, scope, clientClaim) =>
 				{
 					// make sure the pk exists
@@ -69,11 +70,11 @@ namespace FluiTec.AppFx.IdentityServer.Dapper.Mssql.Repositories
 						tempElem.Scopes.Add(scope);
 
 					// add claim
-					if (clientClaim != null &&  tempElem.ClientClaims.Count(c => c.Id == clientClaim.Id) < 1)
+					if (clientClaim != null && tempElem.ClientClaims.Count(c => c.Id == clientClaim.Id) < 1)
 						tempElem.ClientClaims.Add(clientClaim);
 
 					return tempElem;
-				}, new { ClientId = clientId }, UnitOfWork.Transaction);
+				}, new {ClientId = clientId}, UnitOfWork.Transaction);
 			return lookup.Values.Single();
 		}
 

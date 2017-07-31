@@ -21,8 +21,10 @@ namespace FluiTec.AppFx.Identity.Dapper.Mssql.Repositories
 		/// <param name="providerKey"> 	The provider key. </param>
 		public override void RemoveByNameAndKey(string providerName, string providerKey)
 		{
-			var command = $"DELETE FROM {TableName} WHERE {nameof(IdentityUserLoginEntity.ProviderName)} = @ProviderName AND {nameof(IdentityUserLoginEntity.ProviderKey)} = @ProviderKey";
-			UnitOfWork.Connection.Execute(command, new {ProviderName = providerName, ProviderKey = providerKey}, UnitOfWork.Transaction);
+			var command =
+				$"DELETE FROM {TableName} WHERE {nameof(IdentityUserLoginEntity.ProviderName)} = @ProviderName AND {nameof(IdentityUserLoginEntity.ProviderKey)} = @ProviderKey";
+			UnitOfWork.Connection.Execute(command, new {ProviderName = providerName, ProviderKey = providerKey},
+				UnitOfWork.Transaction);
 		}
 
 		/// <summary>	Finds the user identifiers in this collection. </summary>
@@ -34,7 +36,7 @@ namespace FluiTec.AppFx.Identity.Dapper.Mssql.Repositories
 		public override IEnumerable<IdentityUserLoginEntity> FindByUserId(Guid userId)
 		{
 			var command = $"SELECT * FROM {TableName} WHERE {nameof(IdentityUserLoginEntity.UserId)} = @Identifier";
-			return UnitOfWork.Connection.Query<IdentityUserLoginEntity>(command, new { Identifier = userId },
+			return UnitOfWork.Connection.Query<IdentityUserLoginEntity>(command, new {Identifier = userId},
 				UnitOfWork.Transaction);
 		}
 	}

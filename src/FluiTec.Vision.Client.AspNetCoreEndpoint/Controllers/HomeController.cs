@@ -39,7 +39,6 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 			// get exception-data
 			var exceptionFeature = HttpContext.Features.Get<IExceptionHandlerPathFeature>();
 			var exception = exceptionFeature?.Error;
-			var route = exceptionFeature?.Path;
 
 			// only execute if there was a real exception
 			if (exception == null) return View();
