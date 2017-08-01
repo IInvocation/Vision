@@ -16,8 +16,7 @@
 
 ### How do I get set up? ###
 
-* After cloning the repository, you'll first want to hide all the AppFx-Folders that are currently part of this project
-  (They'll later be separated to another project and will be packed to use them as nuget-Packages)
+* This repository depends on https://github.com/IInvocation/AppFx, please clone that repository first and follow the given instructions
 * To even start - u'll need to setup the database powering your "main"-server (a sample .sql-File is in the project)
 * To run any of the hosts - u'll need to add some appsettings, collected in a file called "appsettings.secret.json"
   This requrires an Amazon-Developer-Account, a Google-Developer-Account and some entries of the database mentioned before
