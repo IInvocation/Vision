@@ -17,6 +17,7 @@
 ### How do I get set up? ###
 
 * This repository depends on https://github.com/IInvocation/AppFx, please clone that repository first and follow the given instructions
+* To use AppFx, please add your nuget-share "\\localhost\nuget\" to your solutions nuget-sources
 * To even start - u'll need to setup the database powering your "main"-server (a sample .sql-File is in the project)
 * To run any of the hosts - u'll need to add some appsettings, collected in a file called "appsettings.secret.json"
   This requrires an Amazon-Developer-Account, a Google-Developer-Account and some entries of the database mentioned before
