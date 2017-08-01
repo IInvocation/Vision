@@ -4,7 +4,7 @@ using System.Linq;
 using System.Security.Cryptography.X509Certificates;
 using System.Security.Principal;
 using FluiTec.Vision.Client.Windows.EndpointHelper.Helpers;
-using FluiTech.AppFx.Ssl;
+using FluiTec.AppFx.Ssl;
 using Org.BouncyCastle.Crypto;
 
 namespace FluiTec.Vision.Client.Windows.EndpointHelper.Configuration

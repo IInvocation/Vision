@@ -1,6 +1,6 @@
 ﻿using System;
 using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
-using FuiTec.AppFx.Mail;
+using FluiTec.AppFx.Mail;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Models.HomeMailViewModels
 {

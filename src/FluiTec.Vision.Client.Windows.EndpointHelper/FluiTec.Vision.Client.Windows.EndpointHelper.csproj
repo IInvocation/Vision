@@ -39,6 +39,12 @@
     <Reference Include="CommandLine, Version=1.9.71.2, Culture=neutral, PublicKeyToken=de6f01bd326f8c32, processorArchitecture=MSIL">
       <HintPath>..\packages\CommandLineParser.1.9.71\lib\net45\CommandLine.dll</HintPath>
     </Reference>
+    <Reference Include="FluiTec.AppFx.Cli, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluiTec.AppFx.Cli.1.0.0\lib\net462\FluiTec.AppFx.Cli.dll</HintPath>
+    </Reference>
+    <Reference Include="FluiTec.AppFx.Ssl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\FluiTec.AppFx.Ssl.1.0.0\lib\net462\FluiTec.AppFx.Ssl.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=10.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.10.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -64,16 +70,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
     <None Include="sampleconfig.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\FluiTec.AppFx.Cli\FluiTec.AppFx.Cli.csproj">
-      <Project>{b43edebc-7b21-40bf-b642-ec099169a92b}</Project>
-      <Name>FluiTec.AppFx.Cli</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\FluiTech.AppFx.Ssl\FluiTech.AppFx.Ssl.csproj">
-      <Project>{da860e67-4129-4018-ba25-9dc903cfc601}</Project>
-      <Name>FluiTech.AppFx.Ssl</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -7,7 +7,7 @@ using FluiTec.AppFx.IdentityServer.Dapper.Mssql;
 using FluiTec.AppFx.Options;
 using FluiTec.Vision.Endpoint;
 using FluiTec.Vision.Endpoint.Dapper.Mssql;
-using FuiTec.AppFx.Mail.Configuration;
+using FluiTec.AppFx.Mail.Configuration;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

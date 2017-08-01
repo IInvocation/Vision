@@ -1,7 +1,7 @@
 ﻿using System;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models.HomeMailViewModels;
-using FuiTec.AppFx.Mail;
-using FuiTec.AppFx.Mail.Configuration;
+using FluiTec.AppFx.Mail;
+using FluiTec.AppFx.Mail.Configuration;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Diagnostics;

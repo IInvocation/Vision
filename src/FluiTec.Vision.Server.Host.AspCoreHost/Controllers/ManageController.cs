@@ -8,7 +8,7 @@ using Microsoft.Extensions.Options;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models.ManageViewModels;
 using FluiTec.Vision.Server.Host.AspCoreHost.Services;
 using FluiTec.AppFx.Identity.Entities;
-using FuiTec.AppFx.Mail;
+using FluiTec.AppFx.Mail;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 {

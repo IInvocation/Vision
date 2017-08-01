@@ -12,8 +12,8 @@ using Microsoft.Extensions.Options;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountViewModels;
 using FluiTec.Vision.Server.Host.AspCoreHost.Services;
 using FluiTec.AppFx.Identity.Entities;
+using FluiTec.AppFx.Mail;
 using FluiTec.Vision.Server.Host.AspCoreHost.Models.AccountMailViewModels;
-using FuiTec.AppFx.Mail;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 {

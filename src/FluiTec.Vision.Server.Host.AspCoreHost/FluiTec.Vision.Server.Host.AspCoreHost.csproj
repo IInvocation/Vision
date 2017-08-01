@@ -106,6 +106,11 @@
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.4.337" />
+    <PackageReference Include="FluiTec.AppFx.Authentication.Amazon" Version="1.0.0" />
+    <PackageReference Include="FluiTec.AppFx.Cryptography" Version="1.0.0" />
+    <PackageReference Include="FluiTec.AppFx.Identity.Dapper.Mssql" Version="1.0.0" />
+    <PackageReference Include="FluiTec.AppFx.IdentityServer.Dapper.Mssql" Version="1.0.0" />
+    <PackageReference Include="FluiTec.AppFx.Mail" Version="1.0.0" />
     <PackageReference Include="IdentityServer4" Version="1.5.2" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="1.2.1" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="1.0.1" />
@@ -128,23 +133,10 @@
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="1.0.1" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluiTec.AppFx.Authentication.Amazon\FluiTec.AppFx.Authentication.Amazon.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.Cryptography\FluiTec.AppFx.Cryptography.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.Data.Dapper.Mssql\FluiTec.AppFx.Data.Dapper.Mssql.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.Data.Dapper\FluiTec.AppFx.Data.Dapper.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.Data\FluiTec.AppFx.Data.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.Identity.Dapper.Mssql\FluiTec.AppFx.Identity.Dapper.Mssql.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.Identity.Dapper\FluiTec.AppFx.Identity.Dapper.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.IdentityServer.Dapper.Mssql\FluiTec.AppFx.IdentityServer.Dapper.Mssql.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.IdentityServer.Dapper\FluiTec.AppFx.IdentityServer.Dapper.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.IdentityServer\FluiTec.AppFx.IdentityServer.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.Identity\FluiTec.AppFx.Identity.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.Options\FluiTec.AppFx.Options.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.ClientEndpointApi\FluiTec.Vision.ClientEndpointApi.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.Endpoint.Dapper.Mssql\FluiTec.Vision.Endpoint.Dapper.Mssql.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.Endpoint.Dapper\FluiTec.Vision.Endpoint.Dapper.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.Endpoint\FluiTec.Vision.Endpoint.csproj" />
-    <ProjectReference Include="..\FuiTec.AppFx.Mail\FuiTec.AppFx.Mail.csproj" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Update="Resources\Controllers\AccountController.resx">

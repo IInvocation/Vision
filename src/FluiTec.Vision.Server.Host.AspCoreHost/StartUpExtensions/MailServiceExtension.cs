@@ -1,4 +1,4 @@
-﻿using FuiTec.AppFx.Mail;
+﻿using FluiTec.AppFx.Mail;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using RazorLight.MVC;
