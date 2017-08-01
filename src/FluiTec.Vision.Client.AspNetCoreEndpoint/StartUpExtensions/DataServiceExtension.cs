@@ -1,6 +1,4 @@
-﻿using FluiTec.AppFx.Data.LiteDb;
-using FluiTec.Vision.Client.AspNetCoreEndpoint.Configuration;
-using Microsoft.Extensions.Configuration;
+﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions

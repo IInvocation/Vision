@@ -24,6 +24,12 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.Endpoint.Dap
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.Server.Host.AspCoreHost", "FluiTec.Vision.Server.Host.AspCoreHost\FluiTec.Vision.Server.Host.AspCoreHost.csproj", "{82928466-F71D-47D2-BD56-93ECCAD094DE}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Client", "Client", "{57D3A346-FA24-475C-AD82-10BD2E853E9D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Endpoint", "Endpoint", "{7EE4B237-3505-42B9-95E8-9C20D8AD15A7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FluiTec.Vision.Client.AspNetCoreEndpoint", "FluiTec.Vision.Client.AspNetCoreEndpoint\FluiTec.Vision.Client.AspNetCoreEndpoint.csproj", "{B0DA6AFF-E69A-44F6-91D5-9E6F75A21B75}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -58,8 +64,20 @@ Global
 		{82928466-F71D-47D2-BD56-93ECCAD094DE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82928466-F71D-47D2-BD56-93ECCAD094DE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82928466-F71D-47D2-BD56-93ECCAD094DE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B0DA6AFF-E69A-44F6-91D5-9E6F75A21B75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B0DA6AFF-E69A-44F6-91D5-9E6F75A21B75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B0DA6AFF-E69A-44F6-91D5-9E6F75A21B75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B0DA6AFF-E69A-44F6-91D5-9E6F75A21B75}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{E07BBAF7-306C-4D49-9E77-D7209D04464B} = {57D3A346-FA24-475C-AD82-10BD2E853E9D}
+		{7CC4DFBF-B6A1-4106-943F-E4CE6AFF4FB4} = {57D3A346-FA24-475C-AD82-10BD2E853E9D}
+		{2D2DA598-4806-4512-A926-822122C63D91} = {7EE4B237-3505-42B9-95E8-9C20D8AD15A7}
+		{ADDE8B2C-B98E-409F-A710-F59BBD75D0F8} = {7EE4B237-3505-42B9-95E8-9C20D8AD15A7}
+		{51A24029-0F7B-4234-8F88-69B5EAEA4C09} = {7EE4B237-3505-42B9-95E8-9C20D8AD15A7}
+		{B0DA6AFF-E69A-44F6-91D5-9E6F75A21B75} = {57D3A346-FA24-475C-AD82-10BD2E853E9D}
 	EndGlobalSection
 EndGlobal

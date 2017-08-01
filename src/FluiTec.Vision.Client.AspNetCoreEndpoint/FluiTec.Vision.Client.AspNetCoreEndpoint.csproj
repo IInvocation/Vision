@@ -136,9 +136,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FluiTec.AppFx.Data.LiteDb\FluiTec.AppFx.Data.LiteDb.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.Data\FluiTec.AppFx.Data.csproj" />
-    <ProjectReference Include="..\FluiTec.AppFx.Options\FluiTec.AppFx.Options.csproj" />
     <ProjectReference Include="..\FluiTec.Vision.ClientEndpointApi\FluiTec.Vision.ClientEndpointApi.csproj" />
   </ItemGroup>
   <ItemGroup>
