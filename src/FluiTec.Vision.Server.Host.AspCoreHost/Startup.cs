@@ -58,7 +58,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 			app
 				.UseLogging(Configuration, loggerFactory)
 				.UseHostingServices(env)
-				.UseStaticFiles()
+				.UseStaticFiles(Configuration)
 				.UseIdentity()
 				.UseIdentityServer(Configuration)
 				.UseGoogleAuthentication(Configuration)
