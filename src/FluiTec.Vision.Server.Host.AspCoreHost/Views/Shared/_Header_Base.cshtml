@@ -1,8 +1,10 @@
-<h1><a href="/"><span><localize>ApplicationName</localize></span></a></h1>
-<nav id="nav">
-	<ul>
-		<li><a href="/"><localize>HomeLink</localize></a></li>
-		<li><a href="/Home/About/"><localize>AboutLink</localize></a></li>
-		@await Html.PartialAsync(partialViewName: "_LoginPartial")
-	</ul>
-</nav>
+<cache vary-by="@System.Globalization.CultureInfo.CurrentUICulture.Name" expires-after="@TimeSpan.FromHours(value: 12)">
+	<h1><a href="/"><span><localize>ApplicationName</localize></span></a></h1>
+</cache>
+	<nav id="nav">
+		<ul>
+			<li><a href="/"><localize>HomeLink</localize></a></li>
+			<li><a href="/Home/About/"><localize>AboutLink</localize></a></li>
+			@await Html.PartialAsync(partialViewName: "_LoginPartial")
+		</ul>
+	</nav>

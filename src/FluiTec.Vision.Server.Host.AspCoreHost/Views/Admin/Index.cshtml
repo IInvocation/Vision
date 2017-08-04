@@ -1,13 +1,15 @@
-<header class="major">
-	<h2><localize>AdminHeader</localize></h2>
-	<p><localize>IndexHeader</localize></p>
-</header>
-<div class="container">
-	<section id="content">
-		<section>
-			<h3><localize>ManageUsersHeader</localize></h3>
-			<a asp-controller="Admin" asp-action="ManageUsers"><localize>ManageUsersLink</localize></a>
-			<hr />
+<cache vary-by="@System.Globalization.CultureInfo.CurrentUICulture.Name" expires-after="@TimeSpan.FromHours(value: 12)">
+	<header class="major">
+		<h2><localize>AdminHeader</localize></h2>
+		<p><localize>IndexHeader</localize></p>
+	</header>
+	<div class="container">
+		<section id="content">
+			<section>
+				<h3><localize>ManageUsersHeader</localize></h3>
+				<a asp-controller="Admin" asp-action="ManageUsers"><localize>ManageUsersLink</localize></a>
+				<hr />
+			</section>
 		</section>
-	</section>
-</div>
+	</div>
+</cache>

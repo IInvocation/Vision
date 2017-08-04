@@ -1,15 +1,17 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
 
-<header class="major">
-	<h2><localize>AccountHeader</localize></h2>
-	<p><localize>ExternalLoginFailureHeader</localize></p>
-</header>
+<cache vary-by="@System.Globalization.CultureInfo.CurrentUICulture.Name" expires-after="@TimeSpan.FromHours(value: 12)">
+	<header class="major">
+		<h2><localize>AccountHeader</localize></h2>
+		<p><localize>ExternalLoginFailureHeader</localize></p>
+	</header>
 
-<div class="container">
-	<section id="content">
-		<section>
-			<p>ExternalLoginFailureText</p>
-		</section>
-	</section>>
-</div>
+	<div class="container">
+		<section id="content">
+			<section>
+				<p>ExternalLoginFailureText</p>
+			</section>
+		</section>>
+	</div>
+</cache>

@@ -1,11 +1,13 @@
-﻿<footer id="footer">
-	<ul class="menu">
-		<li><a asp-controller="Contact" asp-action="TermsOfUse"><localize>TermsOfUse</localize></a></li>
-		<li><a asp-controller="Contact" asp-action="Privacy"><localize>Privacy</localize></a></li>
-		<li><a asp-controller="Contact" asp-action="Imprint"><localize>Imprint</localize></a></li>
-	</ul>
-	<span class="copyright">
-		&copy; Copyright 2017 - Achim Schnell<br />
-		<localize>DesignBy</localize> <a href="http://www.html5webtemplates.co.uk">Responsive Web Templates</a>
-	</span>
-</footer>
+﻿<cache vary-by="@System.Globalization.CultureInfo.CurrentUICulture.Name" expires-after="@TimeSpan.FromHours(value: 12)">
+	<footer id="footer">
+		<ul class="menu">
+			<li><a asp-controller="Contact" asp-action="TermsOfUse"><localize>TermsOfUse</localize></a></li>
+			<li><a asp-controller="Contact" asp-action="Privacy"><localize>Privacy</localize></a></li>
+			<li><a asp-controller="Contact" asp-action="Imprint"><localize>Imprint</localize></a></li>
+		</ul>
+		<span class="copyright">
+			&copy; Copyright 2017 - Achim Schnell<br />
+			<localize>DesignBy</localize> <a href="http://www.html5webtemplates.co.uk">Responsive Web Templates</a>
+		</span>
+	</footer>
+</cache>

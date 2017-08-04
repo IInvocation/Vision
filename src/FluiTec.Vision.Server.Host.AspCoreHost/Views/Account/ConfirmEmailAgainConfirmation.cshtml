@@ -1,15 +1,16 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @model ConfirmEmailAgainViewModel
 @inject IViewLocalizer Localizer
-
-<header class="major">
-	<h2><localize>AccountHeader</localize></h2>
-	<p><localize>ConfirmEmailAgainHeader</localize></p>
-</header>
-<div class="container">
-	<section id="content">
-		<section>
-			<p><localize>SuccessText</localize></p>
+<cache vary-by="@System.Globalization.CultureInfo.CurrentUICulture.Name" expires-after="@TimeSpan.FromHours(value: 12)">
+	<header class="major">
+		<h2><localize>AccountHeader</localize></h2>
+		<p><localize>ConfirmEmailAgainHeader</localize></p>
+	</header>
+	<div class="container">
+		<section id="content">
+			<section>
+				<p><localize>SuccessText</localize></p>
+			</section>
 		</section>
-	</section>
-</div>
+	</div>
+</cache>

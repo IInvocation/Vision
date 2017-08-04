@@ -1,15 +1,16 @@
-@using System.Text.Encodings.Web
 @using Microsoft.AspNetCore.Mvc.Localization
 
 @inject IViewLocalizer Localizer
-<section id="banner">
-	<div class="inner">
-		<h2>@Localizer["ApplicationName"]</h2>
-		<p>@Localizer["LandingHeader"]</p>
-		<ul class="actions">
-			<li>
-				<a asp-controller="Home" asp-action="About" class="button big scrolly"><localize>LearnMore</localize></a>
-			</li>
-		</ul>
-	</div>
-</section>
+<cache vary-by="@System.Globalization.CultureInfo.CurrentUICulture.Name" expires-after="@TimeSpan.FromHours(value: 12)">
+	<section id="banner">
+		<div class="inner">
+			<h2>@Localizer[name: "ApplicationName"]</h2>
+			<p>@Localizer[name: "LandingHeader"]</p>
+			<ul class="actions">
+				<li>
+					<a asp-controller="Home" asp-action="About" class="button big scrolly"><localize>LearnMore</localize></a>
+				</li>
+			</ul>
+		</div>
+	</section>
+</cache>

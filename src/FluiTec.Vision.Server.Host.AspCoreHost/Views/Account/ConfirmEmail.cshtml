@@ -1,13 +1,15 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 @inject IViewLocalizer Localizer
-<header class="major">
-	<h2><localize>AccountHeader</localize></h2>
-	<p><localize>ConfirmEmailHeader</localize></p>
-</header>
-<div class="container">
-	<section id="content">
-		<section>
-			<p><localize>ConfirmEmailText</localize> <a asp-controller="Account" asp-action="Login"><localize>LoginLinkText</localize></a></p>
+<cache vary-by="@System.Globalization.CultureInfo.CurrentUICulture.Name" expires-after="@TimeSpan.FromHours(value: 12)">
+	<header class="major">
+		<h2><localize>AccountHeader</localize></h2>
+		<p><localize>ConfirmEmailHeader</localize></p>
+	</header>
+	<div class="container">
+		<section id="content">
+			<section>
+				<p><localize>ConfirmEmailText</localize> <a asp-controller="Account" asp-action="Login"><localize>LoginLinkText</localize></a></p>
+			</section>
 		</section>
-	</section>
-</div>
+	</div>
+</cache>

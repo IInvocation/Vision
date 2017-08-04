@@ -7,21 +7,23 @@
 	var loginProviders = SignInManager.GetExternalAuthenticationSchemes().ToList();
 	if (loginProviders.Count > 0)
 	{
-		<section>
-			<h4><localize>ExternalLoginDescription</localize></h4>
-			<hr />
-			<form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData[index: "ReturnUrl"]" method="post" class="form-horizontal">
-				<div class="row uniform">
-					<ul class="actions">
-						@foreach (var provider in loginProviders)
-						{
-							<li>
-								<input type="submit" style="padding-left:40px" class="btn btn-default @provider.AuthenticationScheme-btn" name="provider" value="@provider.AuthenticationScheme" title="@Localizer["ExternalLoginProviderDescription", provider.DisplayName]" />
-							</li>                                                                                                                                                                                             
-						}
-					</ul>
-				</div>
-			</form>
-		</section>
+		<cache vary-by="@System.Globalization.CultureInfo.CurrentUICulture.Name" expires-after="@TimeSpan.FromHours(value: 12)">
+			<section>
+				<h4><localize>ExternalLoginDescription</localize></h4>
+				<hr />
+				<form asp-controller="Account" asp-action="ExternalLogin" asp-route-returnurl="@ViewData[index: "ReturnUrl"]" method="post" class="form-horizontal">
+					<div class="row uniform">
+						<ul class="actions">
+							@foreach (var provider in loginProviders)
+							{
+								<li>
+									<input type="submit" style="padding-left:40px" class="btn btn-default @provider.AuthenticationScheme-btn" name="provider" value="@provider.AuthenticationScheme" title="@Localizer["ExternalLoginProviderDescription", provider.DisplayName]" />
+								</li>                                                                                                                                                                                             
+							}
+						</ul>
+					</div>
+				</form>
+			</section>
+		</cache>
 	}
 }
