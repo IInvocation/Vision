@@ -15,6 +15,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions
 		/// <returns>	An IApplicationBuilder. </returns>
 		public static IApplicationBuilder UseStaticFiles(this IApplicationBuilder app, IConfigurationRoot configuration)
 		{
+			// this will only be hit for files the iis-server doesnt handle
 			var cacheDuration = configuration.GetConfiguration<Configuration.StaticFileOptions>().CacheDuration;
 			app.UseStaticFiles(new StaticFileOptions
 			{
