@@ -87,9 +87,13 @@
     <Content Include="wwwroot\images\slide03.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="wwwroot\js\init.js">
+    <Content Include="wwwroot\js\init - Copy.Development.js">
+      <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
+    </Content>
+    <Content Include="wwwroot\js\init.Development.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="wwwroot\js\init.Production.js" />
     <Content Include="wwwroot\js\jquery.dropotron.min.js">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
