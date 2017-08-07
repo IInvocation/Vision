@@ -2,7 +2,6 @@
 using FluiTec.Vision.Server.Host.AspCoreHost.StartUpExtensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http.Internal;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -57,10 +56,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
 		{
 			app
-				.Use(async (context, next) => {
-					context.Request.EnableRewind();
-					await next();
-				})
 				.UseLogging(Configuration, loggerFactory)
 				.UseHostingServices(env)
 				.UseStaticFiles(Configuration)
@@ -71,8 +66,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 				.UseLocalization(Configuration)
 				.UseCors(builder => builder.AllowAnyHeader().AllowAnyOrigin().AllowAnyMethod())
 				.UseStatusCodeHandler(Configuration)
-				.UseMvc(Configuration)
-				.UseStaticContentRewriting(Configuration); 
+				.UseMvc(Configuration);
 		}
 
 		#endregion
