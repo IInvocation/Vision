@@ -10,12 +10,20 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 {
 	/// <summary>	A startup. </summary>
 	/// <remarks>
-	/// 1: Startup - used to initialize configuration
-	/// 2: ConfigureServices - loads all required services
-	/// 3: Configure - actual pipeline using the services
+	///     1: Startup - used to initialize configuration
+	///     2: ConfigureServices - loads all required services
+	///     3: Configure - actual pipeline using the services
 	/// </remarks>
 	public class Startup
 	{
+		#region Properties
+
+		/// <summary>	Gets the configuration. </summary>
+		/// <value>	The configuration. </value>
+		public IConfigurationRoot Configuration { get; }
+
+		#endregion
+
 		#region AspNetCore
 
 		/// <summary>	Constructor. </summary>
@@ -53,10 +61,12 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 		/// <param name="app">				The application. </param>
 		/// <param name="env">				The environment. </param>
 		/// <param name="loggerFactory">	The logger factory. </param>
-		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+		/// <param name="appLifetime">  	The application lifetime. </param>
+		public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory,
+			IApplicationLifetime appLifetime)
 		{
 			app
-				.UseLogging(Configuration, loggerFactory)
+				.UseLogging(env, appLifetime, Configuration, loggerFactory)
 				.UseHostingServices(env)
 				.UseStaticFiles(Configuration)
 				.UseIdentity()
@@ -68,14 +78,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 				.UseStatusCodeHandler(Configuration)
 				.UseMvc(Configuration);
 		}
-
-		#endregion
-
-		#region Properties
-
-		/// <summary>	Gets the configuration. </summary>
-		/// <value>	The configuration. </value>
-		public IConfigurationRoot Configuration { get; }
 
 		#endregion
 	}
