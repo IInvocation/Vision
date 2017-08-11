@@ -27,8 +27,16 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 		{
 			get
 			{
-				var result = !_process?.HasExited ?? false;
-				return result;
+				try
+				{
+					var result = !_process?.HasExited ?? false;
+					return result;
+				}
+				catch (InvalidOperationException)
+				{
+					// happens when the process has exited unexpectetly
+					return false;
+				}
 			}
 		}
 
@@ -85,7 +93,7 @@ namespace FluiTec.Vision.Client.Windows.EndpointManager.WebServer
 					Start();
 			};
 
-			//// set up output redirection
+			// set up output redirection
 			_process.EnableRaisingEvents = true;
 			_process.StartInfo.CreateNoWindow = true;
 

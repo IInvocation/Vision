@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Microsoft.AspNetCore.Diagnostics;
 using System.Threading.Tasks;
+using FluiTec.Vision.Server.Host.AspCoreHost.Configuration;
 
 namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 {
@@ -18,20 +19,18 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 	    /// <summary>	The mail service. </summary>
 	    private readonly ITemplatingMailService _mailService;
 
-	    /// <summary>	Options for controlling the mail. </summary>
-	    private readonly MailServiceOptions _mailOptions;
+	    /// <summary>	Options for controlling the error. </summary>
+	    private readonly ErrorOptions _errorOptions;
 
 	    /// <summary>	Constructor. </summary>
-	    ///
-	    /// <param name="logger">	  	The logger. </param>
-	    /// <param name="mailService">	The mail service. </param>
-	    /// <param name="mailOptions">	Options for controlling the mail. </param>
-
-	    public HomeController(ILogger<HomeController> logger, ITemplatingMailService mailService, MailServiceOptions mailOptions)
+	    /// <param name="logger">	   	The logger. </param>
+	    /// <param name="mailService"> 	The mail service. </param>
+	    /// <param name="errorOptions">	Options for controlling the error. </param>
+	    public HomeController(ILogger<HomeController> logger, ITemplatingMailService mailService, ErrorOptions errorOptions)
 	    {
 		    _logger = logger;
 		    _mailService = mailService;
-		    _mailOptions = mailOptions;
+		    _errorOptions = errorOptions;
 	    }
 
 		/// <summary>	Gets the index. </summary>
@@ -67,7 +66,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
 				try
 				{
 					var mailModel = new ErrorModel(exception);
-					await _mailService.SendEmailAsync(_mailOptions.FromMail, mailModel);
+					await _mailService.SendEmailAsync(_errorOptions.ErrorRecipient, mailModel);
 				}
 				catch (Exception e)
 				{

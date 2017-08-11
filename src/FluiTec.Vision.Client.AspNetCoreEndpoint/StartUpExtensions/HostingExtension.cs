@@ -15,7 +15,6 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.StartUpExtensions
 			if (environment.IsDevelopment())
 			{
 				app.UseDeveloperExceptionPage();
-				app.UseBrowserLink();
 			}
 			else
 			{

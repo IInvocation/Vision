@@ -45,6 +45,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 		public void ConfigureServices(IServiceCollection services)
 		{
 			services
+				.ConfigureErrorHandling(Configuration)
 				.ConfigureMailService(Configuration)
 				.ConfigureDataServices(Configuration)
 				.ConfigureIdentity(Configuration)
@@ -67,6 +68,7 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 		{
 			app
 				.UseLogging(env, appLifetime, Configuration, loggerFactory)
+				.UseErrorHandling(env)
 				.UseHostingServices(env)
 				.UseStaticFiles(Configuration)
 				.UseIdentity()
