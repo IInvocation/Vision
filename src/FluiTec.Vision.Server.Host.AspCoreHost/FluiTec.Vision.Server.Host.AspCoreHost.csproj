@@ -109,8 +109,8 @@
     <PackageReference Include="BuildBundlerMinifier" Version="2.4.337" />
     <PackageReference Include="FluiTec.AppFx.Authentication.Amazon" Version="1.0.0" />
     <PackageReference Include="FluiTec.AppFx.Cryptography" Version="1.0.0" />
-    <PackageReference Include="FluiTec.AppFx.Identity.Dapper.Mssql" Version="1.0.0" />
-    <PackageReference Include="FluiTec.AppFx.IdentityServer.Dapper.Mssql" Version="1.0.0" />
+    <PackageReference Include="FluiTec.AppFx.Identity.Dapper.Mssql" Version="1.0.1" />
+    <PackageReference Include="FluiTec.AppFx.IdentityServer.Dapper.Mssql" Version="1.0.1" />
     <PackageReference Include="FluiTec.AppFx.Mail" Version="1.0.0" />
     <PackageReference Include="IdentityServer4" Version="1.5.2" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="1.2.1" />
