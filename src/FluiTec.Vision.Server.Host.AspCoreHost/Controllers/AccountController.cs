@@ -31,7 +31,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
             SignInManager<IdentityUserEntity> signInManager,
             IOptions<IdentityCookieOptions> identityCookieOptions,
             ITemplatingMailService emailSender,
-            ISmsSender smsSender,
             ILoggerFactory loggerFactory,
 			IIdentityDataService dataService)
         {

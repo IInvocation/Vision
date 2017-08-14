@@ -53,9 +53,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost
 				.ConfigureIdentityServer(Configuration)
 				.ConfigureStatusCodeHandler(Configuration)
 				.ConfigureMvc(Configuration);
-
-			// Add application services.
-			services.AddTransient<ISmsSender, AuthMessageSender>();
 		}
 
 		/// <summary>	Configures. </summary>
