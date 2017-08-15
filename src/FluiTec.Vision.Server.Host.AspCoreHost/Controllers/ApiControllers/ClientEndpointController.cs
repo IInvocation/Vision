@@ -9,7 +9,7 @@ using FluiTec.AppFx.IdentityServer.Entities;
 using FluiTec.Vision.ClientEndpointApi;
 using FluiTec.Vision.Endpoint;
 using FluiTec.Vision.Endpoint.Entities;
-using FluiTec.Vision.Server.Host.AspCoreHost.Helpers;
+using FluiTec.Vision.Server.Host.AspCoreHost.Controllers.Helpers;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;

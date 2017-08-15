@@ -4,7 +4,7 @@ using System.Linq;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Primitives;
 
-namespace FluiTec.Vision.Server.Host.AspCoreHost.Helpers
+namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers.Helpers
 {
     /// <summary>	A HTTP helper. </summary>
     public static class HttpHelper
