@@ -18,7 +18,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
         private readonly UserManager<IdentityUserEntity> _userManager;
         private readonly SignInManager<IdentityUserEntity> _signInManager;
         private readonly string _externalCookieScheme;
-	    private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
 
         public ManageController(
@@ -26,13 +25,11 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
           SignInManager<IdentityUserEntity> signInManager,
           IOptions<IdentityCookieOptions> identityCookieOptions,
           ITemplatingMailService emailSender,
-          ISmsSender smsSender,
           ILoggerFactory loggerFactory)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _externalCookieScheme = identityCookieOptions.Value.ExternalCookieAuthenticationScheme;
-	        _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<ManageController>();
         }
 
@@ -110,7 +107,6 @@ namespace FluiTec.Vision.Server.Host.AspCoreHost.Controllers
                 return View("Error");
             }
             var code = await _userManager.GenerateChangePhoneNumberTokenAsync(user, model.PhoneNumber);
-            await _smsSender.SendSmsAsync(model.PhoneNumber, "Your security code is: " + code);
             return RedirectToAction(nameof(VerifyPhoneNumber), new {model.PhoneNumber });
         }
 
