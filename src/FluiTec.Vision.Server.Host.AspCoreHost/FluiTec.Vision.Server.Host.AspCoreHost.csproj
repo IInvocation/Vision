@@ -11,15 +11,17 @@
 
   <PropertyGroup>
     <UserSecretsId>aspnet-FluiTec.Vision.Server.Host.AspCoreHost-6c2989e8-7c87-45be-8a63-ea6634e87283</UserSecretsId>
+    <RootNamespace>FluiTec.Vision.Server.Host.AspCoreHost</RootNamespace>
+    <AssemblyName>FluiTec.Vision.Server.Host.AspCoreHost</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
     <PackageReference Include="BuildBundlerMinifier" Version="2.4.337" />
     <PackageReference Include="FluiTec.AppFx.Authentication.Amazon" Version="1.0.0" />
     <PackageReference Include="FluiTec.AppFx.Cryptography" Version="1.0.0" />
-    <PackageReference Include="FluiTec.AppFx.Identity.Dapper.Mssql" Version="1.0.1" />
-    <PackageReference Include="FluiTec.AppFx.IdentityServer.Dapper.Mssql" Version="1.0.1" />
-    <PackageReference Include="FluiTec.AppFx.Mail" Version="1.0.0" />
+    <PackageReference Include="FluiTec.AppFx.Identity.Dapper.Mssql" Version="1.0.3" />
+    <PackageReference Include="FluiTec.AppFx.IdentityServer.Dapper.Mssql" Version="1.0.3" />
+    <PackageReference Include="FluiTec.AppFx.Mail" Version="1.0.1" />
     <PackageReference Include="IdentityServer4" Version="1.5.2" />
     <PackageReference Include="IdentityServer4.AccessTokenValidation" Version="1.2.1" />
     <PackageReference Include="IdentityServer4.AspNetIdentity" Version="1.0.1" />
