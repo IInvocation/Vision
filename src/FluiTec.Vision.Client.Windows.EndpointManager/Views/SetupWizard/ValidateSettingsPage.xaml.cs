@@ -1,11 +1,9 @@
-﻿using System.Windows.Controls;
-
-namespace FluiTec.Vision.Client.Windows.EndpointManager.Views.SetupWizard
+﻿namespace FluiTec.Vision.Client.Windows.EndpointManager.Views.SetupWizard
 {
 	/// <summary>
 	///     Interaction logic for ValidateSettingsPage.xaml
 	/// </summary>
-	public partial class ValidateSettingsPage : UserControl
+	public partial class ValidateSettingsPage
 	{
 		/// <summary>	Default constructor. </summary>
 		public ValidateSettingsPage()
