@@ -102,8 +102,8 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 		private async Task DoRegistration(ClientRegistrationViewModel model)
 		{
 			// initialize service, exchanging user tokens for delegation tokens
-			_endpointService.Init(await HttpContext.Authentication.GetTokenAsync(tokenName: "access_token"),
-				await HttpContext.Authentication.GetTokenAsync(tokenName: "refresh_token"));
+			_endpointService.Init(await HttpContext.GetTokenAsync(tokenName: "access_token"),
+				await HttpContext.GetTokenAsync(tokenName: "refresh_token"));
 
 			// do registration
 			var host = _serverSettings.UseUpnp ? $"{_serverSettings.UpnpPort}" : _serverSettings.ExternalHostname;

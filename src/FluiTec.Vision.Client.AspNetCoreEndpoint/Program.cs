@@ -3,7 +3,6 @@ using System.IO;
 using System.Runtime.InteropServices;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
-using Microsoft.Net.Http.Server;
 
 namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 {
@@ -15,30 +14,41 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint
 		{
 			try
 			{
-				var config = new ConfigurationBuilder()
-					.AddCommandLine(args)
-					.AddJsonFile(GetServerFileLocation(), optional: false)
-					.Build();
-
-				var builder = new WebHostBuilder()
-					.UseContentRoot(Directory.GetCurrentDirectory())
-					.UseStartup<Startup>()
-					.UseConfiguration(config)
-					.UseWebListener(options =>
-					{
-						options.ListenerSettings.Authentication.Schemes = AuthenticationSchemes.None;
-						options.ListenerSettings.Authentication.AllowAnonymous = true;
-					})
-					.UseUrls(config.GetValue<string>(key: "ASPNETCORE_URLS"));
-
-				var host = builder.Build();
-				host.Run();
+				BuildWebHost(args).Run();
 			}
 			catch (Exception e)
 			{
 				Console.WriteLine(e);
 				throw;
 			}
+		}
+
+		/// <summary>	Builds web host. </summary>
+		/// <param name="args">	An array of command-line argument strings. </param>
+		/// <returns>	An IWebHost. </returns>
+		public static IWebHost BuildWebHost(string[] args)
+		{
+			var config = new ConfigurationBuilder()
+					.AddCommandLine(args)
+					.AddJsonFile(GetServerFileLocation(), optional: false)
+					.Build();
+
+			var builder = new WebHostBuilder()
+				.UseContentRoot(Directory.GetCurrentDirectory())
+				.UseStartup<Startup>()
+				.UseConfiguration(config)
+				.UseHttpSys(options =>
+				{
+					options.Authentication.Schemes = Microsoft.AspNetCore.Server.HttpSys.AuthenticationSchemes.None;
+					options.Authentication.AllowAnonymous = true;
+					options.MaxConnections = 100;
+					options.MaxRequestBodySize = 30000000;
+				})
+				.UseUrls(config.GetValue<string>(key: "ASPNETCORE_URLS"));
+
+			var host = builder.Build();
+
+			return host;
 		}
 
 		/// <summary>	Gets server file location. </summary>

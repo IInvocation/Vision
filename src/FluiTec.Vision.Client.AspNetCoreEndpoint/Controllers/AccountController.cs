@@ -1,6 +1,7 @@
 ﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Authentication;
 
 namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 {
@@ -8,6 +9,8 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 	[Authorize]
 	public class AccountController : Controller
     {
+	    /// <summary>	Sign in. </summary>
+	    /// <returns>	An IActionResult. </returns>
 	    public IActionResult SignIn()
 	    {
 		    return RedirectToAction(actionName: "Index", controllerName: "Home");
@@ -21,8 +24,8 @@ namespace FluiTec.Vision.Client.AspNetCoreEndpoint.Controllers
 		/// </remarks>
 		public async Task Logout()
 	    {
-			await HttpContext.Authentication.SignOutAsync(authenticationScheme: "Cookies");
-		    await HttpContext.Authentication.SignOutAsync(authenticationScheme: "oidc");
+			await HttpContext.SignOutAsync(scheme: "Cookies");
+			await HttpContext.SignOutAsync(scheme: "oidc");
 		}
     }
 }
