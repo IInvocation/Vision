@@ -33,6 +33,10 @@ netstandard1.6/
 *.secret.json
 *.secret.key
 
+# Local Settings
+*.local.xml
+*.local.json
+
 # Certificates
 *.pfx
 *.cer
